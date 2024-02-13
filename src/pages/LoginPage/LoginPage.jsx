@@ -1,11 +1,14 @@
 import { Box, Button,  IconButton,  InputAdornment,  Link, MenuItem, Select, TextField, Typography, } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
-import logo from '../assets/Logo.png'
+import logo from '../../assets/Logo.png'
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
-import '../LoginPage/loginKeyboard.css'
+import './loginKeyboard.css'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import DisplayErrorMessage from '../reUsable/DisplayErrorMessage';
+import DisplayErrorMessage from '../../reUsable/DisplayErrorMessage';
+import { t } from 'i18next';
+import { useLanguage } from '../../contexts/LangContext';
+import { enLayout, trLayout, ruLayout } from '../../LangLayouts/Layouts';
 
 
 const LoginPage = () => {
@@ -29,6 +32,7 @@ const LoginPage = () => {
     }])
     const [caretPos, setCaretPos] = useState();
     const [showPassword, setShowPassword] = useState(false);
+    const [lang, setLang] = useLanguage();
 
     const user = {'userCode' : 'admin', 'password': '123'}
 
@@ -141,21 +145,10 @@ const LoginPage = () => {
         }
     },[caretPos])
 
-    const customLayout = {
-        default: [
-            "` 1 2 3 4 5 6 7 8 9 0 - = {bksp} {clear}",
-            "{tab} q w e r t y u i o p [ ] \\",
-            "{lock} a s d f g h j k l ; ' {enter}",
-            "{shift} z x c v b n m , . / {shift}",
-            ".com @ {space} {arrowleft} {arrowright}",
-          ],
-          shift: [
-            "~ ! @ # $ % ^ & * ( ) _ + {bksp} {clear}",
-            "{tab} Q W E R T Y U I O P { } |",
-            '{lock} A S D F G H J K L : " {enter}',
-            "{shift} Z X C V B N M < > ? {shift}",
-            ".com @ {space} {arrowleft} {arrowright}",
-          ],
+    const layouts = {
+        'en': enLayout,
+        'ru': ruLayout,
+        'tr': trLayout
     }
 
 
@@ -198,7 +191,7 @@ const LoginPage = () => {
                         marginBottom:5
                     }}/>
                     <Typography>
-                    'Web Retail POS App'
+                        {t('login.app')}
                     </Typography>
                 </Box>
                 <Typography sx={{
@@ -222,7 +215,7 @@ const LoginPage = () => {
                     fontSize:25,
                     fontWeight:'bold'
                 }}>
-                    'Welcome Back!'
+                    {t('login.Welcome')}
                 </Typography>
                     <TextField 
                     onChange={(e)=> onChangeInput(e.target.value)}
@@ -233,7 +226,7 @@ const LoginPage = () => {
                     variant='filled'
                     required
                     id="userCode"
-                    label={'usercode'}
+                    label={t('login.userCode')}
                     name="userCode"
                     size='medium'
                     sx={{
@@ -253,7 +246,7 @@ const LoginPage = () => {
                     variant='filled'
                     required
                     id="password"
-                    label={'password'}
+                    label={t('login.password')}
                     name="password"
                     size='medium'
                     sx={{
@@ -302,7 +295,7 @@ const LoginPage = () => {
                         backgroundColor: '#18A4AD',
                     }}
                     >
-                        {'Log In'}
+                        {t('login.LogIn')}
                     </Button>
 
                     <Typography
@@ -324,7 +317,7 @@ const LoginPage = () => {
             <Keyboard
                 keyboardRef={r => (keyboard.current = r)}
                 layoutName={layout}
-                layout={customLayout}
+                layout={layouts[lang]}
                 onChange={onChange}
                 onKeyPress={onKeyPress}
                 preventMouseDownDefault
@@ -339,13 +332,13 @@ const LoginPage = () => {
                     }
                 ]}
                 display={{
-                    '{bksp}': 'delete',
+                    '{bksp}': t('login.Delete'),
                     '{shift}': 'Shift',
                     '{tab}': 'Tab',
                     '{lock}': 'Caps Lock',
                     '{enter}': 'Enter',
                     '{space}': 'Space',
-                    '{clear}': 'clear',
+                    '{clear}': t('login.clear'),
                     '{arrowleft}': '<<',
                     '{arrowright}': '>>'
                   }}
@@ -354,7 +347,7 @@ const LoginPage = () => {
                 display:'flex',
                 flexDirection:'row'
             }}>
-                For support : <Typography sx={{marginLeft:1}} >None@gmail.com.tr</Typography>
+                {t('login.support')} : <Typography sx={{marginLeft:1}} >None@gmail.com.tr</Typography>
             </Typography>
         </Box>
     </Box>
