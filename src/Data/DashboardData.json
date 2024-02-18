@@ -1,0 +1,556 @@
+{
+  "today": {
+    "sales": [
+      {
+        "date": "2024-08-29T09:00:00.594Z",
+        "grossSales": 20000,
+        "netSales": 18000,
+        "costOfSales": 12000,
+        "grossProfit": 6000,
+        "discount":20,
+        "cashRefund":38,
+        "creditNote":0
+      },
+      {
+        "date": "2024-08-29T11:00:00.594Z",
+        "grossSales": 22000,
+        "netSales": 20000,
+        "costOfSales": 14000,
+        "grossProfit": 8000,
+        "discount":15,
+        "cashRefund":18,
+        "creditNote":0
+      },
+      {
+        "date": "2024-08-29T13:00:00.594Z",
+        "grossSales": 18000,
+        "netSales": 16000,
+        "costOfSales": 11000,
+        "grossProfit": 5000,
+        "discount":22,
+        "cashRefund":13,
+        "creditNote":0
+      },
+      {
+        "date": "2024-08-29T15:00:00.594Z",
+        "grossSales": 21000,
+        "netSales": 19000,
+        "costOfSales": 13000,
+        "grossProfit": 6000,
+        "discount":40,
+        "cashRefund":38,
+        "creditNote":5
+      },
+      {
+        "date": "2024-08-29T17:00:00.594Z",
+        "grossSales": 19000,
+        "netSales": 17000,
+        "costOfSales": 11500,
+        "grossProfit": 5500,
+        "discount":30,
+        "cashRefund":12,
+        "creditNote":0
+      },
+      {
+        "date": "2024-08-29T19:00:00.594Z",
+        "grossSales": 23000,
+        "netSales": 21000,
+        "costOfSales": 14000,
+        "grossProfit": 7000,
+        "discount":15,
+        "cashRefund":18,
+        "creditNote":0
+      },
+      {
+        "date": "2024-08-29T21:00:00.594Z",
+        "grossSales": 22000,
+        "netSales": 20000,
+        "costOfSales": 13500,
+        "grossProfit": 6500,
+        "discount":11,
+        "cashRefund":18,
+        "creditNote":0
+      }
+    ],
+    "salesSummary": {
+      "grossSales": 17500,
+      "netSales": 16000,
+      "costofSales": 13000,
+      "grossProfit": 3000
+    },
+    "salesDeduction":{
+      "discount":220,
+      "cashRefund":380,
+      "creditNote":0
+    },
+    "topCategories": [
+      { "name": "Bakery", "sale": 60 },
+      { "name": "Dairy", "sale": 85 },
+      { "name": "Frozen", "sale": 110 },
+      { "name": "Candy", "sale": 20 },
+      { "name": "Snack", "sale": 50 }
+    ],
+    "topProducts": [
+      { "name": "Bread", "sale": 35 },
+      { "name": "Eggs", "sale": 28 },
+      { "name": "Chocolate", "sale": 15 },
+      { "name": "Frozen Pizza", "sale": 40 },
+      { "name": "Chips", "sale": 25 }
+    ]
+  },
+  "yesterday": {
+    "sales": [
+      {
+        "date": "2024-08-30T09:00:00.594Z",
+        "grossSales": 25000,
+        "netSales": 22000,
+        "costOfSales": 15000,
+        "grossProfit": 7000,
+        "discount":15,
+        "cashRefund":18,
+        "creditNote":0
+      },
+      {
+        "date": "2024-08-30T11:00:00.594Z",
+        "grossSales": 18000,
+        "netSales": 16000,
+        "costOfSales": 11000,
+        "grossProfit": 5000,
+        "discount":15,
+        "cashRefund":18,
+        "creditNote":0
+      },
+      {
+        "date": "2024-08-30T13:00:00.594Z",
+        "grossSales": 27000,
+        "netSales": 24000,
+        "costOfSales": 17000,
+        "grossProfit": 7000,
+        "discount":35,
+        "cashRefund":28,
+        "creditNote":5
+      },
+      {
+        "date": "2024-08-30T15:00:00.594Z",
+        "grossSales": 19000,
+        "netSales": 17000,
+        "costOfSales": 12000,
+        "grossProfit": 5000,
+        "discount":25,
+        "cashRefund":28,
+        "creditNote":0
+      },
+      {
+        "date": "2024-08-30T17:00:00.594Z",
+        "grossSales": 21000,
+        "netSales": 19000,
+        "costOfSales": 13000,
+        "grossProfit": 6000,
+        "discount":12,
+        "cashRefund":11,
+        "creditNote":10
+      },
+      {
+        "date": "2024-08-30T19:00:00.594Z",
+        "grossSales": 22000,
+        "netSales": 20000,
+        "costOfSales": 14000,
+        "grossProfit": 6000,
+        "discount":15,
+        "cashRefund":18,
+        "creditNote":0
+      },
+      {
+        "date": "2024-08-30T21:00:00.594Z",
+        "grossSales": 20000,
+        "netSales": 18000,
+        "costOfSales": 12500,
+        "grossProfit": 7500,
+        "discount":10,
+        "cashRefund":10,
+        "creditNote":0
+      }
+    ],
+    "salesSummary": {
+      "grossSales": 18000,
+      "netSales": 17500,
+      "costofSales": 13000,
+      "grossProfit": 3500
+    },
+    "salesDeduction":{
+      "discount":320,
+      "cashRefund":280,
+      "creditNote":20
+    },
+    "topCategories": [
+      { "name": "Bakery", "sale": 65 },
+      { "name": "Dairy", "sale": 90 },
+      { "name": "Frozen", "sale": 115 },
+      { "name": "Candy", "sale": 25 },
+      { "name": "Snack", "sale": 55 }
+    ],
+    "topProducts": [
+      { "name": "Bread", "sale": 40 },
+      { "name": "Eggs", "sale": 30 },
+      { "name": "Chocolate", "sale": 20 },
+      { "name": "Frozen Pizza", "sale": 45 },
+      { "name": "Chips", "sale": 30 }
+    ]
+  },
+  "thisWeek": {
+    "sales": [
+      {
+        "date": "2024-08-26",
+        "grossSales": 19000,
+        "netSales": 16700,
+        "costofSales": 13000,
+        "grossProfit": 3700,
+        "discount":220,
+        "cashRefund":280,
+        "creditNote":25
+      },
+      {
+        "date": "2024-08-27",
+        "grossSales": 14530,
+        "netSales": 11000,
+        "costofSales": 134,
+        "grossProfit": 443,
+        "discount":210,
+        "cashRefund":250,
+        "creditNote":20
+      },
+      {
+        "date": "2024-08-28",
+        "grossSales": 20000,
+        "netSales": 13000,
+        "costofSales": 334,
+        "grossProfit": 456,
+        "discount":230,
+        "cashRefund":240,
+        "creditNote":30
+      },
+      {
+        "date": "2024-08-29",
+        "grossSales": 14530,
+        "netSales": 9000,
+        "costofSales": 534,
+        "grossProfit": 430,
+        "discount":190,
+        "cashRefund":250,
+        "creditNote":30
+      },
+      {
+        "date": "2024-08-30",
+        "grossSales": 15000,
+        "netSales": 10780,
+        "costofSales": 300,
+        "grossProfit": 200,
+        "discount":250,
+        "cashRefund":220,
+        "creditNote":20
+      }
+    ],
+    "salesSummary": {
+      "grossSales": 246000,
+      "netSales": 240000,
+      "costofSales": 200000,
+      "grossProfit": 40000
+    },
+    "salesDeduction":{
+      "discount":2020,
+      "cashRefund":1480,
+      "creditNote":140
+    },
+    "topCategories": [
+      { "name": "Bakery", "sale": 62 },
+      { "name": "Dairy", "sale": 87 },
+      { "name": "Frozen", "sale": 112 },
+      { "name": "Candy", "sale": 22 },
+      { "name": "Snack", "sale": 52 }
+    ],
+    "topProducts": [
+      { "name": "Bread", "sale": 37 },
+      { "name": "Eggs", "sale": 25 },
+      { "name": "Chocolate", "sale": 17 },
+      { "name": "Frozen Pizza", "sale": 42 },
+      { "name": "Chips", "sale": 27 }
+    ]
+  },
+  "lastWeek": {
+    "sales": [
+      {
+        "date": "2024-08-19",
+        "grossSales": 17500,
+        "netSales": 8500,
+        "costofSales": 1500,
+        "grossProfit": 900,
+        "discount":250,
+        "cashRefund":220,
+        "creditNote":20
+      },
+      {
+        "date": "2024-08-20",
+        "grossSales": 18000,
+        "netSales": 9000,
+        "costofSales": 1300,
+        "grossProfit": 950,
+        "discount":240,
+        "cashRefund":200,
+        "creditNote":25
+      },
+      {
+        "date": "2024-08-21",
+        "grossSales": 19000,
+        "netSales": 16780,
+        "costofSales": 345,
+        "grossProfit": 834,
+        "discount":210,
+        "cashRefund":200,
+        "creditNote":25
+      },
+      {
+        "date": "2024-08-22",
+        "grossSales": 14530,
+        "netSales": 11000,
+        "costofSales": 134,
+        "grossProfit": 443,
+        "discount":250,
+        "cashRefund":220,
+        "creditNote":20
+      },
+      {
+        "date": "2024-08-23",
+        "grossSales": 20000,
+        "netSales": 13000,
+        "costofSales": 334,
+        "grossProfit": 456,
+        "discount":150,
+        "cashRefund":120,
+        "creditNote":10
+      },
+      {
+        "date": "2024-08-24",
+        "grossSales": 14530,
+        "netSales": 9000,
+        "costofSales": 534,
+        "grossProfit": 430,
+        "discount":100,
+        "cashRefund":90,
+        "creditNote":10
+      },
+      {
+        "date": "2024-08-25",
+        "grossSales": 15000,
+        "netSales": 10780,
+        "costofSales": 300,
+        "grossProfit": 200,
+        "discount":350,
+        "cashRefund":320,
+        "creditNote":40
+      }
+    ],
+    "salesSummary": {
+      "grossSales": 226000,
+      "netSales": 220000,
+      "costofSales": 200000,
+      "grossProfit": 20000
+    },
+    "salesDeduction":{
+      "discount":1820,
+      "cashRefund":1030,
+      "creditNote":110
+    },
+    "topCategories": [
+      { "name": "Bakery", "sale": 63 },
+      { "name": "Dairy", "sale": 88 },
+      { "name": "Frozen", "sale": 113 },
+      { "name": "Candy", "sale": 23 },
+      { "name": "Snack", "sale": 53 }
+    ],
+    "topProducts": [
+      { "name": "Bread", "sale": 38 },
+      { "name": "Eggs", "sale": 26 },
+      { "name": "Chocolate", "sale": 18 },
+      { "name": "Frozen Pizza", "sale": 43 },
+      { "name": "Chips", "sale": 28 }
+    ]
+  },
+  "thisMonth": {
+    "sales": [
+      {
+        "date": "2024-08-04",
+        "grossSales": 201500,
+        "netSales": 117500,
+        "costofSales": 9600,
+        "grossProfit": 1900,
+        "discount":1250,
+        "cashRefund":1220,
+        "creditNote":160
+      },
+      {
+        "date": "2024-08-11",
+        "grossSales": 222000,
+        "netSales": 117900,
+        "costofSales": 8200,
+        "grossProfit": 2950,
+        "discount":1350,
+        "cashRefund":1320,
+        "creditNote":120
+      },
+      {
+        "date": "2024-08-18",
+        "grossSales": 261500,
+        "netSales": 118780,
+        "costofSales": 8945,
+        "grossProfit": 1834,
+        "discount":1550,
+        "cashRefund":1020,
+        "creditNote":160
+      },
+      {
+        "date": "2024-08-25",
+        "grossSales": 215530,
+        "netSales": 119080,
+        "costofSales": 9934,
+        "grossProfit": 2443,
+        "discount":2550,
+        "cashRefund":1020,
+        "creditNote":120
+      },
+      {
+        "date": "2024-08-01",
+        "grossSales": 242000,
+        "netSales": 114300,
+        "costofSales": 7234,
+        "grossProfit": 2456,
+        "discount":1250,
+        "cashRefund":2020,
+        "creditNote":180
+      }
+    ],
+    "salesSummary": {
+      "grossSales": 930000,
+      "netSales": 900000,
+      "costofSales": 700000,
+      "grossProfit": 200000
+    },
+    "salesDeduction":{
+      "discount":4820,
+      "cashRefund":4030,
+      "creditNote":410
+    },
+    "topCategories": [
+      { "name": "Bakery", "sale": 60 },
+      { "name": "Dairy", "sale": 85 },
+      { "name": "Frozen", "sale": 110 },
+      { "name": "Candy", "sale": 20 },
+      { "name": "Snack", "sale": 50 }
+    ],
+    "topProducts": [
+      { "name": "Bread", "sale": 35 },
+      { "name": "Eggs", "sale": 28 },
+      { "name": "Chocolate", "sale": 15 },
+      { "name": "Frozen Pizza", "sale": 40 },
+      { "name": "Chips", "sale": 25 }
+    ]
+  },
+  "lastMonth": {
+    "sales": [
+      {
+        "date": "2024-07-07",
+        "grossSales": 211500,
+        "netSales": 111500,
+        "costofSales": 7600,
+        "grossProfit": 2300,
+        "discount":1550,
+        "cashRefund":1020,
+        "creditNote":160
+      },
+      {
+        "date": "2024-07-14",
+        "grossSales": 232000,
+        "netSales": 107900,
+        "costofSales": 8200,
+        "grossProfit": 2350,
+        "discount":1150,
+        "cashRefund":720,
+        "creditNote":60
+      },
+      {
+        "date": "2024-07-21",
+        "grossSales": 221500,
+        "netSales": 128780,
+        "costofSales": 6945,
+        "grossProfit": 1434,
+        "discount":1050,
+        "cashRefund":920,
+        "creditNote":80
+      },
+      {
+        "date": "2024-07-28",
+        "grossSales": 205530,
+        "netSales": 119080,
+        "costofSales": 9934,
+        "grossProfit": 2943,
+        "discount":1500,
+        "cashRefund":1120,
+        "creditNote":160
+      },
+      {
+        "date": "2024-08-04",
+        "grossSales": 212000,
+        "netSales": 124300,
+        "costofSales": 8234,
+        "grossProfit": 2056,
+        "discount":2550,
+        "cashRefund":2020,
+        "creditNote":260
+      }
+    ],
+    "salesSummary": {
+      "grossSales": 950000,
+      "netSales": 910000,
+      "costofSales": 720000,
+      "grossProfit": 190000
+    },
+    "salesDeduction":{
+      "discount":4320,
+      "cashRefund":3330,
+      "creditNote":360
+    },
+    "topCategories": [
+      { "name": "Bakery", "sale": 62 },
+      { "name": "Dairy", "sale": 87 },
+      { "name": "Frozen", "sale": 112 },
+      { "name": "Candy", "sale": 22 },
+      { "name": "Snack", "sale": 52 }
+    ],
+    "topProducts": [
+      { "name": "Bread", "sale": 37 },
+      { "name": "Eggs", "sale": 25 },
+      { "name": "Chocolate", "sale": 17 },
+      { "name": "Frozen Pizza", "sale": 42 },
+      { "name": "Chips", "sale": 27 }
+    ]
+  },
+"shifts": [
+  {
+    "name": "Deniz Aktürk",
+    "start": "08.00",
+    "end": "16.00",
+    "presence": true
+  },
+  {
+    "name": "Turan Yılmaz",
+    "start": "08.00",
+    "end": "16.00",
+    "presence": false
+  },
+  {
+    "name": "Recaizade Mahmut Ekrem",
+    "start": "08.00",
+    "end": "16.00",
+    "presence": true
+  }
+  ]
+}

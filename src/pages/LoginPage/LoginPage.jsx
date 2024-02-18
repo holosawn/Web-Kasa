@@ -5,7 +5,7 @@ import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import './loginKeyboard.css'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import DisplayErrorMessage from '../../reUsable/DisplayErrorMessage';
+import DisplayErrorMessage from '../../PageComponents/LoginPage/DisplayErrorMessage';
 import { t } from 'i18next';
 import { useLanguage } from '../../contexts/LangContext';
 import { enLayout, trLayout, ruLayout } from '../../LangLayouts/Layouts';
