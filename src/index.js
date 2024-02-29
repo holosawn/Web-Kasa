@@ -3,13 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
 import './i18n';
-import { LanguageProvider } from './contexts/LangContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
- 
 
 async function enableMocking() {
   if (process.env.NODE_ENV !== 'development') {
@@ -26,11 +22,7 @@ async function enableMocking() {
 enableMocking().then(()=>{
   root.render(
     <React.StrictMode>
-      <BrowserRouter>
-        <LanguageProvider>
-          <App />
-        </LanguageProvider>
-      </BrowserRouter>
+      <App />
     </React.StrictMode>
   );
 })

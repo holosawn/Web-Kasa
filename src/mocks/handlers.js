@@ -1,8 +1,8 @@
 import { http, HttpResponse } from 'msw'
-import MenuLayoutData from '../Data/MenuLayoutData.json'
+import LoginPageData from '../Data/LoginPageData.json'
 
 export const handlers = [
-    http.get("/MenuLayoutData", ()=>{
-        return HttpResponse.json(MenuLayoutData)
+    http.get("/", ()=>{
+        return HttpResponse.json(LoginPageData)
     }),
 ]

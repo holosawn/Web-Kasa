@@ -1,357 +1,383 @@
-import { Box, Button,  IconButton,  InputAdornment,  Link, MenuItem, Select, TextField, Typography, } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
-import logo from '../../assets/Logo.png'
+import {
+  Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+  Paper,
+  useMediaQuery,
+} from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
-import './loginKeyboard.css'
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import DisplayErrorMessage from '../../PageComponents/LoginPage/DisplayErrorMessage';
-import { t } from 'i18next';
-import { useLanguage } from '../../contexts/LangContext';
-import { enLayout, trLayout, ruLayout } from '../../LangLayouts/Layouts';
+import "../LoginPage/loginKeyboard.css";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import DisplayErrorMessage from "../../PageComponents/LoginPage/DisplayErrorMessage";
+import LangSelector from "../../PageComponents/LoginPage/LangSelector";
+import { t } from "i18next";
+import { useLanguage } from "../../contexts/LangContext";
+import { enLayout, trLayout, ruLayout } from "../../LangLayouts/Layouts";
+import { useCustomTheme } from "../../contexts/CutomThemeContext";
+import { useTheme } from "@emotion/react";
+import useFetchData from "../../CustomHooks/useFetchData";
+import buttons from "../../Constants/KeyboardButtons";
+import { useNavigate } from "react-router-dom";
+import LoadingButton from "../../ReusableComponents/LoadingButton";
 
+const layouts = {
+  en: enLayout,
+  ru: ruLayout,
+  tr: trLayout,
+};
+
+const user = { userCode: "admin", password: "123" };
+const currentDate= new Date();
+
+const setInputCaretPosition = (elem, pos) => {
+  if (elem.setSelectionRange) {
+    elem.focus();
+    elem.setSelectionRange(pos, pos);
+  }
+};
+
+const validateLoginValues = (loginValues, setErrors) => {
+  const errors = {};
+  if (loginValues.userCode.trim() === "") {
+    errors.userCode = true;
+  }
+  if (loginValues.password.length < 3) {
+    errors.password = true;
+  }
+  setErrors(errors);
+};
 
 const LoginPage = () => {
-    const [ loginValues, setLoginValues] = useState({
-        'userCode':"",
-        'password':""
-    });
-    const [layout, setLayout] = useState("default");
-    const [errors, setErrors] = useState({
-        'userCode':'Usercode cannot be empty',
-        'password':"Password is too short"
-    });
-    const [touched, setTouched] = useState({
-        'userCode':false,
-        'password':false
-    });
-    const keyboard = useRef();
-    const inputRefs = useRef([{
-        'userCode': useRef(),
-        'password': useRef()
-    }])
-    const [caretPos, setCaretPos] = useState();
-    const [showPassword, setShowPassword] = useState(false);
-    const [lang, setLang] = useLanguage();
+  const [loginValues, setLoginValues] = useState({
+    userCode: "",
+    password: "",
+  });
+  const [layout, setLayout] = useState("default");
+  const [errors, setErrors] = useState({
+    userCode: true,
+    password: true,
+    submit:''
+  });
+  const [touched, setTouched] = useState({
+    userCode: false,
+    password: false,
+  });
+  const keyboard = useRef();
+  const inputRefs = useRef([
+    {
+      userCode: useRef(),
+      password: useRef(),
+    },
+  ]);
+  const [caretPos, setCaretPos] = useState();
+  const [showPassword, setShowPassword] = useState(false);
+  const [isButtonLoading, setIsButtonLoading] = useState();
+  const [lang, setLang] = useLanguage();
+  const navigate = useNavigate();
+  const {data, error, isLoading} = useFetchData('/')
+  const { mode } = useCustomTheme();
+  const theme = useTheme();
 
-    const user = {'userCode' : 'admin', 'password': '123'}
+  const isMedium = useMediaQuery('(max-height:800px)')
 
-    const handleClickShowPassword = () => setShowPassword(!showPassword);
-    const handleMouseDownPassword = () => setShowPassword(!showPassword);
+  function handleClickShowPassword() {
+    setShowPassword(!showPassword);
+  }
+  function handleMouseDownPassword() {
+    setShowPassword(!showPassword);
+  }
 
-    const moveCursorLeft = (value) => {
-        const inputElement = inputRefs.current[keyboard.current.inputName];
-        inputElement.selectionStart = Math.max(0, inputElement.selectionStart + value);
-        inputElement.selectionEnd = inputElement.selectionStart;
-        inputElement.focus();
-    };
-
-    const handleShift = () => {
-      const newLayoutName = layout === "default" ? "shift" : "default";
-      setLayout(newLayoutName);
-    };
-
-    const onKeyPress = button => {
-        if (button === '{shift}' || button === '{lock}') handleShift();
-        if (button === '{clear}') onChangeInput('');
-        if (button === '{bksp}') customOnBksp();
-        if (button === '{arrowleft}') moveCursorLeft(-1);
-        if (button === '{arrowright}') moveCursorLeft(+1);
-    };
-
-    const customOnBksp = ()=>{
-        const inputName = keyboard.current.inputName
-        const newValue = loginValues[inputName].slice(0, -1);
-        onChange(newValue)
-    };
-
-    const onChangeInput = input => {
-        const inputName = keyboard.current.inputName;
-        const initLoginValues = { ...loginValues, [inputName]: input }
-        setLoginValues({ ...loginValues, [inputName]: input })
-        validateValues(initLoginValues);
-        keyboard.current.setInput(input);
-    };
-
-    const onFocus = event => {
-        const inputName = event.target.name
-        keyboard.current.setInput(loginValues[inputName])
-        keyboard.current.inputName = inputName
-        setTouched(prev => ({ ...prev, [inputName]: true }));
+  function moveCaret(value) {
+    const inputElement = inputRefs.current[keyboard.current.inputName];
+    if (inputElement) {
+      inputElement.selectionStart = Math.max(
+        0,
+        inputElement.selectionStart + value
+      );
+      inputElement.selectionEnd = inputElement.selectionStart;
+      inputElement.focus();
     }
+  }
 
-    const onChange = input => {
-        const inputName = keyboard.current.inputName;
-        const initLoginValues = { ...loginValues, [inputName]: input }
-        setLoginValues({ ...loginValues, [inputName]: input })
-        validateValues(initLoginValues);
-        setCaretPos(keyboard.current.caretPosition);
-    };
+  function handleShift() {
+    const newLayoutName = layout === "default" ? "shift" : "default";
+    setLayout(newLayoutName);
+  }
 
-    const validateValues = (inputValues) => {
-        let errors = {};
-        if (inputValues.userCode.trim() === '') {
-          errors.userCode = 'Usercode cannot be empty';
-        }
-        if (inputValues.password.length < 3) {
-          errors.password = "Password is too short";
-        }
-        setErrors(errors)
-    };
+  function onKeyPress(button) {
+    if (button === "{shift}" || button === "{lock}") handleShift();
+    if (button === "{clear}") onChangeInput("");
+    if (button === "{bksp}") customOnBksp();
+    if (button === "{arrowleft}") moveCaret(-1);
+    if (button === "{arrowright}") moveCaret(+1);
+  }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const allFieldsTouched = Object.values(touched).every((value) => value === true);
-        const anyErrors = Object.values(errors).some((value) => value === true);
-        if (!anyErrors ) {
-            if (loginValues.userCode === user.userCode && loginValues.password === user.password) {
-                console.log('user authorized');
-            }
-        }
-    };
-
-    const customlayout= {
-        'default': [
-          '` 1 2 3 4 5 6 7 8 9 0 - = {bksp} {clear}',
-          '{tab} q w e r t y u i o p [ ] \\',
-          '{lock} a s d f g h j k l ; \' {enter}',
-          '{shift} z x c v b n m , . / {shift}',
-          '.com @ {space} {arrowleft} {arrowright}'
-        ],
-        'shift': [
-          '~ ! @ # $ % ^ &amp; * ( ) _ + {bksp} {clear}',
-          '{tab} Q W E R T Y U I O P { } |',
-          '{lock} A S D F G H J K L : " {enter}',
-          '{shift} Z X C V B N M &lt; &gt; ? {shift}',
-          '.com @ {space} {arrowleft} {arrowright}'
-        ]
+  const customOnBksp = () => {
+    const inputName = keyboard.current.inputName;
+    if (inputName) {
+      const newValue = loginValues[inputName].slice(0, -1);
+      onChange(newValue);
     }
+  };
 
-    const setInputCaretPosition = (elem, pos) => {
-        if (elem.setSelectionRange) {
-          elem.focus();
-          elem.setSelectionRange(pos, pos);
-        }
-    };
+  const onChangeInput = (input) => {
+    const inputName = keyboard.current.inputName;
+    const initLoginValues = { ...loginValues, [inputName]: input };
 
-    const handleLangChange = (lang)=>{
-        setLang(lang);
+    setLoginValues({ ...loginValues, [inputName]: input });
+    validateLoginValues(initLoginValues, setErrors);
+    keyboard.current.setInput(input);
+  };
+
+  const onFocus = (event) => {
+    const inputName = event.target.name;
+    keyboard.current.setInput(loginValues[inputName]);
+    keyboard.current.inputName = inputName;
+    if(touched[inputName] !== true) setTouched((prev) => ({ ...prev, [inputName]: true }));
+  };
+
+  const onChange = (input) => {
+    const inputName = keyboard.current.inputName;
+    const initLoginValues = { ...loginValues, [inputName]: input };
+    setLoginValues({ ...loginValues, [inputName]: input });
+    validateLoginValues(initLoginValues, setErrors);
+    setCaretPos(keyboard.current.caretPosition);
+    if(errors.submit !== '') setErrors(prev => ({...prev, submit:true}))
+    if(touched.submit !== false) setTouched(prev => ({...prev, submit:false}))
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setTouched(prev => ({...prev, submit:true}))
+    const anyErrors = Object.values(errors).some((value) => value !== "");
+    if (!anyErrors) {
+      setIsButtonLoading(true)
+      if (
+        loginValues.userCode === user.userCode &&
+        loginValues.password === user.password
+      ) {
+        setIsButtonLoading(false)
+        navigate('/Menu')
+      }
+      else{
+        setErrors(prev => ({...prev, submit:true}))
+        setIsButtonLoading(false)
+      }
     }
+  };
 
-    useEffect(()=>{
-        const inputName = keyboard.current.inputName
-        if (inputName) {
-            if (caretPos !== null) setInputCaretPosition(inputRefs.current[inputName], caretPos);
-        }
-    },[caretPos])
+  const handleLangChange = (lang) => {
+    setLang(lang);
+  };
 
-    const layouts = {
-        'en': enLayout,
-        'ru': ruLayout,
-        'tr': trLayout
+  useEffect(() => {
+    if (!isLoading) { 
+      const inputName = keyboard.current.inputName;
+      if (inputName) {
+        if (caretPos !== null)
+          setInputCaretPosition(inputRefs.current[inputName], caretPos);
+      }
     }
+  }, [caretPos]);
 
-
+  console.log(touched);
   return (
-    <Box alignItems={'center'} justifyContent={'center'} flexDirection={'column'} sx={{
-        backgroundColor:'#E3E3E3',
+    <Paper
+      sx={{
         width:'100vw',
         height:'100vh',
-        display:'flex',
-        minWidth:667,
-        minHeight:375,
-    }}
+        display: "flex",  
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: {xs: "start" , md:'center'},
+        backgroundColor:'background.secondary',
+      }}
     >
-        <Box sx={{
-            backgroundColor:'white',
-            display:'flex',
-            width:'65%',
-            height:'50%',
-            borderRadius:5,
-            justifyContent:'center',
-            alignItems:'center'
-        }}>
-            <Box sx={{
-                width:'35%',
-                height:'100%',
-                backgroundColor:'#02B9B8',
-                display:'flex',
-                justifyContent:'center',
-                alignItems:'center',
-                position:'relative'
-            }}>
-                <Box sx={{
-                    display:'flex',
-                    flexDirection:'column',
-                    justifyContent:'center',
-                    alignItems:'center'
-                }}>
-                    <img src={logo} style={{
-                        width:200,
-                        marginBottom:5
-                    }}/>
-                    <Typography>
-                        {t('login.app')}
-                    </Typography>
-                </Box>
-                <Typography sx={{
-                position:'absolute',
-                bottom:10,
-                left:10
-                }}>
-                    v.1.3.45.688
-                </Typography>
-            </Box>
-            <Box sx={{
-                width:'65%',
-                height:'100%',
-                display:'flex',
-                flexDirection:'column',
-                justifyContent:'center',
-                alignItems:'center',
-                position:'relative'
-            }}>
-                <Typography color={'#027F7E'} sx={{
-                    fontSize:25,
-                    fontWeight:'bold'
-                }}>
-                    {t('login.Welcome')}
-                </Typography>
-                    <TextField 
-                    onChange={(e)=> onChangeInput(e.target.value)}
-                    onFocus={e => onFocus(e)}
-                    value={loginValues.userCode}
-                    inputRef={r=> (inputRefs.current.userCode = r)}
-                    autoComplete='off'
-                    variant='filled'
-                    required
-                    id="userCode"
-                    label={t('login.userCode')}
-                    name="userCode"
-                    size='medium'
-                    sx={{
-                        color:'#ad2118',
-                        outlineColor:'#ad2118',
-                        marginTop:3,
-                        marginBottom:2,
-                        width:'50%'
-                    }}
-                    />
-                    <TextField 
-                    onChange={(e)=> onChangeInput(e.target.value)} 
-                    onFocus={e => onFocus(e)}
-                    value={loginValues.password}
-                    inputRef={r=> (inputRefs.current.password = r)}
-                    type={showPassword ? "text" : "password"} 
-                    variant='filled'
-                    required
-                    id="password"
-                    label={t('login.password')}
-                    name="password"
-                    size='medium'
-                    sx={{
-                        width:'50%',
-                        marginBottom:2
-                    }}
-                    InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton
-                              aria-label="toggle password visibility"
-                              onClick={handleClickShowPassword}
-                              onMouseDown={handleMouseDownPassword}
-                            >
-                              {showPassword ? <Visibility /> : <VisibilityOff />}
-                            </IconButton>
-                          </InputAdornment>
-                        )
-                      }}
-                    />
-                    <Box sx={{
-                        width:'50%',
-                        mb:2,
-                        display:'flex',
-                        justifyContent:'space-between',
-                        alignItems:'flex-end'
-                    }}>
-                        <DisplayErrorMessage errorMsg={errors} touched={touched} />
-                        
-                        <Select
-                        sx={{ml:'auto'}}
-                        defaultValue='en'
-                        size='small'
-                        onChange={e => handleLangChange(e.target.value)}
-                        >
-                            <MenuItem value={'tr'}>Türkçe</MenuItem>
-                            <MenuItem value={'en'}>English</MenuItem>
-                        </Select>
-                    </Box>
-                    <Button
-                    variant='contained' 
-                    onClick={handleSubmit}
-                    sx={{
-                        width:'50%',
-                        height:50,
-                        backgroundColor: '#18A4AD',
-                    }}
-                    >
-                        {t('login.LogIn')}
-                    </Button>
+      {error && <Typography>{error}</Typography>}
+      {isLoading && <Typography>Loading...</Typography>}
+      {!isLoading && 
+      <>
+        <Box
+          sx={{
+            display: "flex",
+            width: {xs: '100%', md:"65%"},
+            height: {xs :"60%", md: '50%'},
+            borderRadius: {xs:0 , md: 5},
+            mt:0,
+            flexDirection: "column",
+            justifyContent: {xs:"start", sm:'center'},
+            alignItems: "center",
+            position: "relative",
+            overflowY:'auto',
+            backgroundColor:'background.paper',
+            border: `1px solid ${theme.palette.divider}`,
+          }}
+        >
+          <Typography
+            color={'primary.main'}
+            variant={'h4' }
+            mt={1}
+            sx={{
+              fontSize: {xs:20, sm:25, md:30, l:43,},
+              fontWeight: "bold",
+            }}
+          >
+            {t("login.Welcome")}
+          </Typography>
 
-                    <Typography
-                    fontWeight={700}
-                    color={'#027F7E'}  
-                    sx={{
-                        position:'absolute',
-                        top:15,
-                        right:15
-                    }}
-                    >
-                        10/12/2023
-                    </Typography>
-            </Box>
-        </Box>
-        <Box sx={{
-            width:'65%',
-        }}>
-            <Keyboard
-                keyboardRef={r => (keyboard.current = r)}
-                layoutName={layout}
-                layout={layouts[lang]}
-                onChange={onChange}
-                onKeyPress={onKeyPress}
-                preventMouseDownDefault
-                buttonTheme={[
-                    {
-                        class:'hg-red',
-                        buttons:"{clear}"
-                    },
-                    {
-                        class:'hg-blue',
-                        buttons:'{arrowleft} {arrowright}'
-                    }
-                ]}
-                display={{
-                    '{bksp}': t('login.Delete'),
-                    '{shift}': 'Shift',
-                    '{tab}': 'Tab',
-                    '{lock}': 'Caps Lock',
-                    '{enter}': 'Enter',
-                    '{space}': 'Space',
-                    '{clear}': t('login.clear'),
-                    '{arrowleft}': '<<',
-                    '{arrowright}': '>>'
-                  }}
-            />
-            <Typography sx={{
-                display:'flex',
-                flexDirection:'row'
-            }}>
-                {t('login.support')} : <Typography sx={{marginLeft:1}} >None@gmail.com.tr</Typography>
-            </Typography>
-        </Box>
-    </Box>
-  )
-}
+          <TextField
+            onChange={(e) => onChangeInput(e.target.value)}
+            onFocus={(e) => onFocus(e)}
+            value={loginValues.userCode}
+            inputRef={(r) => (inputRefs.current.userCode = r)}
+            autoComplete="off"
+            variant="filled"
+            required
+            id="userCode"
+            label={t("login.userCode")}
+            name="userCode"
+            size={isMedium ? 'small' : "medium"}
+            sx={{
+              marginTop: {xs: 1,lg:3},
+              marginBottom: {xs: 1, md:2},
+              width: "50%",
+              color: "text.primary",
+            }}
+          />
+          <TextField
+            onChange={(e) => onChangeInput(e.target.value)}
+            onFocus={(e) => onFocus(e)}
+            value={loginValues.password}
+            inputRef={(r) => (inputRefs.current.password = r)}
+            type={showPassword ? "text" : "password"}
+            variant="filled"
+            required
+            id="password"
+            label={t("login.password")}
+            name="password"
+            size={isMedium ? 'small' : "medium"}
+            sx={{
+              width: "50%",
+              marginBottom: {xs: 1, md:2},
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Box
+            sx={{
+              width: "50%",
+              mb: {xs:1 , lg: 2},
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+            }}
+          >
+            <DisplayErrorMessage errorMsg={errors} touched={touched} />
 
-export default LoginPage
+            <LangSelector handleChange={handleLangChange} />
+          </Box>
+          <LoadingButton
+            variant="contained"
+            onClick={handleSubmit}
+            isLoading={isButtonLoading}
+            disabled={Object.values(errors).some((value) => value !== "")}
+            sx={{
+              width: "50%",
+              height: {xs: 25, sm:35 ,md:40, lg:50},
+            }}
+          >
+            {t("login.LogIn")}
+          </LoadingButton>
+
+          <Typography
+            fontWeight={700}
+            sx={{
+              position: "absolute",
+              top: 15,
+              right: 15,
+            }}
+          >
+            {`${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
+          </Typography>
+          <Typography
+            fontWeight={700}
+            sx={{
+              position: "absolute",
+              bottom: 10,
+              left: 15,
+            }}
+          >
+            {data.version}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            width: {xs: '100%', md:"65%"},
+          }}
+        >
+          <Keyboard
+            keyboardRef={(r) => (keyboard.current = r)}
+            layoutName={layout}
+            layout={layouts[lang]}
+            onChange={onChange}
+            onKeyPress={onKeyPress}
+            preventMouseDownDefault
+            buttonTheme={[
+              {
+                class: "hg-red",
+                buttons: "{clear}",
+              },
+              {
+                class: "hg-blue",
+                buttons: "{arrowleft} {arrowright}",
+              },
+              {
+                class: mode == 'dark' ? "hg-dark" : "hg-white",
+                buttons:buttons
+              },
+            ]}
+            theme={`hg-theme-default ${mode === 'dark' ? 'darkTheme': 'lightTheme'}` }
+            display={{
+              "{bksp}": t("login.Delete"),
+              "{shift}": "Shift",
+              "{tab}": "Tab",
+              "{lock}": "Caps Lock",
+              "{enter}": "Enter",
+              "{space}": "Space",
+              "{clear}": t("login.clear"),
+              "{arrowleft}": "<<",
+              "{arrowright}": ">>",
+            }}
+          />
+          {!isMedium &&<Typography
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            {t("login.support")} : None@gmail.com.tr
+          </Typography>}
+        </Box>
+      </>
+      }
+    </Paper>
+  );
+};
+
+export default LoginPage;

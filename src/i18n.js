@@ -13,21 +13,21 @@ i18n
   .init({
     debug: false,
     fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false, // not needed for react as it escapes by default
-    },
     resources: {
       en: {
         translation: {
           login:{
             Welcome: 'Welcome Back!',
             app: 'Web Retail POS App',
-            userCode: 'userCode',
-            password:'password',
+            userCode: 'User Code',
+            password:'Password',
             LogIn: 'Log In',
             Delete: 'Delete',
             clear: 'Delete All',
-            support: 'For support'
+            support: 'For support',
+            userCodeErr: 'User code is too short',
+            passwordErr: 'Password is too short',
+            submitErr: 'No user with given info',
           }
         }
       },
@@ -41,10 +41,31 @@ i18n
             LogIn: 'Giriş Yap',
             Delete: 'Sil',
             clear: 'Tümünü Sil',
-            support: 'Destek için'
+            support: 'Destek için',
+            userCodeErr: 'Kullanıcı kodu çok kısa',
+            passwordErr: 'Şifre çok kısa',
+            submitErr: 'Böyle bir kullanıcı yok',
           }
         }
       },
+      ru: {
+        translation: {
+          login: {
+            Welcome: 'С возвращением!',
+            app: 'Приложение Web Cash Register POS',
+            userCode: 'Код пользователя',
+            password: 'Пароль',
+            LogIn: 'Войти',
+            Delete: 'Удалить',
+            clear: 'Очистить все',
+            support: 'Поддержка',
+            useruserCodeErr: 'Слишком короткий код пользователя',
+            passwordErr: 'Слишком короткий пароль',
+            submitErr: 'Такого пользователя не существует'
+            
+          }
+        }
+      }
     }
   });
 

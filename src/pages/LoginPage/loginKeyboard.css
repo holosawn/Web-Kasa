@@ -1,21 +1,39 @@
-.simple-keyboard.hg-layout-default .hg-button.hg-red {
-    background: rgb(255, 0, 0, 0.7);
-    color: white;
-  }
-.simple-keyboard.hg-layout-default .hg-button.hg-blue {
-    background: rgb(2,185,184);
-    color: white;
-    max-width: 90px;
-    min-width: 90px;
-  }
-
+.simple-keyboard.hg-layout-default .hg-button.hg-red,
 .simple-keyboard.hg-layout-shift .hg-button.hg-red {
     background: rgb(255, 0, 0, 0.7);
     color: white;
-  }
+    border : none
+}
+
+.simple-keyboard.hg-layout-default .hg-button.hg-blue,
 .simple-keyboard.hg-layout-shift .hg-button.hg-blue {
-    background: rgb(2,185,184);
+    background: #1976D2;
     color: white;
     max-width: 90px;
     min-width: 90px;
+    border : none
+}
+
+.simple-keyboard.hg-layout-default .hg-button.hg-dark,
+.simple-keyboard.hg-layout-shift .hg-button.hg-dark {
+    background: #424242;
+    color: white;
+    border : none
+}
+
+.simple-keyboard.hg-theme-default.darkTheme{
+    background: #242424;
+}
+
+.simple-keyboard.hg-theme-default.lightTheme{
+    background: #D1D4DB;
+}
+
+@media (max-width: 500px) {
+    .simple-keyboard.hg-layout-default .hg-button {
+      padding: 1px;
+      max-height: 30px;
+    }
   }
+
+
