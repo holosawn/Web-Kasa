@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import MultiLineChart from '../../ReusableComponents/MultiLineChart';
 import DiscountIcon from '../../assets/discount.svg'
-import SaleInfoCard from '../../PageComponents/MenuPage/SaleInfoCard';
+import SaleInfoCard from '../../PageComponents/MenuPage/Dashboard/SaleInfoCard';
 import { Box, MenuItem, Select, Typography } from '@mui/material';
 import useFetchData from '../../CustomHooks/useFetchData'
-import SalesSummaryInfo from '../../PageComponents/MenuPage/SalesSummaryInfo';
+import SalesSummaryInfo from '../../PageComponents/MenuPage/Dashboard/SalesSummaryInfo';
+import TopEntitiesList from '../../PageComponents/MenuPage/Dashboard/TopEntitiesList';
 
 const exampleSeries=[
     {
@@ -84,22 +85,48 @@ const SelectTimeline = ({ timeline, setTimeline }) => {
     );
 };
 
-const ExampleSaleInfoCard= () => (
-    <SaleInfoCard
-    label={"Discount"}
-    currentValue={1200}
-    iconSrc={DiscountIcon}
-    iconSx={{
-        backgroundColor:"#EEEDFD",
-    }}
-    imgSx={{
-        height:35,
-    }}
-    chartXaxisData={exampleDates}
-    chartYaxisData={exampleSingleLineData}
-    timeline={'today'}
-    />
-)
+const SalesSummaryChart = ({ data, timeline }) => {
+    const dates = data.date.values
+    
+    const grossSalesData = data.grossSales.values
+    const netSalesData = data.netSales.values
+    const costOfSalesData = data.costOfSales.values
+    const grossProfitData = data.grossProfit.values
+  
+    const MultilineChartSeries = [
+      {
+        type: "bar",
+        data: grossSalesData,
+        label: "Gross Sales",
+        color: "#5F9DDD",
+      },
+      {
+        type: "line",
+        data: netSalesData,
+        label: "Net Sales",
+        color: "#28C76F",
+      },
+      {
+        type: "line",
+        data: costOfSalesData,
+        label: "Cost Of Sales",
+        color: "#ED6D6E",
+      },
+      {
+        type: "line",
+        data: grossProfitData,
+        color: "#FF9F43",
+        label: "Gross Sales",
+      },
+    ];
+  
+    return (
+      <MultiLineChart
+        series={MultilineChartSeries}
+        dates={dates}
+        timeline={timeline} />
+    );
+  };
 
 const Dashboard = () => {
     const [timeline, setTimeline] = useState("today");
@@ -142,7 +169,15 @@ const Dashboard = () => {
 
         <SalesSummaryInfo salesData={{"salesSummary": data.salesSummary, "salesSummaryoverTime": data.salesResults}} timeline={timeline} />
 
-        <MultiLineChart series={exampleSeries} dates={exampleDates} timeline={exampleTimeline}/> 
+        <Box
+          display={"flex"}
+          flex={1}
+          flexDirection={{md:"row", xs:'column'}}
+          justifyContent={"stretch"}
+        >
+          <SalesSummaryChart data={data.salesResults} timeline={timeline} />
+          <TopEntitiesList/>
+        </Box>    
     </Box> 
   )
     }

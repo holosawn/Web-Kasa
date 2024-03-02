@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Icon, Paper, Typography } from "@mui/material";
-import TinyLineChart from "../../ReusableComponents/TinyLineChart";
+import TinyLineChart from "../../../ReusableComponents/TinyLineChart";
 
 const SaleInfoCard = ({ currentValue, label, iconBgcolor, chartXaxisData, chartYaxisData, timeline, iconSrc, iconSx, imgSx }) => {
   const isMonthly = timeline === 'thisMonth' || timeline === 'lastMonth'

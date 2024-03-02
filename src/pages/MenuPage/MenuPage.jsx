@@ -4,7 +4,7 @@ import CustomAppBar from '../../PageComponents/MenuPage/CustomAppBar'
 import MenuSideBar from '../../PageComponents/MenuPage/MenuSideBar'
 import MultiLineChart from '../../ReusableComponents/MultiLineChart';
 import DiscountIcon from '../../assets/discount.svg'
-import SaleInfoCard from '../../PageComponents/MenuPage/SaleInfoCard';
+import SaleInfoCard from '../../PageComponents/MenuPage/Dashboard/SaleInfoCard';
 import { Route, Routes } from 'react-router-dom';
 import Dashboard from './Dashboard';
 
@@ -62,6 +62,7 @@ const exampleSingleLineData = [
 
 const MenuPage = () => {
 
+  //todo fix reference lines of MultilineChart 
   return (
     <Box flex={1} minHeight={'100vh'} display="flex" flexDirection="column" justifyContent={'flex-start'} sx={{backgroundColor:'#EDEEF2'}} >
       <CustomAppBar />
