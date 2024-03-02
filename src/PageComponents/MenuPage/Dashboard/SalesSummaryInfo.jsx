@@ -9,8 +9,9 @@ import grossProfitIcon from '../../../assets/Graph.svg';
 const SalesSummaryInfo = ({ salesData, timeline }) => (
   <Grid
     container
-    width={'100%'}
-    spacing={3}
+    width={'99%'}
+    columnSpacing={2}
+    rowSpacing={0}
     justifyContent="space-around"
     alignItems="center"
     overflow="visible"

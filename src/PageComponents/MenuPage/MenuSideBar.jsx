@@ -75,6 +75,13 @@ const MenuSideBar = () => {
           </Box>
       </Box>
 
+      
+      <Tooltip title='Dashboard' arrow >
+        <Button sx={getButtonStyle("Menu", currentPage)}>
+            <BarChartSharpIcon sx={getIconStyle('Menu', currentPage)} />
+            <IconDescription isMenuOpen={isMenuOpen}>Dashboard</IconDescription>
+        </Button>
+      </Tooltip>
       <Tooltip title="Sale" arrow>
         <Button aria-label="Sale" sx={getButtonStyle("Sale", currentPage)}>
           <SaleIcon sx={getIconStyle('Sale', currentPage)} />
@@ -103,12 +110,6 @@ const MenuSideBar = () => {
         <Button sx={getButtonStyle("Reports", currentPage)}>
             <LibraryBooksRoundedIcon sx={getIconStyle('Reports', currentPage)} />
             <IconDescription isMenuOpen={isMenuOpen}>Reports</IconDescription>
-        </Button>
-      </Tooltip>
-      <Tooltip title='Dashboard' arrow >
-        <Button sx={getButtonStyle("Menu", currentPage)}>
-            <BarChartSharpIcon sx={getIconStyle('Menu', currentPage)} />
-            <IconDescription isMenuOpen={isMenuOpen}>Dashboard</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title='Settings' arrow>

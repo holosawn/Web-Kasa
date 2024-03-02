@@ -81,6 +81,43 @@ const SalesSummaryChart = ({ data, timeline }) => {
     );
 };
 
+const SalesDeductionChart = ({ data, timeline }) => {
+  const dates = data.date.values
+  
+  const discountData = data.discount.values
+  const cashRefundData = data.cashRefund.values
+  const creditNoteData = data.creditNote.values
+
+  const MultilineChartSeries = [
+    {
+      type: "bar",
+      data: discountData,
+      label: "Discount ",
+      color: "#5F9DDD",
+    },
+    {
+      type: "line",
+      data: cashRefundData,
+      label: "Cash Refund",
+      color: "#28C76F",
+    },
+    {
+      type: "line",
+      data: creditNoteData,
+      label: "Credit Note",
+      color: "#ED6D6E",
+    },
+  ];
+
+  return (
+    <MultiLineChart
+      series={MultilineChartSeries}
+      dates={dates}
+      timeline={timeline}
+    />
+  );
+};
+
 const Dashboard = () => {
     const [timeline, setTimeline] = useState("today");
     const { data, error, isLoading  } = useFetchData(`/DashboardData/${timeline}`);
@@ -120,7 +157,7 @@ const Dashboard = () => {
           <SelectTimeline timeline={timeline} setTimeline={setTimeline} />
         </Box>
 
-        <SalesSummaryInfo salesData={{"salesSummary": data.salesSummary, "salesSummaryoverTime": data.salesResults}} timeline={timeline} />
+        <SalesSummaryInfo salesData={{"salesSummary": data.salesSummary, "salesSummaryoverTime": data.salesResultOverTime}} timeline={timeline} />
 
           <Box
             width={'100%'}
@@ -129,11 +166,20 @@ const Dashboard = () => {
             flexDirection={{md:"row", xs:'column'}}
             justifyContent={"stretch"}
           >
-            <SalesSummaryChart data={data.salesResults} timeline={timeline} />
+            <SalesSummaryChart data={data.salesResultOverTime} timeline={timeline} />
             <TopEntitiesList/>
           </Box>    
 
         <SalesDeductionInfo salesData={{"salesDeduction": data.salesDeduction, "salesDeductionOverTime": data.salesDeductionOverTime}} timeline={timeline} />
+        <Box
+          display={"flex"}
+          width={'100%'}
+          flexDirection={{md:"row", xs:'column'}}
+          justifyContent={"stretch"}
+        >
+          <SalesDeductionChart data={data.salesDeductionOverTime} timeline={timeline} />
+          <TopEntitiesList/>
+        </Box>
     </Box> 
   )
     }

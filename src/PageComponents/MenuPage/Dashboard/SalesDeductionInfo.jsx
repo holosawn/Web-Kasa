@@ -9,7 +9,8 @@ const SalesDeductionInfo = ({ salesData, timeline }) => (
   <Grid
     container
     width={'100%'}
-    spacing={2}
+    columnSpacing={2}
+    rowSpacing={0}
     justifyContent="space-around"
     alignItems="center"
     overflow="hidden"

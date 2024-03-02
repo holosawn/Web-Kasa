@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, ListItem, Typography, List, ListItemText } from '@mui/material'
+import { Box, ListItem, Typography, List, ListItemText, Paper } from '@mui/material'
 
 
 const TopSoldCard = () => {
@@ -25,16 +25,17 @@ const TopSoldCard = () => {
 }
 
 const TopEntitiesList=()=>(
-    <Box
-    width={{ md: "34.5%", xs: '98%' }}
-    height={510}
+    <Paper
     sx={{
         backgroundColor: "white",
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        height:510,
+        width:{ md: "34.5%", xs: '98%' },
+        mx:1,
+        mt:{ xs: 2, md: 0 },
+        borderRadius:5
     }}
-    mx={1}
-    mt={{ xs: 2, md: 0 }}
     borderRadius={5}
     >
     <Typography m={3}>Top Sale Products</Typography>
@@ -48,7 +49,7 @@ const TopEntitiesList=()=>(
         <TopSoldCard />
         <TopSoldCard />
     </Box>
-    </Box>
+    </Paper>
 )
 
 export default TopEntitiesList
