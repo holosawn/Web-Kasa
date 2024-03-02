@@ -66,7 +66,7 @@ const MenuSideBar = () => {
           <AccountCircleIcon sx={{...getIconStyle('', currentPage), ml:2.5}} />
           
           <Box flexDirection={'column'} overflow={'hidden'} alignItems={'center'} ml={2} sx={{opacity:isMenuOpen? 1 : 0, transition:'opacity 0.3s'}} >
-              <Typography fontSize={{xs:12, sm:14}} variant="subtitle2" component="div" textTransform={'none'} overflow={'hidden'} whiteSpace={'nowrap'} >
+              <Typography fontSize={{xs:12, sm:14}} variant="subtitle2" component="div" color={'gray'} textTransform={'none'} overflow={'hidden'} whiteSpace={'nowrap'} >
               Kate Grimes
               </Typography>
               <Typography fontSize={{xs:12, sm:14}} variant="subtitle2" component="div" color={'gray'} textTransform={'none'} overflow={'hidden'} whiteSpace={'nowrap'}>

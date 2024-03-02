@@ -23,7 +23,7 @@ const CustomThemeContext = React.createContext()
 
 export function CustomThemeProvider({children}){
   const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
-  const [mode, setMode] = useState(prefersDarkMode.matches ? 'dark' : 'light');
+  const [mode, setMode] = useState(prefersDarkMode.matches ? 'light' : 'light');
   
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');

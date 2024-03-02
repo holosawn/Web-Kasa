@@ -17,7 +17,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route index path='/' element={<LoginPage/>} />
-            <Route path='Menu' element={<MenuPage/>} />
+            <Route path='/Menu' element={<MenuPage/>} />
           </Routes>
         </BrowserRouter>
       </LanguageProvider>
