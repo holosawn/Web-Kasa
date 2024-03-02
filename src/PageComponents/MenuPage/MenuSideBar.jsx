@@ -47,7 +47,7 @@ const IconDescription = ({children, isMenuOpen, color})=>(
 );
 
 const MenuSideBar = () => {
-  ///scroll, workerInfo, responsivenes
+  //todo scroll, workerInfo, responsivenes
   const [isMenuOpen, setIsMenuOpen] = useState();
   const currentPage = useLocation().pathname.slice(1) || '';
   

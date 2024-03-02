@@ -6,8 +6,8 @@ const SaleInfoCard = ({ currentValue, label, iconBgcolor, chartXaxisData, chartY
   const isMonthly = timeline === 'thisMonth' || timeline === 'lastMonth'
   
   const tinyLineChartStyle = {
-    width: isMonthly ? "calc(104%)" : "calc(116%)",
-    left: isMonthly ? "calc(-2%)" : 'calc(-8%)'
+    width: isMonthly ? "calc(102%)" : "calc(114%)",
+    left: isMonthly ? "calc(-1%)" : 'calc(-7%)'
   };
 
   return(

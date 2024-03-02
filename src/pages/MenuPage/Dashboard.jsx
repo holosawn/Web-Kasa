@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import MultiLineChart from '../../ReusableComponents/MultiLineChart';
 import DiscountIcon from '../../assets/discount.svg'
 import SaleInfoCard from '../../PageComponents/MenuPage/SaleInfoCard';
-import { Box, MenuItem, Select } from '@mui/material';
+import { Box, MenuItem, Select, Typography } from '@mui/material';
+import useFetchData from '../../CustomHooks/useFetchData'
+import SalesSummaryInfo from '../../PageComponents/MenuPage/SalesSummaryInfo';
 
 const exampleSeries=[
     {
@@ -101,6 +103,26 @@ const ExampleSaleInfoCard= () => (
 
 const Dashboard = () => {
     const [timeline, setTimeline] = useState("today");
+    const { data, error, isLoading  } = useFetchData(`/DashboardData/${timeline}`);
+
+    if (isLoading) {
+        return (
+          <Box>
+            <Typography>...Loading</Typography>
+          </Box>
+        );
+      }
+    
+      if (error) {
+        return (
+          <Box>
+            <Typography>{error}</Typography>
+          </Box>
+        );
+      }
+
+      
+  if (!isLoading) {
 
   return (
     <Box mx={"16px"} ml={"85px"} mb={2} flex={1}>
@@ -118,28 +140,13 @@ const Dashboard = () => {
           <SelectTimeline timeline={timeline} setTimeline={setTimeline} />
         </Box>
 
-        <Box
-            width={"100%"}
-            display={"flex"}
-            flexDirection={"row"}
-            alignItems={"stretch"}
-            overflow={"visible"}
-            flexWrap={{ xs: "wrap", md: "noWrap" }}
-        >
-            <Box display={"flex"} flexDirection={"row"} width={"100%"}>
-                <ExampleSaleInfoCard/>
-                <ExampleSaleInfoCard/>
-            </Box>
-            <Box display={"flex"} flexDirection={"row"} width={"100%"}>
-                <ExampleSaleInfoCard/>
-                <ExampleSaleInfoCard/>
-            </Box>
-
-        </Box>
+        <SalesSummaryInfo salesData={{"salesSummary": data.salesSummary, "salesSummaryoverTime": data.salesResults}} timeline={timeline} />
 
         <MultiLineChart series={exampleSeries} dates={exampleDates} timeline={exampleTimeline}/> 
     </Box> 
   )
+    }
 }
+
 
 export default Dashboard
