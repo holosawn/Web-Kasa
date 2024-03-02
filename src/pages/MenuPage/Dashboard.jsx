@@ -1,62 +1,15 @@
 import React, { useState } from 'react'
 import MultiLineChart from '../../ReusableComponents/MultiLineChart';
-import DiscountIcon from '../../assets/discount.svg'
-import SaleInfoCard from '../../PageComponents/MenuPage/Dashboard/SaleInfoCard';
 import { Box, MenuItem, Select, Typography } from '@mui/material';
 import useFetchData from '../../CustomHooks/useFetchData'
 import SalesSummaryInfo from '../../PageComponents/MenuPage/Dashboard/SalesSummaryInfo';
 import TopEntitiesList from '../../PageComponents/MenuPage/Dashboard/TopEntitiesList';
+import discountIcon from '../../assets/discount.svg'
+import refundIcon from '../../assets/refund.svg'
+import creditNoteIcon from '../../assets/creditNote.svg'
+import SaleInfoCard from '../../PageComponents/MenuPage/Dashboard/SaleInfoCard';
+import SalesDeductionInfo from '../../PageComponents/MenuPage/Dashboard/SalesDeductionInfo';
 
-const exampleSeries=[
-    {
-        "type": "bar",
-        "data": [20000, 22000, 18000, 21000, 19000, 23000, 22000, 21000],
-        "label": "Gross Sales",
-        "color": "#5F9DDD"
-    },
-    {
-        "type": "line",
-        "data": [18000, 20000, 16000, 19000, 17000, 21000, 20000, 19000],
-        "label": "Net Sales",
-        "color": "#28C76F"
-    },
-    {
-        "type": "line",
-        "data":[12000, 14000, 11000, 13000, 11500, 14000, 13500, 13000],
-        "label": "Cost Of Sales",
-        "color": "#ED6D6E"
-    },
-    {
-        "type": "line",
-        "data": [6000, 8000, 5000, 6000, 5500, 7000, 6500, 7000],
-        "color": "#FF9F43",
-        "label": "Gross Sales"
-    }
-  ]
-  
-  const exampleDates = [
-    "2024-08-29T07:00:00.594Z",
-    "2024-08-29T09:00:00.594Z",
-    "2024-08-29T11:00:00.594Z",
-    "2024-08-29T13:00:00.594Z",
-    "2024-08-29T15:00:00.594Z",
-    "2024-08-29T17:00:00.594Z",
-    "2024-08-29T19:00:00.594Z",
-    "2024-08-29T21:00:00.594Z"
-  ];
-  
-  const exampleTimeline = 'today';
-  
-  const exampleSingleLineData = [
-    20000,
-    22000,
-    18000,
-    21000,
-    19000,
-    23000,
-    22000,
-    21000
-  ];
 
 const SelectTimeline = ({ timeline, setTimeline }) => {
     const onChange = (e) => {
@@ -126,7 +79,7 @@ const SalesSummaryChart = ({ data, timeline }) => {
         dates={dates}
         timeline={timeline} />
     );
-  };
+};
 
 const Dashboard = () => {
     const [timeline, setTimeline] = useState("today");
@@ -152,9 +105,9 @@ const Dashboard = () => {
   if (!isLoading) {
 
   return (
-    <Box mx={"16px"} ml={"85px"} mb={2} flex={1}>
+    <Box mx={"16px"} ml={"85px"} mb={2} flex={1} display={'flex'} flexDirection={'column'} alignItems={'center'}>
         <Box
-          width={"auto"}
+          width={"100%"}
           display={"flex"}
           flexDirection={"row"}
           justifyContent={"end"}
@@ -169,15 +122,18 @@ const Dashboard = () => {
 
         <SalesSummaryInfo salesData={{"salesSummary": data.salesSummary, "salesSummaryoverTime": data.salesResults}} timeline={timeline} />
 
-        <Box
-          display={"flex"}
-          flex={1}
-          flexDirection={{md:"row", xs:'column'}}
-          justifyContent={"stretch"}
-        >
-          <SalesSummaryChart data={data.salesResults} timeline={timeline} />
-          <TopEntitiesList/>
-        </Box>    
+          <Box
+            width={'100%'}
+            display={"flex"}
+            flex={1}
+            flexDirection={{md:"row", xs:'column'}}
+            justifyContent={"stretch"}
+          >
+            <SalesSummaryChart data={data.salesResults} timeline={timeline} />
+            <TopEntitiesList/>
+          </Box>    
+
+        <SalesDeductionInfo salesData={{"salesDeduction": data.salesDeduction, "salesDeductionOverTime": data.salesDeductionOverTime}} timeline={timeline} />
     </Box> 
   )
     }
