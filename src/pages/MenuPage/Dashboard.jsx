@@ -1,13 +1,9 @@
 import React, { useState } from 'react'
 import MultiLineChart from '../../ReusableComponents/MultiLineChart';
-import { Box, MenuItem, Select, Typography } from '@mui/material';
+import { Box, MenuItem, Select, Typography, Paper } from '@mui/material';
 import useFetchData from '../../CustomHooks/useFetchData'
-import SalesSummaryInfo from '../../PageComponents/MenuPage/Dashboard/SalesSummaryInfo';
+import SalesResultInfo from '../../PageComponents/MenuPage/Dashboard/SalesResultInfo';
 import TopEntitiesList from '../../PageComponents/MenuPage/Dashboard/TopEntitiesList';
-import discountIcon from '../../assets/discount.svg'
-import refundIcon from '../../assets/refund.svg'
-import creditNoteIcon from '../../assets/creditNote.svg'
-import SaleInfoCard from '../../PageComponents/MenuPage/Dashboard/SaleInfoCard';
 import SalesDeductionInfo from '../../PageComponents/MenuPage/Dashboard/SalesDeductionInfo';
 
 
@@ -38,7 +34,7 @@ const SelectTimeline = ({ timeline, setTimeline }) => {
     );
 };
 
-const SalesSummaryChart = ({ data, timeline }) => {
+const SalesResultChart = ({ data, timeline }) => {
     const dates = data.date.values
     
     const grossSalesData = data.grossSales.values
@@ -119,6 +115,8 @@ const SalesDeductionChart = ({ data, timeline }) => {
 };
 
 const Dashboard = () => {
+  //todo add currency types
+  //todo deduction lineCharts show same data
     const [timeline, setTimeline] = useState("today");
     const { data, error, isLoading  } = useFetchData(`/DashboardData/${timeline}`);
 
@@ -141,23 +139,16 @@ const Dashboard = () => {
       
   if (!isLoading) {
 
-  return (
-    <Box mx={"16px"} ml={"85px"} mb={2} flex={1} display={'flex'} flexDirection={'column'} alignItems={'center'}>
-        <Box
-          width={"100%"}
-          display={"flex"}
-          flexDirection={"row"}
-          justifyContent={"end"}
-          mt={2.5}
-          mx={1}
-          height={65}
-          bgcolor={'white'}
-          borderRadius={1}
+    return (
+    <Box mx={"16px"} ml={"85px"} mb={2} flex={1} display={'flex'} flexDirection={'column'} alignItems={'center'} >
+        <Paper sx={{
+            width:'98%', display:'flex', flexDirection:'row', justifyContent:'end', mt:2.5, m:1, height:65, borderRadius:1
+          }}
         >
           <SelectTimeline timeline={timeline} setTimeline={setTimeline} />
-        </Box>
+        </Paper>
 
-        <SalesSummaryInfo salesData={{"salesSummary": data.salesSummary, "salesSummaryoverTime": data.salesResultOverTime}} timeline={timeline} />
+        <SalesResultInfo salesData={{"salesResult": data.salesResult, "salesResultoverTime": data.salesResultOverTime}} timeline={timeline} />
 
           <Box
             width={'100%'}
@@ -166,8 +157,8 @@ const Dashboard = () => {
             flexDirection={{md:"row", xs:'column'}}
             justifyContent={"stretch"}
           >
-            <SalesSummaryChart data={data.salesResultOverTime} timeline={timeline} />
-            <TopEntitiesList/>
+            <SalesResultChart data={data.salesResultOverTime} timeline={timeline} />
+            <TopEntitiesList topSoldEntities={data.topProducts} totalSale={data.totalSale} timeline={timeline} label={'Top Products'} />
           </Box>    
 
         <SalesDeductionInfo salesData={{"salesDeduction": data.salesDeduction, "salesDeductionOverTime": data.salesDeductionOverTime}} timeline={timeline} />
@@ -178,7 +169,7 @@ const Dashboard = () => {
           justifyContent={"stretch"}
         >
           <SalesDeductionChart data={data.salesDeductionOverTime} timeline={timeline} />
-          <TopEntitiesList/>
+          <TopEntitiesList topSoldEntities={data.topCategories} totalSale={data.totalSale} timeline={timeline} label={'Top Categories'}/>
         </Box>
     </Box> 
   )

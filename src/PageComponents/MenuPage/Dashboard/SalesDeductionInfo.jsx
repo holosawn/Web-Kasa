@@ -5,7 +5,9 @@ import refundIcon from '../../../assets/refund.svg';
 import creditNoteIcon from '../../../assets/creditNote.svg';
 import SaleInfoCard from '../../../PageComponents/MenuPage/Dashboard/SaleInfoCard';
 
-const SalesDeductionInfo = ({ salesData, timeline }) => (
+const SalesDeductionInfo = ({ salesData, timeline }) => {
+  console.log(salesData);
+  return(
   <Grid
     container
     width={'100%'}
@@ -19,7 +21,7 @@ const SalesDeductionInfo = ({ salesData, timeline }) => (
     <Grid item xs={12} md={4}>
       <SaleInfoCard
         label={"Discount"}
-        currentValue={1200}
+        currentValue={salesData.salesDeduction.discount}
         iconSrc={discountIcon}
         iconSx={{
           backgroundColor:"#EEEDFD",
@@ -35,7 +37,7 @@ const SalesDeductionInfo = ({ salesData, timeline }) => (
     <Grid item xs={12} md={4}>
       <SaleInfoCard
         label={"Cash Refund"}
-        currentValue={1200}
+        currentValue={salesData.salesDeduction.cashRefund}
         iconSrc={refundIcon}
         iconSx={{
           backgroundColor:"#E5F8ED",
@@ -52,7 +54,7 @@ const SalesDeductionInfo = ({ salesData, timeline }) => (
     <Grid item xs={12} md={4}>
       <SaleInfoCard
         label={"Credit Note"}
-        currentValue={1200}
+        currentValue={salesData.salesDeduction.creditNote}
         iconSrc={creditNoteIcon}
         iconSx={{
           backgroundColor:"#FCEAEA",
@@ -66,6 +68,6 @@ const SalesDeductionInfo = ({ salesData, timeline }) => (
       />
     </Grid>
   </Grid>
-);
+)};
 
 export default SalesDeductionInfo;

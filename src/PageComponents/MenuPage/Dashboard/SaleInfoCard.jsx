@@ -4,17 +4,17 @@ import TinyLineChart from "../../../ReusableComponents/TinyLineChart";
 
 const SaleInfoCard = ({ currentValue, label, iconBgcolor, chartXaxisData, chartYaxisData, timeline, iconSrc, iconSx, imgSx }) => {
   const isMonthly = timeline === 'thisMonth' || timeline === 'lastMonth'
+  const isWeekly = timeline === 'thisWeek' || timeline === 'lastWeek'
   
   const tinyLineChartStyle = {
-    width: isMonthly ? "calc(102%)" : "calc(114%)",
-    left: isMonthly ? "calc(-1%)" : 'calc(-7%)'
+    width: isMonthly ? "calc(102%)" : isWeekly? "calc(116%)":  "calc(114%)",
+    left: isMonthly ? "calc(-1%)" :  isWeekly? "calc(-8%)": 'calc(-7%)'
   };
 
   return(
   <Paper
     elevation={1}
     sx={{
-      backgroundColor: "white",
       width: "100%",
       height: 190,
       borderRadius: 2,
@@ -27,7 +27,7 @@ const SaleInfoCard = ({ currentValue, label, iconBgcolor, chartXaxisData, chartY
     }}
   >
     <Box display={'flex'} flexDirection={'row'} justifyContent={'space-around'} alignItems={'center'} mt={2}>
-      <Box color={"#5E5873"}>
+      <Box>
         <Typography fontSize={30} fontWeight={500}>
           {currentValue}
         </Typography>

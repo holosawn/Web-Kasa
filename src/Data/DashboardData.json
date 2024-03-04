@@ -60,60 +60,79 @@
     },
     "topCategories": [
       {
+        "id":"123",
         "name": "Bakery",
-        "sale": 60
+        "qty": 60,
+        "color":"yellow",
+        "totalSale": 600
       },
       {
+        "id":"234",
         "name": "Dairy",
-        "sale": 85
+        "qty": 85,
+        "color":"Aqua",
+        "totalSale": 1100
       },
-      {
+      {        
+        "id":"345",
         "name": "Frozen",
-        "sale": 110
+        "qty": 110,
+        "color":"Coral",
+        "totalSale": 1430
       },
       {
+        "id":"456",
         "name": "Candy",
-        "sale": 20
+        "qty": 20,
+        "color":"Orange",
+        "totalSale": 300
       },
       {
+        "id":"567",
         "name": "Snack",
-        "sale": 50
+        "qty": 50,
+        "color":"Gold",
+        "totalSale": 500
       }
     ],
     "topProducts": [
       {
+        "id":"1234",
         "name": "Bread",
-        "sale": 35
+        "qty": 35,
+        "color":"blue",
+        "totalSale": 40
       },
       {
+        "id":"2345",
         "name": "Eggs",
-        "sale": 28
+        "qty": 28,
+        "color":"yellow",
+        "totalSale": 15
       },
       {
+        "id":"3456",
         "name": "Chocolate",
-        "sale": 15
+        "qty": 15,
+        "color":"black",
+        "totalSale": 18
       },
       {
+        "id":"4567",
         "name": "Frozen Pizza",
-        "sale": 40
+        "qty": 40,
+        "color":"green",
+        "totalSale": 184
       },
       {
+        "id":"5678",
         "name": "Chips",
-        "sale": 25
+        "qty": 25,
+        "color":"Gold",
+        "totalSale": 28
       }
     ],
-    "salesSummary": {
-      "grossSales": 17500,
-      "netSales": 16000,
-      "costOfSales": 13000,
-      "grossProfit": 3000
-    },
-    "salesDeduction": {
-      "grossSales": 17500,
-      "netSales": 16000,
-      "costOfSales": 13000,
-      "grossProfit": 3000
-    }
+    "totalSale":1450
   },
   "yesterday": {
     "salesResultOverTime": {
@@ -176,60 +195,79 @@
     },
     "topCategories": [
       {
+        "id":"123",
         "name": "Bakery",
-        "sale": 65
+        "qty": 70,
+        "color":"yellow",
+        "totalSale": 700
       },
       {
+        "id":"234",
         "name": "Dairy",
-        "sale": 90
+        "qty": 65,
+        "color":"Aqua",
+        "totalSale": 1200
       },
       {
+        "id":"345",
         "name": "Frozen",
-        "sale": 115
+        "qty": 100,
+        "color":"Coral",
+        "totalSale": 1030
       },
       {
+        "id":"456",
         "name": "Candy",
-        "sale": 25
+        "qty": 20,
+        "color":"Cyan",
+        "totalSale": 440
       },
       {
-        "name": "Snack",
-        "sale": 55
+        "id":"678",
+        "name": "Meat & Seafood",
+        "qty": 30,
+        "color":"DarkRed",
+        "totalSale": 2500
       }
     ],
-    "topProducts": [
+    "topProducts":  [
       {
+        "id":"1234",
         "name": "Bread",
-        "sale": 40
+        "qty": 45,
+        "color":"blue",
+        "totalSale": 30
       },
       {
+        "id":"2345",
         "name": "Eggs",
-        "sale": 30
+        "qty": 38,
+        "color":"yellow",
+        "totalSale": 19
       },
       {
+        "id":"3456",
         "name": "Chocolate",
-        "sale": 20
+        "qty": 22,
+        "color":"black",
+        "totalSale": 22
       },
       {
+        "id":"4567",
         "name": "Frozen Pizza",
-        "sale": 45
+        "qty": 15,
+        "color":"green",
+        "totalSale": 132
       },
       {
+        "id":"5678",
         "name": "Chips",
-        "sale": 30
+        "qty": 20,
+        "color":"Gold",
+        "totalSale": 22
       }
     ],
-    "salesSummary": {
-      "grossSales": 18000,
-      "netSales": 17500,
-      "costOfSales": 13000,
-      "grossProfit": 3500
-    },
-    "salesDeduction": {
-      "grossSales": 18000,
-      "netSales": 17500,
-      "costOfSales": 13000,
-      "grossProfit": 3500
-    }
+    "totalSale":1550
   },
   "thisWeek": {
     "salesResultOverTime": {
@@ -290,60 +328,79 @@
     },
     "topCategories": [
       {
+        "id":"123",
         "name": "Bakery",
-        "sale": 62
+        "qty": 393,
+        "color":"yellow",
+        "totalSale": 3570
       },
       {
-        "name": "Dairy",
-        "sale": 87
+        "id":"789",
+        "name": "Everyday Meals",
+        "qty": 205,
+        "color":"Gold",
+        "totalSale": 11200
       },
       {
+        "id":"345",
         "name": "Frozen",
-        "sale": 112
+        "qty": 110,
+        "color":"Coral",
+        "totalSale": 5530
       },
       {
+        "id":"456",
         "name": "Candy",
-        "sale": 22
+        "qty": 105,
+        "color":"Cyan",
+        "totalSale": 1040
       },
       {
-        "name": "Snack",
-        "sale": 52
+        "id":"890",
+        "name": "Diary",
+        "qty": 250,
+        "color":"Aqua",
+        "totalSale": 2940
       }
     ],
     "topProducts": [
       {
+        "id":"1234",
         "name": "Bread",
-        "sale": 37
+        "qty": 54,
+        "color":"blue",
+        "totalSale": 30
       },
       {
+        "id":"2345",
         "name": "Eggs",
-        "sale": 25
+        "qty": 28,
+        "color":"yellow",
+        "totalSale": 14
       },
       {
+        "id":"3456",
         "name": "Chocolate",
-        "sale": 17
+        "qty": 20,
+        "color":"black",
+        "totalSale": 18
       },
       {
+        "id":"4567",
         "name": "Frozen Pizza",
-        "sale": 42
+        "qty": 25,
+        "color":"green",
+        "totalSale": 232
       },
       {
-        "name": "Chips",
-        "sale": 27
+        "id":"5678",
+        "name": "Spinach",
+        "qty": 20,
+        "color":"green",
+        "totalSale": 22
       }
     ],
-    "salesSummary": {
-      "grossSales": 246000,
-      "netSales": 240000,
-      "costOfSales": 200000,
-      "grossProfit": 40000
-    },
-    "salesDeduction": {
-      "grossSales": 246000,
-      "netSales": 240000,
-      "costOfSales": 200000,
-      "grossProfit": 40000
-    }
+    "totalSale":12050
   },
   "lastWeek": {
     "salesResultOverTime": {
@@ -404,60 +461,79 @@
     },
     "topCategories": [
       {
+        "id":"123",
         "name": "Bakery",
-        "sale": 63
+        "qty": 2193,
+        "color":"yellow",
+        "totalSale": 21170
       },
       {
-        "name": "Dairy",
-        "sale": 88
+        "id":"789",
+        "name": "Everyday Meals",
+        "qty": 1405,
+        "color":"Gold",
+        "totalSale": 71200
       },
       {
+        "id":"345",
         "name": "Frozen",
-        "sale": 113
+        "qty": 510,
+        "color":"Coral",
+        "totalSale": 30530
       },
       {
-        "name": "Candy",
-        "sale": 23
+        "id":"901",
+        "name": "Pantry",
+        "qty": 715,
+        "color":"red",
+        "totalSale": 3040
       },
       {
-        "name": "Snack",
-        "sale": 53
+        "id":"902",
+        "name": "Coffee",
+        "qty": 340,
+        "color":"Aqua",
+        "totalSale": 4940
       }
     ],
     "topProducts": [
       {
+        "id":"1234",
         "name": "Bread",
-        "sale": 38
+        "qty": 54,
+        "color":"blue",
+        "totalSale": 30
       },
       {
+        "id":"2435",
         "name": "Eggs",
-        "sale": 26
+        "qty": 28,
+        "color":"yellow",
+        "totalSale": 14
       },
       {
+        "id":"4456",
         "name": "Chocolate",
-        "sale": 18
+        "qty": 20,
+        "color":"black",
+        "totalSale": 18
       },
       {
+        "id":"3567",
         "name": "Frozen Pizza",
-        "sale": 43
+        "qty": 25,
+        "color":"green",
+        "totalSale": 232
       },
       {
-        "name": "Chips",
-        "sale": 28
+        "id":"5678",
+        "name": "Frozen Shrimp",
+        "qty": 30,
+        "color":"green",
+        "totalSale": 364
       }
     ],
-    "salesSummary": {
-      "grossSales": 226000,
-      "netSales": 220000,
-      "costOfSales": 200000,
-      "grossProfit": 20000
-    },
-    "salesDeduction": {
-      "grossSales": 226000,
-      "netSales": 220000,
-      "costOfSales": 200000,
-      "grossProfit": 20000
-    }
+    "totalSale":1050
   },
   "thisMonth": {
     "salesResultOverTime": {
@@ -563,63 +639,82 @@
           "values": [5, 4, 5, 4, 6, 5, 4, 5, 4, 6, 5, 4, 5, 4, 6, 5, 4, 5, 4, 6, 5, 4, 5, 4, 6, 5, 4, 5, 4, 6, 7],
           "total": 25
       }
-    },
+    },    
     "topCategories": [
       {
+        "id":"123",
         "name": "Bakery",
-        "sale": 60
+        "qty": 2830,
+        "color":"yellow",
+        "totalSale": 5850
       },
       {
+        "id":"234",
         "name": "Dairy",
-        "sale": 85
+        "qty": 2405,
+        "color":"Aqua",
+        "totalSale": 9100
       },
-      {
+      {        
+        "id":"345",
         "name": "Frozen",
-        "sale": 110
+        "qty": 3010,
+        "color":"Coral",
+        "totalSale": 24430
       },
       {
+        "id":"456",
         "name": "Candy",
-        "sale": 20
+        "qty": 690,
+        "color":"Orange",
+        "totalSale": 1830
       },
       {
+        "id":"567",
         "name": "Snack",
-        "sale": 50
+        "qty": 323,
+        "color":"Gold",
+        "totalSale": 1530
       }
     ],
     "topProducts": [
       {
+        "id":"1234",
         "name": "Bread",
-        "sale": 35
+        "qty": 1504,
+        "color":"blue",
+        "totalSale": 2894
       },
       {
+        "id":"2435",
         "name": "Eggs",
-        "sale": 28
+        "qty": 648,
+        "color":"yellow",
+        "totalSale": 304
       },
       {
+        "id":"4456",
         "name": "Chocolate",
-        "sale": 15
+        "qty": 570,
+        "color":"black",
+        "totalSale": 980
       },
       {
+        "id":"3567",
         "name": "Frozen Pizza",
-        "sale": 40
+        "qty": 550,
+        "color":"green",
+        "totalSale": 6032
       },
       {
-        "name": "Chips",
-        "sale": 25
+        "id":"5678",
+        "name": "Sliced Bacon",
+        "qty": 258,
+        "color":"green",
+        "totalSale": 3345
       }
     ],
-    "salesSummary": {
-      "grossSales": 930000,
-      "netSales": 900000,
-      "costOfSales": 700000,
-      "grossProfit": 200000
-    },
-    "salesDeduction": {
-      "grossSales": 930000,
-      "netSales": 900000,
-      "costOfSales": 700000,
-      "grossProfit": 200000
-    }
+    "totalSale":28050
   },
   "lastMonth": {
     "salesResultOverTime": {
@@ -728,60 +823,80 @@
     },
     "topCategories": [
       {
+        "id": "123",
         "name": "Bakery",
-        "sale": 62
+        "qty": 2805,
+        "color": "yellow",
+        "totalSale": 5800
       },
       {
+        "id": "234",
         "name": "Dairy",
-        "sale": 87
+        "qty": 2410,
+        "color": "Aqua",
+        "totalSale": 9120
       },
       {
+        "id": "345",
         "name": "Frozen",
-        "sale": 112
+        "qty": 3005,
+        "color": "Coral",
+        "totalSale": 24350
       },
       {
+        "id": "456",
         "name": "Candy",
-        "sale": 22
+        "qty": 700,
+        "color": "Orange",
+        "totalSale": 1800
       },
       {
+        "id": "567",
         "name": "Snack",
-        "sale": 52
+        "qty": 330,
+        "color": "Gold",
+        "totalSale": 1550
       }
     ],
     "topProducts": [
       {
+        "id": "1234",
         "name": "Bread",
-        "sale": 37
+        "qty": 1510,
+        "color": "blue",
+        "totalSale": 2900
       },
       {
+        "id": "2435",
         "name": "Eggs",
-        "sale": 25
+        "qty": 655,
+        "color": "yellow",
+        "totalSale": 320
       },
       {
+        "id": "4456",
         "name": "Chocolate",
-        "sale": 17
+        "qty": 575,
+        "color": "black",
+        "totalSale": 1000
       },
       {
+        "id": "3567",
         "name": "Frozen Pizza",
-        "sale": 42
+        "qty": 555,
+        "color": "green",
+        "totalSale": 6050
       },
       {
-        "name": "Chips",
-        "sale": 27
+        "id": "5678",
+        "name": "Sliced Bacon",
+        "qty": 260,
+        "color": "green",
+        "totalSale": 3350
       }
     ],
-    "salesSummary": {
-      "grossSales": 950000,
-      "netSales": 910000,
-      "costOfSales": 720000,
-      "grossProfit": 190000
-    },
-    "salesDeduction": {
-      "grossSales": 950000,
-      "netSales": 910000,
-      "costOfSales": 720000,
-      "grossProfit": 190000
-    }
+    "totalSale": 28100
+    
   },
   "shifts": [
     {

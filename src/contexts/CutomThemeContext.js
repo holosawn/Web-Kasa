@@ -2,22 +2,48 @@ import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 
 function getTheme(mode){
-    const theme = createTheme({
-      palette:{
-        mode:mode
+  const theme = createTheme({
+    palette:{
+      mode:mode,
+      background: {
+        default: mode === 'dark' ? '#121212' : '#FFFFFF',
+        paper: mode === 'dark' ? '#1E1E1E' : '#F5F5F5',
+        secondary: mode === 'dark' ? '#191919' : '#D1D4DB',
+        tertiary: mode === 'dark' ? '#262626' : '#C9C9C9',
       }
-    })
-    if (mode ==='dark') {
-      theme.palette.background.secondary = '#191919'
-      theme.palette.background.tertiary = '#262626'
+    },
+    components:{
+      MuiCssBaseline:{
+        styleOverrides:{
+          scrollbarColor: mode === 'dark' ? "#6b6b6b #2b2b2b" : "#c0c0c0 #f5f5f5",
+          "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
+            backgroundColor: mode === 'dark' ? "#1E1E1E" : "#FFFFFF",
+            width:'6px'
+          },
+          "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
+            borderRadius: 8,
+            backgroundColor: mode === 'dark' ? "#6b6b6b" : "#c0c0c0",
+            minHeight: 24,
+          },
+          "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus": {
+            backgroundColor: mode === 'dark' ? "#959595" : "#a9a9a9",
+          },
+          "&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active": {
+            backgroundColor: mode === 'dark' ? "#959595" : "#a9a9a9",
+          },
+          "&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover": {
+            backgroundColor: mode === 'dark' ? "#959595" : "#a9a9a9",
+          },
+          "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
+            backgroundColor: mode === 'dark' ? "#2b2b2b" : "#f5f5f5",
+          }
+        }
+      }
     }
-    else if(mode === 'light'){
-      theme.palette.background.secondary = '#D1D4DB'
-      theme.palette.background.tertiary = '#C9C9C9'
-    }
+  });
+  return theme;
+}
 
-    return theme
-  }  
 
 const CustomThemeContext = React.createContext()
 
@@ -36,10 +62,11 @@ export function CustomThemeProvider({children}){
   
   const theme = React.useMemo( ()=> getTheme(mode) ,[mode])
 
+  console.log(theme);
   return(
       <CustomThemeContext.Provider value={{"mode":mode, "setMode":setMode, theme:theme}}>
         <ThemeProvider theme={theme}>
-          <CssBaseline/>
+          <CssBaseline enableColorScheme />
           {children}
         </ThemeProvider>  
       </CustomThemeContext.Provider>

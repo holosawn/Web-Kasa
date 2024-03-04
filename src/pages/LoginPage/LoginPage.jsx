@@ -185,7 +185,6 @@ const LoginPage = () => {
     }
   }, [caretPos]);
 
-  console.log(touched);
   return (
     <Paper
       sx={{

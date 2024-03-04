@@ -6,7 +6,7 @@ import netSalesIcon from '../../../assets/PriceTag.svg';
 import costOfSalesIcon from '../../../assets/Coin.svg';
 import grossProfitIcon from '../../../assets/Graph.svg';
 
-const SalesSummaryInfo = ({ salesData, timeline }) => (
+const SalesResultInfo = ({ salesData, timeline }) => (
   <Grid
     container
     width={'99%'}
@@ -20,50 +20,50 @@ const SalesSummaryInfo = ({ salesData, timeline }) => (
     <Grid item xs={6} md={3}>
       <SaleInfoCard
         label={"Gross Sales"}
-        currentValue={salesData.salesSummary.grossSales}
+        currentValue={salesData.salesResult.grossSales}
         iconSrc={grossSalesIcon}
         iconSx={{
           backgroundColor:"#EEEDFD",
         }}
-        chartXaxisData={salesData.salesSummaryoverTime.date.values}
-        chartYaxisData={salesData.salesSummaryoverTime.grossSales.values}
+        chartXaxisData={salesData.salesResultoverTime.date.values}
+        chartYaxisData={salesData.salesResultoverTime.grossSales.values}
         timeline={timeline}
       />
     </Grid>
     <Grid item xs={6} md={3}>
       <SaleInfoCard
         label={"Net Sales"}
-        currentValue={salesData.salesSummary.netSales}
+        currentValue={salesData.salesResult.netSales}
         iconSrc={netSalesIcon}
         iconBgcolor={"#E5F8ED"}
-        chartXaxisData={salesData.salesSummaryoverTime.date.values}
-        chartYaxisData={salesData.salesSummaryoverTime.netSales.values}
+        chartXaxisData={salesData.salesResultoverTime.date.values}
+        chartYaxisData={salesData.salesResultoverTime.netSales.values}
         timeline={timeline}
       />
     </Grid>
     <Grid item xs={6} md={3}>
       <SaleInfoCard
         label={"Cost of Sales"}
-        currentValue={salesData.salesSummary.costOfSales}
+        currentValue={salesData.salesResult.costOfSales}
         iconSrc={costOfSalesIcon}
         iconBgcolor={"#FCEAEA"}
-        chartXaxisData={salesData.salesSummaryoverTime.date.values}
-        chartYaxisData={salesData.salesSummaryoverTime.costOfSales.values}
+        chartXaxisData={salesData.salesResultoverTime.date.values}
+        chartYaxisData={salesData.salesResultoverTime.costOfSales.values}
         timeline={timeline}
       />
     </Grid>
     <Grid item xs={6} md={3}>
       <SaleInfoCard
         label={"Gross Profit"}
-        currentValue={salesData.salesSummary.grossProfit}
+        currentValue={salesData.salesResult.grossProfit}
         iconSrc={grossProfitIcon}
         iconBgcolor={"#FFF3E8"}
-        chartXaxisData={salesData.salesSummaryoverTime.date.values}
-        chartYaxisData={salesData.salesSummaryoverTime.grossProfit.values}
+        chartXaxisData={salesData.salesResultoverTime.date.values}
+        chartYaxisData={salesData.salesResultoverTime.grossProfit.values}
         timeline={timeline}
       />
     </Grid>
   </Grid>
 );
 
-export default SalesSummaryInfo;
+export default SalesResultInfo;

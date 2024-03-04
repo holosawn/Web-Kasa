@@ -42,7 +42,6 @@ export default function MultiLineChart({ series, dates, timeline }) {
       sx={{
         width: { md: "70%", xs: "98%" },
         height: "510px",
-        backgroundColor: "white",
         borderRadius: 5,
         mx: 1,
       }}
@@ -67,7 +66,6 @@ export default function MultiLineChart({ series, dates, timeline }) {
             data: dateObjects,
             scaleType: "band",
             id: "x-axis-id",
-            stroke: "gray",
             valueFormatter: (dateItem) =>
               dateValueFormatter(dateItem, dateOptions),
           },
@@ -111,7 +109,6 @@ export default function MultiLineChart({ series, dates, timeline }) {
         <ChartsXAxis
           position="bottom"
           axisId="x-axis-id"
-          stroke="gray"
           disableTicks={true}
         />
         <ChartsYAxis position="left" axisId="y-axis-id" disableLine={true} />

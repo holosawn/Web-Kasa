@@ -30,17 +30,16 @@ const getButtonStyle=(pageName, currentPage)=>({
   display:'flex',
   flexDirection:'row',
   justifyContent:'start',
-  backgroundColor: 'white',
   ...(currentPage === pageName && {
     borderInlineStart: '6px solid #0E4D90',
-    backgroundColor: '#F0F2F5'
+    backgroundColor: 'background.secondary'
   }),
   transition: 'width 0.3s linear',
-  ":hover":{backgroundColor:'#F0F2F5'},
+  ":hover":{backgroundColor:'background.secondary'},
 })
 
-const IconDescription = ({children, isMenuOpen, color})=>(
-  <Typography ml={2} variant='body2' fontSize={{xs:12, sm:14}} textTransform={'none'} color={color ? color : '#0E4D90'} whiteSpace={'nowrap'} overflow={'hidden'} sx={{transition:'opacity 0.3s', opacity:isMenuOpen? 1 : 0}}
+const IconDescription = ({children, isMenuOpen, currentPage=false ,  color})=>(
+  <Typography ml={2} variant='body2' fontSize={{xs:12, sm:14}} textTransform={'none'} color={color ? color : currentPage? '#0E4D90' : 'text.primary'} whiteSpace={'nowrap'} overflow={'hidden'} sx={{transition:'opacity 0.3s', opacity:isMenuOpen? 1 : 0}}
   >
       {children}
   </Typography>
@@ -59,17 +58,16 @@ const MenuSideBar = () => {
 
   return (
     <Paper elevation={1} sx={{width: isMenuOpen? '30vw':'70px', maxWidth:   210, minWidth: 50, position:'fixed', 
-      left:0, top:64, zIndex:999, backgroundColor: 'white', height:`calc(100vh - 64px)` , transition: 'width 0.3s linear', overflowy:'auto',
-     
+      left:0, top:64, zIndex:999, height:`calc(100vh - 64px)` , transition: 'width 0.3s linear', overflowy:'auto',
     }}>
       <Box height={60} display={'flex'} flexDirection={'row'} alignItems={'center'}  >
           <AccountCircleIcon sx={{...getIconStyle('', currentPage), ml:2.5}} />
           
           <Box flexDirection={'column'} overflow={'hidden'} alignItems={'center'} ml={2} sx={{opacity:isMenuOpen? 1 : 0, transition:'opacity 0.3s'}} >
-              <Typography fontSize={{xs:12, sm:14}} variant="subtitle2" component="div" color={'gray'} textTransform={'none'} overflow={'hidden'} whiteSpace={'nowrap'} >
+              <Typography fontSize={{xs:12, sm:14}} variant="subtitle2" component="div" textTransform={'none'} overflow={'hidden'} whiteSpace={'nowrap'} >
               Kate Grimes
               </Typography>
-              <Typography fontSize={{xs:12, sm:14}} variant="subtitle2" component="div" color={'gray'} textTransform={'none'} overflow={'hidden'} whiteSpace={'nowrap'}>
+              <Typography fontSize={{xs:12, sm:14}} variant="subtitle2" component="div" textTransform={'none'} overflow={'hidden'} whiteSpace={'nowrap'}>
               Login Time: 12:26 
               </Typography>
           </Box>
@@ -79,7 +77,7 @@ const MenuSideBar = () => {
       <Tooltip title='Dashboard' arrow >
         <Button sx={getButtonStyle("Menu", currentPage)}>
             <BarChartSharpIcon sx={getIconStyle('Menu', currentPage)} />
-            <IconDescription isMenuOpen={isMenuOpen}>Dashboard</IconDescription>
+            <IconDescription currentPage={'Menu' === currentPage} isMenuOpen={isMenuOpen}>Dashboard</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title="Sale" arrow>
@@ -91,31 +89,31 @@ const MenuSideBar = () => {
       <Tooltip title="Refunds" arrow>
         <Button sx={getButtonStyle("Refund", currentPage)}>
           <RefundsIcon sx={getIconStyle('Refund', currentPage)} />
-          <IconDescription isMenuOpen={isMenuOpen}>Refunds</IconDescription>
+          <IconDescription currentPage={'Refunds' === currentPage} isMenuOpen={isMenuOpen}>Refunds</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title="Manage Sales" arrow>
         <Button sx={getButtonStyle("ManageSales", currentPage)}>
             <ReportsIcon sx={getIconStyle('ManageSales', currentPage)} />
-            <IconDescription isMenuOpen={isMenuOpen}>Manage Sales</IconDescription>
+            <IconDescription currentPage={'ManageSales' === currentPage} isMenuOpen={isMenuOpen}>Manage Sales</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title='Products' arrow>
         <Button sx={getButtonStyle("Products", currentPage)}>
             <ProductsIcon sx={getIconStyle('Products', currentPage)} />
-            <IconDescription isMenuOpen={isMenuOpen}>Products</IconDescription>
+            <IconDescription currentPage={'Products' === currentPage} isMenuOpen={isMenuOpen}>Products</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title='Reports' arrow >
         <Button sx={getButtonStyle("Reports", currentPage)}>
             <LibraryBooksRoundedIcon sx={getIconStyle('Reports', currentPage)} />
-            <IconDescription isMenuOpen={isMenuOpen}>Reports</IconDescription>
+            <IconDescription currentPage={'Reports' === currentPage} isMenuOpen={isMenuOpen}>Reports</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title='Settings' arrow>
         <Button sx={getButtonStyle("Settings", currentPage)}>
             <SettingsIcon sx={getIconStyle('Settings', currentPage)} />
-            <IconDescription isMenuOpen={isMenuOpen}>Settings</IconDescription>
+            <IconDescription currentPage={'Settings' === currentPage} isMenuOpen={isMenuOpen}>Settings</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title='Exit' arrow>
