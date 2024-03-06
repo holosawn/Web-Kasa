@@ -13,35 +13,90 @@ import {
 import { Paper } from "@mui/material";
 import { getDateOptions, dateValueFormatter } from "../utils/helpers";
 
-function roundToClosestNonZero(num) {
-  let numStr = num.toString();
-  let firstDigit = parseInt(numStr[0]) + 1;
-  if (firstDigit === 10) {
-    firstDigit = 1;
-    numStr = "1" + "0".repeat(numStr.length);
-  } else {
-    numStr = firstDigit.toString() + "0".repeat(numStr.length - 1);
+function calculateLinearScaleDomain(data, marginTop, marginBottom) {
+  const minValue = 0; // Minimum value for the domain
+  const maxValue = Math.max(...data); // Maximum value from the data
+
+  // Nice the domain to make it more human-readable
+  const niceMinValue = minValue;
+  const niceMaxValue = Math.ceil(maxValue / 10) * 10; // Round up to the nearest 10
+
+  // Calculate the range based on the provided margins and height
+  const height = 500; // Example height of the chart
+  const rangeMin = height - marginBottom;
+  const rangeMax = marginTop;
+
+  // Return the domain and range as an object
+  return {
+      domain: [niceMinValue, niceMaxValue],
+      range: [rangeMin, rangeMax]
+  };
+}
+
+function nice(domain, count = 5) {
+  let start = domain[0];
+  let stop = domain[1];
+  let step = Math.pow(10, Math.floor(Math.log10(stop - start) - 1));
+
+  step = step * Math.ceil((stop - start) / step / count);
+
+  start = Math.floor(start / step) * step;
+  stop = Math.ceil(stop / step) * step;
+
+  return [start, stop];
+}
+
+function customConfigureTickNumber(startNum, stopNum){
+  let start = startNum, stop = stopNum;
+  
+  const count = 7;
+  const range = stop-start;
+  const step = tickIncrement(startNum, stopNum, count);
+  start = Math.ceil(start/step)
+  stop = Math.floor(stop/step);
+  const ticks=[];
+  
+
+  for (let i = 0 ; i < Math.ceil(stop - start + 1); i++) {
+    ticks[i] = (start + i) * step;
   }
-  return parseInt(numStr);
+
+  return ticks;
+};
+
+export function tickIncrement(start, stop, count) {
+  const e10 = Math.sqrt(50), // Adjust these values as per your requirements
+        e5 = Math.sqrt(10),
+        e2 = Math.sqrt(2);
+
+  let step = (stop - start) / Math.max(0, count),
+      power = Math.floor(Math.log(step) / Math.LN10),
+      error = step / Math.pow(10, power);
+
+
+  return power >= 0
+      ? (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1) * Math.pow(10, power)
+      : -Math.pow(10, -power) / (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1);
 }
 
 
-export default function MultiLineChart({ series, dates, timeline }) {
-  // todo: fix the wrong reference lines
+export default function MultiLineChart({ series, dates, timeline, height }) {
 
   const dateObjects = dates.map((item) => new Date(item));
   const dataArray = series.map((obj) => obj.data);
   const flattenData = dataArray.reduce((acc, curr) => acc.concat(curr), []);
 
-  const maxRef = roundToClosestNonZero(Math.max(...flattenData));
   const dateOptions = getDateOptions(timeline);
+
+  const scaleProperties = calculateLinearScaleDomain(flattenData,0, 0);
+  const tickValues = customConfigureTickNumber(...nice(scaleProperties.domain));
 
   return (
     <Paper
       elevation={1}
       sx={{
         width: { md: "70%", xs: "98%" },
-        height: "510px",
+        height: height ? height :"510px",
         borderRadius: 5,
         mx: 1,
       }}
@@ -55,6 +110,10 @@ export default function MultiLineChart({ series, dates, timeline }) {
           ".MuiMarkElement-highlighted": {
             strokeWidth: 6,
             transition: "all 0.15s ease",
+          },
+          ".MuiChartsAxis-tick":{
+            stroke:'gray',
+            strokeWidth:0.5
           },
           ".MuiMarkElement-root:not(.MuiMarkElement-highlighted)": {
             display: "none",
@@ -77,26 +136,14 @@ export default function MultiLineChart({ series, dates, timeline }) {
           },
         ]}
       >
-        <ChartsReferenceLine
-          y={0}
-          lineStyle={{ stroke: "#E8E8E8", zIndex: 1 }}
-        />
-        <ChartsReferenceLine
-          y={(maxRef * 1) / 5}
-          lineStyle={{ stroke: "#E8E8E8", zIndex: 1 }}
-        />
-        <ChartsReferenceLine
-          y={(maxRef * 2) / 5}
-          lineStyle={{ stroke: "#E8E8E8", zIndex: 1 }}
-        />
-        <ChartsReferenceLine
-          y={(maxRef * 3) / 5}
-          lineStyle={{ stroke: "#E8E8E8", zIndex: 1 }}
-        />
-        <ChartsReferenceLine
-          y={maxRef}
-          lineStyle={{ stroke: "#E8E8E8", zIndex: 1 }}
-        />
+        {tickValues.map(coord =>(
+          <ChartsReferenceLine
+            key={coord}
+            y={coord}
+            lineStyle={{strokeWidth:0.5, stroke:'gray'}}
+          />
+        ))}
+
         <BarPlot />
         <LinePlot />
         <MarkPlot />

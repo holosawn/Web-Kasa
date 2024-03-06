@@ -116,7 +116,6 @@ const SalesDeductionChart = ({ data, timeline }) => {
 
 const Dashboard = () => {
   //todo add currency types
-  //todo deduction lineCharts show same data
     const [timeline, setTimeline] = useState("today");
     const { data, error, isLoading  } = useFetchData(`/DashboardData/${timeline}`);
 

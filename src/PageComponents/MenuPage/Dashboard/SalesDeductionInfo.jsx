@@ -5,9 +5,7 @@ import refundIcon from '../../../assets/refund.svg';
 import creditNoteIcon from '../../../assets/creditNote.svg';
 import SaleInfoCard from '../../../PageComponents/MenuPage/Dashboard/SaleInfoCard';
 
-const SalesDeductionInfo = ({ salesData, timeline }) => {
-  console.log(salesData);
-  return(
+const SalesDeductionInfo = ({ salesData, timeline }) => (
   <Grid
     container
     width={'100%'}
@@ -68,6 +66,6 @@ const SalesDeductionInfo = ({ salesData, timeline }) => {
       />
     </Grid>
   </Grid>
-)};
+);
 
 export default SalesDeductionInfo;

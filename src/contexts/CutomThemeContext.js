@@ -6,8 +6,8 @@ function getTheme(mode){
     palette:{
       mode:mode,
       background: {
-        default: mode === 'dark' ? '#121212' : '#FFFFFF',
-        paper: mode === 'dark' ? '#1E1E1E' : '#F5F5F5',
+        default: mode === 'dark' ? '#121212' : '#EAEBEF',
+        paper: mode === 'dark' ? '#1E1E1E' : '#FFFFFF',
         secondary: mode === 'dark' ? '#191919' : '#D1D4DB',
         tertiary: mode === 'dark' ? '#262626' : '#C9C9C9',
       }
@@ -49,7 +49,7 @@ const CustomThemeContext = React.createContext()
 
 export function CustomThemeProvider({children}){
   const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
-  const [mode, setMode] = useState(prefersDarkMode.matches ? 'light' : 'light');
+  const [mode, setMode] = useState(prefersDarkMode.matches ? 'dark' : 'light');
   
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');

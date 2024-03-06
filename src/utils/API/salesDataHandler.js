@@ -16,8 +16,6 @@ for (const financial in data.salesResultOverTime ) {
 const salesDeduction={};
 
 for (const financial in data.salesDeductionOverTime ) {
-    console.log(financial);
-    console.log(salesDeduction)
     if (financial === 'date') {
         continue;
     } else {
