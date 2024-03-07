@@ -49,7 +49,7 @@ const CustomThemeContext = React.createContext()
 
 export function CustomThemeProvider({children}){
   const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
-  const [mode, setMode] = useState(prefersDarkMode.matches ? 'dark' : 'light');
+  const [mode, setMode] = useState(prefersDarkMode.matches ? 'light' : 'light');
   
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -62,7 +62,6 @@ export function CustomThemeProvider({children}){
   
   const theme = React.useMemo( ()=> getTheme(mode) ,[mode])
 
-  console.log(theme);
   return(
       <CustomThemeContext.Provider value={{"mode":mode, "setMode":setMode, theme:theme}}>
         <ThemeProvider theme={theme}>

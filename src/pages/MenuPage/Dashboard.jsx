@@ -5,6 +5,7 @@ import useFetchData from '../../CustomHooks/useFetchData'
 import SalesResultInfo from '../../PageComponents/MenuPage/Dashboard/SalesResultInfo';
 import TopEntitiesList from '../../PageComponents/MenuPage/Dashboard/TopEntitiesList';
 import SalesDeductionInfo from '../../PageComponents/MenuPage/Dashboard/SalesDeductionInfo';
+import { t } from 'i18next';
 
 
 const SelectTimeline = ({ timeline, setTimeline }) => {
@@ -24,12 +25,12 @@ const SelectTimeline = ({ timeline, setTimeline }) => {
           padding: 0,
         }}
       >
-        <MenuItem value={"today"}>Today</MenuItem>
-        <MenuItem value={"yesterday"}>Yesterday</MenuItem>
-        <MenuItem value={"thisWeek"}>Thish Week</MenuItem>
-        <MenuItem value={"thisMonth"}>This Month</MenuItem>
-        <MenuItem value={"lastWeek"}>Last Week</MenuItem>
-        <MenuItem value={"lastMonth"}>Last Month</MenuItem>
+        <MenuItem value={"today"}>{t('dashboard.today')}</MenuItem>
+        <MenuItem value={"yesterday"}>{t('dashboard.yesterday')}</MenuItem>
+        <MenuItem value={"thisWeek"}>{t('dashboard.thisWeek')}</MenuItem>
+        <MenuItem value={"lastWeek"}>{t('dashboard.lastWeek')}</MenuItem>
+        <MenuItem value={"thisMonth"}>{t('dashboard.thisMonth')}</MenuItem>
+        <MenuItem value={"lastMonth"}>{t('dashboard.lastMonth')}</MenuItem>
       </Select>
     );
 };
@@ -46,26 +47,26 @@ const SalesResultChart = ({ data, timeline }) => {
       {
         type: "bar",
         data: grossSalesData,
-        label: "Gross Sales",
+        label: t('dashboard.grossSales'),
         color: "#5F9DDD",
       },
       {
         type: "line",
         data: netSalesData,
-        label: "Net Sales",
+        label: t('dashboard.netSales'),
         color: "#28C76F",
       },
       {
         type: "line",
         data: costOfSalesData,
-        label: "Cost Of Sales",
+        label: t('dashboard.costOfSales'),
         color: "#ED6D6E",
       },
       {
         type: "line",
         data: grossProfitData,
         color: "#FF9F43",
-        label: "Gross Sales",
+        label: t('dashboard.grossSales'),
       },
     ];
   
@@ -88,19 +89,19 @@ const SalesDeductionChart = ({ data, timeline }) => {
     {
       type: "bar",
       data: discountData,
-      label: "Discount ",
+      label: t('dashboard.discount'),
       color: "#5F9DDD",
     },
     {
       type: "line",
       data: cashRefundData,
-      label: "Cash Refund",
+      label: t('dashboard.cashRefund'),
       color: "#28C76F",
     },
     {
       type: "line",
       data: creditNoteData,
-      label: "Credit Note",
+      label: t('dashboard.creditNote'),
       color: "#ED6D6E",
     },
   ];
@@ -122,7 +123,7 @@ const Dashboard = () => {
     if (isLoading) {
         return (
           <Box>
-            <Typography>...Loading</Typography>
+            <Typography>...{t('common.loading')}</Typography>
           </Box>
         );
       }
@@ -157,7 +158,7 @@ const Dashboard = () => {
             justifyContent={"stretch"}
           >
             <SalesResultChart data={data.salesResultOverTime} timeline={timeline} />
-            <TopEntitiesList topSoldEntities={data.topProducts} totalSale={data.totalSale} timeline={timeline} label={'Top Products'} />
+            <TopEntitiesList topSoldEntities={data.topProducts} totalSale={data.totalSale} timeline={timeline} label={t('dashboard.topProducts')} />
           </Box>    
 
         <SalesDeductionInfo salesData={{"salesDeduction": data.salesDeduction, "salesDeductionOverTime": data.salesDeductionOverTime}} timeline={timeline} />
@@ -168,7 +169,7 @@ const Dashboard = () => {
           justifyContent={"stretch"}
         >
           <SalesDeductionChart data={data.salesDeductionOverTime} timeline={timeline} />
-          <TopEntitiesList topSoldEntities={data.topCategories} totalSale={data.totalSale} timeline={timeline} label={'Top Categories'}/>
+          <TopEntitiesList topSoldEntities={data.topCategories} totalSale={data.totalSale} timeline={timeline} label={t('dashboard.topCategories')}/>
         </Box>
     </Box> 
   )

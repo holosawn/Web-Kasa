@@ -4,6 +4,7 @@ import discountIcon from '../../../assets/discount.svg';
 import refundIcon from '../../../assets/refund.svg';
 import creditNoteIcon from '../../../assets/creditNote.svg';
 import SaleInfoCard from '../../../PageComponents/MenuPage/Dashboard/SaleInfoCard';
+import { t } from 'i18next';
 
 const SalesDeductionInfo = ({ salesData, timeline }) => (
   <Grid
@@ -18,7 +19,7 @@ const SalesDeductionInfo = ({ salesData, timeline }) => (
   >
     <Grid item xs={12} md={4}>
       <SaleInfoCard
-        label={"Discount"}
+        label={t('dashboard.discount')}
         currentValue={salesData.salesDeduction.discount}
         iconSrc={discountIcon}
         iconSx={{
@@ -34,7 +35,7 @@ const SalesDeductionInfo = ({ salesData, timeline }) => (
     </Grid>
     <Grid item xs={12} md={4}>
       <SaleInfoCard
-        label={"Cash Refund"}
+        label={t('dashboard.cashRefund')}
         currentValue={salesData.salesDeduction.cashRefund}
         iconSrc={refundIcon}
         iconSx={{
@@ -51,7 +52,7 @@ const SalesDeductionInfo = ({ salesData, timeline }) => (
     </Grid>
     <Grid item xs={12} md={4}>
       <SaleInfoCard
-        label={"Credit Note"}
+        label={t('dashboard.creditNote')}
         currentValue={salesData.salesDeduction.creditNote}
         iconSrc={creditNoteIcon}
         iconSx={{

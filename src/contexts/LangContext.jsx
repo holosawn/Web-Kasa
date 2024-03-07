@@ -9,7 +9,7 @@ export function LanguageProvider({ initialState = 'en', children }) {
     i18n.changeLanguage(lang)
   
     return (
-      <LanguageContext.Provider value={[lang, setLang]}>
+      <LanguageContext.Provider value={{"lang": lang, "setLang": setLang}}>
         {children}
       </LanguageContext.Provider>
     )

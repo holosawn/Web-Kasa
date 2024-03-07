@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   IconButton,
   InputAdornment,
   TextField,
@@ -77,7 +76,7 @@ const LoginPage = () => {
   const [caretPos, setCaretPos] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const [isButtonLoading, setIsButtonLoading] = useState();
-  const [lang, setLang] = useLanguage();
+  const {lang, setLang} = useLanguage();
   const navigate = useNavigate();
   const {data, error, isLoading} = useFetchData('/')
   const { mode } = useCustomTheme();

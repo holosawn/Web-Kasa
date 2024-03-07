@@ -60,75 +60,115 @@
     },
     "topCategories": [
       {
-        "id":"123",
-        "name": "Bakery",
+        "id": "123",
+        "name": {
+          "en": "Bakery",
+          "tr": "Fırın Mamulleri",
+          "ru": "Пекарня"
+        },
         "qty": 60,
-        "color":"yellow",
+        "color": "yellow",
         "totalSale": 600
       },
       {
-        "id":"234",
-        "name": "Dairy",
+        "id": "234",
+        "name": {
+          "en": "Dairy",
+          "tr": "Süt Ürünleri",
+          "ru": "Молочные продукты"
+        },
         "qty": 85,
-        "color":"Aqua",
+        "color": "Aqua",
         "totalSale": 1100
       },
-      {        
-        "id":"345",
-        "name": "Frozen",
+      {
+        "id": "345",
+        "name": {
+          "en": "Frozen",
+          "tr": "Dondurulmuş Gıda",
+          "ru": "Замороженные"
+        },
         "qty": 110,
-        "color":"Coral",
+        "color": "Coral",
         "totalSale": 1430
       },
       {
-        "id":"456",
-        "name": "Candy",
+        "id": "456",
+        "name": {
+          "en": "Candy",
+          "tr": "Şekerleme",
+          "ru": "Конфеты"
+        },
         "qty": 20,
-        "color":"Orange",
+        "color": "Orange",
         "totalSale": 300
       },
       {
-        "id":"567",
-        "name": "Snack",
+        "id": "567",
+        "name": {
+          "en": "Snack",
+          "tr": "Atıştırmalık",
+          "ru": "Закуска"
+        },
         "qty": 50,
-        "color":"Gold",
+        "color": "Gold",
         "totalSale": 500
       }
     ],
     "topProducts": [
       {
-        "id":"1234",
-        "name": "Bread",
+        "id": "1234",
+        "name": {
+          "en": "Bread",
+          "tr": "Ekmek",
+          "ru": "Хлеб"
+        },
         "qty": 35,
-        "color":"blue",
+        "color": "blue",
         "totalSale": 40
       },
       {
-        "id":"2345",
-        "name": "Eggs",
+        "id": "2345",
+        "name": {
+          "en": "Eggs",
+          "tr": "Yumurta",
+          "ru": "Яйца"
+        },
         "qty": 28,
-        "color":"yellow",
+        "color": "yellow",
         "totalSale": 15
       },
       {
-        "id":"3456",
-        "name": "Chocolate",
+        "id": "3456",
+        "name": {
+          "en": "Chocolate",
+          "tr": "Çikolata",
+          "ru": "Шоколад"
+        },
         "qty": 15,
-        "color":"black",
+        "color": "black",
         "totalSale": 18
       },
       {
-        "id":"4567",
-        "name": "Frozen Pizza",
+        "id": "4567",
+        "name": {
+          "en": "Frozen Pizza",
+          "tr": "Dondurulmuş Pizza",
+          "ru": "Замороженная пицца"
+        },
         "qty": 40,
-        "color":"green",
+        "color": "green",
         "totalSale": 184
       },
       {
-        "id":"5678",
-        "name": "Chips",
+        "id": "5678",
+        "name": {
+          "en": "Chips",
+          "tr": "Cips",
+          "ru": "Чипсы"
+        },
         "qty": 25,
-        "color":"Gold",
+        "color": "Gold",
         "totalSale": 28
       }
     ],
@@ -195,75 +235,115 @@
     },
     "topCategories": [
       {
-        "id":"123",
-        "name": "Bakery",
+        "id": "123",
+        "name": {
+          "en": "Bakery",
+          "tr": "Fırın",
+          "ru": "Пекарня"
+        },
         "qty": 70,
-        "color":"yellow",
+        "color": "yellow",
         "totalSale": 700
       },
       {
-        "id":"234",
-        "name": "Dairy",
+        "id": "234",
+        "name": {
+          "en": "Dairy",
+          "tr": "Süt Ürünleri",
+          "ru": "Молочные продукты"
+        },
         "qty": 65,
-        "color":"Aqua",
+        "color": "Aqua",
         "totalSale": 1200
       },
       {
-        "id":"345",
-        "name": "Frozen",
+        "id": "345",
+        "name": {
+          "en": "Frozen",
+          "tr": "Dondurulmuş Gıda",
+          "ru": "Замороженные"
+        },
         "qty": 100,
-        "color":"Coral",
+        "color": "Coral",
         "totalSale": 1030
       },
       {
-        "id":"456",
-        "name": "Candy",
+        "id": "456",
+        "name": {
+          "en": "Candy",
+          "tr": "Şekerleme",
+          "ru": "Конфеты"
+        },
         "qty": 20,
-        "color":"Cyan",
+        "color": "Cyan",
         "totalSale": 440
       },
       {
-        "id":"678",
-        "name": "Meat & Seafood",
+        "id": "678",
+        "name": {
+          "en": "Meat & Seafood",
+          "tr": "Et ve Deniz Ürünleri",
+          "ru": "Мясо и морепродукты"
+        },
         "qty": 30,
-        "color":"DarkRed",
+        "color": "DarkRed",
         "totalSale": 2500
       }
     ],
-    "topProducts":  [
+    "topProducts": [
       {
-        "id":"1234",
-        "name": "Bread",
+        "id": "1234",
+        "name": {
+          "en": "Bread",
+          "tr": "Ekmek",
+          "ru": "Хлеб"
+        },
         "qty": 45,
-        "color":"blue",
+        "color": "blue",
         "totalSale": 30
       },
       {
-        "id":"2345",
-        "name": "Eggs",
+        "id": "2345",
+        "name": {
+          "en": "Eggs",
+          "tr": "Yumurta",
+          "ru": "Яйца"
+        },
         "qty": 38,
-        "color":"yellow",
+        "color": "yellow",
         "totalSale": 19
       },
       {
-        "id":"3456",
-        "name": "Chocolate",
+        "id": "3456",
+        "name": {
+          "en": "Chocolate",
+          "tr": "Çikolata",
+          "ru": "Шоколад"
+        },
         "qty": 22,
-        "color":"black",
+        "color": "black",
         "totalSale": 22
       },
       {
-        "id":"4567",
-        "name": "Frozen Pizza",
+        "id": "4567",
+        "name": {
+          "en": "Frozen Pizza",
+          "tr": "Dondurulmuş Pizza",
+          "ru": "Замороженная пицца"
+        },
         "qty": 15,
-        "color":"green",
+        "color": "green",
         "totalSale": 132
       },
       {
-        "id":"5678",
-        "name": "Chips",
+        "id": "5678",
+        "name": {
+          "en": "Chips",
+          "tr": "Cips",
+          "ru": "Чипсы"
+        },
         "qty": 20,
-        "color":"Gold",
+        "color": "Gold",
         "totalSale": 22
       }
     ],
@@ -328,75 +408,115 @@
     },
     "topCategories": [
       {
-        "id":"123",
-        "name": "Bakery",
+        "id": "123",
+        "name": {
+          "en": "Bakery",
+          "tr": "Fırın",
+          "ru": "Пекарня"
+        },
         "qty": 393,
-        "color":"yellow",
+        "color": "yellow",
         "totalSale": 3570
       },
       {
-        "id":"789",
-        "name": "Everyday Meals",
+        "id": "789",
+        "name": {
+          "en": "Everyday Meals",
+          "tr": "Günlük Yemekler",
+          "ru": "Повседневные блюда"
+        },
         "qty": 205,
-        "color":"Gold",
+        "color": "Gold",
         "totalSale": 11200
       },
       {
-        "id":"345",
-        "name": "Frozen",
+        "id": "345",
+        "name": {
+          "en": "Frozen",
+          "tr": "Dondurulmuş",
+          "ru": "Замороженный"
+        },
         "qty": 110,
-        "color":"Coral",
+        "color": "Coral",
         "totalSale": 5530
       },
       {
-        "id":"456",
-        "name": "Candy",
+        "id": "456",
+        "name": {
+          "en": "Candy",
+          "tr": "Şekerleme",
+          "ru": "Конфеты"
+        },
         "qty": 105,
-        "color":"Cyan",
+        "color": "Cyan",
         "totalSale": 1040
       },
       {
-        "id":"890",
-        "name": "Diary",
+        "id": "890",
+        "name": {
+          "en": "Diary",
+          "tr": "Günlük",
+          "ru": "Ежедневник"
+        },
         "qty": 250,
-        "color":"Aqua",
+        "color": "Aqua",
         "totalSale": 2940
       }
     ],
     "topProducts": [
       {
-        "id":"1234",
-        "name": "Bread",
+        "id": "1234",
+        "name": {
+          "en": "Bread",
+          "tr": "Ekmek",
+          "ru": "Хлеб"
+        },
         "qty": 54,
-        "color":"blue",
+        "color": "blue",
         "totalSale": 30
       },
       {
-        "id":"2345",
-        "name": "Eggs",
+        "id": "2345",
+        "name": {
+          "en": "Eggs",
+          "tr": "Yumurta",
+          "ru": "Яйца"
+        },
         "qty": 28,
-        "color":"yellow",
+        "color": "yellow",
         "totalSale": 14
       },
       {
-        "id":"3456",
-        "name": "Chocolate",
+        "id": "3456",
+        "name": {
+          "en": "Chocolate",
+          "tr": "Çikolata",
+          "ru": "Шоколад"
+        },
         "qty": 20,
-        "color":"black",
+        "color": "black",
         "totalSale": 18
       },
       {
-        "id":"4567",
-        "name": "Frozen Pizza",
+        "id": "4567",
+        "name": {
+          "en": "Frozen Pizza",
+          "tr": "Dondurulmuş Pizza",
+          "ru": "Замороженная пицца"
+        },
         "qty": 25,
-        "color":"green",
+        "color": "green",
         "totalSale": 232
       },
       {
-        "id":"5678",
-        "name": "Spinach",
+        "id": "5678",
+        "name": {
+          "en": "Spinach",
+          "tr": "Ispanak",
+          "ru": "Шпинат"
+        },
         "qty": 20,
-        "color":"green",
+        "color": "green",
         "totalSale": 22
       }
     ],
@@ -461,75 +581,115 @@
     },
     "topCategories": [
       {
-        "id":"123",
-        "name": "Bakery",
+        "id": "123",
+        "name": {
+          "en": "Bakery",
+          "tr": "Fırın",
+          "ru": "Пекарня"
+        },
         "qty": 2193,
-        "color":"yellow",
+        "color": "yellow",
         "totalSale": 21170
       },
       {
-        "id":"789",
-        "name": "Everyday Meals",
+        "id": "789",
+        "name": {
+          "en": "Everyday Meals",
+          "tr": "Günlük Yemekler",
+          "ru": "Повседневные блюда"
+        },
         "qty": 1405,
-        "color":"Gold",
+        "color": "Gold",
         "totalSale": 71200
       },
       {
-        "id":"345",
-        "name": "Frozen",
+        "id": "345",
+        "name": {
+          "en": "Frozen",
+          "tr": "Dondurulmuş",
+          "ru": "Замороженный"
+        },
         "qty": 510,
-        "color":"Coral",
+        "color": "Coral",
         "totalSale": 30530
       },
       {
-        "id":"901",
-        "name": "Pantry",
+        "id": "901",
+        "name": {
+          "en": "Pantry",
+          "tr": "Kiler",
+          "ru": "Постель"
+        },
         "qty": 715,
-        "color":"red",
+        "color": "red",
         "totalSale": 3040
       },
       {
-        "id":"902",
-        "name": "Coffee",
+        "id": "902",
+        "name": {
+          "en": "Coffee",
+          "tr": "Kahve",
+          "ru": "Кофе"
+        },
         "qty": 340,
-        "color":"Aqua",
+        "color": "Aqua",
         "totalSale": 4940
       }
     ],
     "topProducts": [
       {
-        "id":"1234",
-        "name": "Bread",
+        "id": "1234",
+        "name": {
+          "en": "Bread",
+          "tr": "Ekmek",
+          "ru": "Хлеб"
+        },
         "qty": 54,
-        "color":"blue",
+        "color": "blue",
         "totalSale": 30
       },
       {
-        "id":"2435",
-        "name": "Eggs",
+        "id": "2435",
+        "name": {
+          "en": "Eggs",
+          "tr": "Yumurta",
+          "ru": "Яйца"
+        },
         "qty": 28,
-        "color":"yellow",
+        "color": "yellow",
         "totalSale": 14
       },
       {
-        "id":"4456",
-        "name": "Chocolate",
+        "id": "4456",
+        "name": {
+          "en": "Chocolate",
+          "tr": "Çikolata",
+          "ru": "Шоколад"
+        },
         "qty": 20,
-        "color":"black",
+        "color": "black",
         "totalSale": 18
       },
       {
-        "id":"3567",
-        "name": "Frozen Pizza",
+        "id": "3567",
+        "name": {
+          "en": "Frozen Pizza",
+          "tr": "Dondurulmuş Pizza",
+          "ru": "Замороженная пицца"
+        },
         "qty": 25,
-        "color":"green",
+        "color": "green",
         "totalSale": 232
       },
       {
-        "id":"5678",
-        "name": "Frozen Shrimp",
+        "id": "5678",
+        "name": {
+          "en": "Frozen Shrimp",
+          "tr": "Dondurulmuş Karides",
+          "ru": "Замороженная креветка"
+        },
         "qty": 30,
-        "color":"green",
+        "color": "green",
         "totalSale": 364
       }
     ],
@@ -642,75 +802,115 @@
     },    
     "topCategories": [
       {
-        "id":"123",
-        "name": "Bakery",
+        "id": "123",
+        "name": {
+          "en": "Bakery",
+          "tr": "Fırın",
+          "ru": "Пекарня"
+        },
         "qty": 2830,
-        "color":"yellow",
+        "color": "yellow",
         "totalSale": 5850
       },
       {
-        "id":"234",
-        "name": "Dairy",
+        "id": "234",
+        "name": {
+          "en": "Dairy",
+          "tr": "Süt Ürünleri",
+          "ru": "Молочные продукты"
+        },
         "qty": 2405,
-        "color":"Aqua",
+        "color": "Aqua",
         "totalSale": 9100
       },
-      {        
-        "id":"345",
-        "name": "Frozen",
+      {
+        "id": "345",
+        "name": {
+          "en": "Frozen",
+          "tr": "Dondurulmuş",
+          "ru": "Замороженный"
+        },
         "qty": 3010,
-        "color":"Coral",
+        "color": "Coral",
         "totalSale": 24430
       },
       {
-        "id":"456",
-        "name": "Candy",
+        "id": "456",
+        "name": {
+          "en": "Candy",
+          "tr": "Şekerleme",
+          "ru": "Конфеты"
+        },
         "qty": 690,
-        "color":"Orange",
+        "color": "Orange",
         "totalSale": 1830
       },
       {
-        "id":"567",
-        "name": "Snack",
+        "id": "567",
+        "name": {
+          "en": "Snack",
+          "tr": "Atıştırmalık",
+          "ru": "Закуска"
+        },
         "qty": 323,
-        "color":"Gold",
+        "color": "Gold",
         "totalSale": 1530
       }
     ],
     "topProducts": [
       {
-        "id":"1234",
-        "name": "Bread",
+        "id": "1234",
+        "name": {
+          "en": "Bread",
+          "tr": "Ekmek",
+          "ru": "Хлеб"
+        },
         "qty": 1504,
-        "color":"blue",
+        "color": "blue",
         "totalSale": 2894
       },
       {
-        "id":"2435",
-        "name": "Eggs",
+        "id": "2435",
+        "name": {
+          "en": "Eggs",
+          "tr": "Yumurta",
+          "ru": "Яйца"
+        },
         "qty": 648,
-        "color":"yellow",
+        "color": "yellow",
         "totalSale": 304
       },
       {
-        "id":"4456",
-        "name": "Chocolate",
+        "id": "4456",
+        "name": {
+          "en": "Chocolate",
+          "tr": "Çikolata",
+          "ru": "Шоколад"
+        },
         "qty": 570,
-        "color":"black",
+        "color": "black",
         "totalSale": 980
       },
       {
-        "id":"3567",
-        "name": "Frozen Pizza",
+        "id": "3567",
+        "name": {
+          "en": "Frozen Pizza",
+          "tr": "Dondurulmuş Pizza",
+          "ru": "Замороженная пицца"
+        },
         "qty": 550,
-        "color":"green",
+        "color": "green",
         "totalSale": 6032
       },
       {
-        "id":"5678",
-        "name": "Sliced Bacon",
+        "id": "5678",
+        "name": {
+          "en": "Sliced Bacon",
+          "tr": "Dilimlenmiş Bacon",
+          "ru": "Нарезанный бекон"
+        },
         "qty": 258,
-        "color":"green",
+        "color": "green",
         "totalSale": 3345
       }
     ],
@@ -824,35 +1024,55 @@
     "topCategories": [
       {
         "id": "123",
-        "name": "Bakery",
+        "name": {
+          "en": "Bakery",
+          "tr": "Fırın",
+          "ru": "Пекарня"
+        },
         "qty": 2805,
         "color": "yellow",
         "totalSale": 5800
       },
       {
         "id": "234",
-        "name": "Dairy",
+        "name": {
+          "en": "Dairy",
+          "tr": "Süt Ürünleri",
+          "ru": "Молочные продукты"
+        },
         "qty": 2410,
         "color": "Aqua",
         "totalSale": 9120
       },
       {
         "id": "345",
-        "name": "Frozen",
+        "name": {
+          "en": "Frozen",
+          "tr": "Dondurulmuş",
+          "ru": "Замороженный"
+        },
         "qty": 3005,
         "color": "Coral",
         "totalSale": 24350
       },
       {
         "id": "456",
-        "name": "Candy",
+        "name": {
+          "en": "Candy",
+          "tr": "Şekerleme",
+          "ru": "Конфеты"
+        },
         "qty": 700,
         "color": "Orange",
         "totalSale": 1800
       },
       {
         "id": "567",
-        "name": "Snack",
+        "name": {
+          "en": "Snack",
+          "tr": "Atıştırmalık",
+          "ru": "Закуска"
+        },
         "qty": 330,
         "color": "Gold",
         "totalSale": 1550
@@ -861,35 +1081,55 @@
     "topProducts": [
       {
         "id": "1234",
-        "name": "Bread",
+        "name": {
+          "en": "Bread",
+          "tr": "Ekmek",
+          "ru": "Хлеб"
+        },
         "qty": 1510,
         "color": "blue",
         "totalSale": 2900
       },
       {
         "id": "2435",
-        "name": "Eggs",
+        "name": {
+          "en": "Eggs",
+          "tr": "Yumurta",
+          "ru": "Яйца"
+        },
         "qty": 655,
         "color": "yellow",
         "totalSale": 320
       },
       {
         "id": "4456",
-        "name": "Chocolate",
+        "name": {
+          "en": "Chocolate",
+          "tr": "Çikolata",
+          "ru": "Шоколад"
+        },
         "qty": 575,
         "color": "black",
         "totalSale": 1000
       },
       {
         "id": "3567",
-        "name": "Frozen Pizza",
+        "name": {
+          "en": "Frozen Pizza",
+          "tr": "Dondurulmuş Pizza",
+          "ru": "Замороженная пицца"
+        },
         "qty": 555,
         "color": "green",
         "totalSale": 6050
       },
       {
         "id": "5678",
-        "name": "Sliced Bacon",
+        "name": {
+          "en": "Sliced Bacon",
+          "tr": "Dilimlenmiş Bacon",
+          "ru": "Нарезанный бекон"
+        },
         "qty": 260,
         "color": "green",
         "totalSale": 3350

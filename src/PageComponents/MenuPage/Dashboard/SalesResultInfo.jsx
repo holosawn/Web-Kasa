@@ -5,6 +5,7 @@ import grossSalesIcon from '../../../assets/CoinGraph.svg';
 import netSalesIcon from '../../../assets/PriceTag.svg';
 import costOfSalesIcon from '../../../assets/Coin.svg';
 import grossProfitIcon from '../../../assets/Graph.svg';
+import { t } from 'i18next';
 
 const SalesResultInfo = ({ salesData, timeline }) => (
   <Grid
@@ -19,7 +20,7 @@ const SalesResultInfo = ({ salesData, timeline }) => (
   >
     <Grid item xs={6} md={3}>
       <SaleInfoCard
-        label={"Gross Sales"}
+        label={t('dashboard.grossSales')}
         currentValue={salesData.salesResult.grossSales}
         iconSrc={grossSalesIcon}
         iconSx={{
@@ -32,7 +33,7 @@ const SalesResultInfo = ({ salesData, timeline }) => (
     </Grid>
     <Grid item xs={6} md={3}>
       <SaleInfoCard
-        label={"Net Sales"}
+        label={t('dashboard.netSales')}
         currentValue={salesData.salesResult.netSales}
         iconSrc={netSalesIcon}
         iconBgcolor={"#E5F8ED"}
@@ -43,7 +44,7 @@ const SalesResultInfo = ({ salesData, timeline }) => (
     </Grid>
     <Grid item xs={6} md={3}>
       <SaleInfoCard
-        label={"Cost of Sales"}
+        label={t('dashboard.costOfSales')}
         currentValue={salesData.salesResult.costOfSales}
         iconSrc={costOfSalesIcon}
         iconBgcolor={"#FCEAEA"}
@@ -54,7 +55,7 @@ const SalesResultInfo = ({ salesData, timeline }) => (
     </Grid>
     <Grid item xs={6} md={3}>
       <SaleInfoCard
-        label={"Gross Profit"}
+        label={t('dashboard.grossProfit')}
         currentValue={salesData.salesResult.grossProfit}
         iconSrc={grossProfitIcon}
         iconBgcolor={"#FFF3E8"}
