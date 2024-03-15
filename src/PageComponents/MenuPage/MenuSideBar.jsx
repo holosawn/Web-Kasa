@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Box, Button, IconButton, Paper, Tooltip, Typography, useTheme } from '@mui/material';
+import React, { useEffect, useRef } from 'react';
+import { Box, Button, Paper, Tooltip, Typography } from '@mui/material';
 import {
   LocalGroceryStoreTwoTone as SaleIcon,
   Loop as RefundsIcon,
@@ -12,6 +12,7 @@ import LibraryBooksRoundedIcon from '@mui/icons-material/LibraryBooksRounded';
 import BarChartSharpIcon from '@mui/icons-material/BarChartSharp';
 import { useLocation } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useNavigate } from "react-router-dom";
 import { t } from 'i18next';
   
 const getIconStyle = (pageName, currentPage)=>({
@@ -49,6 +50,7 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
   //todo scroll, workerInfo, responsivenes
   const currentPage = useLocation().pathname.slice(1) || '';
   const menuRef = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -101,8 +103,8 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
         </Button>
       </Tooltip>
       <Tooltip title="Sale" arrow>
-        <Button aria-label="Sale" sx={getButtonStyle("Sale", currentPage)}>
-          <SaleIcon sx={getIconStyle('Sale', currentPage)} />
+        <Button aria-label="Sale" sx={getButtonStyle("Sale", currentPage)} onClick={()=> navigate('/Sale')}>
+          <SaleIcon sx={getIconStyle('Sale', currentPage)}  />
           <IconDescription isMenuOpen={isMenuOpen} >{t('menu.newSales')}</IconDescription>
         </Button>
       </Tooltip>

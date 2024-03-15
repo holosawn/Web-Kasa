@@ -6,6 +6,7 @@ import { LanguageProvider } from './contexts/LangContext';
 import { BrowserRouter } from 'react-router-dom';
 import { CustomThemeProvider } from './contexts/CutomThemeContext';
 import MenuPage from './pages/MenuPage/MenuPage';
+import Sale from './pages/SalePage/Sale';
 
 
 
@@ -18,6 +19,7 @@ function App() {
           <Routes>
             <Route index path='/' element={<LoginPage/>} />
             <Route path='/Menu' element={<MenuPage/>} />
+            <Route path='/Sale' element={<Sale/>} />
           </Routes>
         </BrowserRouter>
       </LanguageProvider>
