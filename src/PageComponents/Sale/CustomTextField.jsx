@@ -17,6 +17,7 @@ const CustomTextField=({value, setValue, sx, setNumpadFocus, ...props})=>{
     <TextField
         autoFocus
         value={value}
+        onFocus={()=> setNumpadFocus('products')}
         variant={'outlined'}
         color=""
         autoComplete="off"

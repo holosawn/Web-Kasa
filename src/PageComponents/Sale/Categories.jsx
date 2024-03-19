@@ -138,7 +138,6 @@ const Categories = ({currCategory, setCurrCategories}) => {
 
 const CategoryCard = ({ category, onClick, sx, ...props }) => {
     const { '&:hover': hoverProps, ...newSx } = sx;
-
     return(
     <Button variant='contained' disableElevation onClick={onClick} sx={{
         height: 30, 

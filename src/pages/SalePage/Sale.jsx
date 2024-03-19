@@ -4,6 +4,7 @@ import { Box } from '@mui/material'
 import Products from '../../PageComponents/Sale/Products'
 import Numpad from '../../PageComponents/Sale/Numpad'
 import CustomTextField from '../../PageComponents/Sale/CustomTextField'
+import Cart from '../../PageComponents/Sale/Cart'
 
 const exampleProducts = [
   {
@@ -17,7 +18,10 @@ const exampleProducts = [
     color: "Brown",
     cost: 1.2,
     barcode: "BAR10001",
-    unit:"piece"
+    unit:"piece",
+    discount:{
+      
+    }
   },
   {
     name: "Cake",
@@ -169,6 +173,8 @@ const exampleCartItem = {
     }
   },
   qty: 5,
+  defaultPrice: 12.5,
+  computedPrice: 10,
   discount:{
     amount:'%25',
     color:'yellow'
@@ -176,20 +182,35 @@ const exampleCartItem = {
 };
 const exampleCartItems = [
   exampleCartItem,
-  exampleCartItem,
+  // exampleCartItem,
   // exampleCartItem,
 ];
 
 const Sale = () => {
+  //todo discounts on product card
+  //todo currentCart renders twice
+  //todo kg units can be 1 gram
+  //todo menu button on the left for manage sales etc.(manage sales, poducts, settings, total discount, campaign,  customer stuff) 
+  //todo shift open/ end button on back button
   const [filterCategories, setFilterCategories] = useState({
     main:'',
     sub:''
   });
   const [filterValue, setFilterValue] = useState('');
   const [products, setProducts] = useState(exampleProducts)
+  const [cartItems, setCartItems] = useState(exampleCartItems);//empty or not array should be passed
+  const [itemInRegister, setItemInRegister] = useState({
+    product:{},
+    qty:0
+  });
+  const [numpadFocus, setNumpadFocus ] = useState('products')
 
-
-
+  function onQtyFocus(setVal){
+    setItemInRegister(prev => ({
+      ...prev,
+      qty:setVal(itemInRegister.qty)
+    }))
+  };
 
   return (
     <Box display={'flex'} flexDirection={'row'} height={'100vh'} width={'100vw'} alignItems={'center'} >
@@ -203,12 +224,13 @@ const Sale = () => {
       flexDirection={"column"}
       alignItems={"center"}
     >
-      <CustomTextField value={filterValue} setValue={setFilterValue} />
-      <Products filterValue={filterValue} filterCategories={filterCategories} products={products} />
+      <CustomTextField value={filterValue} setValue={setFilterValue} setNumpadFocus={setNumpadFocus} />
+      <Products filterValue={filterValue} filterCategories={filterCategories} products={products} sendToRegister={setItemInRegister} setNumpadFocus={setNumpadFocus} />
       <Box height={200} width={620}>
-        <Numpad  setValue={setFilterValue} />
+        <Numpad  setValue={numpadFocus === 'products' ? setFilterValue : onQtyFocus} />
       </Box>
       </Box>
+      <Cart cartItems={cartItems} setCartItems={setCartItems} itemInRegister={itemInRegister} setItemInRegister={setItemInRegister} setNumpadFocus={setNumpadFocus} />
     </Box>
   )
 }

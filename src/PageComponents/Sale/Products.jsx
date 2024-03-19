@@ -33,7 +33,7 @@ const Products = ({ filterValue, filterCategories, products, sendToRegister, set
   ); 
   
   function setCurrentItem(product) {
-    sendToRegister({product:product , qty:1})
+    sendToRegister({product:product , qty:''})
     setNumpadFocus('cart')
   }
 
@@ -61,6 +61,8 @@ const ProductCard = ({ product, onCardClick }) => {
   const theme = useTheme();
   const [isNonCardClick, setisNonCardClick] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // console.log(product);
 
   const closeModal = (event) => {
     event.stopPropagation();
@@ -292,40 +294,5 @@ const ProductModalPropertyCard = ({ label, value }) => (
     <span>{value}</span>
   </Box>
 );
-
-const ProductBuyMocal=({isOpen})=>{
-  return(
-    <Modal
-    open={isOpen}
-  >
-    <Fade in={isOpen} >
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "start",
-        textAlign: "center",
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: `translate(-50%, -50%)`,
-        transition:'opacity 1s, transform 0.3s',
-        minWidth: 400,
-        width: 600,
-        bgcolor: "background.paper",
-        boxShadow: 24,
-        p: 4,
-        opacity: isOpen ? 1:0,
-
-      }}
-    >
-            
-    </Box>
-    </Fade >
-  </Modal>
-  )
-}
-
-
 
 export default Products;

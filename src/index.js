@@ -21,9 +21,7 @@ async function enableMocking() {
 
 enableMocking().then(()=>{
   root.render(
-    <React.StrictMode>
       <App />
-    </React.StrictMode>
   );
 })
 
