@@ -5,10 +5,11 @@ import Products from '../../PageComponents/Sale/Products'
 import Numpad from '../../PageComponents/Sale/Numpad'
 import CustomTextField from '../../PageComponents/Sale/CustomTextField'
 import Cart from '../../PageComponents/Sale/Cart'
+import tomatoImg from '../../assets/tomatoes.webp'
 
 const exampleProducts = [
   {
-    name: "Chocolate Bar",
+    name: "Freshness Guaranteed Chocolate Cake Square with Chocolate Icing, 6 oz (Mini/Refrigerated)  ",
     mainCategory: "Snack",
     subCategory: "Chocolate",
     code: "10001",
@@ -19,9 +20,7 @@ const exampleProducts = [
     cost: 1.2,
     barcode: "BAR10001",
     unit:"piece",
-    discount:{
-      
-    }
+    discount:'10%',
   },
   {
     name: "Cake",
@@ -47,7 +46,8 @@ const exampleProducts = [
     color: "Brown",
     cost: 2.5,
     barcode: "BAR10003",
-    unit:"piece"
+    unit:"piece",
+    discount:'10%',
   },
   {
     name: "Tomato",
@@ -58,6 +58,7 @@ const exampleProducts = [
     tax: "%18",
     stock: 100,
     color: "Red",
+    bgImg:`url(${tomatoImg})`,
     cost: 1.8,
     barcode: "BAR10004",
     unit:"kg"
@@ -86,7 +87,8 @@ const exampleProducts = [
     color: "Red",
     cost: 1.1,
     barcode: "BAR10006",
-    unit:"kg"
+    unit:"kg",
+    discount:'10%',
   },
   {
     name: "Spinach",
@@ -187,11 +189,8 @@ const exampleCartItems = [
 ];
 
 const Sale = () => {
-  //todo discounts on product card
-  //todo currentCart renders twice
-  //todo kg units can be 1 gram
   //todo menu button on the left for manage sales etc.(manage sales, poducts, settings, total discount, campaign,  customer stuff) 
-  //todo shift open/ end button on back button
+  //todo integrate wallmart data 
   const [filterCategories, setFilterCategories] = useState({
     main:'',
     sub:''

@@ -17,17 +17,18 @@ const CartItemCard = ({ Item, setCartItems, setItemInRegister }) => {
 
 
     const formattedQty =
-      amount.toLocaleString("fullwide", {
+      amount.toFixed(isPiece ? 0: 3).toLocaleString("fullwide", {
         maximumFractionDigits: 2,
         useGrouping: false,
-      }) + (isPiece ? "" : "kg");
+      }).replace(".", ",") + (isPiece ? "" : "kg");
   
     const formattedPrice = Item.computedPrice
-      .toFixed(2)
+      .toFixed(3)
       .toLocaleString("fullwide", {
-        maximumFractionDigits: 2,
+        maximumFractionDigits: 3,
         useGrouping: false,
       })
+      .replace(".", ",")
       .slice(0, 18);
   
     const onDeleteIconClick = useCallback(() => {
@@ -123,7 +124,7 @@ const CartItemCard = ({ Item, setCartItems, setItemInRegister }) => {
               color={"primary"}
               ml={"auto"}
             >
-              {Item.defaultPrice?.toFixed(2)}
+              {Item.defaultPrice?.toFixed(3).replace(".", ",")}
               {Item.defaultPrice?.length > 10 && "..."} TRY
             </Typography>
           </Box>
@@ -138,21 +139,23 @@ const CartItemCard = ({ Item, setCartItems, setItemInRegister }) => {
           >
             {Item.offersApplied &&
               Object.values(Item.offersApplied).map((offer) => (
-                <>
+                offer.saved > 0 && (
+                <React.Fragment key={offer.name} >
                   <Typography
                     variant="h7"
                     fontSize={12}
                     color={"warning.main"}
-                  >{`${offer.name || "Offer"}`}</Typography>
+                  >{offer.name}</Typography>
                   <Typography
                     variant="h7"
                     fontSize={12}
                     color={"warning.main"}
                     ml={"auto"}
                   >
-                    -{offer.saved.toFixed(2)} TRY
+                    -{offer.saved.toFixed(3).replace(".", ",")} TRY
                   </Typography>
-                </>
+                </React.Fragment>
+                )
               ))}
           </Box>
   

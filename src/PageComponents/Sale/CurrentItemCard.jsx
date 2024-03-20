@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Alert, AlertTitle, Box, Button, Grow, TextField, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import AddShoppingCartSharpIcon from '@mui/icons-material/AddShoppingCartSharp';
 import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp';
@@ -7,6 +7,30 @@ import { useTheme } from "@emotion/react";
 const CurrentItemCard=({Item, setItem, cartItems, setCartItems, setNumpadFocus}) =>{
     const theme = useTheme();
     const textFieldRef = useRef(null);
+    const [alert, setAlert] = useState({
+      open: false,
+      severity: 'info',
+      title: '',
+      content: ''
+    });
+
+    const showAlert = (severity, title, content) => {
+      setAlert({
+        open: true,
+        severity: severity,
+        title: title,
+        content: content
+      });
+
+      setTimeout(() => {
+        setAlert({
+          open: false,
+          severity: 'info',
+          title: '',
+          content: ''
+        });
+      }, 3000);
+    };
   
     useEffect(() => { 
       if (textFieldRef.current) {
@@ -35,6 +59,10 @@ const CurrentItemCard=({Item, setItem, cartItems, setCartItems, setNumpadFocus})
   
     const onAddIconClick = () => {
       // Set the focus to the numpad for products
+      if (Item.qty <= 0 ) {
+        showAlert('warning', 'Non-valid Amount', 'Please enter a valid Amount')
+        return;
+      }      
       setNumpadFocus('products');
     
       // Check if the item is a piece
@@ -55,16 +83,12 @@ const CurrentItemCard=({Item, setItem, cartItems, setCartItems, setNumpadFocus})
       } else {
         discounts = [];
       }
+
     
       // Calculate the computed price
       let defaultPrice = (isPiece ? Item.qty : Item.qty / 1000) * Item.product.price;
       let computedPrice = defaultPrice
-    
-      // Apply the discounts
-      discounts.sort((a, b) => a.amount - b.amount).forEach((discount) => {
-        computedPrice = Math.min(computedPrice, computedPrice * (1 - parseFloat(discount.amount.replace('%', '')) / 100));
-      });
-    
+
       // Update the cart items
       if (existingItemIndex !== -1) {
         // If the item already exists in the cart, update its quantity and computed price
@@ -117,10 +141,10 @@ const CurrentItemCard=({Item, setItem, cartItems, setCartItems, setNumpadFocus})
       >
         <Box display={'flex'} flexDirection={'row'} mx={2} mt={0.5} justifyContent={'space-between'} alignItems={'center'} >
   
-          <Typography variant="h7" mr={2} fontWeight={550} color={"primary"}>
+          <Typography variant="h7" mr={2} fontWeight={550} color={"primary"} width={'80%'} sx={{flexWrap:'nowrap', textWrap:'nowrap', textOverflow:'ellipsis', overflow:'hidden'}} >
             {isThereItem ? Item.product.name : 'No Item Selected'}
           </Typography>
-          <Typography color={'secondary'} variant="subtitle2">{isThereItem ? Item.product.price : 0} TRY</Typography>
+          <Typography color={'secondary'} variant="subtitle2" sx={{textWrap:'nowrap'}} >{isThereItem ? Item.product.price.toLocaleString().replace(/\./, ',') : 0} TRY</Typography>
         </Box>
         <Box display={'flex'} flexDirection={'row'} mx={2} justifyContent={'space-between'} alignItems={'center'} >
           
@@ -160,6 +184,16 @@ const CurrentItemCard=({Item, setItem, cartItems, setCartItems, setNumpadFocus})
           </Button>
         </Box>
   
+       { alert.open &&  (
+        <Grow in={alert.open} >
+          <Alert sx={{position:'absolute', top:'3%', right:0, translate:'(-50%, -50%)', width:'400px', height:'100px', zIndex:999 }}
+              severity={alert.severity}
+            >
+              {alert.title && <AlertTitle>{alert.title}</AlertTitle>}
+              {alert.content}
+          </Alert>
+        </Grow>
+        )}
       </Box>
     )
   }

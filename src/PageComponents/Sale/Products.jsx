@@ -14,11 +14,16 @@ import {
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import Fade from '@mui/material/Fade';
+import NoImg from '../../assets/NoImage.jpg'
 
+const pritnDataLength=(arr)=>{
+  for(const obj of arr){
+    console.log(obj.product.title);
+  }
+}
 
 const Products = ({ filterValue, filterCategories, products, sendToRegister, setNumpadFocus }) => {
-  //todo productCard color will be bigger *, paper effects will be fixed* , modal will appear with animation* , filter functionality will be fixed*, 
-  //todo +5 +10 +50 +100 buttons will be added into buy modal , These button can add as kg
+  //todo discounts and product images on product card
 
   const filteredProducts = products.filter(
     (product) =>
@@ -28,10 +33,10 @@ const Products = ({ filterValue, filterCategories, products, sendToRegister, set
     filterCategories.sub.toLowerCase() === product.subCategory.toLowerCase())
     &&
     (product.code.toLowerCase().includes(filterValue.toLowerCase()) ||
-      product.name.toLowerCase().includes(filterValue.toLowerCase()) 
+      product.name.toLowerCase().includes(filterValue.toLowerCase())
     )
-  ); 
-  
+  );
+
   function setCurrentItem(product) {
     sendToRegister({product:product , qty:''})
     setNumpadFocus('cart')
@@ -43,7 +48,7 @@ const Products = ({ filterValue, filterCategories, products, sendToRegister, set
         {filteredProducts.map((product) => (
           <Grid
             item
-            xs={3}
+            xs={4} l={3}
             key={product.code}
             display={"flex"}
             justifyContent={"center"}
@@ -58,10 +63,21 @@ const Products = ({ filterValue, filterCategories, products, sendToRegister, set
 };
 
 const ProductCard = ({ product, onCardClick }) => {
+
+  // if(product.name ==='Kek') console.log(product);
+
   const theme = useTheme();
-  const [isNonCardClick, setisNonCardClick] = useState();
+  const [isNonCardClick, setisNonCardClick] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const discount = product.discount ? product.discount : false
+  const bgImg = product.bgImg ? product.bgImg : false
+  const nameFontSize =
+  product.name.length > 20
+    ? 11
+    : product.name.length > 10
+    ? 12
+    : 14;
   // console.log(product);
 
   const closeModal = (event) => {
@@ -85,21 +101,30 @@ const ProductCard = ({ product, onCardClick }) => {
   };
 
   const handleCardClick = (product) => {
-    onCardClick(product)
+    const discount = product.discount || '0'
+
+    const updatedProduct = {
+      ...product,
+      price:Math.min(product.price, product.price * (1 - parseFloat(discount.replace('%', '')) / 100))
+    }  
+    onCardClick(updatedProduct)
   };
+
 
   return (
     <Grow in={true} translate="yes" appear={true} >
-      <div>
+      <div style={{width:'90%'}}>
         <Paper
           onClick={() => handleCardClick(product)}
           elevation={0}
           sx={{
             backgroundColor: "background.paper",
-            width: 135,
+            minWidth: 135,
+            width:'100%',
             height: 200,
             display: "flex",
             flexDirection: "column",
+            justifyContent:'space-between',
             alignItems: "center",
             p: 0,
             position: "relative",
@@ -121,10 +146,14 @@ const ProductCard = ({ product, onCardClick }) => {
             width={"85%"}
             minWidth={100}
             height={"55%"}
-            bgcolor={product.color}
             overflow={"visible"}
             position={"relative"}
             mt={2}
+            sx={{
+              backgroundImage: bgImg? bgImg : `url(${NoImg})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
           >
             <Button
               onMouseDown={onMouseDownBadge}
@@ -178,11 +207,33 @@ const ProductCard = ({ product, onCardClick }) => {
                 alignItems: "center",
               }}
             >
-              <Typography>{product.price} TRY</Typography>
+              {discount && (
+                <Typography mr={0.5} fontSize={15} fontWeight={700} color={'#39c31d'} >
+                  {(product.price *( (100-parseInt(discount.replace('%', '')))/100)).toLocaleString().replace(/\./, ',')} TRY
+                </Typography >
+              )}
+              <Typography sx={{
+                textDecorationLine: discount ? 'line-through' : 'none',
+                color: discount ?  '#d6d6d6' : 'inherit'
+              }}
+              fontSize={ discount? 12 : 15}
+              >{product.price.toFixed(2).replace(/\./, ',')} {!discount &&'TRY'}</Typography>
             </Box>
           </Box>
-          <Typography textTransform={"none"} mt={3}>
-            {product.name}
+          
+          <Typography variant="h7" mr={'auto'} ml={'auto'} mt={1}  fontWeight={700} >
+            {product.code}
+          </Typography>
+          <Typography textTransform={"none"} mb={'auto'} mt={'auto'} mx={2} variant="body2" color={'gray'}
+            sx={{
+              wordWrap:'break-word',
+              overflow: 'hidden',
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+            }}
+           >
+            {product.name.length > 65 ? product.name.substring(0,product.name.lastIndexOf(' ',65))+'...' : product.name }
           </Typography>
           <ProductModal
             isOpen={isModalOpen}
@@ -261,8 +312,8 @@ const ProductModal = ({ isOpen, onClose, product }) => (
             In stock {product.stock}
           </Typography>
         </Box>
-        <IconButton sx={{ ml: "auto" }} onClick={onClose}>
-          <CloseIcon />
+        <IconButton sx={{ ml: "auto" }} size="large" onClick={onClose}>
+          <CloseIcon size="large" />
         </IconButton>
       </Box>
       <Divider sx={{ width: "100%", my: 2 }} />
@@ -291,7 +342,7 @@ const ProductModalPropertyCard = ({ label, value }) => (
     }}
   >
     <span>{label}:</span>
-    <span>{value}</span>
+    <span>{ typeof value === 'number' ? value.toLocaleString().replace(/\./, ',') : value}</span>
   </Box>
 );
 

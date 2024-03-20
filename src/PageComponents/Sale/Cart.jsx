@@ -106,7 +106,11 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
   const [discount, setDiscount] = useState(0);
 
   const subTotal = cartItems.reduce((acc, curr) => {
-    return acc + curr.qty
+    return acc + curr.computedPrice
+  },0)
+
+  const savedByOffers = cartItems.reduce((acc, curr) => {
+    return acc + ((curr.offersApplied?.[offerName]?.saved) ? curr.offersApplied[offerName].saved : 0);
   },0)
 
   useEffect(() => {
@@ -136,7 +140,7 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
       />
       <Stack
         direction={"column"}
-        height={"55%"}
+        height={"54%"}
         justifyContent={"start"}
         alignItems={'center'}
         sx={{ overflowY: "scroll", my: 1 }}
@@ -150,7 +154,7 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
           />
         ))}
       </Stack>
-      <CardTotal subTotal={subTotal} discount={discount} />
+      <CardTotal subTotal={subTotal} discount={discount} savedByOffers={savedByOffers} />
       <Button variant="contained" size="large" disabled={subTotal<=0} fullWidth sx={{mt:1}} >
           Charge
       </Button>
@@ -158,26 +162,28 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
   );
 };
 
-const CardTotal=({subTotal, discount})=>{
-
-  return (
-  <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} border={'1px solid gray'} borderRadius={3} p={1} height={80} width={'100%'} >
+const CardTotal=({subTotal, discount, savedByOffers})=>(
+  <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} border={'1px solid gray'} borderRadius={3} p={1} height={95} width={'100%'} >
     <Stack direction={'row'} width={'100%'} >
       <Typography variant="h7" fontWeight={700} color={'primary'} >Subtotal:</Typography>
-      <Typography variant="h7" fontWeight={700} color={'primary'}  ml={'auto'} >{subTotal}</Typography>
+      <Typography variant="h7" fontWeight={700} color={'primary'}  ml={'auto'} >{subTotal.toFixed(3).replace(".", ",")}</Typography>
       <Typography variant="h7" fontWeight={700} color={'primary'}>&nbsp;TRY</Typography>
     </Stack>
     <Stack direction={'row'} width={'100%'} >
-      <Typography variant="h7" fontWeight={700} color={'success.main'} >Discount:</Typography>
-      <Typography variant="h7" fontWeight={700} color={'success.main'}  ml={'auto'} >{discount}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
+      <Typography variant="h7" fontWeight={700} color={'success.main'} >Discounts:</Typography>
+      <Typography variant="h7" fontWeight={700} color={'success.main'}  ml={'auto'} >{discount.toFixed(3).replace(".", ",")}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
+    </Stack>
+    <Stack direction={'row'} width={'100%'} >
+      <Typography variant="h7" fontWeight={700} color={'success.main'} >Offers:</Typography>
+      <Typography variant="h7" fontWeight={700} color={'success.main'}  ml={'auto'} >{savedByOffers.toFixed(3).replace(".", ",")} TRY</Typography>
     </Stack>
     <Stack direction={'row'} width={'100%'} >
       <Typography variant="h7" fontWeight={700} color={'secondary'} >Total:</Typography>
-      <Typography variant="h7" fontWeight={700} color={'secondary'}  ml={'auto'} >{subTotal * (100 - discount)/100}</Typography>
+      <Typography variant="h7" fontWeight={700} color={'secondary'}  ml={'auto'} >{(subTotal * (100 - discount)/100).toFixed(3).replace(".", ",")}</Typography>
       <Typography variant="h7" fontWeight={700} color={'primary'}>&nbsp;TRY</Typography>
     </Stack>
   </Box>
-)}
+)
 
 const Actions = ({ offerName, setofferName, discount, setDiscount }) => {
   const numbers = Array.from({ length: 101 }, (_, i) => parseInt(i));
