@@ -3,35 +3,15 @@ import React, { useEffect, useRef, useState } from "react";
 import AddShoppingCartSharpIcon from '@mui/icons-material/AddShoppingCartSharp';
 import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp';
 import { useTheme } from "@emotion/react";
+import { t } from "i18next";
+import useAlert from "../../CustomHooks/useAlert";
 
 const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, boxSx}) =>{
     const theme = useTheme();
     const textFieldRef = useRef(null);
-    const [alert, setAlert] = useState({
-      open: false,
-      severity: 'info',
-      title: '',
-      content: ''
-    });
+    const [showAlert, AlertComponent] = useAlert(); // Use the custom hook
+
     const [size, setSize] = useState({x:window.innerWidth, y: window.innerHeight})
-
-    const showAlert = (severity, title, content) => {
-      setAlert({
-        open: true,
-        severity: severity,
-        title: title,
-        content: content
-      });
-
-      setTimeout(() => {
-        setAlert({
-          open: false,
-          severity: 'info',
-          title: '',
-          content: ''
-        });
-      }, 3000);
-    };
 
     useEffect(() => {
       if (textFieldRef.current) {
@@ -154,14 +134,13 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
         width: "100%",
         height: size.y < 500 ? 120 : size.y < 800 ? 135 : 170 ,
         overflow:'visible',
-        // backgroundColor:item.product.color
         ...boxSx,
       }}
       >
         <Box display={'flex'} width={'100%'} flexDirection={'row'} px={2} mt={0.5} justifyContent={'space-between'} alignItems={'center'} >
 
           <Typography variant="h7" fontSize={{xs:10, md:14, xl:16}} mr={2} fontWeight={550} color={"primary"} width={'80%'} sx={{flexWrap:'nowrap', textWrap:'nowrap', textOverflow:'ellipsis', overflow:'hidden'}} >
-            {isThereItem ? item.product.name : 'No Item Selected'}
+            {isThereItem ? item.product.name : t('sale.noItemSelected')}
           </Typography>
           <Typography fontSize={{xs:10, md:14, xl:16}} color={'secondary'} variant="subtitle2" sx={{textWrap:'nowrap'}} >
             {isThereItem ? item.product.price.toLocaleString().replace(/\./, '.') : 0} TRY
@@ -169,8 +148,8 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
         </Box>
         <Box display={'flex'} width={'100%'} flexDirection={'row'} px={2} justifyContent={'space-between'} alignItems={'center'} >
 
-          <Typography color={'gray'} variant="body2" fontSize={{xs:8, md:12, xl:14}} >{isThereItem ? item.product.barcode : 'Barcode'}</Typography>
-          <Typography color={'gray'} variant="body2" fontSize={{xs:8, md:12, xl:14}} >{isThereItem ? item.product.tax : null} Tax</Typography>
+          <Typography color={'gray'} variant="body2" fontSize={{xs:8, md:12, xl:14}} >{isThereItem ? item.product.barcode : t('sale.barcode')}</Typography>
+          <Typography color={'gray'} variant="body2" fontSize={{xs:8, md:12, xl:14}} >{isThereItem ? item.product.tax : null} {t('sale.tax')}</Typography>
 
         </Box>
 
@@ -209,7 +188,7 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
           </Button>
         </Box>
 
-       { alert.open &&  (
+       {/* { alert.open &&  (
         <Grow in={alert.open} >
           <Alert sx={{position:'absolute', top:'3%', right:0, translate:'(-50%, -50%)', width:'400px', height:'100px', zIndex:999 }}
               severity={alert.severity}
@@ -218,7 +197,8 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
               {alert.content}
           </Alert>
         </Grow>
-        )}
+        )} */}
+        <AlertComponent/>
       </Box>
     )
   }

@@ -37,7 +37,6 @@ const currCatHoverStyles={
     scrollIntervalRef.current = null
   };
 
-  // useEffect(()=>{scroll(50)},[  ])
 
     const onCategoryClick = useCallback((name, depth) => {
 
@@ -94,13 +93,6 @@ const currCatHoverStyles={
           <Grid item xs={6} key={cat} lg={12} sx={{display:'flex', justifyContent:'center', alignItems:'center'}} >
             <Box bgcolor={'background.default'} onClick={() => onChipClick(cat)} sx={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-between', width:{xs:'95%', lg:'85%'}, height:'100%', borderRadius:3, pl:1, my:0.5, cursor:'pointer'}}>
               <Typography textOverflow={'ellipsis'} noWrap variant='subtitle2' fontSize={{xs:'10px', lg:'15px'}}  >{cat}</Typography>
-              {/* <IconButton
-                variant="contained"
-                color="error"
-                sx={{ p: 0 }}
-              >
-                <HighlightOffSharpIcon sx={{ fontSize: 30 }} />
-              </IconButton> */}
               <Button variant='contained' color='error' onClick={(event) => onChipDeleteClick(event,cat)} sx={{p:'1px', pr:0, minWidth:20, minHeight:0, borderRadius:'50%', mr:0.5}} disableRipple >
                 <ClearIcon sx={{fontSize:{xs:'20px', lg:'25px'}, }} />
               </Button>
@@ -200,29 +192,6 @@ const CategoryCard = ({ name, onClick, sx, depth, isCurrent, ...props }) => {
     </Stack>
     </Fade>
 )};
-
-// const ScrollButton=({ onClick, scrollVal, children, ...props})=>(
-//   <Button
-//     variant='contained'
-//     sx={{ml:'auto',  my:{xs:0.2, md:0.5}, borderRadius:'100%', width:{xs:20, md:30, lg:45}, height:{xs:30, lg:45}, minWidth:20, minHeight:20 }}
-//     onClick={()=>onClick(scrollVal)}
-//     {...props}
-//   >
-//     {children}
-//   </Button>
-// );
-
-// const EllipsisText = ({ children, ...props}) => {
-
-//   return (
-//     <div style={{
-//       overflow: "hidden",
-//       textOverflow: "ellipsis",
-//       }}>
-//       {children}
-//     </div>
-//   )
-// }
 
 
 export default Categories

@@ -16,6 +16,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Fade from "@mui/material/Fade";
 import NoImg from "../../assets/NoImage.jpg";
 import { VirtuosoGrid } from "react-virtuoso";
+import { t } from "i18next";
 
 const gridComponents = {
   List: forwardRef(({ style, children, ...props }, ref) => (
@@ -52,7 +53,7 @@ const gridComponents = {
     </Grid>
   ),
   Header:({})=>(
-    <div style={{height:'13px'}} />
+    <div style={{height:'15px'}} />
   )
 } 
 
@@ -176,7 +177,7 @@ const ProductCard = memo(({ product, style,  url,index, onClick,  ...props }) =>
         sx={{
           ...style,
           backgroundColor: "background.paper",
-          width: "100%",
+          width: "99%",
           // maxWidth:{xs:140, md:300},
           maxHeight: 220,
           height:'25vh',
@@ -442,30 +443,30 @@ const ProductModal = ({ isOpen, onClose, product }) => {
           <Divider sx={{ width: "100%", my: 2 }} />
 
           <ProductModalPropertyCard
-            label={"Code"}
+            label={t('sale.code')}
             value={product.barcode}
           />
           <ProductModalPropertyCard
-            label={"Price"}
+            label={t('sale.price')}
             value={`${computedPrice} TRY`}
           />
           <ProductModalPropertyCard
-            label={"Stock"}
+            label={t('sale.stock')}
             value={product.stock}
           />
           <ProductModalPropertyCard
-            label={"Tax"}
+            label={t('sale.tax')}
             value={product.tax}
           />
           {discount !== "0%" && (
-            <ProductModalPropertyCard label={"Discount"} value={discount} />
+            <ProductModalPropertyCard label={t('sale.discount')} value={discount} />
           )}
           <ProductModalPropertyCard
-            label={"Cost"}
+            label={t('sale.cost')}
             value={`${product.cost} TRY`}
           />
           <ProductModalPropertyCard
-            label={"Unit"}
+            label={t('sale.unit')}
             value={product.unit}
           />
         </Box>

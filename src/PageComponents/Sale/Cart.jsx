@@ -11,6 +11,8 @@ import {
 import React, {useEffect, useState } from "react"
 import CurrentItemCard from "./CurrentItemCard";
 import CartItemCard from "./CartItemCard";
+import { t } from "i18next";
+import { useLanguage } from "../../contexts/LangContext";
 
 const exampleCartItem = {
   product: {
@@ -86,10 +88,20 @@ function resetOffers(items, setItems) {
 const offers = {
   "3/2": {
     name: "3 al 2 öde",
+    displayNames:{
+      'en':'Get 3 pay 2',
+      'tr':'3 al 2 öde',
+      'ru':''
+    },
     offerFunc: get3Pay2,
   },
   'none': {
-    name: "No Offer",
+    name: 'No Offer',
+    displayNames:{
+      'en':'No Offer',
+      'tr':'Kampanya yok',
+      'ru':''
+    },
     offerFunc: resetOffers,
   },
 };
@@ -169,7 +181,7 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
       </Stack>
       <CardTotal subTotal={subTotal} discount={discount} savedByOffers={savedByOffers} />
       <Button variant="contained" size={`${size.y < 600 ? 'small':'medium'}`} disabled={subTotal<=0} fullWidth  sx={{mt:1, mb:0.5}} >
-          <Typography fontSize={{xs:10, md:15}} >Charge</Typography>
+          <Typography fontSize={{xs:10, md:15}} >{t('sale.charge')}</Typography>
       </Button>
     </Box>
   );
@@ -178,20 +190,20 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
 const CardTotal=({subTotal, discount, savedByOffers})=>(
   <Box display={'flex'} fontSize={{xs:10, md:12, lg:14, xl:16}} flexDirection={'column'} justifyContent={'center'} border={'1px solid gray'} borderRadius={3} p={1} height={{xs:65, md:95}} width={'100%'} >
     <Stack direction={'row'} width={'100%'} >
-      <Typography variant="h7" fontWeight={700} color={'primary'} >Subtotal:</Typography>
+      <Typography variant="h7" fontWeight={700} color={'primary'} >{t('sale.subTotal')}:</Typography>
       <Typography variant="h7" fontWeight={700} color={'primary'}  ml={'auto'} >{subTotal.toFixed(3).replace(".", ",")}</Typography>
       <Typography variant="h7" fontWeight={700} color={'primary'}>&nbsp;TRY</Typography>
     </Stack>
     <Stack direction={'row'} width={'100%'} >
-      <Typography variant="h7" fontWeight={700} color={'success.main'} >Offers:</Typography>
+      <Typography variant="h7" fontWeight={700} color={'success.main'} >{t('sale.offers')}:</Typography>
       <Typography variant="h7" fontWeight={700} color={'success.main'}  ml={'auto'} >{savedByOffers.toFixed(3).replace(".", ",")} TRY</Typography>
     </Stack>
     <Stack direction={'row'} width={'100%'} >
-      <Typography variant="h7" fontWeight={700} color={'success.main'} >Discounts:</Typography>
+      <Typography variant="h7" fontWeight={700} color={'success.main'} >{t('sale.discounts')}:</Typography>
       <Typography variant="h7" fontWeight={700} color={'success.main'}  ml={'auto'} >{(discount % 1 === 0 ? discount.toFixed(0) : discount.toFixed(2)).replace(".", ",")}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
     </Stack>
     <Stack direction={'row'} width={'100%'} >
-      <Typography variant="h7" fontWeight={700} color={'secondary'} >Total:</Typography>
+      <Typography variant="h7" fontWeight={700} color={'secondary'} >{t('sale.total')}:</Typography>
       <Typography variant="h7" fontWeight={700} color={'secondary'}  ml={'auto'} >{((subTotal-savedByOffers) * (100 - discount)/100).toFixed(3).replace(".", ",")}</Typography>
       <Typography variant="h7" fontWeight={700} color={'primary'}>&nbsp;TRY</Typography>
     </Stack>
@@ -200,6 +212,8 @@ const CardTotal=({subTotal, discount, savedByOffers})=>(
 
 const CartActions = ({ offerName, setofferName, discount, setDiscount }) => {
   const [size, setSize] = useState({x:window.innerWidth, y: window.innerHeight})
+  const {lang, setLang} = useLanguage();
+
   const numbers = Array.from({ length: 101 }, (_, i) => parseInt(i));
     
   const handleofferNameChange = (e) => {
@@ -213,17 +227,8 @@ const CartActions = ({ offerName, setofferName, discount, setDiscount }) => {
 
   return (
     <Stack direction={'row'} mb={{xs:0.5, lg:1}} mt={{xs:0, md:1}} justifyContent={'space-around'} position={'relative'} >
-      {/* {[
-        // <EditIcon />,
-        // <FeedOutlinedIcon />,
-        <PriceChangeOutlinedIcon />,
-        // <LocalOfferOutlinedIcon />,
-        // <PersonAddAltOutlinedIcon />,
-      ].map((obj) => (
-        <ActionButton>{obj}</ActionButton> 
-      ))} */}
       <FormControl color="primary" sx={{width:'45%'}} variant='filled'>
-      <InputLabel htmlFor="selectComponent">Choose Offer</InputLabel>
+      <InputLabel htmlFor="selectComponent">{t('sale.chooseOffer')}</InputLabel>
         <Select
           value={offerName}
           onChange={handleofferNameChange}
@@ -236,13 +241,13 @@ const CartActions = ({ offerName, setofferName, discount, setDiscount }) => {
             mt:{xs:0.5}
           }}
         >
-          <MenuItem value={"none"}>{offers['none'].name}</MenuItem>
-          <MenuItem value={"3/2"}>{offers['3/2'].name}</MenuItem>
+          <MenuItem value={"none"}>{offers['none'].displayNames[lang]}</MenuItem>
+          <MenuItem value={"3/2"}>{offers['3/2'].displayNames[lang]}</MenuItem>
         </Select>
       </FormControl >
 
       <FormControl color="primary" sx={{width:'45%'}} variant='filled'>
-      <InputLabel htmlFor="selectComponent">Total Discount</InputLabel>
+      <InputLabel htmlFor="selectComponent">{t('sale.totalDiscount')}</InputLabel>
         <Select
           value={discount}
           onChange={handleDiscountChange}

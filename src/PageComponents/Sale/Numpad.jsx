@@ -3,13 +3,15 @@ Button,
 Grid,
 Typography,
 } from "@mui/material";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import { t } from "i18next";
+import ShiftModal from "./ShiftModal";
 
 const defaultLayout = [
     {
-      name: "Cash Sale",
+      name: t('sale.cashSale'),
       onClick: (setVal) => console.log("Cash Sale clicked"),
       color: "success",
     },
@@ -28,7 +30,7 @@ const defaultLayout = [
       color: "warning",
     },
     {
-      name: "Card Sale",
+      name: t('sale.cardSale'),
       onClick: (setVal) => console.log("Card Sale clicked"),
       color: "success",
     },
@@ -47,7 +49,7 @@ const defaultLayout = [
       color: "warning",
     },
     {
-      name: "See All",
+      name: t('sale.seeAll'),
       onClick: (setVal) => console.log("50 clicked"),
       color: "success",
     },
@@ -61,7 +63,7 @@ const defaultLayout = [
       name: "9",
     },
     {
-      name: "Delete",
+      name: t('sale.delete'),
       onClick: (setVal) =>
         setVal((prev) => {
           if (prev && prev.length > 0) return prev.slice(0, -1);
@@ -70,7 +72,7 @@ const defaultLayout = [
       color: "warning",
     },
     {
-      name: "Drawer Amount",
+      name: t('sale.drawerAmount'),
       onClick: (setVal) => console.log("Drawer Opened"),
       color: "success",
     },
@@ -85,7 +87,7 @@ const defaultLayout = [
       name: "00",
     },
     {
-      name: "Clear",
+      name: t('sale.clear'),
       onClick: (setVal) =>
         setVal((prev) => {
           if (prev && prev.length > 0) return prev.slice(0, -prev.length);
@@ -161,6 +163,7 @@ const Key = ({ content, sx, onClick, onMouseUp, onMouseDown, setValue, color, ..
   
 const Numpad = ({ setValue, scrollRef=null, layout=defaultLayout }) => {
   const scrollIntervalRef = useRef(null);
+  const [isShiftModalOpen, setIsShiftModalOpen] = useState(false)
 
   const scroll = (scrollVal) => {
     if(scrollRef){
@@ -182,13 +185,30 @@ const Numpad = ({ setValue, scrollRef=null, layout=defaultLayout }) => {
     scrollIntervalRef.current = null
   };
 
+  const openShiftModal=()=>{
+    console.log('triggered');
+    setIsShiftModalOpen(true)
+  }
+
+  const closeShiftModal=()=>{
+    console.log('triggered');
+    setIsShiftModalOpen(false)
+  }
+
   return(
     <Grid container width={{xs:300,md:400,lg:500, xl:600}} height={{xs:140, md:190,lg:270, xl:320}} mb={{md:0.5}}  >
     {layout.map((content) => (
         <Grid item xs={12 / 5} key={content.name} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <Key
             content={content.name}
-            onClick={content.name === 'Scroll Up' ? () => {} : content.name === 'Scroll Down' ? () => {} : content.onClick && (() => content.onClick(setValue))}
+            onClick={
+              content.name === 'Scroll Up' 
+                ? () => {} 
+                : content.name === 'Scroll Down' 
+                  ? () => {} 
+                  : content.name === t('sale.drawerAmount') ? ()=> openShiftModal()
+                  : content.onClick && (() => content.onClick(setValue))
+            }
             onMouseDown={content.name === 'Scroll Up' ? () => startScroll(-7) : content.name === 'Scroll Down' ? () => startScroll(7) : null}
             onMouseUp={content.name === 'Scroll Up' || content.name === 'Scroll Down' ? stopScroll : null}
             setValue={setValue}
@@ -196,6 +216,7 @@ const Numpad = ({ setValue, scrollRef=null, layout=defaultLayout }) => {
         />
         </Grid>
     ))}
+    <ShiftModal open={isShiftModalOpen} onClose={closeShiftModal} /> 
     </Grid>
 )};
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Alert, AlertTitle, Fade } from '@mui/material';
 
-const useAlert = () => {
+const useAlert = (sx, ...alertComponentProps) => {
   const [alert, setAlert] = useState({
     open: false,
     severity: 'info',
@@ -40,7 +40,9 @@ const useAlert = () => {
             width: '250px',
             height: '100px',
             zIndex: 999,
+            ...sx
           }}
+          {...alertComponentProps}
         >
           {alert.title && <AlertTitle>{alert.title}</AlertTitle>}
           {alert.content}

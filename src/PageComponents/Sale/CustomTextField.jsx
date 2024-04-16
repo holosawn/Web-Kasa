@@ -5,6 +5,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { ReactComponent as SearchIcon} from '../../assets/Search.svg';
+import { t } from "i18next";
 
 
 const CustomTextField=({value, setValue, sx, setNumpadFocus, ...props})=>{
@@ -32,7 +33,7 @@ const CustomTextField=({value, setValue, sx, setNumpadFocus, ...props})=>{
         variant={'outlined'}
         autoComplete="off"
         onChange={handleChange}
-        placeholder="Search All"
+        placeholder={t('sale.searchAll')}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start"  >

@@ -20,6 +20,7 @@ import {
 import AddCustomer from "./AddCustomer";
 import ShiftModal from "./ShiftModal";
 import { useShiftStatus } from "../../contexts/ShiftContext";
+import { t } from "i18next";
 
 const ActionButton = ({ children, ...props }) => (
   <Button
@@ -72,7 +73,7 @@ export const ActionButtons = () => {
         <ActionButton color={"info"}>
           <LocalOfferOutlinedIcon
             // fontSize="medium"
-            key={"fiyat gör"}
+            key={'Products'}
             sx={{ strokeWidth: "1px", fontSize:{xs:'small', lg:'20px'} }}
           />
           <Typography
@@ -81,20 +82,20 @@ export const ActionButtons = () => {
             sx={{ width: "100%", display: "flex", justifyContent: "center" }}
             ml={0.5}
           >
-            Products
+            {t("sale.products")}
           </Typography>
         </ActionButton>
       </Grid>
       <Grid item xs={6} sx={{display:'flex', justifyContent:'center', alignItems:'center'}} >
         <ActionButton color={"info"}>
-          <FeedOutlinedIcon sx={{fontSize:{xs:'small', lg:'20px'}}} key={"manage Sales"} />
+          <FeedOutlinedIcon sx={{fontSize:{xs:'small', lg:'20px'}}} key={"Sales"} />
           <Typography
             variant="caption"
             fontSize={{xs:'9px', md:'12px', lg:'14px', xl:'16px'}}
             sx={{ width: "100%", display: "flex", justifyContent: "center" }}
             ml={0.5}
           >
-            Sales
+            {t('sale.sales')}
           </Typography>
         </ActionButton>
       </Grid>
@@ -102,7 +103,7 @@ export const ActionButtons = () => {
         <ActionButton color={"warning"} 
           // onClick={openCustomerModal}
          >
-          <PersonAddAltOutlinedIcon sx={{fontSize:{xs:'small', lg:'20px'}}} key={"add customer"} />
+          <PersonAddAltOutlinedIcon sx={{fontSize:{xs:'small', lg:'20px'}}} key={"Add Customer"} />
           <Typography
             variant="caption"
             fontSize={{xs:'9px', md:'12px', lg:'14px', xl:'16px'}}
@@ -110,7 +111,7 @@ export const ActionButtons = () => {
             ml={0.5}
             
           >
-            Add Customer
+            {t('sale.addCustomer')}
           </Typography>
         </ActionButton>
       </Grid>
@@ -123,7 +124,7 @@ export const ActionButtons = () => {
             sx={{ width: "100%", display: "flex", justifyContent: "center" }}
             ml={0.5}
           >
-            Settings
+            {t('sale.settings')}
           </Typography>
         </ActionButton>
       </Grid>
@@ -173,7 +174,7 @@ export const SysControlButtons = () => {
         <Typography
           sx={{ width: "70%", display: "flex", justifyContent: "center" ,fontSize:{xs:'9px', md:'12px', lg:'16px'}}}
         >
-          Back
+          {t('sale.back')}
         </Typography>
       </Button>
       <Button
@@ -194,10 +195,10 @@ export const SysControlButtons = () => {
           overflow={'visible'}
           sx={{ width: "70%", display: "flex", justifyContent: "center", fontSize:{xs:'9px', md:'12px', lg:'16px'}}}
         >
-          {shiftStatus.isOpen ? 'Close Shift' : 'Start Shift'}
+          {shiftStatus.isOpen ? t('sale.closeShift') : t('sale.startShift')}
         </Typography>
       </Button>
-      <ShiftModal open={isShiftModalOpen} shiftStatus={shiftStatus} setShiftStatus={setShiftStatus} onClose={closeModal} />
+      <ShiftModal open={isShiftModalOpen} onClose={closeModal} />
     </Stack>
   );
 };

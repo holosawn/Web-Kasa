@@ -8,6 +8,7 @@ import {
   import React, { useCallback } from "react";
   import EditIcon from "@mui/icons-material/Edit";
   import HighlightOffSharpIcon from "@mui/icons-material/HighlightOffSharp";
+import { t } from "i18next";
 
   
 const CartItemCard = ({ item, setCartItems, setItemInRegister,
@@ -56,7 +57,6 @@ const CartItemCard = ({ item, setCartItems, setItemInRegister,
         return filteredCartItems;
       });
       if(onEditClick) onEditClick();
-      // console.log(onEditClick);
     };
   
     return (
@@ -178,7 +178,7 @@ const CartItemCard = ({ item, setCartItems, setItemInRegister,
             mt={"auto"}
           >
             <Typography variant="h7" fontSize={{xs:9,md:12}} color={"secondary"}>
-              Total
+              {t('sale.total')}
             </Typography>
             <Typography variant="h7" fontSize={{xs:9,md:12}} color={"secondary"}>
               {formattedPrice}

@@ -3,10 +3,13 @@ import { Box, Fade, Modal, TextField, Button, Typography, Alert, Grow, AlertTitl
 import { onlyNumLayout } from "../../utils/Numpadlayouts";
 import Numpad from "./Numpad";
 import useAlert from "../../CustomHooks/useAlert";
+import { t } from "i18next";
+import { useShiftStatus } from "../../contexts/ShiftContext";
 
-const ShiftModal = ({ open, shiftStatus, setShiftStatus, onClose }) => {
+const ShiftModal = ({ open, onClose }) => { 
   const [drawerAmount, setDrawerAmount] = useState("");
   const [showAlert, AlertComponent] = useAlert(); // Use the custom hook
+  const {shiftStatus, setShiftStatus} = useShiftStatus()
 
   const handleStartShift = () => {
     if (drawerAmount > 0) {
@@ -17,7 +20,7 @@ const ShiftModal = ({ open, shiftStatus, setShiftStatus, onClose }) => {
       onClose();
     } else {
       // Show error message or handle empty drawer amount
-      showAlert("warning", "Non-valid Amount", "Drawer amount cannot be empty");
+      showAlert("warning", t('sale.alertTitle'), t('sale.alertContent'));
     }
   };
 
@@ -79,7 +82,7 @@ const ShiftModal = ({ open, shiftStatus, setShiftStatus, onClose }) => {
           }}
         >
           <TextField
-            label={`Drawer Amount`}
+            label={t('sale.drawerAmount')}
             variant="outlined"
             fullWidth
             focused
@@ -111,7 +114,7 @@ const ShiftModal = ({ open, shiftStatus, setShiftStatus, onClose }) => {
               onClick={handleStartShift}
             >
               <Typography variant="body2" textTransform={'none'} fontSize={{xs:12, md:16}} >
-                Update Drawer
+                {t('sale.updateDrawer')}
               </Typography>
             </Button>
             <Button sx={{mt:1, width:'30%', height:{xs:40, md:50}}}
@@ -122,7 +125,7 @@ const ShiftModal = ({ open, shiftStatus, setShiftStatus, onClose }) => {
               onClick={onClose}
             >
               <Typography variant="body2" textTransform={'none'} fontSize={{xs:12, md:16}}>
-                Cancel
+                {t('sale.cancel')}
               </Typography>
             </Button>
 
