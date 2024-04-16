@@ -77,10 +77,10 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
       ref={menuRef}
       sx={{width: isMenuOpen? '30vw':'70px', maxWidth:   210, minWidth: 50, position:'fixed', 
       left:0, top:64, zIndex:999, height:`calc(100vh - 64px)` , transition: 'width 0.3s linear', overflowY:'auto',
-      '&::-webkit-scrollbar': {
-        width: 0,  // This will hide the scrollbar in webkit browsers
-      },
-      scrollbarWidth: 'none',  // This will hide the scrollbar in Firefox
+      // '&::-webkit-scrollbar': {
+      //   width: 0,  // This will hide the scrollbar in webkit browsers
+      // },
+      // scrollbarWidth: 'none',  // This will hide the scrollbar in Firefox
     }}>
       <Box height={60} display={'flex'} flexDirection={'row'} alignItems={'center'}  >
           <AccountCircleIcon sx={{...getIconStyle('', currentPage), ml:2.5}} />

@@ -1,167 +1,228 @@
-import React, { useState } from 'react';
-import { Box, Button, Paper, Tooltip, Typography } from '@mui/material';
-import ArrowDropDownSharpIcon from '@mui/icons-material/ArrowDropDownSharp';
-import { useNavigate } from 'react-router-dom';
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import categoryData from '../../Data/WallmartCategoryData.json'
+import { Box, Button, Chip, Fade, Grow, IconButton, Stack, Typography, Grid } from '@mui/material'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ClearIcon from '@mui/icons-material/Clear';
 
-
-const currentMainCategoryStyles={
-    // backgroundColor:'#191970',
-    backgroundColor:'primary.main',
-    color: 'white', 
-    '&:hover': {
-        // backgroundColor:'#191970',
-        backgroundColor:'primary.main',
-        color: 'white', 
-    },
+const currCatStyles={
+    backgroundColor:'warning.main',
+    color: 'white',
 }
-const currentSubCategoryStyles={
-    // backgroundColor:'#191970',
-    backgroundColor:'secondary.main',
-    color: 'white', 
-    '&:hover': {
-        // backgroundColor:'#191970',
-        backgroundColor:'secondary.main',
-        color: 'white', 
-    },
+const currCatHoverStyles={
+    backgroundColor:'warning.main',
+    color: 'white',
 }
 
-const exampleCategories=[
-    {
-        name: 'All',
-        categoryType: 'main'
-    },
-    {
-        name: 'Vegetables',
-        categoryType: 'main'
-    },
-    {
-        name: 'Snack',
-        categoryType: 'main'
-    },
-    {
-        name: 'Cakes',
-        categoryType: 'sub',
-        main:'Snack'
-    },
-    {
-        name: 'White',
-        categoryType: 'sub',
-        main:'Vegetables'
-    },
-    {
-        name: 'Green',
-        categoryType:'sub',
-        main:'Vegetables'
-    },
-    {
-        name: 'Red',
-        categoryType:'sub',
-        main:'Vegetables'
-    },
-    {
-        name:'Chocolate',
-        categoryType:'sub',
-        main:'Snack'
+ const Categories = ({filterCategories, setFilterCategories}) => {
+  const scrollRef = useRef(null);
+  const scrollIntervalRef = useRef(null);
+
+  const scroll = (scrollVal)=>{
+    const currPos = scrollRef.current.scrollTop;
+    scrollRef.current.scrollTo({left:0, top:(currPos + scrollVal), behavior:'auto'})
+  }
+
+
+  const startScroll = (scrollVal) => {
+    if(scrollIntervalRef.current === null){
+      scrollIntervalRef.current = setInterval(() => {
+        scroll(scrollVal);
+      }, 1);
     }
-]
+  };
 
-const Categories = ({currCategory, setCurrCategories}) => {
-    const [isSubsVisible, setisSubsVisible] = useState()
-    const navigate = useNavigate();
+  const stopScroll = () => {
+    clearInterval(scrollIntervalRef.current);
+    scrollIntervalRef.current = null
+  };
 
+  // useEffect(()=>{scroll(50)},[  ])
 
-    const onMainCategoryClick=(name)=>{
-      setCurrCategories({main:name, sub:''})  
-      if(name !== currCategory.main) setisSubsVisible(true);
-      else setisSubsVisible(prev => !prev);
-    };
+    const onCategoryClick = useCallback((name, depth) => {
 
-    const onSubCategoryClick = (name) => {
-        if (currCategory.sub !== name ) {
-            setCurrCategories((prev) => ({
-                ...prev,
-                sub: name
-            }))
+        const catOfDepth = filterCategories[depth]
+
+        if (catOfDepth !== undefined && catOfDepth === name) {
+            setFilterCategories(prev => {
+                const newArr = [...prev]; // Create a copy of the current array
+                newArr.pop(); // Remove the last element
+                return newArr; // Return the new array
+            });
         }
-        else
-        {
-            setCurrCategories(prev => ({
-                ...prev,
-                sub:''
-            }))
-        }
-    };
+        else if (catOfDepth !== undefined && catOfDepth !== name ) {
 
-    const renderMainCategory = (mainCategory) => (
-        <Box display={'flex'} flexDirection={'column'} alignItems={'center'} key={mainCategory.name} sx={{overflowY:'auto', overflowX:'visible',width:'100%'}} >
-            <CategoryCard category={mainCategory} 
-            key={mainCategory.name} 
-            onClick={()=>onMainCategoryClick(mainCategory.name)} 
-            sx={mainCategory.name === currCategory.main && currentMainCategoryStyles}
-            endIcon={<ArrowDropDownSharpIcon/>}
-            />
-            {currCategory.main === mainCategory.name && isSubsVisible && renderSubCategories(mainCategory)}
-        </Box>
+            setFilterCategories(prev => {
+                const newArr = [...prev]; // Create a copy of the current array
+                newArr[depth] = name; // Remove the last element
+                return newArr; // Return the new array
+            });
+        }
+        else if (catOfDepth === undefined) {
+            setFilterCategories(prev => {
+                const newArr = [...prev]; // Create a copy of the current array
+                newArr[depth] = name; // Remove the last element
+                return newArr; // Return the new array
+            });
+        }
+    },[filterCategories, setFilterCategories])
+
+    const onChipClick = useCallback(
+      (name) => {
+        const catPos = filterCategories.indexOf(name);
+        const newArr = filterCategories.slice(0, catPos + 1); // Include the clicked category
+        setFilterCategories(newArr);
+      },
+      [filterCategories, setFilterCategories]
     );
-    
-    const renderSubCategories = (mainCategory) => {
 
-        if (mainCategory.name === 'All') {
-            return exampleCategories
-                .filter(category => category.categoryType === 'sub')
-                .map(subCategory =>(
-                    <CategoryCard category={subCategory} sx={{width:'65%', ...(subCategory.name === currCategory.sub && currentSubCategoryStyles)}} key={subCategory.name} onClick={()=> onSubCategoryClick(subCategory.name)} />
-                ));
-        } else {
-            
-            return exampleCategories
-                .filter(category => category.categoryType === 'sub' && category.main === mainCategory.name)
-                .map(subCategory => (
-                    <CategoryCard category={subCategory} sx={{width:'65%', ...(subCategory.name === currCategory.sub && currentSubCategoryStyles)}} key={subCategory.name} onClick={()=> onSubCategoryClick(subCategory.name)} />
-                ));
-        }
-    };
-    
+    const onChipDeleteClick = useCallback((e,name) => {
+      e.stopPropagation()
+      const catPos = filterCategories.indexOf(name);
+      const newArr = [...filterCategories.slice(0, catPos)];
+      setFilterCategories(newArr);
+    }, [filterCategories, setFilterCategories]); // Add filterCategories as a dependency
 
-    return (
-        <Box width={'25%'} height={'90vh'} sx={{overflowY:'auto', display:'flex', flexDirection:'column', alignItems:'center'}}>
-            {exampleCategories
-                .filter(category => category.categoryType === 'main')
-                .map(renderMainCategory)}
+    const largerValue = Math.max(0.15 * window.innerHeight, 100); // Determine the larger value between 15% of window height and 100px
+    const heightValue = `calc(90% - ${largerValue}px)`; // Construct the height value
 
-            <Button variant='contained' color='primary' onClick={()=> navigate('/Menu')} sx={{width:'90%', m:1, mt:'auto'}}>
-            Back
-            </Button>
-        </Box>
-    );
-};
+  return (
+    <Stack flex={1} width={'100%'} height={heightValue} direction={'column'} justifyContent={'space-between'} alignItems={'center'} >
+    <Box mb={{xs:0, lg:2}} width={'100%'} px={2} borderRadius={2} sx={{ overflowY: 'visible' }}>
+      <Grid container width={'100%'} my={0.5} rowGap={1} >
+        {filterCategories.map(cat =>(
+          <Grid item xs={6} key={cat} lg={12} sx={{display:'flex', justifyContent:'center', alignItems:'center'}} >
+            <Box bgcolor={'background.default'} onClick={() => onChipClick(cat)} sx={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-between', width:{xs:'95%', lg:'85%'}, height:'100%', borderRadius:3, pl:1, my:0.5, cursor:'pointer'}}>
+              <Typography textOverflow={'ellipsis'} noWrap variant='subtitle2' fontSize={{xs:'10px', lg:'15px'}}  >{cat}</Typography>
+              {/* <IconButton
+                variant="contained"
+                color="error"
+                sx={{ p: 0 }}
+              >
+                <HighlightOffSharpIcon sx={{ fontSize: 30 }} />
+              </IconButton> */}
+              <Button variant='contained' color='error' onClick={(event) => onChipDeleteClick(event,cat)} sx={{p:'1px', pr:0, minWidth:20, minHeight:0, borderRadius:'50%', mr:0.5}} disableRipple >
+                <ClearIcon sx={{fontSize:{xs:'20px', lg:'25px'}, }} />
+              </Button>
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
+    <Box position={'relative'} height={`${100- filterCategories.length*9}%`} overflow={'hidden'} width={'100%'} >
+    <Box ref={scrollRef} height={`100%`} width={'100%'} borderRadius={2} sx={{ overflowY: 'scroll', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
-const CategoryCard = ({ category, onClick, sx, ...props }) => {
-    const { '&:hover': hoverProps, ...newSx } = sx;
+      <Button
+        variant='contained'
+        color={'warning'}
+        sx={{position:'absolute', top:0, right:0, mr:{xs:1, lg:1, xl:2}, my:{xs:0.2, md:0.5}, borderRadius:'100%', width:{xs:20, md:30, lg:45}, height:{xs:30, lg:45}, minWidth:20, minHeight:20 }}
+        onMouseDown={()=>startScroll(-7)}
+        onMouseUp={stopScroll}
+      >
+        <KeyboardArrowUpIcon/>
+      </Button>
+
+      {renderCategories(categoryData, filterCategories, onCategoryClick)}
+
+
+      <Button
+        variant='contained'
+        color={'warning'}
+        sx={{position:'absolute', bottom:0, right:0, mr:{xs:1, lg:1, xl:2}, my:{xs:0.2, md:0.5}, borderRadius:'100%', width:{xs:20, md:30, lg:45}, height:{xs:30, lg:45}, minWidth:20, minHeight:20 }}
+        onMouseDown={()=>startScroll(7)}
+        onMouseUp={stopScroll}
+      >
+        <KeyboardArrowDownIcon/>
+      </Button>
+    </Box>
+    </Box>
+  </Stack>
+
+  )
+}
+
+const renderCategories = (catObj, filterCategories, onCategoryClick) => {
+  let categories = catObj;
+  let depth = 0
+
+  const slicedCategories = filterCategories.slice(0, 3); // Slice the first three elements
+  for(const cat of slicedCategories){
+      if(Object.keys(categories[cat]).length > 0){
+          categories = categories[cat]
+          depth += 1
+      }
+  }
+
+  return (
+    Object.entries(categories).map(([catKey]) => {
+      // console.log(catKey);
+      return (
+          <React.Fragment key={catKey} >
+              <CategoryCard key={catKey} isCurrent={filterCategories.includes(catKey)} name={catKey} onClick={() => onCategoryClick(catKey, depth)} sx={{ width:`88%`, }} />
+              {/* { ( filterCategories.includes(catKey) && Object.entries(value).length) ? renderCategories(value, depth + 1) : null} */}
+          </React.Fragment>
+          )
+    })
+  )
+}
+
+const CategoryCard = ({ name, onClick, sx, depth, isCurrent, ...props }) => {
     return(
-    <Button variant='contained' disableElevation onClick={onClick} sx={{
-        height: 30, 
-        m: 0.5,
-        width:'90%',
-        color:'text.primary',
-        transition: 'transform 0.2s ease-in-out',
-            '&:hover': {
-                transform: 'scale(1.08)',
-                opacity: '1',
-                color: '#6a4a96', 
-                backgroundColor:'background.paper',
-                ...hoverProps 
-            },
-        backgroundColor: 'background.paper',
-        justifyContent: 'space-between',
-        ...newSx
-        }}
-        {...props}
-        >
-        <Typography variant='h8' textTransform={'none'} >
-            {category.name}
-        </Typography>
-    </Button>
+    <Fade in={true}>
+    <Stack width={'calc(95% - 45px)'}  >
+        <Button variant='contained'  disableElevation onClick={onClick} sx={{
+            minHeight: {xs:25, md:35, l:45, lg:46, xl:55},
+            m: 0.5,
+            width:'95%',
+            color:'text.primary',
+            overflow:'hidden',
+            transition: 'transform 0.2s ease-in-out',
+                '&:hover': {
+                    transform: 'scale(1.08)',
+                    opacity: '1',
+                    color: '#6a4a96',
+                    backgroundColor:'background.default',
+                    ...((depth !== 0 && isCurrent)? currCatStyles : null),
+                },
+            backgroundColor: 'background.default',
+            justifyContent: 'space-between',
+            ...sx,
+            ...((depth !== 0 && isCurrent)? currCatHoverStyles : null),
+            }}
+            {...props}
+            >
+            <Typography variant='subtitle2'
+            fontSize={{xs:10, md:12, lg:16}}
+            noWrap overflow={'ellipsis'} textTransform={'none'} >
+                {name}
+            </Typography>
+        </Button>
+    </Stack>
+    </Fade>
 )};
 
-export default Categories;
+// const ScrollButton=({ onClick, scrollVal, children, ...props})=>(
+//   <Button
+//     variant='contained'
+//     sx={{ml:'auto',  my:{xs:0.2, md:0.5}, borderRadius:'100%', width:{xs:20, md:30, lg:45}, height:{xs:30, lg:45}, minWidth:20, minHeight:20 }}
+//     onClick={()=>onClick(scrollVal)}
+//     {...props}
+//   >
+//     {children}
+//   </Button>
+// );
+
+// const EllipsisText = ({ children, ...props}) => {
+
+//   return (
+//     <div style={{
+//       overflow: "hidden",
+//       textOverflow: "ellipsis",
+//       }}>
+//       {children}
+//     </div>
+//   )
+// }
+
+
+export default Categories

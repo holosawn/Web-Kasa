@@ -3,23 +3,33 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ReactComponent as SearchIcon} from '../../assets/Search.svg';
 
 
 const CustomTextField=({value, setValue, sx, setNumpadFocus, ...props})=>{
+  const [size, setSize] = useState({x:window.innerWidth, y:window.innerHeight})    
 
+  useEffect(() => {
+    function handleResize() {
+      setSize({x:window.innerWidth, y:window.innerHeight})
+    }
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
   return(
     <TextField
-        autoFocus
         value={value}
         onFocus={()=> setNumpadFocus('products')}
         variant={'outlined'}
-        color=""
         autoComplete="off"
         onChange={handleChange}
         placeholder="Search All"
@@ -28,13 +38,18 @@ const CustomTextField=({value, setValue, sx, setNumpadFocus, ...props})=>{
             <InputAdornment position="start"  >
               <SearchIcon width={17}/>
             </InputAdornment>
-          )
+          ),
+          sx:{
+            fontSize:{xs:10, md:15}
+          }
         }}
-        size="small"
+        size={size.y > 400 ? "large": 'small'}
+        
         sx={{
           width:'100%',
           backgroundColor:'background.paper',
-          mb:1,
+          mb:{xs:0, md:1},
+          fontSize:'10px',
           borderRadius: 2,
           "& .MuiOutlinedInput-root": {
             '& fieldset': {

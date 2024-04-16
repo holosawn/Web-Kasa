@@ -1,0 +1,1996 @@
+{
+    "Premium Beauty": {
+        "Premium Makeup": {
+            "Premium Nail Polish & Care": {
+                "Premium Nail Polish": {},
+                "Premium Nail Kits": {},
+                "Premium Nail Care": {},
+                "Premium Top Coat": {}
+            },
+            "Premium Eyes": {
+                "Premium Eyebrow": {},
+                "Premium Eyeshadow": {},
+                "Premium Eyeliner": {},
+                "Premium Mascara": {},
+                "Premium Eye Primer": {},
+                "Premium Eye Lashes": {}
+            },
+            "Premium Lips": {
+                "Premium Lipstick": {},
+                "Premium Lip Gloss": {},
+                "Premium Lip Liner": {},
+                "Premium Lip Stain": {}
+            },
+            "Premium Face": {
+                "Premium Foundation": {},
+                "Premium Concealer": {},
+                "Premium Contour": {},
+                "Premium Setting Spray & Powder": {},
+                "Premium Face Kit": {},
+                "Premium Blush": {},
+                "Premium Bronzer": {},
+                "Premium Tinted Moisturizer": {},
+                "Premium BB & CC Cream": {}
+            },
+            "Premium Tools & Accessories": {}
+        },
+        "Premium Bath & Body": {
+            "Premium Bath Accessories": {},
+            "Premium Body Washes & Shower Gels": {},
+            "Premium Sun Care & Sunscreens": {},
+            "Premium Body Treatments": {},
+            "Premium Body Lotions": {},
+            "Premium Essential Oils & Aromatherapy": {},
+            "Premium Hand Lotions & Foot Creams": {},
+            "Premium Body Hair Removal": {},
+            "Premium Bath Bombs, Bath Salts & Bubble Bath": {},
+            "Premium Deodorants & Antiperspirants": {},
+            "Premium Hand Soaps & Sanitizers": {},
+            "Premium Self Tanners": {},
+            "Premium Value Sizes & Sets": {}
+        },
+        "Premium Facial Skincare": {
+            "Premium Facial Treatments & Serums": {},
+            "Premium Face Moisturizers": {},
+            "Premium Exfoliators, Scrubs & Peels": {},
+            "Premium Eye Cream & Treatments": {},
+            "Premium Face Masks": {},
+            "Premium Face Cleansers": {},
+            "Premium Sun Care & Sunscreens": {},
+            "Premium Toners": {},
+            "Premium Neck & Decollete Creams": {},
+            "Premium K-Beauty": {},
+            "Premium Value Sizes & Sets": {},
+            "Premium Oil & Blemish Control": {},
+            "Premium Self Tanners": {},
+            "Premium Lip Care": {}
+        },
+        "Premium Men's Grooming": {
+            "Premium Hair Care": {},
+            "Premium Colognes": {},
+            "Premium Beard Care": {},
+            "Premium Shave": {},
+            "Premium Face Care": {},
+            "Premium Deodorants": {},
+            "Premium Grooming Tools": {},
+            "Premium Body Care": {}
+        },
+        "Premium Fragrance": {
+            "Premium Cologne": {},
+            "Premium Perfume": {}
+        },
+        "Premium Hair Care & Hair Tools": {
+            "Premium Styling Products": {
+                "Premium Hair Spray": {},
+                "Premium Hair Styling Products": {}
+            },
+            "Premium Conditioners": {},
+            "Premium Hair & Scalp Treatments": {},
+            "Premium Shampoos": {},
+            "Premium Shampoo & Conditioner Sets": {},
+            "Premium Hair Dryers": {}
+        },
+        "Premium Hair Care": {
+            "Premium Styling Products": {
+                "Hair Styling Products": {},
+                "Hair Mousse": {},
+                "Hair Spray": {},
+                "Hair Oil": {}
+            },
+            "Premium Hair & Scalp Treatments": {},
+            "Premium Conditioners": {},
+            "Premium Hair Color": {},
+            "Premium Value Sizes & Sets": {},
+            "Premium Shampoos": {
+                "Shampoo": {}
+            }
+        },
+        "Premium K-Beauty": {
+            "Premium K-Beauty Bestsellers": {},
+            "Premium Korean Skincare": {
+                "Korean Face Masks": {},
+                "Korean Suncare": {},
+                "Korean Moisturizers & Treatments": {}
+            }
+        },
+        "Premium Hair Tools & Accessories": {
+            "Premium Flat Irons": {}
+        },
+        "Featured Brands": {
+            "Zirh": {},
+            "Laneige": {},
+            "Peter Thomas Roth": {}
+        },
+        "Premium Beauty Tech & Skin Devices": {
+            "Premium Cleansing Tools & Devices": {},
+            "Premium Hair Tech Tools & Devices": {},
+            "Premium Anti-Aging Tools & Devices": {}
+        },
+        "Premium Tools & Brushes": {
+            "Premium Makeup Tools & Brushes": {}
+        }
+    },
+    "Beauty": {
+        "Hair Care": {
+            "Hair Color": {
+                "Auburn Hair Color": {},
+                "Permanent Hair Color": {},
+                "Hair Bleach": {},
+                "Blue Hair Dye": {},
+                "Clairol Hair Color": {},
+                "Semi-permanent Hair Color": {},
+                "Red Hair Dye": {},
+                "Root Touch Up": {},
+                "Henna Hair Dye": {},
+                "Just For Men Hair Color": {},
+                "Temporary Hair Color": {}
+            },
+            "Hair Care Brands": {
+                "Old Spice Haircare": {},
+                "Suave": {},
+                "L'Oreal Hair Care": {},
+                "Nexxus": {},
+                "Clairol": {},
+                "Garnier Hair Care": {},
+                "Groganics": {},
+                "Herbal Essences Curls": {},
+                "Tigi Curls": {},
+                "Palmer's Hair Care": {},
+                "Tigi": {},
+                "Axe": {},
+                "Hollywood Beauty": {}
+            },
+            "Conditioner": {
+                "Dandruff Conditioner": {},
+                "Leave In Conditioner": {},
+                "All Conditioner": {},
+                "Pantene Conditioners": {},
+                "Doo Gro Conditioners": {},
+                "Color Care Conditioner": {},
+                "OGX Conditioners": {},
+                "Herbal Essences Conditioners": {},
+                "Deep Conditioner": {},
+                "As I Am Conditioners": {},
+                "Taliah Waajid Conditioners": {},
+                "Redken Conditioner": {}
+            },
+            "Shampoo": {
+                "OGX Shampoos": {},
+                "All Shampoo": {},
+                "Biotin Shampoo": {},
+                "Dove Men+Care Shampoo": {},
+                "L'Oreal Shampoo": {},
+                "Dandruff Shampoo": {},
+                "Tresemme Shampoos": {},
+                "Tea Tree Shampoo": {},
+                "Cantu Shampoos": {},
+                "Argan Oil Shampoo": {},
+                "Pantene Shampoo": {},
+                "Suave Shampoo": {}
+            },
+            "Hair Styling Products": {
+                "Hair Pomade": {},
+                "All Hair Styling Products": {},
+                "Pantene Styling Products": {},
+                "Hair Gel": {},
+                "Hair Spray": {},
+                "Hair Mousse": {},
+                "Tresemme Styling Products": {},
+                "OGX Styling Products": {},
+                "Not Your Mother's Styling": {},
+                "L'Oreal Styling Products": {}
+            },
+            "Natural Hair Care": {},
+            "Between Washes": {},
+            "Textured Hair Care": {
+                "Conditioning": {},
+                "Coily Hair Care": {},
+                "Deep Conditioners and Masks": {},
+                "All Textured Hair": {}
+            },
+            "Dry Shampoo": {
+                "All Dry Shampoo": {},
+                "Not Your Mother's Dry Shampoo": {}
+            },
+            "Hair Treatments": {
+                "Curly Hair Masks": {},
+                "Argan Oils": {},
+                "Hair Milks": {},
+                "Heat Protection": {},
+                "Color Protecting Hair Treatments": {},
+                "Cantu Hair Treatments": {},
+                "Scalp Treatments": {},
+                "Creme of Nature Treatments": {},
+                "Doo Gro Treatments": {}
+            },
+            "Shampoo and Conditioner": {
+                "Old Spice 2-in-1 Shampoo Conditioner": {},
+                "Pantene 2-in-1 Shampoo and Conditioner": {}
+            },
+            "Hair Regrowth": {
+                "Hair Regrowth Treatments": {}
+            },
+            "Wahl Hair Cutting Tools": {}
+        },
+        "Makeup": {
+            "Lip": {},
+            "Nails": {},
+            "Face Makeup": {
+                "Face Primer": {},
+                "Foundation": {
+                    "Neutrogena Foundation Deep Shades": {},
+                    "Stick Foundation": {},
+                    "Foundation with SPF": {},
+                    "Deep Foundation Shades": {},
+                    "Maybelline Foundation Deep Shades": {},
+                    "Maybelline Foundation Medium Shades": {},
+                    "Cushion Foundation": {},
+                    "Powder Foundation": {},
+                    "Maybelline Foundation Fair Shades": {},
+                    "COVERGIRL Foundation Medium Shades": {},
+                    "Liquid Foundation": {},
+                    "COVERGIRL Foundation Deep Shades": {},
+                    "Fair Foundation Shades": {},
+                    "Physicians Formula Foundation": {},
+                    "Cream Foundation": {},
+                    "Revlon Foundation Fair Shades": {},
+                    "Neutrogena Foundation Medium Shades": {},
+                    "Neutrogena Foundation Fair Shades": {},
+                    "COVERGIRL Foundation Fair Shades": {},
+                    "COVERGIRL Foundation": {},
+                    "L'Oreal Foundation Fair Shades": {},
+                    "L'Oreal Foundation Medium Shades": {},
+                    "wet n wild Foundation": {}
+                },
+                "Blush": {
+                    "Powder Blush": {},
+                    "Blush Palette": {},
+                    "Liquid Blush": {}
+                },
+                "Concealer": {
+                    "Color Correcting Concealer": {},
+                    "Stick Concealer": {},
+                    "All Concealer": {},
+                    "Deep Concealer": {},
+                    "COVERGIRL Concealer": {},
+                    "Physicians Formula Concealer": {}
+                },
+                "Face Makeup Brands": {
+                    "Milani Face Makeup": {},
+                    "Iman Face Makeup": {},
+                    "L.A. Girl Face Makeup": {},
+                    "Maybelline Face Makeup": {},
+                    "Rimmel Face Makeup": {},
+                    "COVERGIRL Face Makeup": {},
+                    "Max Factor Face Makeup": {},
+                    "Black Radiance Face Makeup": {},
+                    "Hard Candy Face Makeup": {},
+                    "Neutrogena Face Makeup": {},
+                    "Almay Face Makeup": {},
+                    "Revlon Face Makeup": {},
+                    "Flower Face Makeup": {}
+                },
+                "Setting Powder": {
+                    "Pressed Powder": {}
+                },
+                "Highlighter Makeup": {
+                    "Highlighter Powder": {}
+                },
+                "Bronzer": {
+                    "Bronzing Powder": {}
+                },
+                "BB Cream": {
+                    "Rimmel BB Cream": {}
+                }
+            },
+            "Eye Makeup": {
+                "Eye Makeup Brands": {
+                    "Hard Candy Eye Makeup": {},
+                    "COVERGIRL Eye Makeup": {},
+                    "Flower Eye Makeup": {},
+                    "Maybelline Eye Makeup": {},
+                    "Rimmel Eye Makeup": {},
+                    "L.A. Girl Eye Makeup": {},
+                    "Milani Eye Makeup": {},
+                    "Max Factor Eye Makeup": {},
+                    "wet n wild Eye Makeup": {},
+                    "NYX Professional Eye Makeup": {},
+                    "Iman Eye Makeup": {},
+                    "Physicians Formula Eye Makeup": {}
+                },
+                "Eyeliner": {
+                    "Gel Eyeliner": {},
+                    "Liquid Eyeliner": {},
+                    "NYX Professional Eyeliner": {},
+                    "Waterproof Liquid Eyeliner": {},
+                    "All Eyeliner": {},
+                    "Shimmer Eyeliner": {},
+                    "COVERGIRL Eyeliner": {},
+                    "Pencil Eyeliner": {}
+                },
+                "Mascara": {
+                    "Waterproof Mascara": {},
+                    "Black Mascara": {},
+                    "L'Oreal Mascara": {}
+                },
+                "Eye Shadow": {
+                    "SHANY Eye Shadow": {},
+                    "Almay Eye Shadow": {},
+                    "NYX Professional Eye Shadow": {},
+                    "All Eye Shadow": {}
+                },
+                "Brows": {
+                    "Eyebrow Powder": {},
+                    "Eyebrow Gel": {},
+                    "COVERGIRL Eyebrow Color": {},
+                    "Eyebrow Pencil": {}
+                },
+                "False Eyelashes": {
+                    "Ardell False Eyelashes": {},
+                    "Salon Perfect Eyelashes": {}
+                }
+            },
+            "Lip Makeup": {
+                "Lipstick": {
+                    "Liquid Lipstick": {},
+                    "Tube Lipstick": {}
+                },
+                "Lip Makeup Brands": {
+                    "e.l.f. Lip Makeup": {},
+                    "COVERGIRL Lip Makeup": {},
+                    "Black Opal Lip Makeup": {},
+                    "Black Radiance Lip Makeup": {}
+                }
+            },
+            "Face": {},
+            "Tools & Accessories": {},
+            "Eye": {},
+            "Makeup Sets": {
+                "Makeup Sets": {}
+            },
+            "Going Out Makeup": {},
+            "Body Makeup": {
+                "Face & Body Paint": {}
+            },
+            "Nail": {}
+        },
+        "Nail Care": {
+            "Nail Polish": {
+                "Nail Lacquer": {},
+                "Nail Polish": {},
+                "Sally Hansen Nail Polish": {},
+                "OPI Nail Polish": {},
+                "wet n wild Nail Polish": {},
+                "Revlon Nail Polish": {},
+                "Essie Nail Polish": {}
+            },
+            "Nail Treatments": {
+                "Nail Ridge Filler": {}
+            },
+            "Nail Art": {
+                "Sally Hansen Nail Art": {}
+            }
+        },
+        "Beauty by Top Brands": {
+            "Hard Candy": {
+                "Hard Candy Lipstick & Lip Liner": {},
+                "Hard Candy Lip Glosses": {},
+                "Hard Candy Lip Makeup": {}
+            },
+            "COVERGIRL": {
+                "COVERGIRL Lipstick": {},
+                "COVERGIRL Lip Gloss & Lip Plumper": {}
+            },
+            "L'Oreal": {
+                "L'Oreal Makeup": {
+                    "Beauty": {
+                        "Beauty by Top Brands": {
+                            "L'Oreal": {
+                                "L'Oreal Makeup": {}
+                            }
+                        }
+                    }
+                },
+                "L'Oreal Skin Care": {}
+            },
+            "L'Oreal Brands": {},
+            "Milani": {
+                "Milani Lipstick": {}
+            },
+            "NYX Professional Makeup": {
+                "NYX Professional Lip Makeup": {}
+            },
+            "Revlon": {
+                "Revlon Lip Balm & Conditioner": {},
+                "Revlon Lip Makeup": {},
+                "Revlon Lip Stain": {},
+                "Revlon Makeup": {},
+                "Revlon Tools & Accessories": {}
+            },
+            "Rimmel": {
+                "Rimmel Lip Makeup": {}
+            },
+            "Equate Beauty": {
+                "Equate Skincare": {},
+                "Equate Beauty Face Wipes": {}
+            },
+            "Neutrogena": {
+                "Neutrogena Lip Gloss": {},
+                "Neutrogena Facial Treatments": {},
+                "Neutrogena Hair Care": {},
+                "Neutrogena Eye Creams and Serums": {}
+            },
+            "Maybelline New York": {
+                "Maybelline Lipstick": {
+                    "Beauty": {
+                        "Beauty by Top Brands": {
+                            "Maybelline New York": {
+                                "Maybelline Lipstick": {}
+                            }
+                        }
+                    }
+                },
+                "Maybelline Lip Gloss & Lip Plumper": {},
+                "Maybelline Lip Liner": {},
+                "Maybelline Lip Stain": {},
+                "Maybelline Lip Balm & Conditioner": {}
+            },
+            "SheaMoisture": {
+                "Shea Moisture Facial Care": {}
+            },
+            "ChapStick": {},
+            "Ponds": {
+                "Ponds Cold Cream": {}
+            },
+            "Max Factor": {
+                "Max Factor Lip Makeup": {}
+            },
+            "Garnier": {
+                "Garnier Conditioner": {}
+            },
+            "wet n wild": {
+                "wet n wild Lip Liner": {},
+                "wet n wild Lip Makeup": {}
+            },
+            "Burt's Bees": {
+                "Burt's Bees Lip Balm": {},
+                "Burt's Bees Skin Care": {}
+            },
+            "L.A. Girl": {
+                "L.A. Girl Lip Makeup": {}
+            },
+            "Flower Beauty Cosmetics": {
+                "Flower Lip Makeup": {}
+            },
+            "L'Oreal Beauty Forward": {},
+            "Remington": {},
+            "Almay": {
+                "Almay Lipstick & Lip Liner": {}
+            },
+            "Olay": {
+                "Olay Facial Treatments and Serums": {},
+                "Olay Eye Creams and Serums": {}
+            },
+            "Lip Smacker": {
+                "Lip Smacker Lip Balm & Conditioner": {}
+            },
+            "Bliss": {},
+            "Sally Hansen": {
+                "Sally Hansen Hair Bleach & Removal": {}
+            },
+            "Salon Perfect": {
+                "Salon Perfect Nails": {}
+            },
+            "St Ives": {
+                "St Ives Exfoliators and Scrubs": {}
+            }
+        },
+        "Skin Care": {
+            "Facial Cleansers": {
+                "Cetaphil Cleansers": {},
+                "Exfoliators": {
+                    "Facial Scrub": {},
+                    "Neutrogena Face Scrubs": {},
+                    "Face Scrubs For Normal Skin": {},
+                    "Face Scrubs For Acne & Blemishes": {},
+                    "Face Scrubs For Sensitive Skin": {}
+                },
+                "Face Wash": {
+                    "Olay Face Wash": {},
+                    "Face Wash For Normal Skin": {},
+                    "Face Wash For Sensitive Skin": {},
+                    "Face Wash For Dull Skin": {},
+                    "Face Wash For Dry Skin": {},
+                    "Neutrogena Face Wash": {},
+                    "Face Wash For Oil & Shine Control": {}
+                },
+                "Aveeno Facial Cleansers": {},
+                "All Facial Cleansers": {},
+                "Facial Wipes": {},
+                "Makeup Removers": {},
+                "Face Wipes": {
+                    "Garnier Face Wipes": {}
+                },
+                "Biore Cleansers": {},
+                "CeraVe Hydrating Cleanser": {},
+                "Face Toners": {
+                    "Face Toners For Oily Skin": {}
+                }
+            },
+            "Lip Balms & Conditioners": {
+                "Tinted Lip Balm": {}
+            },
+            "Moisturizers": {
+                "Facial Moisturizers for Sensitive Skin": {},
+                "Facial Moisturizers for Anti Aging": {},
+                "Anti Aging Cream": {},
+                "Night Creams": {},
+                "Moisturizers for Oily Skin": {},
+                "Retinol Moisturizers": {},
+                "L'Oreal Face Moisturizers": {},
+                "Hyaluronic Acid Moisturizers": {},
+                "Facial Moisturizers by Skin Type": {},
+                "Oil Free Moisturizers": {},
+                "All Facial Moisturizers": {},
+                "Olay Face Moisturizers": {},
+                "SPF Moisturizers": {}
+            },
+            "Skin Care Concern": {
+                "Skin Care Products for Dry Skin": {}
+            },
+            "Face Moisturizers by Skin Type": {
+                "Face Moisturizers for Oily Skin": {}
+            },
+            "Face Masks": {
+                "All Face Masks": {},
+                "Freeman Face Masks": {}
+            },
+            "Acne Treatments": {
+                "Oil & Blemish Control": {},
+                "Salicylic Acid": {},
+                "Blackhead Extractors": {},
+                "Acne Cleansers": {}
+            },
+            "Skin Care Sets": {},
+            "Makeup Remover": {
+                "Almay Makeup Removers": {},
+                "Neutrogena Makeup Removers": {},
+                "All Makeup Removers": {},
+                "Neutrogena Makeup Remover Wipes": {}
+            },
+            "Facial Sunscreen": {
+                "Coppertone Facial Sunscreen": {}
+            },
+            "Eye Creams": {
+                "Eye Creams for Hydration": {}
+            },
+            "Anti-Aging Skincare": {
+                "Shop by Age - Anti-aging - 50s": {}
+            },
+            "Lip Care": {
+                "Lip Balm & Conditioner": {},
+                "SPF Lip Balm": {}
+            },
+            "Best Acne Treatments 2020": {
+                "Blackhead Extractors": {}
+            },
+            "Facial Serums": {
+                "Facial Treatments for Dry Skin": {}
+            }
+        },
+        "The Curl Shop": {
+            "Coily Hair Products": {},
+            "Wavy Hair Products": {}
+        },
+        "Premium Beauty": {
+            "Premium Hair Care": {},
+            "Premium Shave and Travel": {},
+            "Premium Body Care": {},
+            "Premium Skin Care": {}
+        },
+        "Beauty Holiday Gifts": {
+            "Hair Care Holiday Deals & Gift Guide": {
+                "Hair Care Consumables Holiday Gift Guide": {}
+            }
+        },
+        "Travel Size Beauty": {
+            "Travel Size Makeup": {
+                "Travel Size Eye Makeup": {}
+            },
+            "Travel Size Hair Care": {
+                "Travel Size Conditioner": {},
+                "Travel Size Styling Products": {}
+            },
+            "Travel Size Skincare": {
+                "Travel Size Moisturizers": {},
+                "Travel Size Facial Serums": {}
+            }
+        },
+        "Beauty by Topic": {
+            "Mindful Beauty": {
+                "Mindful Beauty Cosmetics": {},
+                "Mindful Beauty Skincare": {},
+                "Mindful Beauty Hair Care": {}
+            },
+            "Face Moisturizers with SPF": {}
+        },
+        "Here for Every Beauty": {
+            "Bath & Body": {
+                "Deodorants & Antiperspirants": {}
+            },
+            "Hair Care & Hair Tools": {
+                "Hair & Scalp Treatments": {},
+                "Styling Products": {}
+            },
+            "Skincare": {
+                "Face Serums & Treatments": {},
+                "Cleansers": {}
+            }
+        },
+        "At Home Beauty": {},
+        "Clearance on Health Beauty Wellness & Personal Care": {},
+        "Bath & Body": {
+            "Hand Creams & Lotions": {},
+            "Hand Soaps & Sanitizers": {},
+            "Bath Bombs, Bubble Baths & Soaks": {},
+            "Bath Accessories": {}
+        },
+        "Fragrances": {
+            "Perfume for Women": {
+                "Perfumes by Scent": {
+                    "Floral Perfume": {}
+                },
+                "Perfume Value Sizes & Sets": {}
+            },
+            "Body Spray": {
+                "Women's Body Spray": {
+                    "Body Spray for Women": {},
+                    "Bodycology": {}
+                },
+                "Men's Body Spray": {
+                    "Bod Man": {},
+                    "Axe": {}
+                }
+            },
+            "Cologne for Men": {
+                "Value Sizes & Sets": {}
+            },
+            "Fragrance Brands": {
+                "Burberry Fragrance": {
+                    "Burberry Cologne": {}
+                }
+            },
+            "All Fragrances": {}
+        },
+        "Clearance and Rollback Beauty Products": {
+            "Clearance and Rollback Hair Products": {}
+        },
+        "Spring Break Beauty": {
+            "Fragrance": {}
+        },
+        "Dermatologist Recommended": {
+            "Dermatologist Recommended Skin Concerns": {
+                "Dermatologist Recommended Psoriasis Products": {}
+            }
+        },
+        "Beauty Wellness": {
+            "Detox": {},
+            "Beauty Wellness": {}
+        },
+        "Best Beauty Gift Ideas": {
+            "Best Beauty Gifts Under $15": {},
+            "Best Beauty Gifts Under $50": {},
+            "Best Skincare Sets": {},
+            "Makeup Palettes and Gift Sets": {}
+        },
+        "Festival Hair Color": {},
+        "Fragrance Best Sellers": {
+            "Best Men's Cologne": {},
+            "Best Women's Perfume": {}
+        },
+        "Back to College Beauty": {
+            "College Hair Essentials": {}
+        },
+        "Valentines Day Beauty Gifts": {
+            "Valentines Day Makeup": {}
+        }
+    },
+    "Seasonal": {
+        "Stock Up Essentials": {
+            "Personal Care Stock Up": {
+                "Stock up on Shave": {},
+                "Stock up on Oral Care": {}
+            },
+            "Household Essentials Stock Up": {
+                "Stock up on Batteries": {},
+                "Stock up on Cleaning Supplies": {},
+                "Stock up on Laundry Room Supplies": {},
+                "Stock up on Paper & Plastic": {}
+            },
+            "Health & Wellness Stock Up": {
+                "Stock up on Feminine Care": {},
+                "Stock up on Protein & Fitness": {},
+                "Stock up on Allergy": {},
+                "Stock up on Incontinence": {}
+            },
+            "Pet Supplies Stock Up": {
+                "Stock up on Dog Supplies": {
+                    "Stock up on Dog Health, Grooming & Wellness": {}
+                }
+            }
+        },
+        "Last Minute Gifts": {},
+        "Clean Living Shop": {
+            "Wellness Clean Living Shop": {},
+            "Personal Care Clean Living Shop": {
+                "Clean Living Bath & Body": {
+                    "Clean Living Deodorants & Antiperspirants": {},
+                    "Clean Living Body Lotions & Creams": {}
+                }
+            },
+            "Household Clean Living Shop": {
+                "All Household Clean Living": {},
+                "Clean Living Dish Care": {}
+            }
+        },
+        "Back to School": {
+            "Morning Routine Essentials": {
+                "Children's Hair Care": {}
+            }
+        },
+        "@ Manual Shelves - Seasonal": {
+            "American Jobs 2020": {}
+        },
+        "Wellness": {
+            "Sleep Health": {}
+        }
+    },
+    "Personal Care": {
+        "Oral Care": {
+            "Kids Oral Care": {},
+            "Crest": {},
+            "Denture Adhesive": {},
+            "Dental Floss": {
+                "All Dental Floss": {},
+                "String Floss": {},
+                "Floss Picks": {},
+                "Braces Floss": {}
+            },
+            "Toothbrushes": {
+                "Manual Toothbrushes": {
+                    "Colgate Toothbrushes": {},
+                    "Oral B Manual Toothbrushes": {},
+                    "All Manual Toothbrushes": {}
+                },
+                "Electric Toothbrushes": {
+                    "Oral-B Electric Toothbrushes": {},
+                    "All Electric Toothbrushes": {},
+                    "Philips Sonicare Electric Toothbrushes": {}
+                },
+                "Toothbrush Replacement Heads": {
+                    "All Toothbrush Replacement Heads": {},
+                    "Philips Sonicare Electric Toothbrush Replacement Heads": {}
+                }
+            },
+            "Oral Pain Relief": {},
+            "Oral Accessories": {
+                "All Oral Accessories": {}
+            },
+            "Clean Living Oral Care": {},
+            "Water Flossers": {
+                "All Water Flossers": {},
+                "Waterpik": {
+                    "All Waterpik": {}
+                }
+            },
+            "Mouthwash": {
+                "Dry Mouth Mouthwash": {
+                    "All Dry Mouth Mouthwash": {}
+                },
+                "ACT Mouthwash": {}
+            },
+            "Toothpaste": {
+                "All Toothpaste": {},
+                "Toms Toothpaste": {}
+            },
+            "Hello": {},
+            "Baby Oral Care": {},
+            "Listerine": {},
+            "Teeth Whitening": {
+                "Charcoal Teeth Whitening": {},
+                "Whitening Strips": {
+                    "Crest Whitening Strips": {}
+                },
+                "All Teeth Whitening": {}
+            }
+        },
+        "Restock & Save On Hair Care": {
+            "Hair Sets": {},
+            "Shampoo": {},
+            "Conditioner": {},
+            "Hair Color": {},
+            "Styling & Treatment": {}
+        },
+        "Personal Care by Brand": {
+            "Crest": {},
+            "Wahl": {
+                "All Wahl": {}
+            },
+            "Listerine": {},
+            "Colgate": {},
+            "Equate Oral Care": {},
+            "Harry's": {}
+        },
+        "Bath & Body": {
+            "Body Lotions & Creams": {},
+            "Hand Lotions & Creams": {},
+            "Bar Soap": {},
+            "Body Scrubs & Exfoliators": {},
+            "Loofahs, Bath Sponges & Accessories": {},
+            "Dove Deodorant & Antiperspirant": {},
+            "Body Wash & Shower Gel": {},
+            "Hand Soaps": {
+                "Personal Care": {
+                    "Bath & Body": {
+                        "Hand Soaps": {}
+                    }
+                }
+            },
+            "Clinical Strength Antiperspirants": {},
+            "Clean Living Body Wash": {},
+            "Old Spice Body Wash & Deodorants": {},
+            "Bubble Baths & Soaks": {},
+            "Dove Personal Care": {},
+            "Body Oils": {},
+            "Body Powder": {},
+            "Body Care Sets & Kits": {},
+            "Clean Living Body Lotions & Creams": {}
+        },
+        "Feminine Care": {
+            "All Feminine Care": {},
+            "Feminine Wipes": {},
+            "Tampons": {},
+            "Always": {
+                "Always Pantiliners": {},
+                "Always": {}
+            },
+            "Maxi Pads": {},
+            "Feminine Hygiene": {},
+            "Carefree": {},
+            "Yeast Infection Treatments": {},
+            "Natural Feminine Care": {
+                "Natural Tampons": {},
+                "Natural Feminine Care": {}
+            },
+            "Feminine Deodorant Sprays & Powders": {},
+            "Rephresh": {},
+            "U by Kotex": {
+                "U by Kotex Pads": {}
+            },
+            "Playtex": {}
+        },
+        "Incontinence": {
+            "All Incontinence": {
+                "Personal Care": {
+                    "Incontinence": {
+                        "All Incontinence": {}
+                    }
+                }
+            },
+            "Incontinence Underwear": {},
+            "Women's Incontinence": {},
+            "Incontinence Pads": {},
+            "Tena": {
+                "Tena Underwear": {},
+                "Tena Pads": {}
+            },
+            "Men's Incontinence": {},
+            "Always Discreet": {
+                "Always Discreet Pads": {}
+            },
+            "Depend": {
+                "Depend for Men": {},
+                "Depend for Women": {}
+            },
+            "Adult Hygiene": {}
+        },
+        "Sun Care": {
+            "Tanning Lotions & Oils": {},
+            "Sunscreen": {},
+            "Self-Tanners & Bronzers": {},
+            "Reef-Safe Sunscreen": {},
+            "After-Sun Care": {}
+        },
+        "Shaving": {
+            "Shaving Cream": {
+                "Women's Shaving Cream": {},
+                "Men's Shaving Cream": {}
+            },
+            "Electric Shavers": {
+                "All Electric Shavers": {},
+                "Philips Norelco Electric Shavers": {}
+            },
+            "Electric Shave Replacement Heads": {
+                "All Electric Shave Replacement Heads": {}
+            },
+            "Men's Beard Care": {
+                "Beard Trimmers & Tools": {
+                    "Beard Trimmers": {}
+                },
+                "All Men's Beard Care": {}
+            },
+            "Razor Blades": {
+                "Women's Razor Blades": {},
+                "Men's Razor Blades": {}
+            },
+            "Women's Shaving Cream": {},
+            "Men's Shaving": {},
+            "Nose Hair Trimmer": {},
+            "Trimmers & Groomers": {
+                "Hair Clippers": {
+                    "Andis Clippers": {},
+                    "All Hair Clippers": {}
+                },
+                "All Trimmers & Groomers": {}
+            },
+            "Women's Shaving": {},
+            "Razors": {
+                "Gillette Razors": {},
+                "All Razors": {}
+            },
+            "Body Hair Removal": {
+                "Waxes & Depilatory Cream": {}
+            },
+            "All Trimmers & Groomers": {},
+            "Men's Shaving Cream": {},
+            "Hair Clippers": {
+                "All Hair Clippers": {}
+            },
+            "Men's Razors and Razor Blades": {},
+            "Beard Trimmers & Tools": {
+                "Beard Trimmers": {}
+            },
+            "Aftershaves": {}
+        },
+        "Deodorants & Antiperspirants": {},
+        "Men's Essentials": {
+            "Men's Bath & Body": {},
+            "Men's Facial Care": {},
+            "Men's Shampoo and Conditioner": {},
+            "Men's Body Lotions": {},
+            "Men's Hair Care": {}
+        },
+        "Men's Personal Care": {},
+        "Travel Size Toiletries & Kits": {},
+        "2-in-1 Hair and Body Care": {}
+    },
+    "Health": {
+        "Lip Care": {
+            "Vaseline": {},
+            "Nivea Lip Balms": {},
+            "Hawaiian Tropic": {},
+            "Aquaphor": {},
+            "Carmex": {}
+        },
+        "Vitamins & Supplements": {
+            "Minerals": {
+                "Minerals": {}
+            },
+            "Supplements": {},
+            "Letter Vitamins": {
+                "Vitamin D": {},
+                "Vitamin D3": {}
+            },
+            "Spring Valley": {
+                "Spring Valley Sleep & Melatonin": {}
+            },
+            "Daylight Savings": {},
+            "Beauty Supplements": {
+                "Beauty Essential Oils": {}
+            },
+            "Energy Support Supplements": {
+                "Energy Supplements": {},
+                "B-Complex Vitamins": {}
+            },
+            "All Dietary Supplements": {},
+            "Sundown Naturals Vitamins and Supplements": {},
+            "Now": {},
+            "New Year New You Vitamins & Supplements": {},
+            "Mood & Stress Support Supplements": {
+                "Soothing Essential Oils": {}
+            },
+            "Homeopathic Remedies": {
+                "Homeopathic Immunity Support": {}
+            },
+            "Fish Oils & Omegas": {
+                "Omega Fatty Acid Supplements": {}
+            },
+            "Inositol": {},
+            "Immunity Support Supplements": {},
+            "Heart Health": {
+                "Heart Healthy Superfoods": {}
+            }
+        },
+        "Sports Medicine & Injury Recovery Solution": {
+            "Increase Mobility": {},
+            "Optimize Performance": {
+                "Look Good, Feel Good": {
+                    "Prep Your Skin for the Gym": {},
+                    "Exercise To Tone": {}
+                },
+                "Increase Strength": {
+                    "Eat High Protein Diet": {}
+                }
+            }
+        },
+        "Foot Care": {
+            "Tinactin": {
+                "Tinactin Creams & Powder": {}
+            },
+            "Antifungal Remedies": {
+                "Antifungal Creams": {},
+                "Antifungal Powders": {}
+            },
+            "Insoles": {},
+            "Foot Care Deals": {
+                "Foot Care Deals": {}
+            },
+            "Skin Tag Pens": {},
+            "Foot Files": {},
+            "Dr. Scholl's": {
+                "Dr. Scholl's Insoles": {
+                    "Dr. Scholl's Comfort & Energy": {},
+                    "Dr. Scholl's Pain Relief": {}
+                },
+                "Dr. Scholl's": {}
+            },
+            "O'Keeffe's": {},
+            "Lotrimin": {
+                "Lotrimin": {}
+            },
+            "Toe Separators & Straighteners": {},
+            "Bunion Care": {},
+            "Amope": {
+                "Amope": {}
+            },
+            "Foot Creams & Lotions": {},
+            "Wart Freezers": {}
+        },
+        "Superfoods & Cleanses": {
+            "Super Greens": {
+                "Spirulina": {},
+                "Moringa": {},
+                "Super Greens Powder": {},
+                "Hemp": {
+                    "Hemp Seeds": {}
+                },
+                "Chlorella": {}
+            },
+            "Superfoods": {
+                "Natural Alternatives": {},
+                "Acai": {},
+                "All Superfoods": {},
+                "Apple Cider Vinegar Drops": {},
+                "Bee Pollen & Propolis": {},
+                "Chia Seeds": {},
+                "Apple Cider Vinegar": {},
+                "Cacao": {},
+                "Mushrooms": {},
+                "Maca": {},
+                "Apple Cider Vinegar Gummies": {}
+            },
+            "Manitoba Harvest Hemp Protein": {},
+            "Body Cleanse": {
+                "All Body Cleanse": {
+                    "Health": {
+                        "Superfoods & Cleanses": {
+                            "Body Cleanse": {
+                                "All Body Cleanse": {}
+                            }
+                        }
+                    }
+                },
+                "Wellness Shots": {}
+            },
+            "Superfood Caps": {},
+            "Liver Cleanse": {},
+            "Navitas Organics": {},
+            "Intestinal Cleanse": {},
+            "Manitoba Harvest Hemp Seeds": {},
+            "Colon Cleanse": {},
+            "Detox Teas": {},
+            "Kidney Cleanse": {},
+            "Juice Cleanses": {
+                "All Juice Cleanses": {}
+            },
+            "Detox Drinks": {},
+            "Hemp Shop All": {},
+            "Country Farms": {},
+            "Hemp Seed Oil": {}
+        },
+        "Plant Based Nutrition": {
+            "Plant Based Superfoods": {},
+            "Plant Protein Powder": {}
+        },
+        "Aromatherapy": {
+            "Essential Oils": {
+                "Essential Oils": {}
+            },
+            "Aromatherapy": {},
+            "Aromatherapy Accessories": {},
+            "Sleep Aromatherapy": {},
+            "Essential Oil Sets": {},
+            "Carrier Oils": {},
+            "Essential Oil Blends": {},
+            "Relaxing Scents": {},
+            "Aromatherapy Diffusers": {}
+        },
+        "Weight Management": {
+            "On-the-Go Nutrition": {},
+            "Meal Replacements": {},
+            "Weight Loss Pills": {},
+            "Appetite Suppressants": {},
+            "Beach Body Ready": {},
+            "MCT Oil": {}
+        },
+        "Massage": {
+            "Spa & Relaxation": {},
+            "Foot Care & Spa": {
+                "Paraffin Baths & Waxes": {}
+            }
+        },
+        "Sleep Better": {
+            "Calm Your Mind": {},
+            "Enhance Your Sleep Naturally": {}
+        },
+        "First Aid": {
+            "Feminine Relief": {},
+            "Scar Treatment": {},
+            "Itching & Rash Treatments": {}
+        },
+        "Equate": {
+            "Equate Facial Care": {},
+            "Equate Personal Care": {
+                "Women's": {}
+            },
+            "Equate Personal Health and Hygiene": {},
+            "Equate Body Care": {}
+        },
+        "Keto Diet": {
+            "Keto Supplements": {
+                "Keto Supplements": {}
+            }
+        },
+        "Pain Relievers": {
+            "Specialty Pain Relievers": {},
+            "Advil": {
+                "Advil": {},
+                "Advil Dual Action": {}
+            },
+            "Back Pain Relief": {},
+            "Hot & Cold Therapy": {}
+        },
+        "Eye Care": {
+            "Eye Irritation": {},
+            "Eye Drops": {}
+        },
+        "Protein & Fitness": {
+            "New and Trending": {},
+            "Vegan Protein Powder": {
+                "Plant Protein Blend": {}
+            },
+            "Protein Bars": {},
+            "Organic Protein Powder": {},
+            "Protein Shakes": {},
+            "Fuel Your Workout": {},
+            "Nutiva": {}
+        },
+        "FSA and HSA Shop": {
+            "FSA": {}
+        },
+        "Immunity Care": {
+            "Immunity Boosters & Shots": {}
+        },
+        "Home Health Care": {
+            "Bedroom Aids & Safety": {},
+            "Daily Living Aids": {},
+            "Patient Care": {}
+        },
+        "Children's Health Shop": {
+            "Children's Personal Care": {
+                "Children's Hair Care": {
+                    "Kids' Hair Care": {}
+                }
+            },
+            "Children's Medicine Cabinet": {
+                "Children's Allergy": {}
+            },
+            "Featured Brands": {
+                "Suave Kids": {}
+            }
+        },
+        "Laxatives": {
+            "Laxative Pills": {
+                "Health": {
+                    "Laxatives": {
+                        "Laxative Pills": {}
+                    }
+                }
+            }
+        },
+        "Medicine Cabinet": {
+            "Skin Treatments": {},
+            "Braces & Supports": {},
+            "Thermometers": {
+                "Thermometer Covers": {}
+            }
+        },
+        "Restock Wellness Essentials": {
+            "Vitamins & Supplements Restock": {}
+        },
+        "Back to School Health Essentials": {},
+        "Probiotics": {
+            "Probiotics for Women": {}
+        },
+        "Sexual Wellness": {
+            "Sexual Enhancers": {}
+        },
+        "Allergy and Sinus": {
+            "Kids Allergy + Sinus Medicine": {}
+        }
+    },
+    "Home": {
+        "Decor": {
+            "Candles & Home Fragrance": {
+                "Oil Diffusers": {},
+                "Candles": {},
+                "Wax Warmers": {},
+                "Wax Melts": {}
+            },
+            "Slipcovers": {
+                "Dining Chair Covers": {},
+                "Couch Covers": {}
+            },
+            "Throw Pillows": {
+                "Decorative Throw Pillows": {}
+            },
+            "Decorative Throws": {}
+        },
+        "Appliances": {
+            "Vacuums, Steamers & Floor Care": {
+                "Vacuum Parts": {},
+                "Vacuum Accessories": {}
+            },
+            "Appliances Parts & Accessories": {
+                "Dishwasher Parts": {
+                    "All Dishwasher Parts": {}
+                }
+            }
+        },
+        "Bedding": {
+            "Bed Sheets": {
+                "Fitted Sheets": {},
+                "King Sheets": {},
+                "White Sheets": {}
+            },
+            "Basic Bedding": {
+                "Pillow Cases": {}
+            },
+            "Blankets": {
+                "Bed Blankets": {}
+            },
+            "Body Pillow Covers": {},
+            "Mattress Pads": {
+                "Waterproof Mattress Pads": {}
+            },
+            "Comforters": {
+                "Pink Comforters": {},
+                "Queen Comforters": {}
+            },
+            "Pillow Shams": {}
+        },
+        "Kids' Rooms": {
+            "Kids' Room Decor": {
+                "Kids' Rugs": {},
+                "Kids' Lighting": {}
+            }
+        },
+        "Bath": {
+            "Bath Towels": {
+                "Shop All Bath Towels": {},
+                "Washcloths": {}
+            },
+            "Bathroom Accessories": {
+                "Wastebaskets": {}
+            }
+        },
+        "Featured Shops": {
+            "Dorm Room Essentials": {
+                "Kitchen & Dining": {
+                    "Dinnerware": {}
+                },
+                "College Dorm Essentials": {
+                    "Dorm Bath Essentials": {}
+                }
+            }
+        },
+        "Storage & Organization": {
+            "Storage Baskets & Bins": {
+                "Shop All Storage Baskets & Bins": {}
+            }
+        },
+        "Kitchen & Dining": {
+            "Kitchen & Table Linens": {
+                "Table Linens": {
+                    "Tablecloths": {}
+                }
+            },
+            "Dining & Entertaining": {
+                "Drinkware Accessories": {}
+            }
+        },
+        "Teens' Rooms": {
+            "Teens' Decor": {
+                "Teens' Lamps & Lighting": {}
+            }
+        }
+    },
+    "Patio & Garden": {
+        "Garden Center": {
+            "Insect & Pest Control": {}
+        },
+        "Grills & Outdoor Cooking": {
+            "Grills": {
+                "Portable Grills": {
+                    "Portable Gas Grills": {}
+                }
+            }
+        }
+    },
+    "Household Essentials": {
+        "Air Fresheners": {
+            "Car Air Fresheners": {
+                "All Car Air Fresheners": {},
+                "Febreze Car Air Fresheners": {}
+            },
+            "Spray Air Fresheners": {
+                "Fabric Spray": {
+                    "All Fabric Spray": {},
+                    "Febreze Fabric Sprays": {}
+                },
+                "Trigger Spray": {
+                    "All Trigger Spray": {},
+                    "Glade Sprays": {},
+                    "Poo Pourri": {}
+                }
+            },
+            "Automatic Air Fresheners": {
+                "Air Wick Automatic Sprayers": {}
+            },
+            "Moisture Absorbers": {
+                "All Moisture Absorbers": {},
+                "DampRid": {
+                    "All DampRid": {}
+                }
+            },
+            "Air Freshener Refills": {
+                "All Air Freshener Refills": {},
+                "Febreze Refills": {
+                    "Febreze Plug In Refills": {}
+                }
+            },
+            "Bathroom Air Fresheners": {
+                "All Bathroom Air Fresheners": {}
+            },
+            "Plug In Air Fresheners": {
+                "Air Wick Plug Ins": {},
+                "All Plug In Air Fresheners": {}
+            },
+            "Odor Eliminating Candles": {
+                "Wax Melts": {}
+            }
+        },
+        "Cleaning Supplies": {
+            "Surface Care & Protection": {},
+            "Dishwashing": {
+                "Dish Additives": {},
+                "Dawn Dish Soap": {},
+                "Dishwasher Detergent": {},
+                "Dish Soap": {},
+                "Cascade Dishwasher Detergents": {}
+            },
+            "Cleaning Tools": {
+                "Sponges and Scrubbers": {
+                    "Household Essentials": {
+                        "Cleaning Supplies": {
+                            "Cleaning Tools": {
+                                "Sponges and Scrubbers": {}
+                            }
+                        }
+                    }
+                },
+                "Cleaning Refills": {},
+                "Scrub Brushes": {},
+                "Cleaning Gloves": {},
+                "Mops": {},
+                "Dusters": {},
+                "Bowl Brushes & Plungers": {},
+                "Spray Bottles": {},
+                "Brooms": {},
+                "O-cedar Mops": {},
+                "Buckets": {}
+            },
+            "All-Purpose Cleaners": {},
+            "Glass Cleaners": {
+                "Glass Cleaners": {}
+            },
+            "Disinfectant Cleaners": {
+                "All Disinfectant Cleaners": {}
+            },
+            "Carpet & Floor Cleaners": {
+                "Floor Cleaner Sprays": {},
+                "Hard Floor Cleaners": {},
+                "Resolve Carpet Cleaner": {},
+                "Carpet Cleaner Sprays": {}
+            },
+            "Sprays": {
+                "Disinfectant Sprays": {}
+            },
+            "Fabuloso All-Purpose Cleaners": {},
+            "Kitchen Cleaners": {
+                "Stainless Steel Cleaners": {},
+                "Granite & Stone Cleaners": {}
+            },
+            "Furniture Care": {
+                "Scotchgard": {}
+            },
+            "Drain Cleaners": {
+                "Drain Cleaners": {}
+            },
+            "Toilet Bowl Cleaners": {}
+        },
+        "Bathroom": {
+            "Bathroom Cleaners": {},
+            "Candles": {},
+            "Air Freshener & Deodorizer Refills": {}
+        },
+        "Laundry": {
+            "Best Laundry Detergents": {},
+            "OxiClean": {},
+            "Single Unit Dose Laundry Detergent": {
+                "Gain Flings Laundry Detergent": {},
+                "Tide Pods Laundry Detergent": {}
+            },
+            "Laundry Additives": {
+                "Rit Dye": {},
+                "Washer Cleaner": {},
+                "Detergent Booster": {}
+            },
+            "Stain Removers": {
+                "Best Stain Remover": {}
+            },
+            "Laundry Detergents": {},
+            "Laundry Scent Boosters": {
+                "Gain Scent Boosters": {},
+                "Downy Scent Beads": {},
+                "Downy Scent Boosters": {}
+            },
+            "Bleach": {
+                "Color Safe Bleach": {},
+                "Clorox Bleach": {}
+            },
+            "Fabric Softener": {
+                "Downy Fabric Softener": {},
+                "All Fabric Softener": {},
+                "Suavitel Fabric Softener": {},
+                "Gain Fabric Softener": {}
+            },
+            "Liquid Laundry Detergent": {
+                "Gain Liquid Laundry Detergent": {},
+                "Tide Liquid Laundry Detergent": {},
+                "Tide Laundry Detergent": {}
+            },
+            "All Laundry Detergent": {},
+            "High Efficiency Laundry Detergent": {
+                "High Efficiency Liquid Laundry Detergent": {}
+            },
+            "Ariel Laundry Detergent": {},
+            "Powder Laundry Detergent": {
+                "Gain Powder Laundry Detergent": {}
+            }
+        },
+        "Household Essentials by Brand": {
+            "Air Wick": {
+                "Air Wick Air Fresheners": {}
+            },
+            "Febreze": {
+                "All Febreze Air Fresheners": {}
+            },
+            "Glade": {
+                "Glade Air Fresheners": {}
+            },
+            "Renuzit Air Fresheners": {},
+            "Method": {
+                "Method Dish Cleaners": {}
+            },
+            "Great Value": {
+                "All Great Value": {}
+            },
+            "Arm and Hammer": {
+                "All Arm and Hammer": {}
+            },
+            "Hefty": {
+                "All Hefty": {}
+            }
+        },
+        "Paper & Plastic": {
+            "Trash Bags": {
+                "Large Trash Bags": {},
+                "Glad Trash Bags": {},
+                "Kitchen Trash Bags": {},
+                "All Trash Bags": {},
+                "Small": {}
+            },
+            "Facial Tissue": {
+                "Great Value Facial Tissues": {},
+                "Puffs Facial Tissues": {}
+            },
+            "Plastic Wrap": {},
+            "Disposable Tabletop": {
+                "Plastic Cups": {},
+                "Paper Cups": {},
+                "Disposable Cups": {},
+                "Paper Plates": {},
+                "Disposable Bowls": {},
+                "Disposable Plates": {}
+            },
+            "Food Storage Bags": {
+                "Food Bags": {},
+                "Ziploc Bags": {}
+            },
+            "Paper Napkins": {}
+        },
+        "Drain & Septic Care": {},
+        "All Seventh Generation": {},
+        "Batteries": {
+            "C Batteries": {},
+            "Hearing Aid Batteries": {},
+            "Coin & Button Cell Batteries": {}
+        },
+        "Shoe Care & Repair": {
+            "Shoelaces": {}
+        }
+    },
+    "Clothing": {
+        "Womens Clothing": {
+            "Womens Socks, Hosiery & Tights": {
+                "Womens Socks": {
+                    "Socks": {},
+                    "Womens Novelty Socks": {}
+                },
+                "Womens Hosiery & Tights": {}
+            },
+            "Womens Bras, Panties & Lingerie": {
+                "Womens Bras": {
+                    "Bras": {}
+                },
+                "Womens Adult Lingerie": {},
+                "Womens Panties": {
+                    "Briefs": {},
+                    "Thongs": {}
+                }
+            },
+            "Womens Coats & Jackets": {
+                "Women's Coats & Jackets Shop All": {},
+                "Womens Peacoats": {}
+            },
+            "Womens Shorts": {},
+            "Womens Skirts": {},
+            "Womens Tops & T-Shirts": {
+                "Womens Blouses": {},
+                "Womens Tops & T-Shirts": {}
+            }
+        },
+        "Mens Clothing": {
+            "Mens T-Shirts & Tank Tops": {
+                "Mens T-Shirts": {}
+            },
+            "Mens Underwear & Undershirts": {
+                "Mens Underwear": {}
+            },
+            "Mens Casual Button-Down Shirts": {
+                "Short Sleeve Button-Down Shirts": {}
+            }
+        },
+        "Bags & Accessories": {
+            "Women's Bags & Accessories": {
+                "Women's Bags": {
+                    "Womens Clutches & Pouches": {}
+                }
+            },
+            "Luggage & Travel": {
+                "Travel Accessories": {
+                    "Toiletry Bags": {}
+                }
+            }
+        },
+        "Shoes": {
+            "Womens Shoes": {
+                "All Womens Shoes": {},
+                "Womens Comfort Shoes": {
+                    "Womens Comfort Flats": {}
+                }
+            }
+        },
+        "Maternity Clothing": {
+            "Maternity Belly Bands & Accessories": {}
+        }
+    },
+    "Sports & Outdoors": {
+        "Exercise & Fitness": {
+            "Yoga": {
+                "Yoga Blocks": {},
+                "Yoga Wheels": {},
+                "Yoga Towels": {},
+                "Yoga Mats": {},
+                "Yoga Socks": {},
+                "Yoga Gloves": {},
+                "Exercise Mats": {}
+            },
+            "Exercise & Fitness Accessories": {
+                "Exercise Balls": {}
+            },
+            "Exercise Machines": {
+                "Exercise Bikes": {}
+            },
+            "Wearable Technology": {
+                "Smart Watches": {}
+            },
+            "Pilates": {
+                "Pilates Rings": {}
+            }
+        },
+        "Sports": {
+            "Sports & Duffel Bags": {}
+        }
+    },
+    "Baby": {
+        "Diapering": {
+            "Baby Skin Care & Grooming": {},
+            "Baby Wipes": {},
+            "Diaper Rash Creams": {},
+            "Disposable Diaper Bags": {}
+        },
+        "Health & Safety": {
+            "Baby Bath": {
+                "Baby Shampoos & Body Washes": {}
+            }
+        },
+        "Feeding": {
+            "Enfamil Specialty Liquids": {},
+            "Bottle Feeding": {},
+            "MAM Oral Care & Teethers": {}
+        },
+        "Baby & Toddler Toys": {
+            "Bath Toys": {}
+        },
+        "Baby Activities & Gear": {
+            "Diaper Bags": {
+                "Diaper Bags for Female": {}
+            }
+        }
+    },
+    "": {},
+    "Food": {
+        "Fresh Food": {
+            "Produce": {
+                "Nuts, Dried Fruits, and Healthy Snacks": {
+                    "Dried Fruits and Vegetables": {}
+                }
+            }
+        },
+        "Baking": {
+            "Syrups": {
+                "All Syrups": {}
+            },
+            "Baking Ingredients": {
+                "Baking Soda": {
+                    "Arm & Hammer Baking Soda": {}
+                },
+                "Marshmallows": {}
+            },
+            "Baking Mixes": {
+                "Frosting, Toppings & Decorations": {}
+            }
+        },
+        "Condiments, Sauces & Spices": {
+            "Condiments": {
+                "Condiments": {}
+            },
+            "Oils & Shortening": {
+                "All Oil & Shortening": {}
+            },
+            "Vinegar": {}
+        },
+        "Beverages": {
+            "Tea": {
+                "Tea Bags": {},
+                "Bottled Tea": {
+                    "AriZona": {}
+                }
+            },
+            "Powdered Drink Mixes": {
+                "Kool Aid": {},
+                "4C Powdered Drink Mixes": {}
+            },
+            "Water Flavoring": {
+                "Natural Water Flavoring": {},
+                "All Water Flavoring": {},
+                "Kool-Aid Water Enhancer": {},
+                "MiO": {
+                    "Food": {
+                        "Beverages": {
+                            "Water Flavoring": {
+                                "MiO": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "Juices": {
+                "Cranberry Juice": {}
+            }
+        },
+        "Organic Foods": {
+            "Organic Foods": {}
+        },
+        "Seasonal Grocery": {
+            "New Year New You": {
+                "Sugar Free Food": {}
+            }
+        },
+        "Coffee": {
+            "Coffee Creamers": {
+                "All Creamers": {},
+                "Non Dairy Creamers": {}
+            },
+            "Ground Coffee": {}
+        },
+        "Snacks, Cookies & Chips": {
+            "Dried Fruits": {
+                "Organic Dried Fruits": {},
+                "Dried Fruits": {}
+            },
+            "Trail Mix": {},
+            "Nuts, Trail Mix & Seeds": {
+                "Seeds": {
+                    "Sunflower Seeds": {}
+                },
+                "Nuts": {}
+            },
+            "Pudding & Gelatin": {}
+        },
+        "Meal Solutions, Grains & Pasta": {
+            "Canned Goods": {
+                "Canned Fruit": {},
+                "Canned Tuna": {}
+            }
+        },
+        "Chocolate, Candy & Gum": {
+            "Chocolate": {
+                "Shop All Chocolate": {}
+            }
+        }
+    },
+    "Auto & Tires": {
+        "RV Parts & Accessories": {
+            "RV Waste Water and Sanitation": {
+                "RV Toilet Supplies": {},
+                "RV Portable Waste Tanks": {}
+            }
+        },
+        "Auto Detailing & Car Care": {
+            "Car Air Fresheners": {},
+            "Car Wash Supplies": {
+                "Car Wash Cloths, Mitts, & Microfiber Towels": {},
+                "Car Polishers": {},
+                "Squeegees & Scrapers": {}
+            }
+        },
+        "Automotive Interior": {
+            "Interior Car Accessories": {},
+            "Car Seat Covers": {
+                "All Seat Covers": {}
+            }
+        }
+    },
+    "Home Improvement": {
+        "Paint": {
+            "Paint Tools and Supplies": {
+                "Caulk & Sealants": {},
+                "All Prep and Application": {},
+                "Surface Protectors": {},
+                "Sandpaper and Abrasives": {}
+            }
+        },
+        "Electrical": {
+            "Commercial Lighting": {
+                "Shop Lights": {}
+            }
+        },
+        "Home Safety": {
+            "Flashlights": {
+                "All Flashlights": {}
+            }
+        },
+        "Building Materials": {
+            "Sealants, Fillers and Adhesives": {
+                "All Sealants, Fillers & Adhesives": {}
+            }
+        },
+        "Safety Equipment and Gear": {},
+        "Bathroom Renovation": {
+            "Bathroom Plumbing": {
+                "Plumbing Tools": {}
+            }
+        }
+    },
+    "Shop by Brand": {
+        "Household Essentials": {
+            "Energizer": {}
+        },
+        "Health, Beauty & Personal Care": {
+            "Olay": {},
+            "Schwarzkopf": {}
+        },
+        "Sports & Outdoors": {
+            "ProsourceFit": {},
+            "Ozark Trail": {}
+        },
+        "All Departments": {
+            "Unique Bargains": {}
+        },
+        "Home": {
+            "Mainstays": {}
+        }
+    },
+    "Gifts & Registry": {
+        "Gift Ideas": {
+            "Gift Finder": {}
+        }
+    },
+    "Industrial & Scientific": {
+        "Janitorial & Sanitation Supplies": {
+            "Cleaning Chemicals": {
+                "Commercial Dish Detergents": {}
+            },
+            "Personal Care Products": {
+                "Commercial Soaps and Lotions": {}
+            },
+            "Floor Care": {
+                "Commercial Mopping Supplies": {}
+            },
+            "Odor Maintainers": {
+                "Commercial Air Fresheners & Deodorizers": {}
+            },
+            "Janitorial Disposables": {
+                "Commercial Toilet Paper": {}
+            },
+            "Cleaning Tools": {
+                "Commercial Dusting Supplies": {}
+            }
+        }
+    },
+    "Pets": {
+        "Dogs": {
+            "Dog Apparel": {
+                "Dog Apparel & Dog Shoes": {}
+            },
+            "Dog Grooming": {
+                "All Dog Grooming": {}
+            },
+            "Dog Toys": {
+                "All Dog Toys": {}
+            }
+        }
+    },
+    "Character Shop": {
+        "Hello Kitty Shop": {
+            "All Hello Kitty": {}
+        }
+    },
+    "Toys": {
+        "Arts & Crafts for Kids": {
+            "How To Make Slime": {
+                "DIY Slime Supplies & Ingredients": {
+                    "Glue for Slime": {}
+                }
+            }
+        }
+    },
+    "Arts Crafts & Sewing": {
+        "Crafting": {
+            "Fabric & Apparel Crafting": {
+                "Fabric Dyes": {},
+                "Heat Press Machines": {}
+            }
+        },
+        "Sewing": {
+            "Notions & Sewing Accessories": {
+                "Elastic": {}
+            }
+        }
+    },
+    "Feature": {
+        "Nexxus": {}
+    },
+    "Cell Phones": {
+        "Cell Phone Accessories": {
+            "Phone Cases": {
+                "Shop Cases by Phone Model": {
+                    "iPhone Cases": {
+                        "iPhone 8 Cases": {}
+                    }
+                },
+                "Shop Phone Cases by Type": {
+                    "Slim Phone Cases": {}
+                },
+                "Shop Phone Cases by Feature": {
+                    "Shockproof Phone Cases": {}
+                }
+            }
+        }
+    },
+    "Electronics": {
+        "Audio": {
+            "Headphones": {
+                "Airpods Cases": {},
+                "Headphone Cases": {}
+            }
+        }
+    },
+    "Party & Occasions": {
+        "JoJo Siwa Party Supplies": {
+            "JoJo Siwa Party Tableware": {}
+        }
+    },
+    "Jewelry": {
+        "Jewelry & Watches Savings": {
+            "Jewelry Savings": {}
+        }
+    },
+    "Books": {
+        "House, Home & Gardening Books": {
+            "Gardening Books": {
+                "Herbs": {}
+            }
+        }
+    },
+    "Office Supplies": {
+        "Shipping & Moving": {
+            "Packaging Materials": {
+                "Poly Bags": {}
+            }
+        }
+    }
+}

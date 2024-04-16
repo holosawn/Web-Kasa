@@ -10,11 +10,11 @@ import {
   import HighlightOffSharpIcon from "@mui/icons-material/HighlightOffSharp";
 
   
-const CartItemCard = ({ Item, setCartItems, setItemInRegister }) => {
-    const isPiece = Item.product.unit === "piece";
-    const amount = isPiece ? Item.qty : Item.qty / 1000;
-  
-
+const CartItemCard = ({ item, setCartItems, setItemInRegister,
+   onEditClick
+   }) => {
+    const isPiece = item.product.unit === "piece";
+    const amount = isPiece ? item.qty : item.qty / 1000;
 
     const formattedQty =
       amount.toFixed(isPiece ? 0: 3).toLocaleString("fullwide", {
@@ -22,7 +22,7 @@ const CartItemCard = ({ Item, setCartItems, setItemInRegister }) => {
         useGrouping: false,
       }).replace(".", ",") + (isPiece ? "" : "kg");
   
-    const formattedPrice = Item.computedPrice
+    const formattedPrice = item.computedPrice
       .toFixed(3)
       .toLocaleString("fullwide", {
         maximumFractionDigits: 3,
@@ -35,20 +35,28 @@ const CartItemCard = ({ Item, setCartItems, setItemInRegister }) => {
       setCartItems((prevCartItems) => {
         // Filter out the item with the given ID
         const updatedCartItems = prevCartItems.filter(
-          (cartItem) => cartItem.product.code !== Item.product.code
+          (cartItem) => cartItem.product.code !== item.product.code
         );
         return updatedCartItems;
       });
-    }, [Item, setCartItems]);
+    }, [item, setCartItems]);
   
     const onEditIconClick = () => {
-      setItemInRegister(Item);
+      setItemInRegister({
+        ...item,
+        qty:item.qty.toLocaleString('fullwide', {
+          maximumFractionDigits: 0,
+          useGrouping: true
+      }).replace(/,/g, '.')
+      });
       setCartItems((prev) => {
         const filteredCartItems = prev.filter(
-          (cartItem) => cartItem.product.code !== Item.product.code
+          (cartItem) => cartItem.product.code !== item.product.code
         );
         return filteredCartItems;
       });
+      if(onEditClick) onEditClick();
+      // console.log(onEditClick);
     };
   
     return (
@@ -62,8 +70,8 @@ const CartItemCard = ({ Item, setCartItems, setItemInRegister }) => {
           border: "1px solid gray",
           borderRadius: 3,
           width: "97%",
-          minHeight: 80, // Set the minimum height
-          height: 80, // Set the height to the maximum content height
+          minHeight: 50, // Set the minimum height
+          height: {xs:60, md:80}, // Set the height to the maximum content height
           maxHeight: 80, // Set the height to the maximum content height
           py: 0.5,
         }}
@@ -80,7 +88,7 @@ const CartItemCard = ({ Item, setCartItems, setItemInRegister }) => {
             onClick={onDeleteIconClick}
             sx={{ p: 0 }}
           >
-            <HighlightOffSharpIcon sx={{ fontSize: 30 }} />
+            <HighlightOffSharpIcon sx={{ fontSize: {xs:20, md:30} }} />
           </IconButton>
   
           <IconButton
@@ -89,7 +97,7 @@ const CartItemCard = ({ Item, setCartItems, setItemInRegister }) => {
             onClick={onEditIconClick}
             sx={{ p: 0 }}
           >
-            <EditIcon sx={{ fontSize: 30 }} />
+            <EditIcon sx={{ fontSize: {xs:20, md:30} }} />
           </IconButton>
         </Stack>
   
@@ -101,54 +109,56 @@ const CartItemCard = ({ Item, setCartItems, setItemInRegister }) => {
         >
           <Box
             width={"100%"}
-            sx={{ height: "max-content" }}
+            sx={{ height: {xs:14, md:18} }}
             display={"flex"}
             alignItems={"center"}
             fontWeight={700}
           >
-            <Typography variant="h7" fontSize={15} color={"primary"}>
-              {Item.product.name}
+            <Typography variant="h7" textOverflow={'ellipsis'} noWrap fontSize={{xs:10,md:14}} width={'50%'} color={"primary"}>
+              {item.product.name}
               {"\u00A0"}
             </Typography>
             <Typography
               color={"gray"}
               sx={{ height: "max-content" }}
               flexWrap={"wrap"}
+              fontSize={{xs:10,md:14}}
             >
               x {formattedQty}
               {formattedQty.length > 15 && "..."}
             </Typography>
             <Typography
               variant="h7"
-              fontSize={12}
+              fontSize={{xs:9, md:11}}
               color={"primary"}
               ml={"auto"}
             >
-              {Item.defaultPrice?.toFixed(3).replace(".", ",")}
-              {Item.defaultPrice?.length > 10 && "..."} TRY
+              {item.defaultPrice?.toFixed(3).replace(".", ",")}
+              {item.defaultPrice?.length > 10 && "..."} TRY
             </Typography>
           </Box>
   
           <Box
             width={"100%"}
-            sx={{ height: 18, minHeight: 18 }}
+            sx={{ height: {xs:17, md:18}, minHeight: 10 }}
             display={"flex"}
             alignItems={"center"}
             flexWrap={"wrap"}
             fontWeight={700}
           >
-            {Item.offersApplied &&
-              Object.values(Item.offersApplied).map((offer) => (
+            {item.offersApplied &&
+              Object.values(item.offersApplied).map((offer) => (
                 offer.saved > 0 && (
                 <React.Fragment key={offer.name} >
                   <Typography
                     variant="h7"
-                    fontSize={12}
+                    // fontSize={12}
+                    fontSize={{xs:9,md:12}}
                     color={"warning.main"}
                   >{offer.name}</Typography>
                   <Typography
                     variant="h7"
-                    fontSize={12}
+                    fontSize={{xs:9,md:12}}
                     color={"warning.main"}
                     ml={"auto"}
                   >
@@ -167,10 +177,10 @@ const CartItemCard = ({ Item, setCartItems, setItemInRegister }) => {
             fontWeight={700}
             mt={"auto"}
           >
-            <Typography variant="h7" fontSize={12} color={"secondary"}>
+            <Typography variant="h7" fontSize={{xs:9,md:12}} color={"secondary"}>
               Total
             </Typography>
-            <Typography variant="h7" fontSize={12} color={"secondary"}>
+            <Typography variant="h7" fontSize={{xs:9,md:12}} color={"secondary"}>
               {formattedPrice}
               {formattedPrice.length > 10 && "..."} TRY
             </Typography>
@@ -186,14 +196,14 @@ const CartItemCard = ({ Item, setCartItems, setItemInRegister }) => {
             m={0}
             mt={"auto"}
           >
-            <Typography fontSize={11} variant="body2">
-              {Item.product.barcode}
+            <Typography fontSize={{xs:8,md:12}} variant="body2">
+              {item.product.barcode}
             </Typography>
-            <Typography fontSize={11} variant="body2">
-              {Item.product.price} TRY
+            <Typography fontSize={{xs:8,md:12}} variant="body2">
+              {item.product.price} TRY
             </Typography>
-            <Typography fontSize={11} variant="body2">
-              {Item.product.tax} TAX
+            <Typography fontSize={{xs:8,md:12}} variant="body2">
+              {item.product.tax} TAX
             </Typography>
           </Box>
         </Box>

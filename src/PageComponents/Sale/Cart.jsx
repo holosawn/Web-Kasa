@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Divider,
   FormControl,
   InputLabel,
   MenuItem,
@@ -9,15 +8,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
-import PriceChangeOutlinedIcon from "@mui/icons-material/PriceChangeOutlined";
-import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
-import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
-import EditIcon from "@mui/icons-material/Edit";
+import React, {useEffect, useState } from "react"
 import CurrentItemCard from "./CurrentItemCard";
 import CartItemCard from "./CartItemCard";
-import { useCustomTheme } from "../../contexts/CutomThemeContext";
 
 const exampleCartItem = {
   product: {
@@ -93,20 +86,21 @@ function resetOffers(items, setItems) {
 const offers = {
   "3/2": {
     name: "3 al 2 öde",
-    func: get3Pay2,
+    offerFunc: get3Pay2,
   },
   'none': {
     name: "No Offer",
-    func: resetOffers,
+    offerFunc: resetOffers,
   },
 };
 
-const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setNumpadFocus}) => {
+const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setNumpadFocus, onProductEditClick=null}) => {
   const [offerName, setofferName] = useState("none");
   const [discount, setDiscount] = useState(0);
+  const [size, setSize] = useState({x:window.innerWidth, y:window.innerHeight})
 
   const subTotal = cartItems.reduce((acc, curr) => {
-    return acc + curr.computedPrice
+    return acc + curr.defaultPrice
   },0)
 
   const savedByOffers = cartItems.reduce((acc, curr) => {
@@ -114,78 +108,98 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
   },0)
 
   useEffect(() => {
-    if (offers[offerName].func) offers[offerName].func(cartItems, setCartItems);
+    if (offers[offerName].offerFunc) offers[offerName].offerFunc(cartItems, setCartItems);
   }, [offerName, cartItems.length, subTotal]);
+
+  useEffect(() => {
+    function handleResize() {
+      setSize({x:window.innerWidth, y:window.innerHeight})
+    }
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
 
   return (
     <Box
       bgcolor={"background.paper"}
-      m={1}
+      // m={1}
       p={1}
       pb={0}
-      height={"95vh"}
-      width={350}
+      height={"100%"}
+      width={"100%"}
+      minWidth={220}
       borderRadius={2}
+      display={'flex'}
+      flexDirection={'column'}
       sx={{ overflowY: "hidden", overflowX: "hidden" }}
     >
-      <Actions offerName={offerName} setofferName={setofferName} discount= {discount} setDiscount= {setDiscount} />
-      <Divider variant="center" key={1} />
-      <CurrentItemCard
-        Item={itemInRegister}
-        setItem={setItemInRegister}
-        setNumpadFocus={setNumpadFocus}
-        cartItems={cartItems}
-        setCartItems={setCartItems}
-      />
+      <CartActions offerName={offerName} setofferName={setofferName} discount= {discount} setDiscount= {setDiscount} />
+      
+      {(window.innerWidth > 750) && 
+        <CurrentItemCard
+          item={itemInRegister}
+          setItem={setItemInRegister}
+          setNumpadFocus={setNumpadFocus}
+          cartItems={cartItems}
+          setCartItems={setCartItems}
+        />
+      }
+
       <Stack
         direction={"column"}
-        height={"54%"}
+        // height={"54%"}
+        flex={1}
         justifyContent={"start"}
         alignItems={'center'}
         sx={{ overflowY: "scroll", my: 1 }}
       >
         {cartItems.map((cartItem) => (
           <CartItemCard
-            Item={cartItem}
+            item={cartItem}
             setCartItems={setCartItems}
             setItemInRegister={setItemInRegister}
             key={cartItem.product.code}
+            onEditClick={onProductEditClick}
           />
         ))}
       </Stack>
       <CardTotal subTotal={subTotal} discount={discount} savedByOffers={savedByOffers} />
-      <Button variant="contained" size="large" disabled={subTotal<=0} fullWidth sx={{mt:1}} >
-          Charge
+      <Button variant="contained" size={`${size.y < 600 ? 'small':'medium'}`} disabled={subTotal<=0} fullWidth  sx={{mt:1, mb:0.5}} >
+          <Typography fontSize={{xs:10, md:15}} >Charge</Typography>
       </Button>
     </Box>
   );
 };
 
 const CardTotal=({subTotal, discount, savedByOffers})=>(
-  <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} border={'1px solid gray'} borderRadius={3} p={1} height={95} width={'100%'} >
+  <Box display={'flex'} fontSize={{xs:10, md:12, lg:14, xl:16}} flexDirection={'column'} justifyContent={'center'} border={'1px solid gray'} borderRadius={3} p={1} height={{xs:65, md:95}} width={'100%'} >
     <Stack direction={'row'} width={'100%'} >
       <Typography variant="h7" fontWeight={700} color={'primary'} >Subtotal:</Typography>
       <Typography variant="h7" fontWeight={700} color={'primary'}  ml={'auto'} >{subTotal.toFixed(3).replace(".", ",")}</Typography>
       <Typography variant="h7" fontWeight={700} color={'primary'}>&nbsp;TRY</Typography>
     </Stack>
     <Stack direction={'row'} width={'100%'} >
-      <Typography variant="h7" fontWeight={700} color={'success.main'} >Discounts:</Typography>
-      <Typography variant="h7" fontWeight={700} color={'success.main'}  ml={'auto'} >{discount.toFixed(3).replace(".", ",")}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
-    </Stack>
-    <Stack direction={'row'} width={'100%'} >
       <Typography variant="h7" fontWeight={700} color={'success.main'} >Offers:</Typography>
       <Typography variant="h7" fontWeight={700} color={'success.main'}  ml={'auto'} >{savedByOffers.toFixed(3).replace(".", ",")} TRY</Typography>
     </Stack>
     <Stack direction={'row'} width={'100%'} >
+      <Typography variant="h7" fontWeight={700} color={'success.main'} >Discounts:</Typography>
+      <Typography variant="h7" fontWeight={700} color={'success.main'}  ml={'auto'} >{(discount % 1 === 0 ? discount.toFixed(0) : discount.toFixed(2)).replace(".", ",")}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
+    </Stack>
+    <Stack direction={'row'} width={'100%'} >
       <Typography variant="h7" fontWeight={700} color={'secondary'} >Total:</Typography>
-      <Typography variant="h7" fontWeight={700} color={'secondary'}  ml={'auto'} >{(subTotal * (100 - discount)/100).toFixed(3).replace(".", ",")}</Typography>
+      <Typography variant="h7" fontWeight={700} color={'secondary'}  ml={'auto'} >{((subTotal-savedByOffers) * (100 - discount)/100).toFixed(3).replace(".", ",")}</Typography>
       <Typography variant="h7" fontWeight={700} color={'primary'}>&nbsp;TRY</Typography>
     </Stack>
   </Box>
 )
 
-const Actions = ({ offerName, setofferName, discount, setDiscount }) => {
+const CartActions = ({ offerName, setofferName, discount, setDiscount }) => {
+  const [size, setSize] = useState({x:window.innerWidth, y: window.innerHeight})
   const numbers = Array.from({ length: 101 }, (_, i) => parseInt(i));
     
   const handleofferNameChange = (e) => {
@@ -198,7 +212,7 @@ const Actions = ({ offerName, setofferName, discount, setDiscount }) => {
 
 
   return (
-    <Stack direction={'row'} mb={0.5} mt={1} justifyContent={'space-around'} position={'relative'} >
+    <Stack direction={'row'} mb={{xs:0.5, lg:1}} mt={{xs:0, md:1}} justifyContent={'space-around'} position={'relative'} >
       {/* {[
         // <EditIcon />,
         // <FeedOutlinedIcon />,
@@ -206,7 +220,7 @@ const Actions = ({ offerName, setofferName, discount, setDiscount }) => {
         // <LocalOfferOutlinedIcon />,
         // <PersonAddAltOutlinedIcon />,
       ].map((obj) => (
-        <ActionButton>{obj}</ActionButton>
+        <ActionButton>{obj}</ActionButton> 
       ))} */}
       <FormControl color="primary" sx={{width:'45%'}} variant='filled'>
       <InputLabel htmlFor="selectComponent">Choose Offer</InputLabel>
@@ -215,6 +229,12 @@ const Actions = ({ offerName, setofferName, discount, setDiscount }) => {
           onChange={handleofferNameChange}
           label='Choose Offer'
           style={{backgroundColor:'primary.main'}}
+          size={size.y > 600 ? 'medium' : 'small'}
+          sx={{
+            width: { xs: '100%', sm: 'auto' }, // Adjust the width based on breakpoints
+            fontSize: { xs: 12, md: '16' },
+            mt:{xs:0.5}
+          }}
         >
           <MenuItem value={"none"}>{offers['none'].name}</MenuItem>
           <MenuItem value={"3/2"}>{offers['3/2'].name}</MenuItem>
@@ -228,6 +248,12 @@ const Actions = ({ offerName, setofferName, discount, setDiscount }) => {
           onChange={handleDiscountChange}
           label='Total Discount'
           style={{ backgroundColor: 'primary.main' }}
+          size={size.y > 600 ? 'medium' : 'small'}
+          sx={{
+            width: { xs: '100%', sm: 'auto' }, // Adjust the width based on breakpoints
+            fontSize: { xs: 12, md: '16' },
+            mt:{xs:0.5}
+          }}
         >
           {numbers.map(number => (
             <MenuItem value={number} key={number}>{number}%</MenuItem>

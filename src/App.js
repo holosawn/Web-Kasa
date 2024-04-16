@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { CustomThemeProvider } from './contexts/CutomThemeContext';
 import MenuPage from './pages/MenuPage/MenuPage';
 import Sale from './pages/SalePage/Sale';
+import { ShiftStatusProvider } from './contexts/ShiftContext';
 
 
 
@@ -15,13 +16,15 @@ function App() {
   return (
     <CustomThemeProvider>
       <LanguageProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route index path='/' element={<LoginPage/>} />
-            <Route path='/Menu' element={<MenuPage/>} />
-            <Route path='/Sale' element={<Sale/>} />
-          </Routes>
-        </BrowserRouter>
+        <ShiftStatusProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route index path='/' element={<LoginPage/>} />
+              <Route path='/Menu' element={<MenuPage/>} />
+              <Route path='/Sale' element={<Sale/>} />
+            </Routes>
+          </BrowserRouter>
+        </ShiftStatusProvider>
       </LanguageProvider>
     </CustomThemeProvider>
   );
