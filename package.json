@@ -21,6 +21,7 @@
     "react-router-dom": "^6.21.3",
     "react-scripts": "5.0.1",
     "react-simple-keyboard": "^3.7.73",
+    "react-virtuoso": "^4.7.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -53,6 +54,6 @@
     ]
   },
   "devDependencies": {
-    "msw": "^2.1.5"
+    "msw": "^2.1.7"
   }
 }
