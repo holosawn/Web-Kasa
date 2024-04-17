@@ -107,7 +107,9 @@ i18n
             charge:'Charge',
             updateDrawer:'Update Drawer',
             alertTitle:'Non-Valid Amount',
-            alertContent:'Drawer amount cannot be empty'
+            alertContent:'Drawer amount cannot be empty',
+            noItemsTitle:'No Items',
+            noItemsContent:'There are currently no items in cart'
           }
         }
       },
@@ -201,7 +203,9 @@ i18n
             charge: "Ücret",
             updateDrawer: "Kasayı Güncelle",
             alertTitle: "Geçersiz Miktar",
-            alertContent: "Kasa miktarı boş olamaz"
+            alertContent: "Kasa miktarı boş olamaz",
+            noItemsTitle: "Ürün Yok",
+            noItemsContent: "Sepette şu anda hiç ürün bulunmuyor"
           }
         }
       },
@@ -296,7 +300,9 @@ i18n
             charge: "Наложить плату",
             updateDrawer: "Обновить кассу",
             alertTitle: "Недопустимое количество",
-            alertContent: "Сумма в кассе не может быть пустой"
+            alertContent: "Сумма в кассе не может быть пустой",
+            noItemsTitle: "Нет товаров",
+            noItemsContent: "В корзине в данный момент нет товаров"
           }
         }
       }

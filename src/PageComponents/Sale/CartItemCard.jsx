@@ -11,7 +11,7 @@ import {
 import { t } from "i18next";
 
   
-const CartItemCard = ({ item, setCartItems, setItemInRegister,
+const CartItemCard = ({ item, setCartItems, setItemInRegister=null,
    onEditClick
    }) => {
     const isPiece = item.product.unit === "piece";
@@ -42,7 +42,7 @@ const CartItemCard = ({ item, setCartItems, setItemInRegister,
       });
     }, [item, setCartItems]);
   
-    const onEditIconClick = () => {
+    const onEditIconClick = setItemInRegister ?( () => {
       setItemInRegister({
         ...item,
         qty:item.qty.toLocaleString('fullwide', {
@@ -57,7 +57,8 @@ const CartItemCard = ({ item, setCartItems, setItemInRegister,
         return filteredCartItems;
       });
       if(onEditClick) onEditClick();
-    };
+    })
+    : null
   
     return (
       <Grow in={true} translate="yes" appear={true} >
@@ -91,14 +92,16 @@ const CartItemCard = ({ item, setCartItems, setItemInRegister,
             <HighlightOffSharpIcon sx={{ fontSize: {xs:20, md:30} }} />
           </IconButton>
   
-          <IconButton
-            variant="contained"
-            color="primary"
-            onClick={onEditIconClick}
-            sx={{ p: 0 }}
-          >
-            <EditIcon sx={{ fontSize: {xs:20, md:30} }} />
-          </IconButton>
+          { 
+            setItemInRegister && <IconButton
+              variant="contained"
+              color="primary"
+              onClick={onEditIconClick}
+              sx={{ p: 0 }}
+            >
+              <EditIcon sx={{ fontSize: {xs:20, md:30} }} />
+            </IconButton>
+          }
         </Stack>
   
         <Box

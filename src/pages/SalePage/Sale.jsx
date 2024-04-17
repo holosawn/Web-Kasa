@@ -227,6 +227,19 @@ const Sale = () => {
     };
   }, []);
 
+  // Load cartItems from sessionStorage on component mount
+  useEffect(() => {
+    const storedCartItems = sessionStorage.getItem("cartItems");
+    if (storedCartItems) {
+      setCartItems(JSON.parse(storedCartItems));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save cartItems to sessionStorage whenever it changes
+    sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   function onQtyFocus(setVal) {
     setItemInRegister((prev) => ({
       ...prev,

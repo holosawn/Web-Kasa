@@ -13,6 +13,9 @@ import CurrentItemCard from "./CurrentItemCard";
 import CartItemCard from "./CartItemCard";
 import { t } from "i18next";
 import { useLanguage } from "../../contexts/LangContext";
+import { useNavigate } from "react-router-dom";
+import LoadingButton from "../../ReusableComponents/LoadingButton";
+import useAlert from "../../CustomHooks/useAlert";
 
 const exampleCartItem = {
   product: {
@@ -109,7 +112,10 @@ const offers = {
 const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setNumpadFocus, onProductEditClick=null}) => {
   const [offerName, setofferName] = useState("none");
   const [discount, setDiscount] = useState(0);
+  const [showAlert, AlertComponent] = useAlert(); // Use the custom hook
+  const [isChargeButtonLoading, setIsChargeButtonLoading] = useState(false)
   const [size, setSize] = useState({x:window.innerWidth, y:window.innerHeight})
+  const navigate = useNavigate();
 
   const subTotal = cartItems.reduce((acc, curr) => {
     return acc + curr.defaultPrice
@@ -134,6 +140,19 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
     };
   }, []);
 
+  const onChargeClick = async () => {
+    setIsChargeButtonLoading(true);
+  
+    await new Promise(resolve => setTimeout(resolve, 500));
+  
+    if (cartItems.length > 0) {
+      setIsChargeButtonLoading(false);
+      navigate('/Payment');
+    } else {
+      setIsChargeButtonLoading(false);
+      showAlert('warning', t('sale.noItemsTitle'), t('sale.noItemsContent'));
+    }
+  };
 
   return (
     <Box
@@ -180,9 +199,10 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
         ))}
       </Stack>
       <CardTotal subTotal={subTotal} discount={discount} savedByOffers={savedByOffers} />
-      <Button variant="contained" size={`${size.y < 600 ? 'small':'medium'}`} disabled={subTotal<=0} fullWidth  sx={{mt:1, mb:0.5}} >
+      <LoadingButton onClick={onChargeClick} isLoading={isChargeButtonLoading} variant="contained" size={`${size.y < 600 ? 'small':'medium'}`} disabled={ isChargeButtonLoading || cartItems.length<=0} fullWidth  sx={{mt:1, mb:0.5}} >
           <Typography fontSize={{xs:10, md:15}} >{t('sale.charge')}</Typography>
-      </Button>
+      </LoadingButton>
+      <AlertComponent/>
     </Box>
   );
 };
