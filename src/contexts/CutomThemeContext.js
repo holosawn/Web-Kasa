@@ -18,7 +18,7 @@ function getTheme(mode){
           scrollbarColor: mode === 'dark' ? "#6b6b6b #2b2b2b" : "#c0c0c0 #f5f5f5",
           "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
             backgroundColor: mode === 'dark' ? "#1E1E1E" : "#FFFFFF",
-            width:'6px'
+            width:'6px',
           },
           "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
             borderRadius: 8,
@@ -36,7 +36,25 @@ function getTheme(mode){
           },
           "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
             backgroundColor: mode === 'dark' ? "#2b2b2b" : "#f5f5f5",
-          }
+          },
+          // "&::-webkit-scrollbar-button-start, & *::-webkit-scrollbar-button-start": {
+          //   position: 'absolute',
+          //   top: 0,
+          //   left: 0,
+          //   width: '6px', // Adjust as needed
+          //   height: '6px', // Adjust as needed
+          //   backgroundColor: 'blue', // Adjust as needed
+          //    // Ensure content is empty to make the button visible
+          // },
+          // "&::-webkit-scrollbar-button-end, & *::-webkit-scrollbar-button-end": {
+          //   position: 'absolute',
+          //   bottom: 0,
+          //   right: 0,
+          //   width: '6px', // Adjust as needed
+          //   height: '6px', // Adjust as needed
+          //   backgroundColor: 'blue', // Adjust as needed
+          //    // Ensure content is empty to make the button visible
+          // },
         }
       }
     }
