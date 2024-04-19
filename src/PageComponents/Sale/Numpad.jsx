@@ -195,10 +195,22 @@ const Numpad = ({ setValue, scrollRef=null, layout=defaultLayout }) => {
     setIsShiftModalOpen(false)
   }
 
+  const largeLayout = layout.length > 15 
+
   return(
-    <Grid container width={{xs:300,md:400,lg:500, xl:600}} height={{xs:140, md:190,lg:270, xl:320}} mb={{md:0.5}}  >
+    <Grid
+    container
+    width={{ xs: 300, md: 400, lg: 500, xl: 600 }}
+    height={{
+      xs: largeLayout ? 140 : 110,
+      md: largeLayout ? 190 : 140, // Adjusted height for largeLayout
+      lg: largeLayout ? 270 : 200, // Adjusted height for largeLayout
+      xl: largeLayout ? 320 : 240, // Adjusted height for largeLayout
+    }}
+    mb={{ md: 0.5 }}
+   >
     {layout.map((content) => (
-        <Grid item xs={12 / 5} key={content.name} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <Grid item xs={12/5} key={content.name} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <Key
             content={content.name}
             onClick={

@@ -197,15 +197,17 @@ const exampleCartItems = [
   // exampleCartItem,
 ];
 
+const storedCartItems = JSON.parse(sessionStorage.getItem("cart"))?.cartItems;
+
 const Sale = () => {
   //todo first key is total price
   //todo categories section xs my
   //Charhe on collapsable screen needs mb
   const [filterCategories, setFilterCategories] = useState([]);
   const [filterValue, setFilterValue] = useState("");
-  const [products, setProducts] = useState(exampleProducts);
+  const [products, setProducts] = useState(wallmartData);
   const productsRef = useRef(null)
-  const [cartItems, setCartItems] = useState(exampleCartItems); //empty or not array should be passed
+  const [cartItems, setCartItems] = useState( storedCartItems || []); //empty or not array should be passed
   const [itemInRegister, setItemInRegister] = useState({
     product: {},
     qty: 0,
@@ -226,19 +228,6 @@ const Sale = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  // Load cartItems from sessionStorage on component mount
-  useEffect(() => {
-    const storedCartItems = sessionStorage.getItem("cartItems");
-    if (storedCartItems) {
-      setCartItems(JSON.parse(storedCartItems));
-    }
-  }, []);
-
-  useEffect(() => {
-    // Save cartItems to sessionStorage whenever it changes
-    sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
 
   function onQtyFocus(setVal) {
     setItemInRegister((prev) => ({

@@ -16,6 +16,7 @@ import { useLanguage } from "../../contexts/LangContext";
 import { useNavigate } from "react-router-dom";
 import LoadingButton from "../../ReusableComponents/LoadingButton";
 import useAlert from "../../CustomHooks/useAlert";
+import CardTotal from "../../ReusableComponents/CardTotal";
 
 const exampleCartItem = {
   product: {
@@ -90,6 +91,7 @@ function resetOffers(items, setItems) {
 
 const offers = {
   "3/2": {
+    key:'3/2',
     name: "3 al 2 öde",
     displayNames:{
       'en':'Get 3 pay 2',
@@ -99,6 +101,7 @@ const offers = {
     offerFunc: get3Pay2,
   },
   'none': {
+    key:'none',
     name: 'No Offer',
     displayNames:{
       'en':'No Offer',
@@ -129,6 +132,21 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
     if (offers[offerName].offerFunc) offers[offerName].offerFunc(cartItems, setCartItems);
   }, [offerName, cartItems.length, subTotal]);
 
+  // Load cartItems from sessionStorage on component mount
+  useEffect(() => {
+    const cart = {
+      cartItems:cartItems,
+      discount:(discount|| 0),
+      subTotal:(subTotal|| 0),
+      savedByOffers:(savedByOffers|| 0),
+    }
+    sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
+    sessionStorage.setItem("discount", JSON.stringify(discount));
+    sessionStorage.setItem("subTotal", JSON.stringify(subTotal));
+    sessionStorage.setItem("savedByOffers", JSON.stringify(savedByOffers));
+  }, [cartItems, discount, offerName]);
+  
+
   useEffect(() => {
     function handleResize() {
       setSize({x:window.innerWidth, y:window.innerHeight})
@@ -147,6 +165,8 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
   
     if (cartItems.length > 0) {
       setIsChargeButtonLoading(false);
+      sessionStorage.setItem("amountToPay", JSON.stringify((subTotal||0)-(savedByOffers||0)) * (100 - (discount||0))/100);
+
       navigate('/Payment');
     } else {
       setIsChargeButtonLoading(false);
@@ -207,28 +227,6 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
   );
 };
 
-const CardTotal=({subTotal, discount, savedByOffers})=>(
-  <Box display={'flex'} fontSize={{xs:10, md:12, lg:14, xl:16}} flexDirection={'column'} justifyContent={'center'} border={'1px solid gray'} borderRadius={3} p={1} height={{xs:65, md:95}} width={'100%'} >
-    <Stack direction={'row'} width={'100%'} >
-      <Typography variant="h7" fontWeight={700} color={'primary'} >{t('sale.subTotal')}:</Typography>
-      <Typography variant="h7" fontWeight={700} color={'primary'}  ml={'auto'} >{subTotal.toFixed(3).replace(".", ",")}</Typography>
-      <Typography variant="h7" fontWeight={700} color={'primary'}>&nbsp;TRY</Typography>
-    </Stack>
-    <Stack direction={'row'} width={'100%'} >
-      <Typography variant="h7" fontWeight={700} color={'success.main'} >{t('sale.offers')}:</Typography>
-      <Typography variant="h7" fontWeight={700} color={'success.main'}  ml={'auto'} >{savedByOffers.toFixed(3).replace(".", ",")} TRY</Typography>
-    </Stack>
-    <Stack direction={'row'} width={'100%'} >
-      <Typography variant="h7" fontWeight={700} color={'success.main'} >{t('sale.discounts')}:</Typography>
-      <Typography variant="h7" fontWeight={700} color={'success.main'}  ml={'auto'} >{(discount % 1 === 0 ? discount.toFixed(0) : discount.toFixed(2)).replace(".", ",")}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
-    </Stack>
-    <Stack direction={'row'} width={'100%'} >
-      <Typography variant="h7" fontWeight={700} color={'secondary'} >{t('sale.total')}:</Typography>
-      <Typography variant="h7" fontWeight={700} color={'secondary'}  ml={'auto'} >{((subTotal-savedByOffers) * (100 - discount)/100).toFixed(3).replace(".", ",")}</Typography>
-      <Typography variant="h7" fontWeight={700} color={'primary'}>&nbsp;TRY</Typography>
-    </Stack>
-  </Box>
-)
 
 const CartActions = ({ offerName, setofferName, discount, setDiscount }) => {
   const [size, setSize] = useState({x:window.innerWidth, y: window.innerHeight})

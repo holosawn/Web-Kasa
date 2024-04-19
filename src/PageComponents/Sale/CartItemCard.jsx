@@ -71,9 +71,9 @@ const CartItemCard = ({ item, setCartItems, setItemInRegister=null,
           border: "1px solid gray",
           borderRadius: 3,
           width: "97%",
-          minHeight: 50, // Set the minimum height
-          height: {xs:60, md:80}, // Set the height to the maximum content height
-          maxHeight: 80, // Set the height to the maximum content height
+          minHeight: {xs:65, md:85}, // Set the minimum height
+          height: {xs:65, md:85}, // Set the height to the maximum content height
+          maxHeight: 90, // Set the height to the maximum content height
           py: 0.5,
         }}
       >

@@ -8,6 +8,7 @@ import { CustomThemeProvider } from './contexts/CutomThemeContext';
 import MenuPage from './pages/MenuPage/MenuPage';
 import Sale from './pages/SalePage/Sale';
 import { ShiftStatusProvider } from './contexts/ShiftContext';
+import Payment from './pages/PaymentPage/Payment';
 
 
 
@@ -22,6 +23,7 @@ function App() {
               <Route index path='/' element={<LoginPage/>} />
               <Route path='/Menu' element={<MenuPage/>} />
               <Route path='/Sale' element={<Sale/>} />
+              <Route path='/Payment' element={<Payment/>} />
             </Routes>
           </BrowserRouter>
         </ShiftStatusProvider>
