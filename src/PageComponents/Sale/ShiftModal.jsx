@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Fade, Modal, TextField, Button, Typography, Alert, Grow, AlertTitle } from "@mui/material";
 import { onlyNumLayout } from "../../utils/Numpadlayouts";
-import Numpad from "./Numpad";
+import Numpad from "../../ReusableComponents/Numpad";
 import useAlert from "../../CustomHooks/useAlert";
 import { t } from "i18next";
 import { useShiftStatus } from "../../contexts/ShiftContext";

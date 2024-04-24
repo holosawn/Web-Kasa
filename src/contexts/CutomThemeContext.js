@@ -71,7 +71,7 @@ export function CustomThemeProvider({children}){
   
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e) => setMode(e.matches ? 'dark' : 'light');
+    const handleChange = (e) => setMode(e.matches ? 'light' : 'light');
     mediaQuery.addEventListener('change', handleChange);
     return () => {
       mediaQuery.removeEventListener('change', handleChange);

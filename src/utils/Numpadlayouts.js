@@ -9,17 +9,18 @@ const onlyNumLayout=[
       name: "3",
     },
     {
+      name: "Delete",
+      onClick: (setVal) =>
+        setVal((prev) => {
+          if (prev && prev.length > 0) return prev.slice(0, -1);
+          else return prev
+        }),
+      color: "warning",
+  },
+    {
       name: "4",
     },
-    {
-        name: "Delete",
-        onClick: (setVal) =>
-          setVal((prev) => {
-            if (prev && prev.length > 0) return prev.slice(0, -1);
-            else return prev
-          }),
-        color: "warning",
-    },
+    
     {
       name: "5",
     },
@@ -27,20 +28,22 @@ const onlyNumLayout=[
       name: "6",
     },
     {
+      name: "Clear",
+      onClick: (setVal) =>
+          setVal((prev) => {
+          if (prev && prev.length > 0) return prev.slice(0, -prev.length);
+          else return prev
+          }),
+      color: "warning",
+  },
+    {
       name: "7",
     },
+    
     {
       name: "8",
     },
-    {
-        name: "Clear",
-        onClick: (setVal) =>
-            setVal((prev) => {
-            if (prev && prev.length > 0) return prev.slice(0, -prev.length);
-            else return prev
-            }),
-        color: "warning",
-    },
+    
     {
       name: "9",
     },

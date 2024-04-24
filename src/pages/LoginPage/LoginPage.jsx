@@ -16,7 +16,7 @@ import DisplayErrorMessage from "../../PageComponents/LoginPage/DisplayErrorMess
 import LangSelector from "../../PageComponents/LoginPage/LangSelector";
 import { t } from "i18next";
 import { useLanguage } from "../../contexts/LangContext";
-import { enLayout, trLayout, ruLayout } from "../../LangLayouts/Layouts";
+import { enLayout, trLayout, ruLayout } from "../../LangLayouts/LayoutsWithArrows";
 import { useCustomTheme } from "../../contexts/CutomThemeContext";
 import { useTheme } from "@emotion/react";
 import useFetchData from "../../CustomHooks/useFetchData";
