@@ -1,7 +1,7 @@
 import React from 'react'
 import CurrentItemCard from './CurrentItemCard'
 import { Box, Fade } from '@mui/material'
-import Numpad from './Numpad'
+import Numpad from '../../ReusableComponents/Numpad';
 import { onlyNumLayout } from '../../utils/Numpadlayouts';
 
 const SmallScreenCurrentItemCard=({ open, currentItem, setCurrentItem, cartItems, setCartItems})=>{

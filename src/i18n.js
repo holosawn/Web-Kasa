@@ -110,7 +110,8 @@ i18n
             alertContent:'Drawer amount cannot be empty',
             noItemsTitle:'No Items',
             noItemsContent:'There are currently no items in cart'
-          }
+          },
+          
         }
       },
       tr: { 

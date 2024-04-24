@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import React, {useEffect, useState } from "react"
 import CurrentItemCard from "./CurrentItemCard";
-import CartItemCard from "./CartItemCard";
+import CartItemCard from "../../ReusableComponents/CartItemCard";
 import { t } from "i18next";
 import { useLanguage } from "../../contexts/LangContext";
 import { useNavigate } from "react-router-dom";
@@ -44,7 +44,7 @@ const exampleCartItem = {
   },
 };
 
-function get3Pay2(Items, setItems) {
+function get3Pay2(Items) {
   const updatedItems = Items.map((item) => {
     const isPiece = item.product.unit === "piece";
     const divideNum = isPiece ? 3 : 3000;
@@ -74,19 +74,18 @@ function get3Pay2(Items, setItems) {
     return updatedItem;
   });
 
-  setItems(updatedItems);
 
   return updatedItems;
 }
 
-function resetOffers(items, setItems) {
+function resetOffers(items) {
   const updatedItems = items.map(item => ({
     ...item,
     computedPrice: item.defaultPrice,
     offersApplied: null,
   }));
 
-  setItems(updatedItems);
+  return updatedItems
 }
 
 const offers = {
@@ -129,22 +128,19 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
   },0)
 
   useEffect(() => {
-    if (offers[offerName].offerFunc) offers[offerName].offerFunc(cartItems, setCartItems);
+    if (offers[offerName].offerFunc) setCartItems(offers[offerName].offerFunc(cartItems));
   }, [offerName, cartItems.length, subTotal]);
 
-  // Load cartItems from sessionStorage on component mount
-  useEffect(() => {
-    const cart = {
-      cartItems:cartItems,
-      discount:(discount|| 0),
-      subTotal:(subTotal|| 0),
-      savedByOffers:(savedByOffers|| 0),
-    }
-    sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
-    sessionStorage.setItem("discount", JSON.stringify(discount));
-    sessionStorage.setItem("subTotal", JSON.stringify(subTotal));
-    sessionStorage.setItem("savedByOffers", JSON.stringify(savedByOffers));
-  }, [cartItems, discount, offerName]);
+  useEffect(()=>{
+    const itemsStored = JSON.parse(sessionStorage.getItem('cartItems'))
+    if(itemsStored) setCartItems(itemsStored)
+
+    const discountStored = parseInt(sessionStorage.getItem('discount')) 
+    if(discountStored) setDiscount(discountStored)
+
+    const offerNameStored = JSON.parse(sessionStorage.getItem('offerName'))
+    if (offerNameStored) setofferName(offerNameStored)
+    },[])
   
 
   useEffect(() => {
@@ -158,16 +154,41 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
     };
   }, []);
 
+  console.log(JSON.parse(sessionStorage.getItem('activeCoupons')))
+
   const onChargeClick = async () => {
     setIsChargeButtonLoading(true);
   
     await new Promise(resolve => setTimeout(resolve, 500));
   
     if (cartItems.length > 0) {
-      setIsChargeButtonLoading(false);
-      sessionStorage.setItem("amountToPay", JSON.stringify((subTotal||0)-(savedByOffers||0)) * (100 - (discount||0))/100);
+      
+      const pastTransactions = JSON.parse(sessionStorage.getItem('pastTransactions')) || []
+      const computedTotalPrice = (((subTotal||0)-(savedByOffers||0)) * ((100 - (discount||0))/100))
 
+      console.log(JSON.parse(sessionStorage.getItem('activeCoupons')));
+      if (pastTransactions.length > 0) {
+        const totalTransactionAmount = pastTransactions.reduce((acc, curr) => {
+          return acc + curr.amount
+        } ,0)
+        sessionStorage.setItem("amountToPay", JSON.stringify(computedTotalPrice - totalTransactionAmount));
+      }
+      else{  
+        console.log('activeCoupons reset');
+        sessionStorage.setItem("amountToPay", JSON.stringify(computedTotalPrice));
+        sessionStorage.setItem('activeCoupons', JSON.stringify([]))
+      }
+
+
+      sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
+      sessionStorage.setItem("subTotal", JSON.stringify(subTotal));
+      sessionStorage.setItem("total", JSON.stringify(computedTotalPrice));
+      sessionStorage.setItem("savedByOffers", JSON.stringify(savedByOffers));
+      sessionStorage.setItem('offerName', JSON.stringify(offerName))
+      sessionStorage.setItem("discount", JSON.stringify(discount));
+      setIsChargeButtonLoading(false);
       navigate('/Payment');
+
     } else {
       setIsChargeButtonLoading(false);
       showAlert('warning', t('sale.noItemsTitle'), t('sale.noItemsContent'));

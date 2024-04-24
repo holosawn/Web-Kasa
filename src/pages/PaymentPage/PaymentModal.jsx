@@ -95,13 +95,14 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
     }, 1000);
   }
 
-  const onBackClick=()=>{
-    const index = steps.findIndex(str => str=== proggres);
-    if ( method !== 'insert' && steps[index -1] === 'PIN') {
-      setProggres(steps[index-2])
-    }
-    else if(index >0 ) setProggres(steps[index-1]);
-  }
+  // const onBackClick=()=>{
+  //   const index = steps.findIndex(str => str=== proggres);
+  //   if ( method !== 'insert' && steps[index -1] === 'PIN') {
+  //     setProggres(steps[index-2])
+  //   }
+  //   else if(index >0 ) setProggres(steps[index-1]);
+
+  // }
 
   const onCloseButtonClick=()=>{
     onClose()
@@ -131,9 +132,9 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
           <Button sx={{position:'absolute', top:0, left:0, mt:2, ml:2}}  onClick={onCloseButtonClick} color='error' variant='contained' >
             Cancel
           </Button>
-          <Button sx={{position:'absolute', top:0, right:0, mt:2, mr:2}} disabled={loading} onClick={onBackClick} color='warning' variant='contained' >
-            Back
-          </Button>
+          {/* <Button sx={{position:'absolute', top:0, right:0, mt:2, mr:2}} disabled={loading} onClick={onBackClick} color='warning' variant='contained' >
+          <Typography visibility={'hidden'}  >e</Typography> Back <Typography visibility={'hidden'}>e</Typography>
+          </Button> */}
           <Typography variant='h5' pt={3} color={'primary'} fontWeight={700} >
             {/* {transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)} Payment */}
             {getTitle(proggres, method)}
@@ -239,8 +240,8 @@ const styles={
     height:'fit-content',
     p: 0,
     borderRadius: 3,
-    minWidth:700,
-    minHeight:400
+    minWidth:550,
+    minHeight:300
   },
 }
 

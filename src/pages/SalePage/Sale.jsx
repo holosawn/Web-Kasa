@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Categories from "../../PageComponents/Sale/Categories";
 import { Box, Stack, useMediaQuery, Button, Drawer } from "@mui/material";
 import Products from "../../PageComponents/Sale/Products";
-import Numpad from "../../PageComponents/Sale/Numpad";
+import Numpad from "../../ReusableComponents/Numpad.jsx";
 import CustomTextField from "../../PageComponents/Sale/CustomTextField";
 import Cart from "../../PageComponents/Sale/Cart";
 import tomatoImg from "../../assets/tomatoes.webp";

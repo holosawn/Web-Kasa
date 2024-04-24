@@ -1,0 +1,67 @@
+
+@media print {
+  /* Hide any additional text */
+  body::before {
+      content: none !important;
+  }
+  
+  * {
+    page-break-before: auto;
+    page-break-after: auto;
+    page-break-inside: auto;
+  }
+
+  /* Prevent specific content from causing page breaks */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-before: avoid;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  @page {
+      size: 3in 4in !important ;
+      margin: 0; /* Remove default margin */
+  }
+
+  
+  .overflow-print {
+    height: 100%;
+    overflow: visible;
+    display: inline-block;
+  }
+
+
+body, .print-container, .overflow-print {
+  /* display: block !important; */
+  width: 95% !important; /* Ensure width is set to 3 inches */
+  padding-left: 3% !important;
+  height: 90% !important; /* Ensure it fills the page */
+  overflow: visible !important;
+  margin: 0 !important;
+  padding: 0;
+}
+  
+.print-wrapper {
+    margin: 0;
+    padding: 0;
+    top: 0 !important;
+    transform: translate(-50%, 0%) !important; /* Move to the left and upwards */
+
+  }
+
+
+.print-container {
+  position: absolute !important;
+  justify-content: center; /* Ensure central alignment */
+}
+
+.hide-print {
+    display: none !important;
+}
+
+}
+
+.overflow-print {
+  overflow: auto;
+  display: inline-block;
+}

@@ -38,7 +38,7 @@ const CartItemCard = ({ item, setCartItems, setItemInRegister=null,
         const updatedCartItems = prevCartItems.filter(
           (cartItem) => cartItem.product.code !== item.product.code
         );
-        return updatedCartItems;
+        return updatedCartItems || [];
       });
     }, [item, setCartItems]);
   

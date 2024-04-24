@@ -7,7 +7,7 @@ import React, { useRef, useState } from "react";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { t } from "i18next";
-import ShiftModal from "./ShiftModal";
+import ShiftModal from "../PageComponents/Sale/ShiftModal";
 
 const defaultLayout = [
     {
@@ -117,8 +117,6 @@ const Key = ({ content, sx, onClick, onMouseUp, onMouseDown, setValue, color, ..
         onClick(content);
       } else {
         setValue((prevValue) => {
-          console.log(prevValue);
-          console.log(typeof prevValue);
           return (prevValue ? prevValue + content : content)});
       }
     }
@@ -202,15 +200,15 @@ const Numpad = ({ setValue, scrollRef=null, layout=defaultLayout }) => {
     container
     width={{ xs: 300, md: 400, lg: 500, xl: 600 }}
     height={{
-      xs: largeLayout ? 140 : 110,
-      md: largeLayout ? 190 : 140, // Adjusted height for largeLayout
-      lg: largeLayout ? 270 : 200, // Adjusted height for largeLayout
-      xl: largeLayout ? 320 : 240, // Adjusted height for largeLayout
+      xs: 150 ,
+      md: 200 , // Adjusted height for largeLayout
+      lg: 270 , // Adjusted height for largeLayout
+      xl: 320 , // Adjusted height for largeLayout
     }}
     mb={{ md: 0.5 }}
    >
     {layout.map((content) => (
-        <Grid item xs={12/5} key={content.name} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <Grid item xs={ largeLayout ? 12/5 : 3} key={content.name} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <Key
             content={content.name}
             onClick={

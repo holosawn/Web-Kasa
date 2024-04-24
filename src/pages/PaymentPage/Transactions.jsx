@@ -1,19 +1,25 @@
-import { Box, Button, Stack, TextField } from '@mui/material'
+import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
-import Numpad from '../../PageComponents/Sale/Numpad'
+import Numpad from '../../ReusableComponents/Numpad'
 import { onlyNumLayout } from '../../utils/Numpadlayouts'
 import PaymentModal from './PaymentModal';
+import useSize from '../../CustomHooks/useSize';
 
 const paymentTypes=['card', 'cash']
 
-const Transactions = ({setAmountToPay}) => {
+const commaKey={
+  name:',',
+  onClick:(setVal) => setVal(prev => prev + ',')
+}
+
+const Transactions = ({cartItems, amountToPay, setAmountToPay}) => {
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
   const [transaction, setTransaction] = useState({
     amount:'',
-    type:''
+    type:'cash'
   })
   const inputRef = useRef()
-  const cartItems = JSON.parse(sessionStorage.getItem('cartItems'))
+  const [size] = useSize();
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
@@ -22,10 +28,10 @@ const Transactions = ({setAmountToPay}) => {
         ...prev,
         amount: ''
       }));
-    } else if (/^0[\d\s]*$/.test(inputValue) || /^[\d\s]+$/.test(inputValue)) {
+    } else if (/^0[\d\s]*$/.test(inputValue) || /^[\d\s,]+$/.test(inputValue)) {
       setTransaction(prev => ({
         ...prev,
-        amount: parseInt(inputValue)
+        amount: inputValue
       }));
     }
   }
@@ -43,45 +49,91 @@ const Transactions = ({setAmountToPay}) => {
       ...prev,
       type:'card'
     }))
+
     setIsPaymentModalOpen(true)
   }
-
+  
   const onCashClick=()=>{
-    const currAmountToPay = JSON.parse(sessionStorage.getItem('amountToPay'))
-    setAmountToPay(currAmountToPay - transaction.amount)
-    sessionStorage.setItem('amountToPay', JSON.stringify(currAmountToPay - transaction.amount))
+    setTransaction(prev =>({
+      ...prev,
+      type:'cash'
+    }))
+
+    setAmountToPay(prev => prev - parseFloat(transaction.amount.replace(',', '.')))
+
+    const pastTransactions = JSON.parse(sessionStorage.getItem('pastTransactions')) || []
+    sessionStorage.setItem('pastTransactions', JSON.stringify([...pastTransactions, transaction]))
+
     setTransaction({
-      amount:0,
+      amount:'',
       type:''
     })
   }
 
-  const onPaymentModalClose=()=>{
-    const currAmountToPay = JSON.parse(sessionStorage.getItem('amountToPay'))
+  // const onPayClick=()=>{
+  //   if (transaction.type === 'card') {
+  //     // todo make it asyn ?
+  //     // setIsPaymentModalOpen(true)
 
-    setAmountToPay(currAmountToPay - transaction.amount)
-    sessionStorage.setItem('amountToPay', JSON.stringify(currAmountToPay - transaction.amount))
+  //   }
+  //   else if(transaction.type === 'cash'){
+
+  //     // setAmountToPay(prev => prev - parseFloat(transaction.amount.replace(',', '.')))
+
+  //     // const pastTransactions = JSON.parse(sessionStorage.getItem('pastTransactions')) || []
+  //     // sessionStorage.setItem('pastTransactions', JSON.stringify([...pastTransactions, transaction]))
+
+  //     // setTransaction({
+  //     //   amount:'',
+  //     //   type:''
+  //     // })
+  //   }
+  // }
+
+  const onPaymentModalClose=()=>{
+
+    setAmountToPay(prev => prev - transaction.amount.replace(',', '.'))
+
+    const pastTransactions = JSON.parse(sessionStorage.getItem('pastTransactions')) || []
+    sessionStorage.setItem('pastTransactions', JSON.stringify([...pastTransactions, transaction]))
 
     setTransaction({
-      amount:0,
+      amount:'',
       type:''
     })
     setIsPaymentModalOpen(false)
   }
 
   return (
-    <Box sx={{ display:'flex', flexDirection:'column'}}>
-      <Stack direction='row' sx={{mx:0.5}} >
-        <TextField inputRef={inputRef} value={transaction.amount} sx={{flex:1, m:0.3}} onChange={handleInputChange} />
-        <Button onClick={onCardClick} variant='contained' color='success' disabled={!parseInt(transaction.amount) > 0 || (cartItems || []).length < 1} sx={{m:0.3}}>Card</Button>
-        <Button onClick={onCashClick} variant='contained' color='success' disabled={!parseInt(transaction.amount) > 0 || (cartItems || []).length < 1} sx={{m:0.3}}>Cash</Button>
-      </Stack>
-      <Box height={200}>
-        <Numpad setValue={handleAmountChange} layout={onlyNumLayout} />
+    <Box sx={{ display:'flex', flexDirection:'column', mt: size.y < 500 ? 0.5 : 1, mt:'auto'}}>
+      <Box  borderRadius={1} display={'flex'} flexDirection={'row'} sx={{width:size.y < 900 ? '98%' : '96%',mx:size.y < 900 ? '1%' : '2%', height:size.y < 400 ? 35 : size.y < 900 ? 45 : 70, mb: size.y< 400 ? 1 : 2 }}>
+          <TextField fullWidth inputRef={inputRef} sx={{mr:0.2}} InputProps={{style:{height:'100%'}}} label={'Amount'} focused value={transaction.amount} onChange={handleInputChange} />
+          <PaymentTypeButton label={'card'} transaction={transaction} onCardClick={onCardClick} />
+          <PaymentTypeButton label={'cash'} transaction={transaction} onCardClick={onCashClick} />
       </Box>
+      <Numpad setValue={handleAmountChange} layout={[...onlyNumLayout.slice(0,11), commaKey, ...onlyNumLayout.slice(11, onlyNumLayout.length)]} />
       <PaymentModal transaction={transaction} open={isPaymentModalOpen} onClose={onPaymentModalClose} />
     </Box>
   )
 }
+
+const PaymentTypeButton = ({ label, transaction, onCardClick }) => {
+  return (
+    <Button
+      size="small"
+      // fullWidth
+      color='success'
+      onClick={onCardClick}
+      variant="contained"
+      sx={{
+        mr:0.2,
+        textTransform:'none',
+        fontSize:{xs:14, md:17, lg:20}
+      }}
+    >
+      {label.charAt(0).toUpperCase() + label.slice(1)}
+    </Button>
+  );
+};
 
 export default Transactions

@@ -1,21 +1,23 @@
 import { Box, Button, IconButton, Typography, Stack, Divider } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
-import CartItemCard from '../../PageComponents/Sale/CartItemCard'
+import CartItemCard from '../../ReusableComponents/CartItemCard'
 import { ArrowBack } from '@mui/icons-material'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import CardTotal from '../../ReusableComponents/CardTotal'
 import { useNavigate } from 'react-router-dom'
 import useSize from '../../CustomHooks/useSize'
+import { get3Pay2, offers, resetOffers } from '../../Data/Offers';
 
-const ItemsList = ({amountToPay}) => {
-    const [cartItems, setCartItems] = useState(JSON.parse(sessionStorage.getItem("cartItems")))
+
+
+const ItemsList = ({amountToPay, activeCoupons, subTotal, total, discount, cartItems, setCartItems, setTotal, setSubTotal, setActiveCoupons, setAmountToPay, activeOffer, setActiveOffer, savedByOffers, setSavedByOffers}) => {
+    //todo drwaer amount can not be empty alert on currentItemCard
     const [size, setSize] = useSize()
     const scrollRef = useRef(null);
     const scrollIntervalRef = useRef(null);
     const navigate = useNavigate()
 
-    
   const scroll = (scrollVal)=>{
     const currPos = scrollRef.current.scrollTop;
     scrollRef.current.scrollTo({left:0, top:(currPos + scrollVal), behavior:'auto'})
@@ -35,22 +37,70 @@ const ItemsList = ({amountToPay}) => {
   };
 
   const setItems = (updateFunc) => {
-      setCartItems(prev => {
-        const newItems = updateFunc(prev)
-        console.log(newItems);
+        const prevIds = cartItems.map(item => item.product.id);
 
-        sessionStorage.setItem('cartItems', JSON.stringify(newItems))
-        return newItems
-      })
+        const newItems = updateFunc(cartItems)
+        const newIds = newItems.map(item => item.product.id);
+        const deletedId = prevIds.find(id => !newIds.includes(id));
+        const deletedElement = cartItems.find(item => item.product.id === deletedId);
+
+
+        setSubTotal(subTotal - deletedElement.defaultPrice)
+
+        
+        const updatedCartItems = activeOffer.offerFunc(cartItems.filter(item => item.product.id !== deletedId ), setCartItems) || []
+        const newSavedByOfferss = updatedCartItems.reduce((total, curr) => {
+          const saved = curr?.offersApplied?.[activeOffer.key]?.saved || 0; // Proper use of optional chaining and default value
+          return total + saved; // Add the saved value to the total
+        }, 0);
+        setSavedByOffers(newSavedByOfferss)
+        
+
+        const tempTotal = (updatedCartItems.reduce((total,curr) => total + curr.defaultPrice ,0) - newSavedByOfferss )  * (1 - discount/100);
+        
+        // Initialize total and amountToPay with initial values
+        let newTotal = tempTotal;
+        
+        // Create a new list of valid coupons
+        const validCoupons = [];
+        
+        // Loop through active coupons and process them
+        for (const coupon of activeCoupons) {
+          const activeCouponFunc = coupon.func || (()=>0) ;
+        
+          if (activeCouponFunc) {
+            const priceDiff = activeCouponFunc(newTotal);
+        
+            // Validate the price difference
+            if (priceDiff < 0) {
+              newTotal += priceDiff;        
+              // Keep the valid coupon in the list
+              validCoupons.push(coupon);
+            }
+          }
+        }
+        setActiveCoupons(validCoupons)        
+        setTotal(newTotal)
+
+        let newAmountToPay =newTotal ;
+        const pastTransactions = JSON.parse(sessionStorage.getItem('pastTransactions')) || []
+        for (const Transactions of pastTransactions) {
+          newAmountToPay = newAmountToPay - Transactions.amount
+        }
+        setAmountToPay(newAmountToPay)
+
+        setCartItems(updatedCartItems)
+        sessionStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
     };
 
-    console.log(sessionStorage.getItem('cartItems'));
+    const onBackClick=()=>{
+    navigate('/Sale')
+    }
 
   return (
     <Box
         sx={{
           height: "100%",
-          my:'2vh',
           width: "50%",
           overflowY: "hidden",
           overflowX: "hidden",
@@ -64,7 +114,7 @@ const ItemsList = ({amountToPay}) => {
         flexDirection={'column'}
       >
         <Stack direction={'row'} justifyContent={'center'} height={size.y < 800 ? 35 : 45 } alignItems={'end'} width={'100%'} ml={'auto'} p={1} mb={0} position={'relative'} >
-            <Button variant='contained' size={size.y < 800 ? 'small' : 'large'} color='error' onClick={() => navigate('/Sale')} sx={{mr:'auto', position:'absolute', left:0}} >
+            <Button variant='contained' size={size.y < 800 ? 'small' : 'large'} color='error' onClick={onBackClick} sx={{mr:'auto', position:'absolute', left:0}} >
                 <ArrowBack fontSize={size.y < 800 ? 'small' : 'medium'} />
             </Button>
             <Typography
@@ -74,7 +124,7 @@ const ItemsList = ({amountToPay}) => {
             </Typography>
         </Stack>
 
-        <Divider sx={{width:'100%',mb:0}} />
+        <Divider sx={{width:'100%',my:1, mt:0.5}} />
 
         <Box flex={1} minHeight={0} position={'relative'} width={'98%'} sx={{ml:'auto',}} >
         <Box ref={scrollRef}  height={'100%'}width={'100%'} sx={{display:'flex', flexDirection:'column' , pr:'7%', overflowY:'scroll', }} >
@@ -109,22 +159,26 @@ const ItemsList = ({amountToPay}) => {
           
         </Box>
         </Box>
-        <Balance amountToPay={amountToPay} />
+        <Balance amountToPay={amountToPay} discount={discount} savedByOffers={savedByOffers} subTotal={subTotal} total={total} activeCoupons={activeCoupons} />
       </Box>
   )
 }
 
-const Balance = ({amountToPay}) => {
-  const [subTotal, setSubTotal] = useState(JSON.parse(sessionStorage.getItem('subTotal')));
-  const [discount, setDiscount] = useState(JSON.parse(sessionStorage.getItem('discount')));
-  const [savedByOffers, setSavedByOffers] = useState(JSON.parse(sessionStorage.getItem('savedByOffer')));
+const Balance = ({amountToPay, discount, savedByOffers, subTotal, total, activeCoupons}) => {
+  const coupons = activeCoupons.map(coupon => ({
+    'key':coupon.key,
+    saved : coupon.saved
+  }))
+
 
   return (
     <CardTotal
       subTotal={subTotal}
+      total = {total}
       discount={discount}
       savedByOffers={savedByOffers}
       amountToPay={amountToPay}
+      coupons={coupons}
     />
   );
 };

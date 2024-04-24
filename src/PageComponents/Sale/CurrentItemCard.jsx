@@ -42,8 +42,6 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
           qty: inputValue
         }));
       }
-
-      console.log(parseInt('1000.2'.replace(/\s/g, '').replace(/[.\s]/g, '')));
     };
 
     const onDeleteIconClick=()=>{
@@ -62,8 +60,6 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
       }
       setNumpadFocus('products');
       const convertedQty = parseInt(item.qty.replace(/\s/g, '').replace(/[.\s]/g, ''));
-      console.log(convertedQty);
-
       // Check if the item is a piece
       const isPiece = item.product.unit === 'piece';
 
