@@ -8,6 +8,7 @@ import CardTotal from '../../ReusableComponents/CardTotal'
 import { useNavigate } from 'react-router-dom'
 import useSize from '../../CustomHooks/useSize'
 import { get3Pay2, offers, resetOffers } from '../../Data/Offers';
+import { t } from 'i18next';
 
 
 
@@ -120,7 +121,7 @@ const ItemsList = ({amountToPay, activeCoupons, subTotal, total, discount, cartI
             <Typography
             sx={{ml:3}}
               variant='h5' color={'primary'} fontWeight={700} fontSize={{xs:18, md:18, lg:23, xl:28}} >
-                Bill Total
+                {t('payment.billTotal')}
             </Typography>
         </Stack>
 

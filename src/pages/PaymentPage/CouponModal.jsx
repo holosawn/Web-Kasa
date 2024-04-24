@@ -161,13 +161,13 @@ const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToP
                 <ArrowBack fontSize={size.y < 800 ? 'small' : 'medium'} />
               </Button>
               <Typography variant='h6' fontSize={size.y < 500 ? 18 : 20} fontWeight={700} color={'primary'} >
-                Kupon Kodu
+                {t('payment.couponCode')}
               </Typography>
             </Stack>
             <Divider sx={{width:'100%'}} />
             <Stack direction='row' justifyContent={'center'} alignItems={'center'} sx={{my:size.y < 500 ?  1: 3, minWidth:450, width:'100%', position:'relative'}} >
                 <Typography variant='h6' fontSize={size.y< 500 ? 16: 18} noWrap sx={{width:90, position:'absolute', left:'2%'}} > 
-                    Kod:
+                    {t('payment.code')}:
                 </Typography>
                 <TextField type='email' value={input} autoFocus onChange={e => onInputChange(e.target.value)} inputRef={inputRef} sx={{
                     width:'70%',
@@ -183,7 +183,7 @@ const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToP
                     }}
                   />
                   <LoadingButton isLoading={loading} disabled={loading || !input.length > 0} variant='contained' onClick={onSaveButtonClick} sx={{width: size.x < 1000 ? 70 :size.x < 1200 ? 85 : 100, position:'absolute', right:'2%', height:'90%'}} >
-                    Save
+                    {t('payment.save')}
                   </LoadingButton>
             </Stack>
             <Keyboard

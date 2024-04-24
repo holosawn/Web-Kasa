@@ -7,9 +7,11 @@ import ReceiptModal from "./ReceiptModal";
 import { useNavigate } from "react-router-dom";
 import { offers } from "../../Data/Offers";
 import useSize from "../../CustomHooks/useSize";
+import { t } from "i18next";
 
 const Payment = () => {
   // todo no new products on sale page
+  // todo sale page has modal lang problems, also no puschase before register 
   const [cartItems, setCartItems] = useState(JSON.parse(sessionStorage.getItem('cartItems')) || [])
   const [subTotal, setSubTotal] = useState(JSON.parse(sessionStorage.getItem('subTotal')) || 0)
   const [savedByOffers, setSavedByOffers] = useState(JSON.parse(sessionStorage.getItem('savedByOffers')) || 0)
@@ -65,8 +67,8 @@ const Payment = () => {
       <Stack direction={'column'} bgcolor={"background.paper"} alignItems={'center'} sx={{borderRadius:2, ml:1, height:'100%',  px:0.5, minWidth:250, pt:0.5 }}>
         <Actions cartItems={cartItems} setCartItems={setCartItems} total={total} activeCoupons={activeCoupons} setActiveCoupons={setActiveCoupons} amountToPay={amountToPay} setAmountToPay={setAmountToPay} setTotal={setTotal} />
         <Transactions cartItems={cartItems} amountToPay={amountToPay} setAmountToPay={setAmountToPay} />
-        <Button onClick={onFinishButtonClick} disabled={amountToPay > 0 || !cartItems.length > 0} variant='contained' size="large" color='success'  sx={{textTransform:'none', mt:0.5, mx:'1%', mb:size.y < 500 ? 1 : 2, width:'98%', height: size.y < 400 ? 30 : size.y < 600 ? 45 : 60}} >
-          Finish
+        <Button onClick={onFinishButtonClick} disabled={amountToPay > 0 || !cartItems.length > 0} variant='contained' size="large" color='success'  sx={{textTransform:'uppercase', mt:0.5, mx:'1%', mb:size.y < 500 ? 1 : 2, width:'98%', height: size.y < 400 ? 30 : size.y < 600 ? 45 : 60, fontSize:{xs:12, md:14, lg:18, xl:20}}} >
+          {t('payment.finish')}
         </Button>
       </Stack>
       <ReceiptModal cartItems={cartItems} subTotal={subTotal} savedByOffers={savedByOffers} amountToPay={amountToPay} discount={discount} total={total} activeCoupons={activeCoupons} open={isReceiptModalOpen} onClose={onCloseReceiptModal} onFinish={onFinish} />

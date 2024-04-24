@@ -6,6 +6,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
 import { KeyboardArrowDown } from "@mui/icons-material";
 import useSize from '../../CustomHooks/useSize';
+import { t } from 'i18next';
 
 
 const Actions = ({cartItems, setCartItems, total, activeCoupons, setActiveCoupons,amountToPay, setAmountToPay, setTotal}) => {
@@ -68,25 +69,25 @@ const Actions = ({cartItems, setCartItems, total, activeCoupons, setActiveCoupon
         
         <Grid item xs={6} sx={{display:'flex',justifyContent:'center', alignItems:'center'}} >
           <Button variant='contained' onClick={onOpenMailModal} color='warning' disabled={!cartItems.length > 0 } sx={{width:'94%',textTransform:'none', height:size.y < 400 ? '90%' :'80%', minHeight: 35, fontSize:{xs:12, md:14, lg:18, xl:20}}} >
-            E-Fatura
+            {t('payment.eFatura')}
           </Button>
         </Grid>
 
         <Grid item xs={6} sx={{display:'flex',justifyContent:'center', alignItems:'center'}} >
           <Button variant='contained' onClick={onOpenCouponModal} color='success' disabled={!cartItems.length > 0 } sx={{width:'94%',textTransform:'none', height:size.y < 400 ? '90%' :'80%', minHeight: 35, fontSize:{xs:12, md:14, lg:18, xl:20}}} >
-            Kupon Kodu
+          {t('payment.couponCode')}
           </Button>
         </Grid>
 
         <Grid item xs={6} sx={{display:'flex',justifyContent:'center', alignItems:'center'}} >
           <Button variant='contained' color='warning' disabled={!cartItems.length > 0 || amountToPay > 0 } sx={{width:'94%',textTransform:'none', height:size.y < 400 ? '90%' :'80%', minHeight: 35, fontSize:{xs:12, md:14, lg:18, xl:20}}} >
-            Cüzdan
+            {t('payment.wallet')}
           </Button>
         </Grid>
 
         <Grid item xs={6} sx={{display:'flex',justifyContent:'center', alignItems:'center'}} >
           <Button variant='contained' onClick={onCancelButtonClick} color='error' sx={{width:'94%',textTransform:'none', height:size.y < 400 ? '90%' :'80%', minHeight: 35, fontSize:{xs:12, md:14, lg:18, xl:20}}} >
-            Cancel
+            {t('payment.cancel')}
           </Button>
         </Grid>
       <MailModal open={isMailModalOpen} onClose={onCloseMailModal} />
@@ -135,7 +136,7 @@ const CouponMenu = ({ activeCoupons, onDeleteCouponClick }) => {
           sx={{ textTransform: "none", width:'47%', mr:'1.5%', ml:'1.5%',  height:35, minHeight: 30, fontSize:{xs:12, md:14, lg:18, xl:20}}}
           endIcon={<KeyboardArrowDown />}
         >
-          Active Coupons
+          {t('payment.activeCoupons')}
         </Button>
       )}
 

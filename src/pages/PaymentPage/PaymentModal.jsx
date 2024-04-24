@@ -5,6 +5,7 @@ import contaclessMethod from '../../assets/ContactlessPayment.jpg'
 import swipeMethod from '../../assets/SwipeMethod.jpeg'
 import insertMethod from '../../assets/InsertCard.jpg'
 import PINEnter from '../../assets/PINEnter.jpg'
+import { t } from 'i18next';
 
 const steps=['choose','contact', 'payment', 'PIN', 'approve']
 const methods=['tap', 'insert', 'swipe']
@@ -12,17 +13,17 @@ const methods=['tap', 'insert', 'swipe']
 const getTitle = (step, method) => {
   switch (step) {
     case 'choose':
-      return 'Choose Payment Method';
+      return t('payment.choosePaymentMethod');
     case 'contact':
-      return 'Card Payment';
+      return t('payment.cardPayment');
     case 'payment':
-      return 'Card Payment';
+      return t('payment.cardPayment');
     case 'PIN':
-      return 'Enter PIN';
+      return t('payment.enterPIN');
     case 'approve':
-      return 'Approve Transaction';
+      return t('payment.approveTransaction');
     default:
-      return 'Card Payment';
+      return t('payment.cardPayment');
   }
 }
 
@@ -150,7 +151,7 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
             } style={iconStyles[method]} />
             <Typography color={'primary'} variant='h6' mt={6}>
               
-              {method.charAt(0).toUpperCase() + method.slice(1)} The Card
+              {t(`payment.${method === 'contactless' ? 'tap' : method}`).charAt(0).toUpperCase() + t(`payment.${method=== 'contactless' ? 'tap' : method}`).slice(1)} {t(`payment.theCard`)}
             </Typography>
           </Box>
         }
@@ -161,8 +162,8 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
               ? <CircularProgress size={60} color='success' />  
               : <CheckCircleIcon sx={{ fontSize: 60 }} color='success' /> 
             }
-            <Typography color={'primary'} mt={1} variant='h6' fontWeight={700} >Please Wait</Typography>
-            <Typography  >Payment in progress</Typography>
+            <Typography color={'primary'} mt={1} variant='h6' fontWeight={700} >{t(`payment.pleaseWait`)}</Typography>
+            <Typography  >{t(`payment.paymentInProggress`)}</Typography>
           </Box>
         }
         {
@@ -171,7 +172,7 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
               <CircularProgress size={60} color='success' style={{display: loading ? 'inline' : 'none'}} />  
               <img src={PINEnter}  style={{display: loading ? 'none' : 'inline', width:150, height:150}}  /> 
             
-            <Typography color={'primary'} mt={1} variant='h6' fontWeight={700} >{loading ? 'Please Wait' : 'Please Enter PIN'}</Typography>
+            <Typography color={'primary'} mt={1} variant='h6' fontWeight={700} >{loading ? t(`payment.pleaseWait`) : t(`payment.pleaseEnterPIN`)}</Typography>
           </Box>
         }
         {
@@ -181,7 +182,7 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
               ? <CircularProgress size={60} color='success' />  
               : <CheckCircleIcon sx={{ fontSize: 60 }} color='success' /> 
             }
-            <Typography color={'primary'} mt={1} variant='h6' fontWeight={700} >{loading ? 'Please Wait' : 'Transaction Approved'}</Typography>
+            <Typography color={'primary'} mt={1} variant='h6' fontWeight={700} >{loading ? t(`payment.pleaseWait`) : t(`payment.transactionApproved`)}</Typography>
           </Box>
         }
 
@@ -194,9 +195,9 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
 
 const ChooseMethod=({onClick})=>(
   <Box sx={{ height:'100%', display:'flex', flexDirection:'row', justifyContent:'space-around', alignItems:'center', my:4}}>
-      <MethodButton onClick={()=>onClick('tap')} label={'Contactless'} icon={contaclessMethod} imgSx={{width:120, height:80, }} />
-      <MethodButton onClick={()=>onClick('swipe')} label={'Swipe'} icon={swipeMethod} imgSx={{width:120, height:120, }} />
-      <MethodButton onClick={()=>onClick('insert')} label={'Insert'} icon={insertMethod} imgSx={{width:130, height:120, }} />
+      <MethodButton onClick={()=>onClick('tap')} label={t('payment.contactless')} icon={contaclessMethod} imgSx={{width:120, height:80, }} />
+      <MethodButton onClick={()=>onClick('swipe')} label={t('payment.swipe')} icon={swipeMethod} imgSx={{width:120, height:120, }} />
+      <MethodButton onClick={()=>onClick('insert')} label={t('payment.insert')} icon={insertMethod} imgSx={{width:130, height:120, }} />
   </Box>
 )
 

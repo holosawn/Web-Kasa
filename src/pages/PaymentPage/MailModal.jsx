@@ -124,13 +124,13 @@ const MailModal=({open, onClose})=>{
                 <ArrowBack fontSize={size.y < 800 ? 'small' : 'medium'} />
               </Button>
               <Typography variant='h6' fontSize={size.y < 500 ? 18 : 20} fontWeight={700} color={'primary'} >
-                E-Fatura
+                {t('payment.eFatura')}
               </Typography>
             </Stack>
             <Divider sx={{width:'100%'}} />
             <Stack direction='row' justifyContent={'center'} alignItems={'center'} sx={{my:size.y < 500 ?  1: 3, minWidth:450, width:'100%', position:'relative'}} >
                 <Typography variant='h6' fontSize={size.y< 500 ? 16: 18} noWrap sx={{width:90, position:'absolute', left:'2%'}} > 
-                    E-mail:
+                {t('payment.email')}:
                 </Typography>
                 <TextField type='email' value={input} autoFocus onChange={e => onInputChange(e.target.value)} inputRef={inputRef} sx={{
                     width:'70%',

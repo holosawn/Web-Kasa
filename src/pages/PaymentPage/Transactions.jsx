@@ -4,6 +4,7 @@ import Numpad from '../../ReusableComponents/Numpad'
 import { onlyNumLayout } from '../../utils/Numpadlayouts'
 import PaymentModal from './PaymentModal';
 import useSize from '../../CustomHooks/useSize';
+import { t } from 'i18next';
 
 const paymentTypes=['card', 'cash']
 
@@ -105,11 +106,11 @@ const Transactions = ({cartItems, amountToPay, setAmountToPay}) => {
   }
 
   return (
-    <Box sx={{ display:'flex', flexDirection:'column', mt: size.y < 500 ? 0.5 : 1, mt:'auto'}}>
-      <Box  borderRadius={1} display={'flex'} flexDirection={'row'} sx={{width:size.y < 900 ? '98%' : '96%',mx:size.y < 900 ? '1%' : '2%', height:size.y < 400 ? 35 : size.y < 900 ? 45 : 70, mb: size.y< 400 ? 1 : 2 }}>
-          <TextField fullWidth inputRef={inputRef} sx={{mr:0.2}} InputProps={{style:{height:'100%'}}} label={'Amount'} focused value={transaction.amount} onChange={handleInputChange} />
-          <PaymentTypeButton label={'card'} transaction={transaction} onCardClick={onCardClick} />
-          <PaymentTypeButton label={'cash'} transaction={transaction} onCardClick={onCashClick} />
+    <Box sx={{ display:'flex', width:'100%', flexDirection:'column', mt: size.y < 500 ? 0.5 : 1, mt:'auto'}}>
+      <Box borderRadius={1} display={'flex'} flexDirection={'row'} sx={{width:size.y < 900 ? '98%' : '96%',mx:size.y < 900 ? '1%' : '2%', height:size.y < 400 ? 35 : size.y < 900 ? 45 : 70, mb: size.y< 400 ? 1 : 2 }}>
+          <TextField fullWidth inputRef={inputRef} sx={{mr:0.2}} InputProps={{style:{height:'100%'}}} label={t(`payment.amount`)} focused value={transaction.amount} onChange={handleInputChange} />
+          <PaymentTypeButton label={t(`payment.card`)} disabled={!transaction.amount > 0} transaction={transaction} onCardClick={onCardClick} />
+          <PaymentTypeButton label={t(`payment.cash`)} disabled={!transaction.amount > 0} transaction={transaction} onCardClick={onCashClick} />
       </Box>
       <Numpad setValue={handleAmountChange} layout={[...onlyNumLayout.slice(0,11), commaKey, ...onlyNumLayout.slice(11, onlyNumLayout.length)]} />
       <PaymentModal transaction={transaction} open={isPaymentModalOpen} onClose={onPaymentModalClose} />
@@ -117,21 +118,22 @@ const Transactions = ({cartItems, amountToPay, setAmountToPay}) => {
   )
 }
 
-const PaymentTypeButton = ({ label, transaction, onCardClick }) => {
+const PaymentTypeButton = ({ label, disabled, onCardClick }) => {
   return (
     <Button
       size="small"
       // fullWidth
+      disabled={disabled}
       color='success'
       onClick={onCardClick}
       variant="contained"
       sx={{
         mr:0.2,
         textTransform:'none',
-        fontSize:{xs:14, md:17, lg:20}
+        fontSize:{xs:14, md:17, lg:20},
       }}
     >
-      {label.charAt(0).toUpperCase() + label.slice(1)}
+      <Typography width={'fit-content'}>{label.charAt(0).toUpperCase() + label.slice(1)}</Typography>
     </Button>
   );
 };

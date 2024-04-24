@@ -7,7 +7,7 @@ import React, { useRef, useState } from "react";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { t } from "i18next";
-import ShiftModal from "../PageComponents/Sale/ShiftModal";
+import ShiftModal from '../PageComponents/Sale/ShiftModal'
 
 const defaultLayout = [
     {

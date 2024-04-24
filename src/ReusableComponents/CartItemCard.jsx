@@ -206,7 +206,7 @@ const CartItemCard = ({ item, setCartItems, setItemInRegister=null,
               {item.product.price} TRY
             </Typography>
             <Typography fontSize={{xs:8,md:12}} variant="body2">
-              {item.product.tax} TAX
+              {item.product.tax} {t('payment.tax')}
             </Typography>
           </Box>
         </Box>
