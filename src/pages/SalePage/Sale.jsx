@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Categories from "../../ReusableComponents/Categories.jsx";
 import { Box, Stack, useMediaQuery, Button, Drawer } from "@mui/material";
 import Products from "../../ReusableComponents/Products.jsx";
@@ -230,9 +230,13 @@ const Sale = () => {
     sessionStorage.setItem('cartItems', JSON.stringify(cartItems))
   },[cartItems])
 
-  const filteredProducts = productArrHandler(wallmartData).filter((product) => {
+  const filteredProducts = useMemo(()=> productArrHandler(wallmartData).filter((product) => {
     if (filterCategories.length < 0) return true;
+    else if (filterCategories.includes("Favorites")) {
+      return product.isFavorite
+    }
     else {
+
       for (const category of filterCategories) {
         if (!product.categories.includes(category)){
           return false ;
@@ -243,13 +247,14 @@ const Sale = () => {
           !product.name
             .toLowerCase()
             .includes(filterValue.toLowerCase()) &&
-          !product.barcode.toLowerCase().includes(filterValue)
+          !product.barcode.toLowerCase().includes(filterValue) &&
+          !product.code.toLowerCase().includes(filterValue)
         )
           return false;
       }
       return true;
     }
-  });
+  }), [filterValue, filterCategories]);
 
   return (
     <Box

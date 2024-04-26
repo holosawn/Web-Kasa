@@ -20,7 +20,7 @@ const Actions = () => {
      >
         <Grid item xs={6} sx={{...styles.gridItem}}>
             <ActionButton onClick={()=>{navigate('/Sale')}} color={'error'} >
-                <ForwardSharpIcon sx={{ transform: "rotate(180deg)", fontSize:{xs:'15px', md:'22px', lg:'20px'} ,mr:0.5 }} />
+                <ForwardSharpIcon sx={{ transform: "rotate(180deg)", fontSize:{xs:'15px', md:'22px', lg:'22px'} ,mr:0.5 }} />
                 <ActionText>
                     Back
                 </ActionText>

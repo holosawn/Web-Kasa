@@ -154,7 +154,6 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
     };
   }, []);
 
-  console.log(JSON.parse(sessionStorage.getItem('activeCoupons')))
 
   const onChargeClick = async () => {
     setIsChargeButtonLoading(true);
@@ -166,7 +165,6 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
       const pastTransactions = JSON.parse(sessionStorage.getItem('pastTransactions')) || []
       const computedTotalPrice = (((subTotal||0)-(savedByOffers||0)) * ((100 - (discount||0))/100))
 
-      console.log(JSON.parse(sessionStorage.getItem('activeCoupons')));
       if (pastTransactions.length > 0) {
         const totalTransactionAmount = pastTransactions.reduce((acc, curr) => {
           return acc + curr.amount
@@ -174,7 +172,6 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
         sessionStorage.setItem("amountToPay", JSON.stringify(computedTotalPrice - totalTransactionAmount));
       }
       else{  
-        console.log('activeCoupons reset');
         sessionStorage.setItem("amountToPay", JSON.stringify(computedTotalPrice));
         sessionStorage.setItem('activeCoupons', JSON.stringify([]))
       }

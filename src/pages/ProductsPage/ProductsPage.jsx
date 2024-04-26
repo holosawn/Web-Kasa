@@ -1,5 +1,5 @@
-import { Badge, Box, Button, Container, Stack } from '@mui/material'
-import React, { useCallback, useRef, useState } from 'react'
+import { Badge, Box, Button, Container, Stack, Typography } from '@mui/material'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import Categories from '../../ReusableComponents/Categories'
 import { useNavigate } from 'react-router-dom'
 import Products from '../../ReusableComponents/Products.jsx'
@@ -29,31 +29,42 @@ const ProductsPage = () => {
   const [size] = useSize();
   const [showAlert, AlertComponent] = useAlert();
 
-  const sendToRegister=(item)=>{
+  const sendToRegister=useCallback((item)=>{
     setItemInRegister(item)
     // sessionStorage.setItem('itemInRegister', JSON.stringify(item))
-  }
+  },[])
 
-  const filteredProducts = productArrHandler(products).filter((product) => {
+  const filteredProducts = useMemo(()=> productArrHandler(wallmartData).filter((product) => {
     if (filterCategories.length < 0) return true;
     else {
-      for (const category of filterCategories) {
-        if (!product.categories.includes(category)){
-          return false ;
-        };
+      if (filterCategories.includes("Favorites")) {
+        if (product.isFavorite === false) return false;
+      }
+      else if (filterCategories.includes("Alphabetically")){
+        const letterToLook = filterCategories.length > 1 ? filterCategories[filterCategories.length-1].toLowerCase() : "a"
+        const isFirstLetterCompatible = product.name[0].toLowerCase() === letterToLook;
+        if (isFirstLetterCompatible === false) return false
+      }
+      else {
+        for (const category of filterCategories) {
+          if (!product.categories.includes(category)){
+            return false ;
+          };
+        }
       }
       if (filterValue !== "") {
         if (
           !product.name
             .toLowerCase()
             .includes(filterValue.toLowerCase()) &&
-          !product.barcode.toLowerCase().includes(filterValue)
+          !product.barcode.toLowerCase().includes(filterValue.toLowerCase()) &&
+          !product.code.toLowerCase().includes(filterValue.toLowerCase())
         )
           return false;
       }
       return true;
     }
-  });
+  }), [filterValue, filterCategories]);
 
   const onAddClick=()=>{
     const searchedProduct = filteredProducts.find(product => product.barcode === filterValue || product.name === filterValue )
@@ -71,6 +82,7 @@ const ProductsPage = () => {
 
   const changeCartItems = useCallback((updateFunc)=>{
     setCartItems(prev => {
+
       const updatedCartItems = updateFunc(prev)
       // const storedCartItems = JSON.parse(sessionStorage.getItem('cartItems')) || []
       sessionStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
@@ -108,19 +120,18 @@ const ProductsPage = () => {
         flexDirection={"column"}
         alignItems={"center"}
         mx={1}
-        mr={size.x < 750 ? 6 : 1}
+        // mr={size.x < 750 ? 6 : 1}
       >
-        <Stack direction={'row'} sx={{width:'100%'}}>
+        <Stack direction={'row'} sx={{width:'100%', alignItems:'center'}}>
           <CustomTextField 
             value={filterValue}
             setValue={setFilterValue}
-            setNumpadFocus={()=>{}}
           />
-          <Button onClick={onAddClick} variant='contained' color='success' sx={{ml:2, minWidth:100, height:55}} >
-            Add 
+          <Button onClick={onAddClick} variant='contained'  color='success' sx={{ ml:{xs:0.5, md:2}, minWidth:{xs:70, md:100}, height:'90%' ,mb:{xs:0, md:1}}} >
+            <Typography textTransform={'none'} fontSize={{xs:12, md:14, lg:16}}>Add</Typography> 
           </Button>
 
-          <Button onClick={()=>navigate('/Sale')} variant='contained' color='warning' sx={{ml:2, minWidth:100, height:55}}  >
+          <Button onClick={()=>navigate('/Sale')} variant='contained' color='warning' sx={{fontSize:{xs:15, md:22, lg:22},ml:{xs:0.5, md:2}, minWidth:{xs:70, md:100}, height:'90%' ,mb:{xs:0, md:1}}}  >
           <Badge badgeContent={cartItems.length} color="primary" anchorOrigin={{vertical: 'top', horizontal: 'left'}} 
             sx={{
               '.MuiBadge-standard':{
@@ -133,11 +144,11 @@ const ProductsPage = () => {
               }
             }}
             >
-              <ShoppingCartIcon fontSize="medium" />
+              <ShoppingCartIcon fontSize="medium" sx={{fontSize:{xs:'15px', md:'22px', lg:'22px'}}} />
             </Badge>
           </Button>
         </Stack>
-        <Products products={filteredProducts} sendToRegister={sendToRegister} setNumpadFocus={()=>{}} containerRef={productsRef} />
+        <Products products={filteredProducts} sendToRegister={sendToRegister} containerRef={productsRef} />
       </Box>
       <AlertComponent/>
       <SmallScreenCurrentItemCard open={Object.keys(itemInRegister.product).length > 0} currentItem={itemInRegister} setCurrentItem={setItemInRegister} cartItems={cartItems} setCartItems={changeCartItems} />

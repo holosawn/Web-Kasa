@@ -11,12 +11,13 @@ import {
   Typography,
   CircularProgress
 } from "@mui/material";
-import React, { forwardRef, memo, useCallback, useEffect,  useState } from "react";
+import React, { forwardRef, memo, useCallback, useEffect,  useRef,  useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import Fade from "@mui/material/Fade";
 import NoImg from "../assets/NoImage.jpg";
 import { VirtuosoGrid } from "react-virtuoso";
 import { t } from "i18next";
+
 
 const gridComponents = {
   List: forwardRef(({ style, children, ...props }, ref) => (
@@ -33,25 +34,6 @@ const gridComponents = {
       {children}
     </Grid>
   )),
-  Item: ({ children, ...props }) => (
-    <Grid
-      {...props}
-      item
-      xs={4}
-      xl={3}
-      style={{
-        paddingBlock: "0.5rem",
-        paddingInline:'0.5rem',
-        display: "flex",
-        flex: "none",
-        width:'100%',
-        alignContent: 'stretch',
-        boxSizing: "border-box",
-      }}
-    >
-      {children}
-    </Grid>
-  ),
   Header:({})=>(
     <div style={{height:'15px'}} />
   )
@@ -60,16 +42,46 @@ const gridComponents = {
 const Products = ({
   products,
   sendToRegister,
-  setNumpadFocus,
+  setNumpadFocus=null,
   containerRef
 }) => {
+  //todo loading icon
+
   const[itemsToRender, setItemsToRender] = useState([])
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  //todo loading icon
+  const refContainer = useRef();
+  const [containerWidth, setContainerWidth] = useState(3);
+
+
+  const updateContainerWidth = () => {
+    if (refContainer.current && containerWidth !== refContainer.current.offsetWidth) {
+      setContainerWidth(refContainer.current.offsetWidth);
+    }
+  };
+
+  useEffect(() => {
+    if (refContainer.current) {
+      updateContainerWidth(); // Initial setup
+      const observer = new ResizeObserver(() => updateContainerWidth());
+      observer.observe(refContainer.current);
+
+      // Clean up the observer when the component is unmounted or ref changes
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, []);
+
+
+  useEffect(() => {
+    setItemsToRender(products.slice(0, 20));
+  }, [products]);
 
   const setCurrentItem = useCallback((product) =>{
     sendToRegister({ product: product, qty: "" });
-    setNumpadFocus("cart");
+    if (setNumpadFocus) {
+      setNumpadFocus("cart");
+    }
   },[])
 
   const handleScrollerRef = useCallback((ref) => {
@@ -88,13 +100,8 @@ const Products = ({
     setItemsToRender([...itemsToRender, ...newItems]);
   }
 
-  useEffect(() => {
-    setItemsToRender(products.slice(0, 20));
-  }, [products]);
-
-
   return (
-    <Box mt={1} flex={1} width={'100%'} maxWidth={{xs:450, md:2000}} minHeight={150} mb={{xs:1,md:1.5}} ml={1} p={0}  >
+    <Box mt={1} ref={refContainer} flex={1} width={'100%'} maxWidth={{xs:450, md:2000}} minHeight={150} mb={{xs:1,md:1.5}} ml={1} p={0}  >
       <VirtuosoGrid
         data={itemsToRender}
         components={{
@@ -107,13 +114,35 @@ const Products = ({
                 <div></div>
               )}
             </Stack>
-          )
+          ),
+          Item: ({ children, ...props }) => (
+            <Grid
+              {...props}
+              item
+              xs={containerWidth < 550 ? 4 : containerWidth < 700 ? 3 : containerWidth < 900 ? 12/5 : containerWidth < 1100 ? 2 : containerWidth < 1800 ? 1.5 : 1}
+              // xs={parseInt(12 / (containerWidth / 120))}
+              // sm={parseInt(12 / (containerWidth / 130))}
+              // lg={parseInt(12 / (containerWidth / 170))}
+              // xl={parseInt(12 / (containerWidth / 145))}
+              style={{
+                paddingBlock: "0.5rem",
+                paddingInline:'0.5rem',
+                display: "flex",
+                flex: "none",
+                width:'100%',
+                alignContent: 'stretch',
+                boxSizing: "border-box",
+              }}
+            >
+              {children}
+            </Grid>
+          ),
         }}
         endReached={fetchNextItems}
         scrollerRef={ref => handleScrollerRef(ref)}
         
         itemContent={(index, item) => (
-            <ProductCard product={item} key={item.id} onClick={setCurrentItem} index={item.id} url={item.images.split(" | ")[0]} />
+            <ProductCard product={item} key={item.id} onClick={setCurrentItem} index={item.id} />
             )
           }
       />
@@ -121,11 +150,12 @@ const Products = ({
   );
 };
 
-const ProductCard = memo(({ product, style,  url,index, onClick,  ...props }) => {
+const ProductCard = memo(({ product, style,  url =null,index, onClick,  ...props }) => {
 
   const onCardClick = () => {
     onClick(product)
   };
+
 
   const theme = useTheme();
   const [isNonCardClick, setisNonCardClick] = useState(false);
@@ -178,8 +208,8 @@ const ProductCard = memo(({ product, style,  url,index, onClick,  ...props }) =>
           ...style,
           backgroundColor: "background.paper",
           width: "99%",
-          // maxWidth:{xs:140, md:300},
-          maxHeight: 220,
+          maxWidth:{xs:140, md:200},
+          maxHeight: 180,
           height:'25vh',
           minHeight:130,
           display: "flex",
@@ -211,7 +241,7 @@ const ProductCard = memo(({ product, style,  url,index, onClick,  ...props }) =>
           // pt={2}
         >
           <div>
-            <img src={`https://picsum.photos/id/${parseInt(product.barcode)}/200/300.webp`} style={{  position:'absolute', width:'100%', height:'100%'}} 
+            <img src={`https://picsum.photos/id/${parseInt(product.code)}/300/170.webp`} style={{  position:'absolute', width:'100%', height:'100%'}} 
               onError={(e) => {
                 e.target.onerror = null; // Prevent infinite loop
                 e.target.src = NoImg ; // Replace with the path to your fixed image
@@ -444,7 +474,11 @@ const ProductModal = ({ isOpen, onClose, product }) => {
 
           <ProductModalPropertyCard
             label={t('sale.code')}
-            value={product.barcode}
+            value={product.code}
+          />
+          <ProductModalPropertyCard
+            label={t('sale.isFavorite')}
+            value={product.isFavorite ? 'Yes' : 'No'}
           />
           <ProductModalPropertyCard
             label={t('sale.price')}
@@ -495,4 +529,4 @@ const ProductModalPropertyCard = ({ label, value }) => (
   </Box>
 );
 
-export default Products;
+export default React.memo(Products);

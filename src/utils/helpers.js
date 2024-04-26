@@ -25,8 +25,10 @@ function productArrHandler(productArr){
             stock: product["Product Available Inventory"],
             cost: product["Product Cost"],
             barcode: product["Product Barcode"],
+            code: product["Product Code"],
             unit: product["Product Unit"],
             discount: product["Product Discount"],
+            isFavorite:product["Favorite"]
         }
         return newProduct
     })
