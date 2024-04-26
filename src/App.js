@@ -9,6 +9,7 @@ import MenuPage from './pages/MenuPage/MenuPage';
 import Sale from './pages/SalePage/Sale';
 import { ShiftStatusProvider } from './contexts/ShiftContext';
 import Payment from './pages/PaymentPage/Payment';
+import ProductsPage from './pages/ProductsPage/ProductsPage';
 
 
 
@@ -24,6 +25,7 @@ function App() {
               <Route path='/Menu' element={<MenuPage/>} />
               <Route path='/Sale' element={<Sale/>} />
               <Route path='/Payment' element={<Payment/>} />
+              <Route path='/Products' element={<ProductsPage/>} />
             </Routes>
           </BrowserRouter>
         </ShiftStatusProvider>

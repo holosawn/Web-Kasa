@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import categoryData from '../../Data/WallmartCategoryData.json'
+import categoryData from '../Data/WallmartCategoryData.json'
 import { Box, Button, Chip, Fade, Grow, IconButton, Stack, Typography, Grid } from '@mui/material'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -101,7 +101,7 @@ const currCatHoverStyles={
         ))}
       </Grid>
     </Box>
-    <Box position={'relative'} height={`${100- filterCategories.length*9}%`} overflow={'hidden'} width={'100%'} >
+    <Box position={'relative'} flex={1} overflow={'hidden'} width={'100%'} >
     <Box ref={scrollRef} height={`100%`} width={'100%'} borderRadius={2} sx={{ overflowY: 'scroll', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
       <Button

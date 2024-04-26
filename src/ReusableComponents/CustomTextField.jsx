@@ -4,8 +4,9 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { ReactComponent as SearchIcon} from '../../assets/Search.svg';
+import { ReactComponent as SearchIcon} from '../assets/Search.svg';
 import { t } from "i18next";
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 const CustomTextField=({value, setValue, sx, setNumpadFocus, ...props})=>{
@@ -38,6 +39,17 @@ const CustomTextField=({value, setValue, sx, setNumpadFocus, ...props})=>{
           startAdornment: (
             <InputAdornment position="start"  >
               <SearchIcon width={17}/>
+            </InputAdornment>
+          ),
+          endAdornment:(
+            <InputAdornment sx={{
+              ":hover":{
+                cursor:'pointer'
+              }
+            }} 
+            onClick={()=>{setValue('')}}
+            position='end' >
+              <ClearIcon width={17} />
             </InputAdornment>
           ),
           sx:{

@@ -48,8 +48,9 @@ const ActionButton = ({ children, ...props }) => (
   </Button>
 );
 
-export const ActionButtons = () => {
+export const ActionButtons = ({onProductsButtonClick}) => {
   const [isCusModalOpen, setIsCusModalOpen] = useState(false)
+  const navigate = useNavigate();
 
   function openCustomerModal(){
     setIsCusModalOpen(true)
@@ -58,19 +59,24 @@ export const ActionButtons = () => {
     setIsCusModalOpen(false)
   }
 
+  const onProductClick=()=>{
+    onProductsButtonClick();
+    navigate('/Products')
+  }
+
   return (
     <Grid
       container
       direction={"row"}
       width={"90%"}
       mt={{ md:1, lg:2 }}
-      height={{xs:"80px",md:'130px', lg:'140px'}}
+      height={{xs:"80px",md:'130px', lg:'135px'}}
       columnSpacing={1}
       rowSpacing={0.5}
       mb={1}
     >
       <Grid item xs={6} sx={{display:'flex', justifyContent:'center', alignItems:'center'}} >
-        <ActionButton color={"info"}>
+        <ActionButton color={"info"} onClick={onProductClick} >
           <LocalOfferOutlinedIcon
             // fontSize="medium"
             key={'Products'}

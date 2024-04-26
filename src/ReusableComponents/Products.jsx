@@ -14,7 +14,7 @@ import {
 import React, { forwardRef, memo, useCallback, useEffect,  useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import Fade from "@mui/material/Fade";
-import NoImg from "../../assets/NoImage.jpg";
+import NoImg from "../assets/NoImage.jpg";
 import { VirtuosoGrid } from "react-virtuoso";
 import { t } from "i18next";
 
@@ -67,7 +67,7 @@ const Products = ({
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   //todo loading icon
 
-  const setCurrentItem= useCallback((product) =>{
+  const setCurrentItem = useCallback((product) =>{
     sendToRegister({ product: product, qty: "" });
     setNumpadFocus("cart");
   },[])
