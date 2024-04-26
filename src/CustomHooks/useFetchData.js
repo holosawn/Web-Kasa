@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 const useFetchData = (url) => {
     //todo integrate abortController
-    const [data, setdata] = useState();
+    const [data, setdata] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState();
 
@@ -31,6 +31,7 @@ const useFetchData = (url) => {
             fetchData(url);
         }
       },[url])
+
 
   return {data, error, isLoading}
 }

@@ -3,6 +3,9 @@ import LoginPageData from '../Data/LoginPageData.json'
 import MenuLayoutData from '../Data/MenuLayoutData.json'
 import DashboardData from '../Data/DashboardData.json'
 import salesDataHandler from '../utils/API/salesDataHandler'
+import { productArrHandler } from '../utils/helpers'
+import wallmartData from "../Data/WallmartCompatibleData.json";
+
 
 export const handlers = [
     http.get("/", ()=>{
@@ -15,4 +18,7 @@ export const handlers = [
         const timeline = req.params.timeline
         return HttpResponse.json(salesDataHandler(DashboardData[timeline]))
     }),
+    http.get("/Products", (req)=>{
+        return HttpResponse.json(productArrHandler(wallmartData))
+    })
 ]

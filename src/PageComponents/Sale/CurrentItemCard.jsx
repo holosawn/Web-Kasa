@@ -55,7 +55,7 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
     const onAddIconClick = () => {
       // Set the focus to the numpad for products
       if (item.qty <= 0 ) {
-        showAlert('warning', 'Non-valid Amount', 'Drawer amount cannot be empty')
+        showAlert('warning', 'Non-valid Amount', 'Product amount in invalid')
         return;
       }
       setNumpadFocus('products');

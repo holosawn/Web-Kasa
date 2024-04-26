@@ -47,10 +47,15 @@ const Products = ({
 }) => {
   //todo loading icon
 
+
   const[itemsToRender, setItemsToRender] = useState([])
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const refContainer = useRef();
   const [containerWidth, setContainerWidth] = useState(3);
+
+  useEffect(()=>{
+    fetchNextItems(50)
+  },[])
 
 
   const updateContainerWidth = () => {
@@ -88,9 +93,9 @@ const Products = ({
     containerRef.current = ref;
   }, []);
 
-  async function fetchNextItems() {
+  async function fetchNextItems(length) {
     const startIndex = itemsToRender.length;
-    const endIndex = startIndex + 20;
+    const endIndex = startIndex + length;
     const newItems = products.slice(startIndex, endIndex);
 
     setIsLoadingMore(true);
@@ -138,7 +143,7 @@ const Products = ({
             </Grid>
           ),
         }}
-        endReached={fetchNextItems}
+        endReached={()=>fetchNextItems(20)}
         scrollerRef={ref => handleScrollerRef(ref)}
         
         itemContent={(index, item) => (

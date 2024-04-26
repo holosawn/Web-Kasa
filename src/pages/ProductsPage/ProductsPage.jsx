@@ -6,17 +6,15 @@ import Products from '../../ReusableComponents/Products.jsx'
 import wallmartData from "../../Data/WallmartCompatibleData.json";
 import {productArrHandler} from '../../utils/helpers.js'
 import CustomTextField from '../../ReusableComponents/CustomTextField.jsx'
-import Numpad from '../../ReusableComponents/Numpad.jsx'
-import useSize from '../../CustomHooks/useSize.js'
-import { onlyNumLayout } from '../../utils/Numpadlayouts.js'
 import Actions from './Actions.jsx'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import useAlert from '../../CustomHooks/useAlert.js'
-import ActionButtons from '../../PageComponents/Sale/ActionButtons.jsx'
 import SmallScreenCurrentItemCard from '../../PageComponents/Sale/SmallScreenCurrentItemCard.jsx'
+import { t } from 'i18next'
+import useFetchData from '../../CustomHooks/useFetchData.js'
 
 const ProductsPage = () => {
-  const [products, setProducts] = useState(wallmartData);
+  const {data, error, isLoading} = useFetchData('/Products')
   const [itemInRegister, setItemInRegister] = useState({
     product: {},
     qty: 0,
@@ -26,7 +24,6 @@ const ProductsPage = () => {
   const [filterValue, setFilterValue] = useState("");
   const navigate = useNavigate()
   const productsRef = useRef(null)
-  const [size] = useSize();
   const [showAlert, AlertComponent] = useAlert();
 
   const sendToRegister=useCallback((item)=>{
@@ -34,7 +31,7 @@ const ProductsPage = () => {
     // sessionStorage.setItem('itemInRegister', JSON.stringify(item))
   },[])
 
-  const filteredProducts = useMemo(()=> productArrHandler(wallmartData).filter((product) => {
+  const filteredProducts = useMemo(()=> data.filter((product) => {
     if (filterCategories.length < 0) return true;
     else {
       if (filterCategories.includes("Favorites")) {
@@ -64,7 +61,7 @@ const ProductsPage = () => {
       }
       return true;
     }
-  }), [filterValue, filterCategories]);
+  }), [data,filterValue, filterCategories]);
 
   const onAddClick=()=>{
     const searchedProduct = filteredProducts.find(product => product.barcode === filterValue || product.name === filterValue )
@@ -76,7 +73,7 @@ const ProductsPage = () => {
       sendToRegister(item)
     }
     else{
-      showAlert('warning', 'No Item Found', 'There is no item with given value')
+      showAlert('warning', t('products.noItemFound'), t('products.noItemDesc'))
     }
   }
 
@@ -90,8 +87,13 @@ const ProductsPage = () => {
     })
   }, [setCartItems])
 
-
-  return (
+  
+  return isLoading ? (
+    <Container>
+      <Typography variant='h6' color={'primary'} >Loading...</Typography>
+    </Container>
+  )
+  : (
     <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}} >
       <Stack
         direction={"column"}
@@ -128,7 +130,7 @@ const ProductsPage = () => {
             setValue={setFilterValue}
           />
           <Button onClick={onAddClick} variant='contained'  color='success' sx={{ ml:{xs:0.5, md:2}, minWidth:{xs:70, md:100}, height:'90%' ,mb:{xs:0, md:1}}} >
-            <Typography textTransform={'none'} fontSize={{xs:12, md:14, lg:16}}>Add</Typography> 
+            <Typography textTransform={'none'} fontSize={{xs:12, md:14, lg:16}}>{t('products.add')}</Typography> 
           </Button>
 
           <Button onClick={()=>navigate('/Sale')} variant='contained' color='warning' sx={{fontSize:{xs:15, md:22, lg:22},ml:{xs:0.5, md:2}, minWidth:{xs:70, md:100}, height:'90%' ,mb:{xs:0, md:1}}}  >

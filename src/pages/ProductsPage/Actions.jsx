@@ -4,6 +4,7 @@ import React from 'react'
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ForwardSharpIcon from "@mui/icons-material/ForwardSharp";
 import { useNavigate } from 'react-router-dom'
+import { t } from 'i18next';
 
 const Actions = () => {
     const navigate = useNavigate();
@@ -22,21 +23,21 @@ const Actions = () => {
             <ActionButton onClick={()=>{navigate('/Sale')}} color={'error'} >
                 <ForwardSharpIcon sx={{ transform: "rotate(180deg)", fontSize:{xs:'15px', md:'22px', lg:'22px'} ,mr:0.5 }} />
                 <ActionText>
-                    Back
+                    {t('products.back')}
                 </ActionText>
             </ActionButton>
         </Grid>
         <Grid item xs={6} sx={{...styles.gridItem}}>
             <ActionButton>
                 <ActionText>
-                    Menu
+                    {t('products.menu')}
                 </ActionText>
             </ActionButton>
         </Grid>
         <Grid item xs={6}  sx={{...styles.gridItem}}>
             <ActionButton color={'warning'}>
                 <ActionText sx={{lineHeight:{xs:1, md:1.3}}} >
-                    Add Product
+                    {t('products.addProduct')}
                 </ActionText>
             </ActionButton>    
         </Grid>
@@ -44,7 +45,7 @@ const Actions = () => {
             <ActionButton color={'warning'}>
                 <SettingsOutlinedIcon sx={{fontSize:{xs:'small', lg:'20px'}}} key={"Settings"} />
                 <ActionText>
-                    Settings
+                    {t('products.settings')}
                 </ActionText>
             </ActionButton>
         </Grid>
