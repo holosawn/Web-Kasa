@@ -19,6 +19,7 @@ const SmallScreenCurrentItemCard=({ open, currentItem, setCurrentItem, cartItems
               zIndex={9999}
               sx={{
                   transform:'translate(-50%,-50%)',
+                  width:'fit-content',
                   borderRadius:3,
                   display:'flex',
                   flexDirection:'column',

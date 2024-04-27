@@ -1,4 +1,65 @@
 {
+    "Products Without Barcodes":{
+        "Baked Goods": {
+            "Bread": {
+                "Sourdough":{
+
+                },
+                "Whole Wheat":{
+
+                }
+            },
+            "Cookies": {
+                "Chocolate Chip":{
+
+                },
+                "Oatmeal Raisin":{
+
+                }
+            }
+        },
+        "Fruits":{
+            "Apple":{
+
+            },
+            "Banana":{
+
+            },
+            "Strawberry":{
+
+            }
+        }
+    },
+    "Favorites":{
+    },
+    "Alphabetically": {
+          "A": {},
+          "B": {},
+          "C": {},
+          "D": {},
+          "E": {},
+          "F": {},
+          "G": {},
+          "H": {},
+          "I": {},
+          "J": {},
+          "K": {},
+          "L": {},
+          "M": {},
+          "N": {},
+          "O": {},
+          "P": {},
+          "Q": {},
+          "R": {},
+          "S": {},
+          "T": {},
+          "U": {},
+          "V": {},
+          "W": {},
+          "X": {},
+          "Y": {},
+          "Z": {}
+    },
     "Premium Beauty": {
         "Premium Makeup": {
             "Premium Nail Polish & Care": {
@@ -1700,7 +1761,6 @@
             }
         }
     },
-    "": {},
     "Food": {
         "Fresh Food": {
             "Produce": {

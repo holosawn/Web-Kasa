@@ -55,7 +55,7 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
     const onAddIconClick = () => {
       // Set the focus to the numpad for products
       if (item.qty <= 0 ) {
-        showAlert('warning', 'Non-valid Amount', 'Drawer amount cannot be empty')
+        showAlert('warning', 'Non-valid Amount', 'Product amount in invalid')
         return;
       }
       setNumpadFocus('products');
@@ -98,7 +98,7 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
           return cartItem;
         });
 
-        setCartItems(updatedCartItems);
+        setCartItems(()=>updatedCartItems);
       } else {
         // If the item does not exist in the cart, add it to the cart
         setCartItems(prev => [{
@@ -128,7 +128,7 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
         border: "1px solid gray",
         borderRadius: 1,
         width: "100%",
-        height: size.y < 500 ? 120 : size.y < 800 ? 135 : 170 ,
+        height: size.y < 500 ? 130 : size.y < 800 ? 140 : 170 ,
         overflow:'visible',
         ...boxSx,
       }}
@@ -176,10 +176,10 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
         </Box>
 
         <Box display={'flex'} flexDirection={'row'} width={'92%'} mx={2} my={size.y > 800 ? 0.7 :0} justifyContent={'space-between'} alignItems={'center'} >
-          <Button variant="contained" size={size.y < 900 ? 'medium' : 'large'}  disabled={!isThereItem} sx={{width:'50%', mr:1}} onClick={onAddIconClick} >
+          <Button variant="contained"  disabled={!isThereItem} sx={{width:'50%', mr:1, height:size.y < 500 ? 30 : 40}} onClick={onAddIconClick} >
             <AddShoppingCartSharpIcon fontSize={size.y < 600 ? 'small' : size.y < 900 ? 'medium' : 'large'}/>
           </Button>
-          <Button variant="contained" size={size.y < 900 ? 'medium' : 'large'} disabled={!isThereItem} color="error" sx={{width:'50%', mr:1}} onClick={onDeleteIconClick} >
+          <Button variant="contained" disabled={!isThereItem} color="error" sx={{width:'50%', mr:1, height:size.y < 500 ? 30 : 40}} onClick={onDeleteIconClick} >
             <DeleteForeverSharpIcon fontSize={size.y < 600 ? 'small' : size.y < 900 ? 'medium' : 'large'}/>
           </Button>
         </Box>

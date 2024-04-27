@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-import Categories from "../../PageComponents/Sale/Categories";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Categories from "../../ReusableComponents/Categories.jsx";
 import { Box, Stack, useMediaQuery, Button, Drawer } from "@mui/material";
-import Products from "../../PageComponents/Sale/Products";
+import Products from "../../ReusableComponents/Products.jsx";
 import Numpad from "../../ReusableComponents/Numpad.jsx";
-import CustomTextField from "../../PageComponents/Sale/CustomTextField";
+import CustomTextField from "../../ReusableComponents/CustomTextField.jsx";
 import Cart from "../../PageComponents/Sale/Cart";
 import tomatoImg from "../../assets/tomatoes.webp";
 import {
@@ -15,6 +15,7 @@ import {productArrHandler} from '../../utils/helpers.js'
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SmallScreenCurrentItemCard from "../../PageComponents/Sale/SmallScreenCurrentItemCard.jsx";
+import useSize from "../../CustomHooks/useSize.js";
 
 const exampleProducts = [
   {
@@ -214,20 +215,9 @@ const Sale = () => {
   });
   const [numpadFocus, setNumpadFocus] = useState("products");
   const [isCartVisible, setIsCartVisible] = useState(false)
-  const [size, setSize] = useState({x:window.innerWidth, y: window.innerHeight})
+  const [size] = useSize();
 
   const isWide = useMediaQuery('(min-width:1000px)')
-
-  useEffect(() => {
-    function handleResize() {
-      setSize({x:window.innerWidth, y:window.innerHeight})
-    }
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   function onQtyFocus(setVal) {
     setItemInRegister((prev) => ({
@@ -236,9 +226,17 @@ const Sale = () => {
     }));
   }
 
-  const filteredProducts = productArrHandler(wallmartData).filter((product) => {
+  const onProductsButtonClick=useCallback(()=>{
+    sessionStorage.setItem('cartItems', JSON.stringify(cartItems))
+  },[cartItems])
+
+  const filteredProducts = useMemo(()=> productArrHandler(wallmartData).filter((product) => {
     if (filterCategories.length < 0) return true;
+    else if (filterCategories.includes("Favorites")) {
+      return product.isFavorite
+    }
     else {
+
       for (const category of filterCategories) {
         if (!product.categories.includes(category)){
           return false ;
@@ -249,13 +247,14 @@ const Sale = () => {
           !product.name
             .toLowerCase()
             .includes(filterValue.toLowerCase()) &&
-          !product.barcode.toLowerCase().includes(filterValue)
+          !product.barcode.toLowerCase().includes(filterValue) &&
+          !product.code.toLowerCase().includes(filterValue)
         )
           return false;
       }
       return true;
     }
-  });
+  }), [filterValue, filterCategories]);
 
   return (
     <Box
@@ -265,7 +264,7 @@ const Sale = () => {
       width={"100%"}
       minHeight={375}
       minWidth={600}
-      alignItems={"start"}
+      alignItems={"center"}
       position={'relative'}
     >
       <Stack
@@ -281,7 +280,7 @@ const Sale = () => {
         width={"25%"}
         minWidth={'200px'}
       >
-        <ActionButtons />
+        <ActionButtons onProductsButtonClick={onProductsButtonClick} />
         <Categories
           filterCategories={filterCategories}
           setFilterCategories={setFilterCategories}

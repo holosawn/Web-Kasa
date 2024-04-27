@@ -143,7 +143,18 @@ i18n
             pleaseWait:'Please Wait',
             pleaseEnterPIN:'Please Enter PIN',
             transactionApproved:'Transaction Approved'
-            }
+          },
+          products:{
+            back:"Back",
+            menu:"Menu",
+            addProduct:"Add Product",
+            settings:"Settings",
+            add:"Add",
+            noItemFound:'No Item Found',
+            noItemDesc:'There is no item with given value',
+            invalidAmount:'Non-valid Amount',
+            invalidAmountDesc:'Product amount is invalid'
+          }
         }
       },
       tr: { 
@@ -271,6 +282,17 @@ i18n
             pleaseWait: "Lütfen Bekleyin",
             pleaseEnterPIN: "Lütfen PIN Girin",
             transactionApproved: "İşlem Onaylandı"
+          },
+          products: {
+            back: "Geri",
+            menu: "Menü",
+            addProduct: "Ürün Ekle",
+            settings: "Ayarlar",
+            add: "Ekle",
+            noItemFound: "Öğe Bulunamadı",
+            noItemDesc: "Verilen değere sahip öğe yok",
+            invalidAmount: "Недопустимое количество",
+            invalidAmountDesc: "Количество продукта недействительно"
           }
         }
       },
@@ -400,6 +422,17 @@ i18n
             pleaseWait: "Пожалуйста, подождите",
             pleaseEnterPIN: "Пожалуйста, введите ПИН-код",
             transactionApproved: "Транзакция одобрена"
+          },
+          products: {
+            back: "Назад",
+            menu: "Меню",
+            addProduct: "Добавить продукт",
+            settings: "Настройки",
+            add: "Добавить",
+            noItemFound: "Товар не найден",
+            noItemDesc: "Товара с указанным значением нет",
+            invalidAmount: "Geçersiz Miktar",
+            invalidAmountDesc: "Ürün miktarı geçersiz"
           }
         }
       }
