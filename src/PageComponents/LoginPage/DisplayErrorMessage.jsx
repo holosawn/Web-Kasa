@@ -8,7 +8,6 @@ const DisplayErrorMessage = ({ errorMsg, touched, sx, ...props }) => {
   const renderErrorMessage = () => {
     for (const key in errorMsg) {
       if (errorMsg[key] && touched[key] === true) {
-        console.log(key);
         return (
           <Typography color={'error'} key={key} sx={{fontSize: {xs: 13, md:16} , ...sx}} {...props}>
             {t(`login.${key}Err`)}
