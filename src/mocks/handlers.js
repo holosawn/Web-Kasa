@@ -8,7 +8,7 @@ import wallmartData from "../Data/WallmartCompatibleData.json";
 
 
 export const handlers = [
-    http.get("/", ()=>{
+    http.get("/Login", ()=>{
         return HttpResponse.json(LoginPageData)
     }),
     http.get("/MenuLayoutData", ()=>{
