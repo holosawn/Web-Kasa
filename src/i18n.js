@@ -154,6 +154,26 @@ i18n
             noItemDesc:'There is no item with given value',
             invalidAmount:'Non-valid Amount',
             invalidAmountDesc:'Product amount is invalid'
+          },
+          settings:{
+            applicationSettings:'Application Settings',
+            language:'Langauge',
+            langDesc:'Choose Program Language',
+            alternativeCurrency:'Alternative Currency',
+            altDesc:'Choose Currency to use accross application',
+            theme:'Theme',
+            themeDesc:'Toggle Theme',
+            printerTest:'Printer Test',
+            PrinterDesc:'Test if printer works correctly',
+            testPrinter:'Test Printer',
+            tableRoom:'Table / Room',
+            tableDesc:'Allocate table or room and track the sales processes',
+            multiPayment:'Multipayment',
+            multiPaymentDesc:'Enable multi payment to accept payments in multiple',
+            finish:'Finish'
+          },
+          receiipt:{
+            
           }
         }
       },
@@ -293,6 +313,23 @@ i18n
             noItemDesc: "Verilen değere sahip öğe yok",
             invalidAmount: "Недопустимое количество",
             invalidAmountDesc: "Количество продукта недействительно"
+          },
+          settings: {
+            applicationSettings: "Uygulama Ayarları",
+            language: "Dil",
+            langDesc: "Program Dilini Seçin",
+            alternativeCurrency: "Alternatif Para Birimi",
+            altDesc: "Uygulama genelinde kullanılacak para birimini seçin",
+            theme: "Tema",
+            themeDesc: "Temayı Değiştir",
+            printerTest: "Yazıcı Testi",
+            PrinterDesc: "Yazıcının düzgün çalışıp çalışmadığını test edin",
+            testPrinter: "Yazıcıyı Test Et",
+            tableRoom: "Masa / Oda",
+            tableDesc: "Satış süreçlerini izlemek için masa veya odayı ayırın",
+            multiPayment: "Çoklu Ödeme",
+            multiPaymentDesc: "Birden fazla şekilde ödeme kabul etmek için çoklu ödeme seçeneğini etkinleştirin",
+            finish: "Bitir"
           }
         }
       },
@@ -433,6 +470,23 @@ i18n
             noItemDesc: "Товара с указанным значением нет",
             invalidAmount: "Geçersiz Miktar",
             invalidAmountDesc: "Ürün miktarı geçersiz"
+          },
+          settings: {
+            applicationSettings: "Настройки приложения",
+            language: "Язык",
+            langDesc: "Выберите язык программы",
+            alternativeCurrency: "Альтернативная валюта",
+            altDesc: "Выберите валюту для использования в приложении",
+            theme: "Тема",
+            themeDesc: "Переключить тему",
+            printerTest: "Тест принтера",
+            PrinterDesc: "Проверьте, работает ли принтер корректно",
+            testPrinter: "Тест принтера",
+            tableRoom: "Стол / Комната",
+            tableDesc: "Назначьте стол или комнату и отслеживайте процесс продаж",
+            multiPayment: "Множественный платеж",
+            multiPaymentDesc: "Включить множественный платеж для принятия платежей разными способами",
+            finish: "Завершить"
           }
         }
       }

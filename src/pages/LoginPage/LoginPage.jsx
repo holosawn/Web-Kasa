@@ -170,9 +170,9 @@ const LoginPage = () => {
     }
   };
 
-  const handleLangChange = (lang) => {
-    setLang(lang);
-  };
+  // const handleLangChange = (lang) => {
+  //   setLang(lang);
+  // };
 
   useEffect(() => {
     if (!isLoading) { 
@@ -288,7 +288,9 @@ const LoginPage = () => {
           >
             <DisplayErrorMessage errorMsg={errors} touched={touched} />
 
-            <LangSelector handleChange={handleLangChange} />
+            <LangSelector
+            //  handleChange={handleLangChange}
+              />
           </Box>
           <LoadingButton
             variant="contained"

@@ -122,7 +122,7 @@ export const ActionButtons = ({onProductsButtonClick}) => {
         </ActionButton>
       </Grid>
       <Grid item xs={6} sx={{display:'flex', justifyContent:'center', alignItems:'center'}} >
-        <ActionButton color={"warning"}>
+        <ActionButton onClick={()=>navigate('/Settings')} color={"warning"}>
           <SettingsOutlinedIcon sx={{fontSize:{xs:'small', lg:'20px'}}} key={"Settings"} />
           <Typography
             variant="caption"

@@ -42,7 +42,7 @@ const Actions = () => {
             </ActionButton>    
         </Grid>
         <Grid item xs={6}  sx={{...styles.gridItem}}>
-            <ActionButton color={'warning'}>
+            <ActionButton onClick={()=>navigate('/Settings')} color={'warning'}>
                 <SettingsOutlinedIcon sx={{fontSize:{xs:'small', lg:'20px'}}} key={"Settings"} />
                 <ActionText>
                     {t('products.settings')}

@@ -133,7 +133,7 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
         </Button>
       </Tooltip>
       <Tooltip title='Settings' arrow>
-        <Button sx={getButtonStyle("Settings", currentPage)}>
+        <Button onClick={()=>{navigate('/Settings')}} sx={getButtonStyle("Settings", currentPage)}>
             <SettingsIcon sx={getIconStyle('Settings', currentPage)} />
             <IconDescription currentPage={'Settings' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.settings')}</IconDescription>
         </Button>

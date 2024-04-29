@@ -2,14 +2,17 @@ import React from 'react'
 import { Select, MenuItem } from '@mui/material'
 import { useLanguage } from '../../contexts/LangContext'
 
-const LangSelector = ({handleChange})=>{
+const LangSelector = ({...props})=>{
   const{lang, setLang} = useLanguage();
+
   return(
     <Select
     sx={{ ml: "auto" }}
-    defaultValue={lang}
+    inputProps={{style:{width:200}}}
+    value={lang}
     size="small"
-    onChange={(e) => handleChange(e.target.value)}
+    onChange={(e) => setLang(e.target.value)}
+    {...props}
     >
         <MenuItem value={"tr"}>Türkçe</MenuItem>
         <MenuItem value={"en"}>English</MenuItem>

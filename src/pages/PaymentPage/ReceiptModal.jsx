@@ -23,7 +23,6 @@ const ReceiptModal = ({cartItems, subTotal, savedByOffers, amountToPay, discount
     //todo print shows extra pages rarely
     const [size] = useSize();
 
-
     const marketName = "Öztürk Market A.Ş.";
     const detailedAddress = "Kahraman sk./ Cumhuriyet mah.";
     const address = " Kapaklı/ Tekirdağ";
@@ -89,7 +88,7 @@ const ReceiptModal = ({cartItems, subTotal, savedByOffers, amountToPay, discount
                     Finish
                 </Button>}
                 
-                <Box className='overflow-print' width={'100%'} height={'100%'} sx={{ display:'flex', flexDirection:'column', alignItems:'center', overflow:'auto' }} >
+                <Box className='overflow-print' width={'100%'} height={'95%'} sx={{ display:'flex', flexDirection:'column', alignItems:'center', overflow:'auto', }} >
                     <Receipt
                     marketName={marketName}
                     address={address}
