@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import useFetchData from '../../CustomHooks/useFetchData';
 import { t } from 'i18next';
+import Settings from '../SettingsPage/Settings';
 
 
 const MenuPage = () => {
@@ -35,9 +36,10 @@ const MenuPage = () => {
       <CustomAppBar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} marketStatus={data.marketStatus} />
       <MenuSideBar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} currentUser={data.currentUser} />
 
-      <Routes>
+      {/* <Routes>
         <Route path='/' element={<Dashboard/>} />
-      </Routes>
+      </Routes> */}
+      <Dashboard/>
     </Box>
   );
 };

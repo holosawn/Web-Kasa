@@ -4,6 +4,9 @@
   body::before {
       content: none !important;
   }
+  * {
+    color: black !important;
+  }
   
   * {
     page-break-before: auto;
