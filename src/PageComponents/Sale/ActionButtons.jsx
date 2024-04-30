@@ -21,6 +21,7 @@ import AddCustomer from "./AddCustomer";
 import ShiftModal from "./ShiftModal";
 import { useShiftStatus } from "../../contexts/ShiftContext";
 import { t } from "i18next";
+import AddCustomerModal from "./AddCustomerModal";
 
 const ActionButton = ({ children, ...props }) => (
   <Button
@@ -107,7 +108,7 @@ export const ActionButtons = ({onProductsButtonClick}) => {
       </Grid>
       <Grid item xs={6} sx={{display:'flex', justifyContent:'center', alignItems:'center'}} >
         <ActionButton color={"warning"} 
-          // onClick={openCustomerModal}
+          onClick={openCustomerModal}
          >
           <PersonAddAltOutlinedIcon sx={{fontSize:{xs:'small', lg:'20px'}}} key={"Add Customer"} />
           <Typography
@@ -135,7 +136,7 @@ export const ActionButtons = ({onProductsButtonClick}) => {
         </ActionButton>
       </Grid>
 
-      <AddCustomer open={isCusModalOpen} closeModal={closeCustomerModal} />
+      <AddCustomerModal open={isCusModalOpen} closeModal={closeCustomerModal} />
     </Grid>
   );
 };

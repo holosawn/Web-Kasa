@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import LoadingButton from "../../ReusableComponents/LoadingButton";
 import useAlert from "../../CustomHooks/useAlert";
 import CardTotal from "../../ReusableComponents/CardTotal";
+import useFetchData from "../../CustomHooks/useFetchData";
+import { FiberManualRecord } from "@mui/icons-material";
 
 const exampleCartItem = {
   product: {
@@ -114,6 +116,7 @@ const offers = {
 const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setNumpadFocus, onProductEditClick=null}) => {
   const [offerName, setofferName] = useState("none");
   const [discount, setDiscount] = useState(0);
+  const [marketStatus, statusError, statussLoading] = useFetchData('/MarketStatus')
   const [showAlert, AlertComponent] = useAlert(); // Use the custom hook
   const [isChargeButtonLoading, setIsChargeButtonLoading] = useState(false)
   const [size, setSize] = useState({x:window.innerWidth, y:window.innerHeight})
@@ -159,8 +162,12 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
     setIsChargeButtonLoading(true);
   
     await new Promise(resolve => setTimeout(resolve, 500));
-  
-    if (cartItems.length > 0) {
+    
+    if (!marketStatus) {
+      setIsChargeButtonLoading(false);
+      showAlert('warning', t('sale.closedMarket'), t('sale.closedMarketDesc'));
+    }
+    else if (cartItems.length > 0) {
       
       const pastTransactions = JSON.parse(sessionStorage.getItem('pastTransactions')) || []
       const computedTotalPrice = (((subTotal||0)-(savedByOffers||0)) * ((100 - (discount||0))/100))
@@ -186,7 +193,8 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
       setIsChargeButtonLoading(false);
       navigate('/Payment');
 
-    } else {
+    }
+    else {
       setIsChargeButtonLoading(false);
       showAlert('warning', t('sale.noItemsTitle'), t('sale.noItemsContent'));
     }
@@ -237,8 +245,15 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
         ))}
       </Stack>
       <CardTotal subTotal={subTotal} discount={discount} savedByOffers={savedByOffers} />
-      <LoadingButton onClick={onChargeClick} isLoading={isChargeButtonLoading} variant="contained" size={`${size.y < 600 ? 'medium':'large'}`} disabled={ isChargeButtonLoading || cartItems.length<=0} fullWidth  sx={{mt:1, mb:0.5, height: 40}} >
-          <Typography fontSize={{xs:10, md:15}} >{t('sale.charge')}</Typography>
+      <LoadingButton onClick={onChargeClick} isLoading={isChargeButtonLoading} variant="contained" size={`${size.y < 600 ? 'medium':'large'}`} disabled={ isChargeButtonLoading || cartItems.length<=0} fullWidth  sx={{mt:1, mb:0.5, height: 50, display:'flex', flexDirection:'column', alignItems:'center'}} >
+          <Typography fontSize={{xs:10, md:15}} >{t('sale.charge')}
+            <Stack direction={'row'} alignItems={'center'} >
+              <FiberManualRecord sx={{color: marketStatus ? 'green' : 'red', width:0.10, mr:1}}  />
+              <Typography variant='subtitle2' fontSize={{xs:8, sm:11}} >
+                  {t('menu.statusStr')}{marketStatus ? t('menu.online') : t('menu.offline')}
+              </Typography>
+            </Stack>
+          </Typography>
       </LoadingButton>
       <AlertComponent/>
     </Box>

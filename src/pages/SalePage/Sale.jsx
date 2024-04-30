@@ -202,12 +202,9 @@ const exampleCartItems = [
 const storedCartItems = JSON.parse(sessionStorage.getItem("cart"))?.cartItems;
 
 const Sale = () => {
-  //todo first key is total price
-  //todo categories section xs my
-  //Charhe on collapsable screen needs mb
   const [filterCategories, setFilterCategories] = useState([]);
   const [filterValue, setFilterValue] = useState("");
-  const {data, error, isLoading} = useFetchData('/Products')
+  const [data, error, isLoading] = useFetchData('/Products')
   const productsRef = useRef(null)
   const [cartItems, setCartItems] = useState( storedCartItems || []); //empty or not array should be passed
   const [itemInRegister, setItemInRegister] = useState({
@@ -219,6 +216,7 @@ const Sale = () => {
   const [size] = useSize();
 
   const isWide = useMediaQuery('(min-width:1000px)')
+
 
   function onQtyFocus(setVal) {
     setItemInRegister((prev) => ({
@@ -263,9 +261,15 @@ const Sale = () => {
     }
   }), [data,filterValue, filterCategories]);
 
+
   return isLoading ? (
     <Container>
       <Typography variant='h6' color={'primary'} >Loading...</Typography>
+    </Container>
+  )
+  : error ? (
+    <Container>
+      <Typography variant='h6' color={'primary'} >{error}</Typography>
     </Container>
   )
   : (

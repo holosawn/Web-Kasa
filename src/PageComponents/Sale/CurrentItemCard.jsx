@@ -80,7 +80,7 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
       }
 
       // Calculate the computed price
-      let defaultPrice = (isPiece ? convertedQty : convertedQty / 1000) * item.product.price;
+      let defaultPrice = (isPiece ? convertedQty : convertedQty / 1000) * (item.product.price * (100-(parseInt(item.product.discount.replace('%', '')) || 0)) / 100);
       let computedPrice = defaultPrice
 
       // Update the cart items
