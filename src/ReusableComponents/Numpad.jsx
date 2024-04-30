@@ -8,8 +8,77 @@ import BackspaceIcon from "@mui/icons-material/Backspace";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { t } from "i18next";
 import ShiftModal from '../PageComponents/Sale/ShiftModal'
+import { useLanguage } from "../contexts/LangContext";
 
-const defaultLayout = [
+
+  
+  const KeyContent = ({content}) => {
+    switch (content) {
+      case 'Delete':
+        return <BackspaceIcon sx={{ fontSize: { xs: 16, md: 20, xl:30 } }} />;
+      case 'Scroll Up':
+        return <KeyboardArrowUp sx={{ fontSize: { xs: 20, md: 25, xl:35 } }} />;
+      case 'Scroll Down':
+        return <KeyboardArrowDown sx={{ fontSize: { xs: 20, md: 25, xl:35 } }} />;
+      default:
+        return <Typography textTransform={"none"} fontSize={{ xs: 10, md: 13, xl:18 }} lineHeight={1.2}>{content}</Typography>;
+    }
+  };
+
+const Key = ({ content, sx, onClick, onMouseUp, onMouseDown, setValue, color, ...props }) => {
+    function handleClick(event, content) {
+      event.preventDefault();
+      if (onClick) {
+        onClick(content);
+      } else {
+        setValue((prevValue) => {
+          return (prevValue ? prevValue + content : content)});
+      }
+    }
+
+    function handleOnMouseDown(e){
+      if(onMouseDown) onMouseDown();
+      e.preventDefault()
+    }
+    function handleOnMouseUp(e){
+      if(onMouseUp) onMouseUp();
+    }
+  
+    return (
+      <Button
+        display={"flex"}
+        onClick={(e) => handleClick(e, content)}
+        onMouseDown={handleOnMouseDown}
+        onMouseUp={handleOnMouseUp}
+        variant="contained"
+        color={color}
+        sx={{
+          width:{xs:60,md:75, lg:90, xl:110},
+          minWidth: 25,
+          // maxWidth:180,
+          height: {xs:35,md:45, lg:60, xl:75},
+          // minHeight: 60,
+          // maxHeight:120,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: 10,
+          border: "1px solid gray",
+          m: {xs:0.1, md:0.3},
+          ...sx,
+        }}
+        {...props}
+      >
+        <KeyContent content={content}/>
+      </Button>
+    );
+  };
+  
+const Numpad = ({ setValue, scrollRef=null, layout=null }) => {
+  const scrollIntervalRef = useRef(null);
+  const [isShiftModalOpen, setIsShiftModalOpen] = useState(false)
+
+  const defaultLayout = [
     {
       name: t('sale.cashSale'),
       onClick: (setVal) => console.log("Cash Sale clicked"),
@@ -96,72 +165,6 @@ const defaultLayout = [
       color: "warning",
     },
   ];
-  
-  const KeyContent = ({content}) => {
-    switch (content) {
-      case 'Delete':
-        return <BackspaceIcon sx={{ fontSize: { xs: 16, md: 20, xl:30 } }} />;
-      case 'Scroll Up':
-        return <KeyboardArrowUp sx={{ fontSize: { xs: 20, md: 25, xl:35 } }} />;
-      case 'Scroll Down':
-        return <KeyboardArrowDown sx={{ fontSize: { xs: 20, md: 25, xl:35 } }} />;
-      default:
-        return <Typography textTransform={"none"} fontSize={{ xs: 10, md: 13, xl:18 }} lineHeight={1.2}>{content}</Typography>;
-    }
-  };
-
-const Key = ({ content, sx, onClick, onMouseUp, onMouseDown, setValue, color, ...props }) => {
-    function handleClick(event, content) {
-      event.preventDefault();
-      if (onClick) {
-        onClick(content);
-      } else {
-        setValue((prevValue) => {
-          return (prevValue ? prevValue + content : content)});
-      }
-    }
-
-    function handleOnMouseDown(e){
-      if(onMouseDown) onMouseDown();
-      e.preventDefault()
-    }
-    function handleOnMouseUp(e){
-      if(onMouseUp) onMouseUp();
-    }
-  
-    return (
-      <Button
-        display={"flex"}
-        onClick={(e) => handleClick(e, content)}
-        onMouseDown={handleOnMouseDown}
-        onMouseUp={handleOnMouseUp}
-        variant="contained"
-        color={color}
-        sx={{
-          width:{xs:60,md:75, lg:90, xl:110},
-          minWidth: 25,
-          // maxWidth:180,
-          height: {xs:35,md:45, lg:60, xl:75},
-          // minHeight: 60,
-          // maxHeight:120,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: 10,
-          border: "1px solid gray",
-          m: {xs:0.1, md:0.3},
-          ...sx,
-        }}
-        {...props}
-      >
-        <KeyContent content={content}/>
-      </Button>
-    );
-  };
-  
-const Numpad = ({ setValue, scrollRef=null, layout=defaultLayout }) => {
-  const scrollIntervalRef = useRef(null);
-  const [isShiftModalOpen, setIsShiftModalOpen] = useState(false)
 
   const scroll = (scrollVal) => {
     if(scrollRef){
@@ -193,7 +196,7 @@ const Numpad = ({ setValue, scrollRef=null, layout=defaultLayout }) => {
     setIsShiftModalOpen(false)
   }
 
-  const largeLayout = layout.length > 15 
+  const largeLayout = (layout || defaultLayout).length > 15 
 
   return(
     <Grid
@@ -207,7 +210,7 @@ const Numpad = ({ setValue, scrollRef=null, layout=defaultLayout }) => {
     }}
     mb={{ md: 0.5 }}
    >
-    {layout.map((content) => (
+    {(layout || defaultLayout).map((content) => (
         <Grid item xs={ largeLayout ? 12/5 : 3} key={content.name} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
         <Key
             content={content.name}

@@ -25,7 +25,7 @@ const getIconStyle = (pageName, currentPage)=>({
 const getButtonStyle=(pageName, currentPage)=>({
   borderRadius: 0,
   width:'100%',
-  maxWidth: 210, 
+  maxWidth: 230, 
   minWidth: 50,
   height: 60,
   display:'flex',
@@ -71,12 +71,11 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
     };
   }, []);
 
-
   return (
     <Paper
       ref={menuRef}
-      sx={{width: isMenuOpen? '30vw':'70px', maxWidth:   210, minWidth: 50, position:'fixed', 
-      left:0, top:64, zIndex:999, height:`calc(100vh - 64px)` , transition: 'width 0.3s linear', overflowY:'auto',
+      sx={{width: isMenuOpen? 'calc(max(210px, 30vw))':'70px', maxWidth:230, minWidth: 50, position:'sticky', mb:`calc(-100vh + 84px)`,
+       top:64, zIndex:999, height:`calc(100vh - 64px)` , transition: 'width 0.3s linear', overflowY:'auto',
       // '&::-webkit-scrollbar': {
       //   width: 0,  // This will hide the scrollbar in webkit browsers
       // },
@@ -139,7 +138,7 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
         </Button>
       </Tooltip>
       <Tooltip title='Exit' arrow>
-        <Button sx={{ ...getButtonStyle("", currentPage), color: 'red' }}>
+        <Button onClick={()=>{navigate('/Login')}} sx={{ ...getButtonStyle("", currentPage), color: 'red' }}>
             <ForwardIcon sx={{ ...getIconStyle('', currentPage), transform: 'rotate(180deg)', color: '#f83e3e' }} />
             <IconDescription isMenuOpen={isMenuOpen} color={'red'}>{t('menu.exit')}</IconDescription>
         </Button>

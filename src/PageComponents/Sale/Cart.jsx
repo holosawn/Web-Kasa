@@ -95,7 +95,7 @@ const offers = {
     displayNames:{
       'en':'Get 3 pay 2',
       'tr':'3 al 2 öde',
-      'ru':''
+      'ru':'Купи 3, плати за 2'
     },
     offerFunc: get3Pay2,
   },
@@ -105,7 +105,7 @@ const offers = {
     displayNames:{
       'en':'No Offer',
       'tr':'Kampanya yok',
-      'ru':''
+      'ru':'Нет предложения'
     },
     offerFunc: resetOffers,
   },
@@ -237,7 +237,7 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
         ))}
       </Stack>
       <CardTotal subTotal={subTotal} discount={discount} savedByOffers={savedByOffers} />
-      <LoadingButton onClick={onChargeClick} isLoading={isChargeButtonLoading} variant="contained" size={`${size.y < 600 ? 'small':'medium'}`} disabled={ isChargeButtonLoading || cartItems.length<=0} fullWidth  sx={{mt:1, mb:0.5}} >
+      <LoadingButton onClick={onChargeClick} isLoading={isChargeButtonLoading} variant="contained" size={`${size.y < 600 ? 'medium':'large'}`} disabled={ isChargeButtonLoading || cartItems.length<=0} fullWidth  sx={{mt:1, mb:0.5, height: 40}} >
           <Typography fontSize={{xs:10, md:15}} >{t('sale.charge')}</Typography>
       </LoadingButton>
       <AlertComponent/>

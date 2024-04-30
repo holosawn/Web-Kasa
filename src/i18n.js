@@ -17,7 +17,11 @@ i18n
       en: {
         translation: {
           common:{
-            loading:'Loading'
+            loading:'Loading',
+            search:'',
+            save:'',
+            isFavorite:'',
+            discount:'',
           },
           login:{
             Welcome: 'Welcome Back!',
@@ -180,7 +184,11 @@ i18n
       tr: { 
         translation: {
           common:{
-            loading:'Yükleniyor'
+            loading:'Yükleniyor',
+            search:'',
+            save:'',
+            isFavorite:'',
+            discount:'',
           },
           login:{
             Welcome: 'Tekrar Hoşgeldin!',
@@ -264,7 +272,7 @@ i18n
             subTotal: "Ara Toplam",
             offers: "Teklifler",
             discounts: "İndirimler",
-            charge: "Ücret",
+            charge: "Ara Toplam",
             updateDrawer: "Kasayı Güncelle",
             alertTitle: "Geçersiz Miktar",
             alertContent: "Kasa miktarı boş olamaz",
@@ -336,7 +344,11 @@ i18n
       ru: {
         translation: {
           common:{
-            loading:'Загрузка'
+            loading:'Загрузка',
+            search:'',
+            save:'',
+            isFavorite:'',
+            discount:'',
           },
           login: {
             Welcome: 'С возвращением!',

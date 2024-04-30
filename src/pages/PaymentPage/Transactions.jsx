@@ -1,7 +1,7 @@
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 import Numpad from '../../ReusableComponents/Numpad'
-import { onlyNumLayout } from '../../utils/Numpadlayouts'
+import { getNumLayout } from '../../utils/Numpadlayouts'
 import PaymentModal from './PaymentModal';
 import useSize from '../../CustomHooks/useSize';
 import { t } from 'i18next';
@@ -112,7 +112,7 @@ const Transactions = ({cartItems, amountToPay, setAmountToPay}) => {
           <PaymentTypeButton label={t(`payment.card`)} disabled={!transaction.amount > 0 || amountToPay < 0 || !cartItems.length > 0} transaction={transaction} onCardClick={onCardClick} />
           <PaymentTypeButton label={t(`payment.cash`)} disabled={!transaction.amount > 0 || amountToPay < 0 || !cartItems.length > 0} transaction={transaction} onCardClick={onCashClick} />
       </Box>
-      <Numpad setValue={handleAmountChange} layout={[...onlyNumLayout.slice(0,11), commaKey, ...onlyNumLayout.slice(11, onlyNumLayout.length)]} />
+      <Numpad setValue={handleAmountChange} layout={[...getNumLayout(t).slice(0,11), commaKey, ...getNumLayout(t).slice(11, getNumLayout(t).length)]} />
       <PaymentModal transaction={transaction} open={isPaymentModalOpen} onClose={onPaymentModalClose} />
     </Box>
   )

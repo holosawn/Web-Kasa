@@ -144,7 +144,7 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
         </Box>
         <Box display={'flex'} width={'100%'} flexDirection={'row'} px={2} justifyContent={'space-between'} alignItems={'center'} >
 
-          <Typography color={'gray'} variant="body2" fontSize={{xs:8, md:12, xl:14}} >{isThereItem ? item.product.barcode : t('sale.barcode')}</Typography>
+          <Typography color={'gray'} variant="body2" fontSize={{xs:8, md:12, xl:14}} >{isThereItem ? item.product.code : t('sale.code')}</Typography>
           <Typography color={'gray'} variant="body2" fontSize={{xs:8, md:12, xl:14}} >{isThereItem ? item.product.tax : null} {t('sale.tax')}</Typography>
 
         </Box>

@@ -6,10 +6,9 @@ const LanguageContext = React.createContext(null);
 export function LanguageProvider({ initialState = JSON.parse(sessionStorage.getItem('language')) || 'en', children }) {
     const [lang, setLang] = React.useState(initialState);
 
-
     useEffect(()=>{
-      const language = JSON.parse(sessionStorage.getItem('language'))
-      setLang(language)
+      const language = JSON.parse(sessionStorage.getItem('language')) || 'en'
+      changeLanguage(language)
     },[])
 
     const changeLanguage =(updateFunc)=>{

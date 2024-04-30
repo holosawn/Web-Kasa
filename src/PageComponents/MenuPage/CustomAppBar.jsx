@@ -22,8 +22,7 @@ export default function CustomAppBar({ setIsMenuOpen, marketStatus}) {
   return (
     <AppBar position="static" sx={{height:'64px', maxHeight:'64px', minHeight:'64px', width:'100%', position:'sticky', top:0, zIndex:998 }}  >
       <Toolbar sx={{
-        '.css-okw9ot-MuiToolbar-root': {
-      }
+        height:'100%',
       }} >
 
         <IconButton onClick={toggleIsMenuOpen}  className="toggleButton"
@@ -36,7 +35,7 @@ export default function CustomAppBar({ setIsMenuOpen, marketStatus}) {
         </Typography>
 
         <Box display={'flex'} flexDirection={'row'} alignItems={'center'} position={'absolute'} bottom={0} left={0} ml={12}>
-          <FiberManualRecord sx={{color: marketStatus ? 'green' : 'red', width:0.08, mr:1}}  />
+          <FiberManualRecord sx={{color: marketStatus ? 'green' : 'red', width:0.17, mr:1}}  />
           <Typography variant='subtitle2' fontSize={{xs:12, sm:14}} sx={{ fontSize: '12px' }}>
               {t('menu.statusStr')}{marketStatus ? t('menu.online') : t('menu.offline')}
           </Typography>
