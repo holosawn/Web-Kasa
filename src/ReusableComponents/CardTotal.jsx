@@ -7,6 +7,7 @@ const CardTotal=({subTotal, discount, savedByOffers, total=null, amountToPay=nul
   const additionalxsHeight = (((amountToPay || amountToPay === 0) && 15 ) || 0) + (coupons?.length || 0) * 15;  
   const additionalmdHeight = (((amountToPay || amountToPay === 0) && 20 ) || 0) + (coupons?.length || 0) * 20;  
 
+  const savedByDiscount = (subTotal - savedByOffers)* ((discount ||0) / 100);
 
   return(
     <Box display={'flex'} fontSize={{xs:10, md:12, lg:14, xl:16}} flexDirection={'column'} justifyContent={'center'} border={'1px solid gray'} borderRadius={3} p={1} height={{xs:(65 + additionalxsHeight), md:(95 + additionalmdHeight)}} width={'100%'} >
@@ -21,7 +22,7 @@ const CardTotal=({subTotal, discount, savedByOffers, total=null, amountToPay=nul
       </Stack>
       <Stack direction={'row'} width={'100%'} >
         <Typography variant="h7" fontWeight={700} color={'success.main'} >{t('sale.discounts')}:</Typography>
-        <Typography variant="h7" fontWeight={700} color={'success.main'}  ml={'auto'} >-{((discount || 0) % 1 === 0 ? (discount||0).toFixed(0) : discount.toFixed(2)).replace(".", ",")}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
+        <Typography variant="h7" fontWeight={700} color={'success.main'}  ml={'auto'} >-{(savedByDiscount.toFixed(2)).replace(".", ",")} TRY</Typography>
       </Stack>
       {(coupons && coupons.length !== 0) && coupons.map(coupon => (
         <Stack key={coupon.key} direction={'row'} width={'100%'} >

@@ -33,7 +33,7 @@ const useFetchData = (url) => {
       },[url])
 
 
-  return {data, error, isLoading}
+  return [data, error, isLoading]
 }
 
 export default useFetchData

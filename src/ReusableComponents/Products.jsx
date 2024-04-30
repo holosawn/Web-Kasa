@@ -125,10 +125,6 @@ const Products = ({
               {...props}
               item
               xs={containerWidth < 550 ? 4 : containerWidth < 700 ? 3 : containerWidth < 900 ? 12/5 : containerWidth < 1100 ? 2 : containerWidth < 1800 ? 1.5 : 1}
-              // xs={parseInt(12 / (containerWidth / 120))}
-              // sm={parseInt(12 / (containerWidth / 130))}
-              // lg={parseInt(12 / (containerWidth / 170))}
-              // xl={parseInt(12 / (containerWidth / 145))}
               style={{
                 paddingBlock: "0.5rem",
                 paddingInline:'0.5rem',
@@ -143,7 +139,7 @@ const Products = ({
             </Grid>
           ),
         }}
-        endReached={()=>fetchNextItems(20)}
+        endReached={()=>fetchNextItems( (containerWidth/ 200) * 4 || 20)}
         scrollerRef={ref => handleScrollerRef(ref)}
         
         itemContent={(index, item) => (
@@ -341,7 +337,7 @@ const ProductCard = memo(({ product, style,  url =null,index, onClick,  ...props
           mt={{xs:0.5,md:1}}
           fontWeight={700}
         >
-          {product.barcode}
+          {product.code}
         </Typography>
         <Typography
           textTransform={"none"}
@@ -482,7 +478,7 @@ const ProductModal = ({ isOpen, onClose, product }) => {
             value={product.code}
           />
           <ProductModalPropertyCard
-            label={t('sale.isFavorite')}
+            label={t('common.isFavorite')}
             value={product.isFavorite ? 'Yes' : 'No'}
           />
           <ProductModalPropertyCard
@@ -498,7 +494,7 @@ const ProductModal = ({ isOpen, onClose, product }) => {
             value={product.tax}
           />
           {discount !== "0%" && (
-            <ProductModalPropertyCard label={t('sale.discount')} value={discount} />
+            <ProductModalPropertyCard label={t('common.discount')} value={discount} />
           )}
           <ProductModalPropertyCard
             label={t('sale.cost')}

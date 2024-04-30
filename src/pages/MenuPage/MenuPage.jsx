@@ -32,13 +32,11 @@ const MenuPage = () => {
   };
 
   if(!isLoading) return (
-    <Box flex={1} minHeight={'100vh'} display="flex" flexDirection="column" justifyContent={'flex-start'} >
+    <Box flex={1} minHeight={'100vh'} display="flex" flexDirection="column" position={'relative'} justifyContent={'flex-start'} >
       <CustomAppBar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} marketStatus={data.marketStatus} />
       <MenuSideBar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} currentUser={data.currentUser} />
 
-      {/* <Routes>
-        <Route path='/' element={<Dashboard/>} />
-      </Routes> */}
+
       <Dashboard/>
     </Box>
   );

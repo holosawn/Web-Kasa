@@ -209,7 +209,7 @@ const KeyboardModal = ({open, onClose, value, setValue})=>{
                 <ArrowBack fontSize={size.y < 800 ? 'small' : 'medium'} />
               </Button>
               <Typography variant='h6' fontSize={size.y < 500 ? 18 : 20} fontWeight={700} color={'primary'} >
-                Search
+                {t('common.search')}
               </Typography>
             </Stack>
             <Divider sx={{width:'100%'}} />
@@ -231,7 +231,7 @@ const KeyboardModal = ({open, onClose, value, setValue})=>{
                     }}
                   />
                   <LoadingButton isLoading={loading} disabled={loading} variant='contained' onClick={onSaveButtonClick} sx={{width: size.x < 1000 ? 70 :size.x < 1200 ? 85 : 100, position:'absolute', right:'2%', height:'90%'}} >
-                    Save
+                    {t('common.save')}
                   </LoadingButton>
             </Stack>
             <Keyboard

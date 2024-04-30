@@ -83,7 +83,6 @@ const LoginPage = () => {
   const {data, error, isLoading} = useFetchData('/Login')
   const { mode } = useCustomTheme();
   const theme = useTheme();
-  const [size] = useSize();
 
   const isMedium = useMediaQuery('(max-height:800px)')
 
@@ -206,7 +205,7 @@ const LoginPage = () => {
       {isLoading && <Typography>Loading...</Typography>}
       {!isLoading && 
       <>
-        <Box  mt={0} width={{xs: '100%', md:"65%"}} height={{xs :"60%", md: '50%'}} sx={{position:'relative', overflowY:'auto'}} >
+        <Box width={{xs: '100%', md:"65%"}} height={'fit-content'} sx={{position:'relative', overflowY:'auto'}} >
           <Box
             sx={{
               display: "flex",
@@ -214,6 +213,7 @@ const LoginPage = () => {
               height: '100%',
               borderRadius: {xs:0 , md: 5},
               mt:0,
+              pb:{md:1},
               flexDirection: "column",
               justifyContent: 'start',
               alignItems: "center",

@@ -170,7 +170,7 @@ const Settings = () => {
 
 
         <GridItem xs={12} sx={{py:0, mb:size.y < 400 ? 1 : 2, mt:1 }} >
-          <SettingsButton label={t('settings.finish')} onClick={()=>navigate(-1)} sx={{mb:0, width: size.x < 800  ?  120  : size.x < 1300 ? 140 : 160}} />
+          <SettingsButton label={t('settings.exit')} onClick={()=>navigate(-1)} sx={{mb:0, width: size.x < 800  ?  120  : size.x < 1300 ? 140 : 160}} />
         </GridItem>
 
        <ReceiptModal cartItems={cartItems} subTotal={subtotal} total={total} discount={discount} savedByOffers={savedByOffers} amountToPay={amountToPay} activeCoupons={activeCoupons} open={isReceiptModalOpen} onClose={closeReceiptModal} />

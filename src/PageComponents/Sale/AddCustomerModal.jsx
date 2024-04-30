@@ -9,7 +9,7 @@ import buttons from "../../Constants/KeyboardButtons";
 import { t } from 'i18next';
 import { useLanguage } from '../../contexts/LangContext';
 import useSize from '../../CustomHooks/useSize';
-import "../LoginPage/loginKeyboard.css";
+import '../../pages/LoginPage/loginKeyboard.css'
 import useAlert from '../../CustomHooks/useAlert';
 import LoadingButton from '../../ReusableComponents/LoadingButton';
 
@@ -19,35 +19,7 @@ const layouts = {
     tr: trLayout,
   };
 
-  const coupons={
-    'ABC123':{
-      key:'ABC123',
-      description:'20 TRY off on any purchase above 50 TRY',
-      func:(num)=>{
-        if (num > 50) {
-          return -20
-        }
-        else {
-          return 0
-        }
-      }
-    },
-    'PERCENT10':{
-      key: 'PERCENT10',
-      description: '10% off on your total purchase',
-      func:(num) => {
-        return - num* 0.10
-      }
-    }
-  }
-
-const validateCouponCode = (code) => {
-  // Regular expression for at least one uppercase letter, one digit, and minimum length of 5 characters
-  const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{5,}$/;
-  return regex.test(code);
-}
-
-const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToPay, total, setTotal})=>{
+const AddCustomerModal=({open, onClose})=>{
     const [input, setInput] = useState('') 
     const [loading, setLoading] = useState(false)
     const {mode} = useCustomTheme()
@@ -58,45 +30,31 @@ const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToP
     const [size] = useSize()
     const [showAlert, AlertComponent] = useAlert();
 
-
-    const onSaveButtonClick = () => {
-      setLoading(true)
-      if (!validateCouponCode(input) ||  !coupons[input]) {
-          setTimeout(() => {
-              setLoading(false)
-              showAlert('warning', t('common.invalidInput'), t(`common.invalidCoupo${!validateCouponCode(input) ? 'nFormat' : 'n'}`));
-              onChange('')
-              inputRef.current.focus()
-          }, 300);
-      } 
-      else if (activeCoupons.find(c=> c.key === input)){
-        showAlert('info', t('common.couponActive'), t('common.activatedCoupon'))
-        onChange('')
-        setLoading(false)
-      }
-      else {
-          setTimeout(() => {
-                const priceDiff = coupons[input].func(total)
-
-                if (priceDiff < 0) {
-                  showAlert('success', t('common.success'), t('common.couponSaved'));
-                  setActiveCoupons(prev => [...prev, {...coupons[input], saved: priceDiff}])
-                  setTotal(prev =>  prev + priceDiff)
-                  setAmountToPay(prev => prev + priceDiff)
-                }
-                else{
-                  showAlert('warning', t('common.insufficient'), t('common.insufficientCard'));
-                }
-                
-                setTimeout(() => {
-                    setTimeout(() => {
-                        setInput('')
-                        setLoading(false)
-                    }, 200);
-                }, 500)
-          }, 1000);
-      }
-  }
+    const onSaveButtonClick=()=>{
+    //   setLoading(true)
+    //     if (!validateEmail(input)) {
+    //       setTimeout(() => {
+    //         setLoading(false)
+    //         showAlert('warning', 'Invalid input', 'Invalid email format');
+    //         onChange('')
+    //         inputRef.current.focus()
+    //       }, 300);
+    //     }
+    //     else{
+    //       setTimeout(() => {
+    //         showAlert('success', 'Success', 'Email saved successfully');
+    //         sessionStorage.setItem('email', JSON.stringify(input))
+    //         setTimeout(()=>{
+    //           onClose()
+    //           setTimeout(() => {
+    //             setInput('')
+    //             setLoading(false)
+    //           }, 200);
+    //         },1000)
+    //     }, 1000);
+        
+    //     }
+    }
   
     const onInputChange=(inputVal)=>{
       setInput(inputVal)
@@ -160,31 +118,11 @@ const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToP
                 <ArrowBack fontSize={size.y < 800 ? 'small' : 'medium'} />
               </Button>
               <Typography variant='h6' fontSize={size.y < 500 ? 18 : 20} fontWeight={700} color={'primary'} >
-                {t('payment.couponCode')}
+                Add Customer
               </Typography>
             </Stack>
             <Divider sx={{width:'100%'}} />
-            <Stack direction='row' justifyContent={'center'} alignItems={'center'} sx={{my:size.y < 500 ?  1: 3, minWidth:450, width:'100%', position:'relative'}} >
-                <Typography variant='h6' fontSize={size.y< 500 ? 16: 18} noWrap sx={{width:90, position:'absolute', left:'2%'}} > 
-                    {t('payment.code')}:
-                </Typography>
-                <TextField type='email' value={input} autoFocus onChange={e => onInputChange(e.target.value)} inputRef={inputRef} sx={{
-                    width:'70%',
-                    ml:size.x < 1100 ? -3: size.x < 1200 ? -1:0,
-                    minWidth:350,
-                    maxWidth:'80%',
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                          e.preventDefault(); // Prevent the default behavior of Enter key
-                          onSaveButtonClick(); // Call the function to mimic the click behavior
-                      }
-                    }}
-                  />
-                  <LoadingButton isLoading={loading} disabled={loading || !input.length > 0} variant='contained' onClick={onSaveButtonClick} sx={{width: size.x < 1000 ? 70 :size.x < 1200 ? 85 : 100, position:'absolute', right:'2%', height:'90%'}} >
-                    {t('payment.save')}
-                  </LoadingButton>
-            </Stack>
+
             <Keyboard
             keyboardRef={(r) => (keyboardRef.current = r)}
             layoutName={layout}
@@ -226,4 +164,4 @@ const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToP
     )
   }
 
-export default CouponModal
+export default AddCustomerModal

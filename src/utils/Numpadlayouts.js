@@ -1,4 +1,10 @@
-const onlyNumLayout=[
+import { useLanguage } from "../contexts/LangContext";
+
+
+
+const getNumLayout =(t)=>{
+
+  const onlyNumLayout=[
     {
       name: "1",
     },
@@ -28,7 +34,7 @@ const onlyNumLayout=[
       name: "6",
     },
     {
-      name: "Clear",
+      name: t('sale.clear'),
       onClick: (setVal) =>
           setVal((prev) => {
           if (prev && prev.length > 0) return prev.slice(0, -prev.length);
@@ -51,7 +57,7 @@ const onlyNumLayout=[
       name: "0",
     },
     {
-      name: "Space",
+      name: 'Space',
       onClick: (setVal) => setVal((prev) => prev + ' '),
     },
     {
@@ -59,4 +65,7 @@ const onlyNumLayout=[
     },
 ]
 
-export {onlyNumLayout}
+return onlyNumLayout
+}
+
+export {getNumLayout};

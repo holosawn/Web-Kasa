@@ -140,7 +140,7 @@ const Dashboard = () => {
   if (!isLoading) {
 
     return (
-    <Box mx={"16px"} ml={"85px"} mb={2} flex={1} display={'flex'} flexDirection={'column'} alignItems={'center'} >
+    <Box mx={"16px"} ml={"85px"} mb={2} display={'flex'} flexDirection={'column'} alignItems={'center'} >
         <Paper sx={{
             width:'98%', display:'flex', flexDirection:'row', justifyContent:'end', mt:2.5, m:1, height:65, borderRadius:1
           }}
