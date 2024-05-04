@@ -83,6 +83,7 @@ const LoginPage = () => {
   const [data, error, isLoading] = useFetchData('/Login')
   const { mode } = useCustomTheme();
   const theme = useTheme();
+  const [size] = useSize();
 
   const isMedium = useMediaQuery('(max-height:800px)')
 

@@ -101,6 +101,7 @@ const AddCustomerModal=({open, onClose})=>{
         keyboardRef.current.setInput(input);
       };
 
+
     function handleShift() {
         const newLayoutName = layout === "default" ? "shift" : "default";
         setLayout(newLayoutName);
@@ -189,7 +190,7 @@ const AddCustomerModal=({open, onClose})=>{
               transform: "translate(-50%, -50%)",
               bgcolor: "background.paper",
               width: '70vw',
-              height:'fit-content',
+              height:'fit-content
               maxHeight:'95%',
               minWidth:600,
               maxWidth:900,

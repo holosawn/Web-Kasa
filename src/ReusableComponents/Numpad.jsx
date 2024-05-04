@@ -212,6 +212,7 @@ const Numpad = ({ setValue, scrollRef=null, layout=null }) => {
    >
     {(layout || defaultLayout).map((content) => (
         <Grid item xs={3} key={content.name} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+
         <Key
             content={content.name}
             onClick={

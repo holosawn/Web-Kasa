@@ -27,5 +27,6 @@ export const handlers = [
     }),
     http.get('Customers',()=>{
         return HttpResponse.json([...customerData, ...(JSON.parse(localStorage.getItem('customers')) || [])])
+
     })
 ]

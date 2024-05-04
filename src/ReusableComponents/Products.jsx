@@ -140,6 +140,7 @@ const Products = ({
           ),
         }}
         endReached={()=>fetchNextItems( (containerWidth/ 200) * 4  || 20)}
+
         scrollerRef={ref => handleScrollerRef(ref)}
         
         itemContent={(index, item) => (

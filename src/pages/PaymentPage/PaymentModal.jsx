@@ -1,7 +1,7 @@
 import { Box, Button, CircularProgress, Divider, Fade, Grow, Modal, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import contaclessMethod from '../../assets/ContactlessPayment.jpg'
+import contaclessMethod from '../../assets/ContactlessPayment.svg'
 import swipeMethod from '../../assets/SwipeMethod.jpeg'
 import insertMethod from '../../assets/InsertCard.jpg'
 import PINEnter from '../../assets/PINEnter.jpg'

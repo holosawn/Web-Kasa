@@ -117,6 +117,7 @@ const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToP
                     setInput('')
                     setLoading(false)
                 }, 0)
+
           }, 1000);
       }
   }
