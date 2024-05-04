@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage';
 import { LanguageProvider, useLanguage } from './contexts/LangContext';
 import { BrowserRouter } from 'react-router-dom';
@@ -22,7 +22,8 @@ function App() {
         <ShiftStatusProvider>
           <BrowserRouter>
             <Routes>
-              <Route index path='/' element={<LoginPage/>} />
+              <Route path="/" element={<Navigate to="/Login" />} />
+              <Route path='/Login' element={<LoginPage/>} />
               <Route path='/Menu' element={<MenuPage/>} />
               <Route path='/Settings' element={<Settings/>} />
               <Route path='/Sale' element={<Sale/>} />
