@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Fade, Modal, TextField, Button, Typography, Alert, Grow, AlertTitle } from "@mui/material";
-import { onlyNumLayout } from "../../utils/Numpadlayouts";
+import { getNumLayout } from "../../utils/Numpadlayouts";
 import Numpad from "../../ReusableComponents/Numpad";
 import useAlert from "../../CustomHooks/useAlert";
 import { t } from "i18next";
@@ -92,7 +92,7 @@ const ShiftModal = ({ open, onClose }) => {
             autoFocus
             sx={{mb:{xs:1, md:3}}}
           />
-          <Numpad setValue={handleAmountChange} layout={onlyNumLayout} />
+          <Numpad setValue={handleAmountChange} layout={getNumLayout(t)} />
           <Box sx={{display:'flex', flexDirection:'row', justifyContent:'space-around', width:'100%'}} >
             <Button sx={{mt:1, width:'30%', height:{xs:40, md:50}}}
                 size="large"

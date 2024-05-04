@@ -3,6 +3,7 @@ import React from 'react'
 import { ArrowBack } from '@mui/icons-material'
 import useSize from '../../CustomHooks/useSize'
 import '../PaymentPage/ReceiptModal.css'
+import { t } from 'i18next'
 
 const getCurrentDateTimeFormatted = () => {
     const now = new Date(); // Get the current date and time
@@ -82,10 +83,10 @@ const ReceiptModal = ({cartItems, subTotal, savedByOffers, amountToPay, discount
                     <ArrowBack sx={{mx:{xs:1, md:1.5, xl: 2}}} /> 
                 </Button>
                 <Button className='hide-print' onClick={onPrintClick} color='warning' size='large' variant='contained' sx={{ top:0, right:0, position:'absolute', fontSize:{xs:12, md:14, lg:18, xl:20}}} >
-                    Print
+                    {t('common.print')}
                 </Button>
                 {onFinish && <Button className='hide-print' onClick={onFinish} color='success' size='large' variant='contained' sx={{ bottom:0, right:0, position:'absolute', fontSize:{xs:12, md:14, lg:18, xl:20}}} >
-                    Finish
+                    {t('common.finish')}
                 </Button>}
                 
                 <Box className='overflow-print' width={'100%'} height={'95%'} sx={{ display:'flex', flexDirection:'column', alignItems:'center', overflow:'auto', }} >

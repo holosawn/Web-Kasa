@@ -17,7 +17,23 @@ i18n
       en: {
         translation: {
           common:{
-            loading:'Loading'
+            loading:'Loading',
+            search:'Search',
+            save:'Save',
+            isFavorite:'Favorite',
+            discount:'Discount',
+            invalidInput:'Invalid Input',
+            invalidEmail:'Invalid e-mail format',
+            invalidCouponFormat:'Invalid Coupon Format',
+            invalidCoupon:'Invalid Coupon',
+            couponActive:'Coupon Active',
+            activatedCoupon:'Coupon Already Activated',
+            success:'Success',
+            couponSaved:'Coupon Saved Succesfully',
+            insufficient:'Insufficient Amount',
+            insufficientCard:'Cart amount is insufficient',
+            print:'Print',
+            finish:'Finish'
           },
           login:{
             Welcome: 'Welcome Back!',
@@ -164,13 +180,13 @@ i18n
             theme:'Theme',
             themeDesc:'Toggle Theme',
             printerTest:'Printer Test',
-            PrinterDesc:'Test if printer works correctly',
+            printerDesc:'Test if printer works correctly',
             testPrinter:'Test Printer',
             tableRoom:'Table / Room',
             tableDesc:'Allocate table or room and track the sales processes',
             multiPayment:'Multipayment',
             multiPaymentDesc:'Enable multi payment to accept payments in multiple',
-            finish:'Finish'
+            exit:'Exit'
           },
           receiipt:{
             
@@ -180,7 +196,23 @@ i18n
       tr: { 
         translation: {
           common:{
-            loading:'Yükleniyor'
+            loading:'Yükleniyor',
+            search:'Ara',
+            save:'Kaydet',
+            isFavorite:'Favori',
+            discount:'İndirim',
+            invalidInput:'Geçersiz Giriş',
+            invalidEmail:'Geçersiz e-posta formatı',
+            invalidCouponFormat:'Geçersiz Kupon Formatı',
+            invalidCoupon:'Geçersiz Kupon',
+            couponActive:'Kupon Aktif',
+            activatedCoupon:'Kupon Zaten Aktif',
+            success:'Başarılı',
+            couponSaved:'Kupon Başarıyla Kaydedildi',
+            insufficient:'Yetersiz Tutar',
+            insufficientCard:'Sepet tutarı yetersiz',
+            print:'Yazdır',
+            finish:'Bitir'
           },
           login:{
             Welcome: 'Tekrar Hoşgeldin!',
@@ -264,7 +296,7 @@ i18n
             subTotal: "Ara Toplam",
             offers: "Teklifler",
             discounts: "İndirimler",
-            charge: "Ücret",
+            charge: "Ara Toplam",
             updateDrawer: "Kasayı Güncelle",
             alertTitle: "Geçersiz Miktar",
             alertContent: "Kasa miktarı boş olamaz",
@@ -323,21 +355,43 @@ i18n
             theme: "Tema",
             themeDesc: "Temayı Değiştir",
             printerTest: "Yazıcı Testi",
-            PrinterDesc: "Yazıcının düzgün çalışıp çalışmadığını test edin",
+            printerDesc: "Yazıcının düzgün çalışıp çalışmadığını test edin",
             testPrinter: "Yazıcıyı Test Et",
             tableRoom: "Masa / Oda",
             tableDesc: "Satış süreçlerini izlemek için masa veya odayı ayırın",
             multiPayment: "Çoklu Ödeme",
             multiPaymentDesc: "Birden fazla şekilde ödeme kabul etmek için çoklu ödeme seçeneğini etkinleştirin",
-            finish: "Bitir"
+            exit: "Çıkış"
           }
         }
       },
       ru: {
         translation: {
           common:{
-            loading:'Загрузка'
-          },
+            loading:'Загрузка',
+            search:'Поиск',
+            save:'Сохранить',
+            isFavorite:'Избранное',
+            discount:'Скидка',
+            
+            invalidAmount:'Non-valid Amount',
+            invalidProductAmount:'Product amount in invalid',
+            closedMarket:'Offline Market',
+            closedMarketDesc:'Market is Offline',
+
+            invalidInput:'Неверный ввод',
+            invalidEmail:'Неверный формат электронной почты',
+            invalidCouponFormat:'Неверный формат купона',
+            invalidCoupon:'Неверный купон',
+            couponActive:'Купон активен',
+            activatedCoupon:'Купон уже активирован',
+            success:'Успех',
+            couponSaved:'Купон успешно сохранён',
+            insufficient:'Недостаточная сумма',
+            insufficientCard:'Сумма в корзине недостаточна',
+            print:'Печать',
+            finish:'Завершить'
+          },          
           login: {
             Welcome: 'С возвращением!',
             app: 'Приложение Web Cash Register POS',
@@ -480,13 +534,13 @@ i18n
             theme: "Тема",
             themeDesc: "Переключить тему",
             printerTest: "Тест принтера",
-            PrinterDesc: "Проверьте, работает ли принтер корректно",
+            printerDesc: "Проверьте, работает ли принтер корректно",
             testPrinter: "Тест принтера",
             tableRoom: "Стол / Комната",
             tableDesc: "Назначьте стол или комнату и отслеживайте процесс продаж",
             multiPayment: "Множественный платеж",
             multiPaymentDesc: "Включить множественный платеж для принятия платежей разными способами",
-            finish: "Завершить"
+            exith: "Завершить"
           }
         }
       }

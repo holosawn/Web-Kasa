@@ -2,7 +2,8 @@ import React from 'react'
 import CurrentItemCard from './CurrentItemCard'
 import { Box, Fade } from '@mui/material'
 import Numpad from '../../ReusableComponents/Numpad';
-import { onlyNumLayout } from '../../utils/Numpadlayouts';
+import { getNumLayout } from '../../utils/Numpadlayouts';
+import { t } from 'i18next';
 
 const SmallScreenCurrentItemCard=({ open, currentItem, setCurrentItem, cartItems, setCartItems})=>{
 
@@ -42,7 +43,7 @@ const SmallScreenCurrentItemCard=({ open, currentItem, setCurrentItem, cartItems
                   mt:1,
               }}
               />
-              <Numpad setValue={handleQtyChange} layout={onlyNumLayout} />
+              <Numpad setValue={handleQtyChange} layout={getNumLayout(t)} />
           </Box>
       </Fade>
   )

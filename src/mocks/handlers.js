@@ -20,5 +20,8 @@ export const handlers = [
     }),
     http.get("/Products", (req)=>{
         return HttpResponse.json(productArrHandler(wallmartData))
+    }),
+    http.get("MarketStatus", ()=>{
+        return HttpResponse.json({"marketStatus":true,})
     })
 ]

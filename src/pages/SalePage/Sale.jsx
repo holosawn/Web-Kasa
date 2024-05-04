@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Categories from "../../ReusableComponents/Categories.jsx";
-import { Box, Stack, useMediaQuery, Button, Drawer } from "@mui/material";
+import { Box, Stack, useMediaQuery, Button, Drawer, Container, Typography } from "@mui/material";
 import Products from "../../ReusableComponents/Products.jsx";
 import Numpad from "../../ReusableComponents/Numpad.jsx";
 import CustomTextField from "../../ReusableComponents/CustomTextField.jsx";
@@ -16,6 +16,7 @@ import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SmallScreenCurrentItemCard from "../../PageComponents/Sale/SmallScreenCurrentItemCard.jsx";
 import useSize from "../../CustomHooks/useSize.js";
+import useFetchData from "../../CustomHooks/useFetchData.js";
 
 const exampleProducts = [
   {
@@ -201,12 +202,9 @@ const exampleCartItems = [
 const storedCartItems = JSON.parse(sessionStorage.getItem("cart"))?.cartItems;
 
 const Sale = () => {
-  //todo first key is total price
-  //todo categories section xs my
-  //Charhe on collapsable screen needs mb
   const [filterCategories, setFilterCategories] = useState([]);
   const [filterValue, setFilterValue] = useState("");
-  const [products, setProducts] = useState(wallmartData);
+  const [data, error, isLoading] = useFetchData('/Products')
   const productsRef = useRef(null)
   const [cartItems, setCartItems] = useState( storedCartItems || []); //empty or not array should be passed
   const [itemInRegister, setItemInRegister] = useState({
@@ -219,6 +217,7 @@ const Sale = () => {
 
   const isWide = useMediaQuery('(min-width:1000px)')
 
+
   function onQtyFocus(setVal) {
     setItemInRegister((prev) => ({
       ...prev,
@@ -230,33 +229,50 @@ const Sale = () => {
     sessionStorage.setItem('cartItems', JSON.stringify(cartItems))
   },[cartItems])
 
-  const filteredProducts = useMemo(()=> productArrHandler(wallmartData).filter((product) => {
+  const filteredProducts = useMemo(()=> data.filter((product) => {
     if (filterCategories.length < 0) return true;
-    else if (filterCategories.includes("Favorites")) {
-      return product.isFavorite
-    }
     else {
-
-      for (const category of filterCategories) {
-        if (!product.categories.includes(category)){
-          return false ;
-        };
+      if (filterCategories.includes("Favorites")) {
+        if (product.isFavorite === false) return false;
+      }
+      else if (filterCategories.includes("Alphabetically")){
+        const letterToLook = filterCategories.length > 1 ? filterCategories[filterCategories.length-1].toLowerCase() : "a"
+        const isFirstLetterCompatible = product.name[0].toLowerCase() === letterToLook;
+        if (isFirstLetterCompatible === false) return false
+      }
+      else {
+        for (const category of filterCategories) {
+          if (!product.categories.includes(category)){
+            return false ;
+          };
+        }
       }
       if (filterValue !== "") {
         if (
           !product.name
             .toLowerCase()
             .includes(filterValue.toLowerCase()) &&
-          !product.barcode.toLowerCase().includes(filterValue) &&
-          !product.code.toLowerCase().includes(filterValue)
+          !product.barcode.toLowerCase().includes(filterValue.toLowerCase()) &&
+          !product.code.toLowerCase().includes(filterValue.toLowerCase())
         )
           return false;
       }
       return true;
     }
-  }), [filterValue, filterCategories]);
+  }), [data,filterValue, filterCategories]);
 
-  return (
+
+  return isLoading ? (
+    <Container>
+      <Typography variant='h6' color={'primary'} >Loading...</Typography>
+    </Container>
+  )
+  : error ? (
+    <Container>
+      <Typography variant='h6' color={'primary'} >{error}</Typography>
+    </Container>
+  )
+  : (
     <Box
       display={"flex"}
       flexDirection={"row"}

@@ -4,7 +4,6 @@ import { useLanguage } from '../../contexts/LangContext'
 
 const LangSelector = ({...props})=>{
   const{lang, setLang} = useLanguage();
-
   return(
     <Select
     sx={{ ml: "auto" }}
