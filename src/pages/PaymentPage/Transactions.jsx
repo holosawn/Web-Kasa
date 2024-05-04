@@ -71,6 +71,25 @@ const Transactions = ({cartItems, amountToPay, setAmountToPay}) => {
     })
   }
 
+  // const onPayClick=()=>{
+  //   if (transaction.type === 'card') {
+  //     // todo make it asyn ?
+  //     // setIsPaymentModalOpen(true)
+
+  //   }
+  //   else if(transaction.type === 'cash'){
+
+  //     // setAmountToPay(prev => prev - parseFloat(transaction.amount.replace(',', '.')))
+
+  //     // const pastTransactions = JSON.parse(sessionStorage.getItem('pastTransactions')) || []
+  //     // sessionStorage.setItem('pastTransactions', JSON.stringify([...pastTransactions, transaction]))
+
+  //     // setTransaction({
+  //     //   amount:'',
+  //     //   type:''
+  //     // })
+  //   }
+  // }
 
   const onPaymentModalClose=()=>{
 

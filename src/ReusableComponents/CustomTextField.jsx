@@ -56,9 +56,8 @@ const CustomTextField=({value, setValue, sx, setNumpadFocus = null, ...props})=>
         onChange={handleChange}
         placeholder={t('sale.searchAll')}
         InputProps={{
-          sx:{
-            fontSize:{xs:12, md:15},
-            height:{xs:40, md:55},
+          style:{
+            fontSize:{xs:8, md:15},
             width:'100%'
           },
           startAdornment: (
@@ -101,6 +100,7 @@ const CustomTextField=({value, setValue, sx, setNumpadFocus = null, ...props})=>
           width:'100%',
           backgroundColor:'background.paper',
           mb:{xs:0, md:1},
+          fontSize:10,
           borderRadius: 2,
           "& .MuiOutlinedInput-root": {
             '& fieldset': {

@@ -8,8 +8,9 @@ const useFetchData = (url) => {
     const [error, setError] = useState();
 
     const cache = useRef({});
+    const abortController = useRef(AbortController);
 
-    // Fetches data if it's not cached
+
     useEffect(()=>{
         if (cache.current[url]) {
             setdata(cache.current[url])

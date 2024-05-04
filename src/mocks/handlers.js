@@ -1,31 +1,27 @@
 import { http, HttpResponse } from 'msw'
-import loginPageData from '../Data/LoginPageData.json'
-import menuLayoutData from '../Data/MenuLayoutData.json'
-import dashboardData from '../Data/DashboardData.json'
+import LoginPageData from '../Data/LoginPageData.json'
+import MenuLayoutData from '../Data/MenuLayoutData.json'
+import DashboardData from '../Data/DashboardData.json'
 import salesDataHandler from '../utils/API/salesDataHandler'
 import { productArrHandler } from '../utils/helpers'
 import wallmartData from "../Data/WallmartCompatibleData.json";
-import customerData from '../Data/Customers.json'
 
 
 export const handlers = [
     http.get("/Login", ()=>{
-        return HttpResponse.json(loginPageData)
+        return HttpResponse.json(LoginPageData)
     }),
     http.get("/MenuLayoutData", ()=>{
-        return HttpResponse.json(menuLayoutData)
+        return HttpResponse.json(MenuLayoutData)
     }),
     http.get("/DashboardData/:timeline", (req)=>{
         const timeline = req.params.timeline
-        return HttpResponse.json(salesDataHandler(dashboardData[timeline]))
+        return HttpResponse.json(salesDataHandler(DashboardData[timeline]))
     }),
     http.get("/Products", (req)=>{
         return HttpResponse.json(productArrHandler(wallmartData))
     }),
     http.get("MarketStatus", ()=>{
         return HttpResponse.json({"marketStatus":true,})
-    }),
-    http.get('Customers',()=>{
-        return HttpResponse.json([...customerData, ...(JSON.parse(localStorage.getItem('customers')) || [])])
     })
 ]

@@ -1,103 +1,49 @@
 import React, { useState } from "react";
-import { Box, Fade, Modal, TextField, Button, Typography, Alert, Grow, AlertTitle, Stack } from "@mui/material";
+import { Box, Fade, Modal, TextField, Button, Typography, Alert, Grow, AlertTitle } from "@mui/material";
 import { getNumLayout } from "../../utils/Numpadlayouts";
 import Numpad from "../../ReusableComponents/Numpad";
 import useAlert from "../../CustomHooks/useAlert";
 import { t } from "i18next";
 import { useShiftStatus } from "../../contexts/ShiftContext";
-import LoadingButton from "../../ReusableComponents/LoadingButton";
 
 const ShiftModal = ({ open, onClose }) => { 
-  const [drawerUpdateLoading, setDrawerUpdateLoading] = useState(false)
-  const [clockUpdateLoading, setClockUpdateLoading] = useState(false)
-  const [shiftUpdateLoading, setShiftUpdateLoading] = useState(false)
+  const [drawerAmount, setDrawerAmount] = useState("");
   const [showAlert, AlertComponent] = useAlert(); // Use the custom hook
   const {shiftStatus, setShiftStatus} = useShiftStatus()
-  const [drawerAmount, setDrawerAmount] = useState(shiftStatus.amount || '');
 
   const handleStartShift = () => {
-    setShiftUpdateLoading(true);
-    setTimeout(() => {
-      if (drawerAmount > 0) {
-        setShiftStatus({
-          isOpen: true,
-          amount: parseFloat(drawerAmount),
-        });
-        setShiftUpdateLoading(false);
-        showAlert("success", t("sale.shiftStarted"), t("sale.shiftStartedContent")); // Success alert
-      } else {
-        setShiftUpdateLoading(false);
-        showAlert("warning", t("sale.alertTitle"), t("sale.alertContent"));
-      }
-    }, 500);
-  };
-
-  const handleClockOut = () => {
-    setClockUpdateLoading(true);
-    setTimeout(() => {
+    if (drawerAmount > 0) {
       setShiftStatus({
         isOpen: true,
-        amount: parseFloat(drawerAmount),
-        clockedOut: true,
+        amount: parseInt(drawerAmount),
       });
-      setClockUpdateLoading(false);
-      showAlert("success", t("sale.clockedOut"), t("sale.clockedOutContent")); // Success alert
-    }, 500);
-  };
-
-  const handleClockIn = () => {
-    setClockUpdateLoading(true);
-    setTimeout(() => {
-      setShiftStatus({
-        isOpen: true,
-        amount: parseFloat(drawerAmount),
-        clockedOut: false,
-      });
-      setClockUpdateLoading(false);
-      showAlert("success", t("sale.clockedIn"), t("sale.clockedInContent")); // Success alert
-    }, 500);
+      onClose();
+    } else {
+      // Show error message or handle empty drawer amount
+      showAlert("warning", t('sale.alertTitle'), t('sale.alertContent'));
+    }
   };
 
   const handleCloseShift = () => {
-    setShiftUpdateLoading(true);
-    setTimeout(() => {
-      if (parseFloat(drawerAmount) >= 0) {
-        setShiftStatus({
-          isOpen: false,
-          amount: parseFloat(drawerAmount),
-          clockedOut: false,
-        });
-        setShiftUpdateLoading(false);
-        showAlert("success", t("sale.shiftClosed"), t("sale.shiftClosedContent")); // Success alert
-      } else {
-        setShiftUpdateLoading(false);
-        showAlert("warning", "Invalid Amount", "Drawer amount cannot be empty.");
-      }
-    }, 500);
-  };
-
-  const handleUpdateDrawer = () => {
-    setDrawerUpdateLoading(true);
-    setTimeout(() => {
-      if (parseFloat(drawerAmount) >= 0) {
-        setShiftStatus((prev) => ({
-          ...prev,
-          amount: parseFloat(drawerAmount),
-        }));
-        setDrawerUpdateLoading(false);
-        showAlert("success", t("sale.drawerUpdated"), t("sale.drawerUpdatedContent")); // Success alert
-      } else {
-        setDrawerUpdateLoading(false);
-        showAlert("warning", t('sale.invalidDrawerAmount'), t('sale.invalidDrawerAmountDesc'));
-      }
-    }, 500);
+    if (parseInt(drawerAmount) >= 0) {
+      setShiftStatus({
+        isOpen: false,
+        amount: parseInt(drawerAmount),
+      });
+      onClose();
+    } else {
+      // Show error message or handle empty drawer amount
+      showAlert("warning", "Non-valid Amount", "Drawer amount cannot be empty");
+    }
   };
 
   const handleInputChange = (inputValue) => {
+    console.log(drawerAmount);
+
     if (inputValue === "") {
       setDrawerAmount("");
     } else if (/^0[\d\s]*$/.test(inputValue) || /^[\d\s]+$/.test(inputValue)) {
-      setDrawerAmount(inputValue);
+      setDrawerAmount(inputValue); // Convert the input value to an integer
     }
   };
 
@@ -135,61 +81,45 @@ const ShiftModal = ({ open, onClose }) => {
             borderRadius: 3,
           }}
         >
-          <Stack direction='row' alignItems={'center'} sx={{mb:{xs:1, md:3}}} width={'95%'} >
-            <TextField
-              label={t('sale.drawerAmount')}
-              variant="outlined"
-              fullWidth
-              focused
-              value={drawerAmount}
-              onChange={(e) => handleInputChange(e.target.value)}
-              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-              autoFocus
-            />
-
-            <LoadingButton variant='contained'color="success"  onClick={handleUpdateDrawer}
-            isLoading={drawerUpdateLoading}
-              sx={{
-                width:{xs:'35%', md:'25%'},
-                height:56,
-                textTransform:'none',
-                ml:1
-              }}
-            >
-              Update Drawer
-            </LoadingButton>
-          </Stack>
+          <TextField
+            label={t('sale.drawerAmount')}
+            variant="outlined"
+            fullWidth
+            focused
+            value={drawerAmount}
+            onChange={(e) => handleInputChange(e.target.value)}
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            autoFocus
+            sx={{mb:{xs:1, md:3}}}
+          />
           <Numpad setValue={handleAmountChange} layout={getNumLayout(t)} />
-
           <Box sx={{display:'flex', flexDirection:'row', justifyContent:'space-around', width:'100%'}} >
-            <LoadingButton sx={{mt:1, width:'30%', height:{xs:40, md:50}}}
-              size="large"
-              isLoading={shiftUpdateLoading}
+            <Button sx={{mt:1, width:'30%', height:{xs:40, md:50}}}
+                size="large"
+                
               variant="contained"
               color={shiftStatus.isOpen ? "error" : "success"}
               onClick={ shiftStatus.isOpen ? handleCloseShift : handleStartShift}
             >
               <Typography variant="body2" textTransform={'none'} fontSize={{xs:12, md:16}}>
-                {shiftStatus.isOpen ? t('sale.closeShift') : t('sale.startShift')}
+                {shiftStatus.isOpen ? "Close Shift" : "Start Shift"}
               </Typography>
-            </LoadingButton>
-
-            <LoadingButton sx={{mt:1, width:'30%', height:{xs:40, md:50}}}
-              size="large"  
+            </Button>
+            <Button sx={{mt:1, width:'30%', height:{xs:40, md:50}}}
+                size="large"
+                
               variant="contained"
-              color={shiftStatus.clockedOut ? 'success' :  'error'} 
-              isLoading={clockUpdateLoading}
+              color="success"
               disabled={!shiftStatus.isOpen} 
-              onClick={shiftStatus.clockedOut ? handleClockIn :  handleClockOut}
+              onClick={handleStartShift}
             >
               <Typography variant="body2" textTransform={'none'} fontSize={{xs:12, md:16}} >
-                {/* {t('sale.updateDrawer')} */}
-                {shiftStatus.clockedOut ? 'Clock in' : 'Clock out'}
+                {t('sale.updateDrawer')}
               </Typography>
-            </LoadingButton>
-
+            </Button>
             <Button sx={{mt:1, width:'30%', height:{xs:40, md:50}}}
-              size="large"
+                size="large"
+                
               variant="contained"
               color="error" 
               onClick={onClose}

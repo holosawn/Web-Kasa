@@ -13,7 +13,7 @@ const MenuPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   //todo current cashies info is static
 
-  const[data, isLoading, error] = useFetchData('/MenuLayoutData')
+  const{data, isLoading, error} = useFetchData('/MenuLayoutData')
 
   if (isLoading) {
     return (
@@ -26,7 +26,7 @@ const MenuPage = () => {
   if (error) {
     return (
       <Box>
-        <Typography>Error</Typography>
+        <Typography>{error}</Typography>
       </Box>
     );
   };

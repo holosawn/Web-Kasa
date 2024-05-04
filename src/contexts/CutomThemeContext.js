@@ -1,7 +1,6 @@
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 
-// Also modifies scrollbar in MUI theme object 
 function getTheme(mode){
   const theme = createTheme({
     palette:{
@@ -38,6 +37,24 @@ function getTheme(mode){
           "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
             backgroundColor: mode === 'dark' ? "#2b2b2b" : "#f5f5f5",
           },
+          // "&::-webkit-scrollbar-button-start, & *::-webkit-scrollbar-button-start": {
+          //   position: 'absolute',
+          //   top: 0,
+          //   left: 0,
+          //   width: '6px', // Adjust as needed
+          //   height: '6px', // Adjust as needed
+          //   backgroundColor: 'blue', // Adjust as needed
+          //    // Ensure content is empty to make the button visible
+          // },
+          // "&::-webkit-scrollbar-button-end, & *::-webkit-scrollbar-button-end": {
+          //   position: 'absolute',
+          //   bottom: 0,
+          //   right: 0,
+          //   width: '6px', // Adjust as needed
+          //   height: '6px', // Adjust as needed
+          //   backgroundColor: 'blue', // Adjust as needed
+          //    // Ensure content is empty to make the button visible
+          // },
         }
       }
     }
@@ -50,24 +67,18 @@ const CustomThemeContext = React.createContext()
 
 export function CustomThemeProvider({children}){
   const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
-  const storedTheme = JSON.parse(localStorage.getItem('theme'))
-  const [mode, setMode] = useState( storedTheme ? storedTheme : prefersDarkMode.matches ? 'dark' :'light');
+  const [mode, setMode] = useState(
+    prefersDarkMode.matches ? 'dark' :
+     'light');
   
-
-  // // Detects prefered theme and applies it 
-  // useEffect(() => {
-  //   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  //   const handleChange = (e) => setMode(e.matches ? 'dark' : 'light');
-  //   mediaQuery.addEventListener('change', handleChange);
-  //   return () => {
-  //     mediaQuery.removeEventListener('change', handleChange);
-  //   };
-  // }, []);
-
-  // Stores selected theme in localStorage so it can be applied in next application run
-  useEffect(()=>{
-    localStorage.setItem('theme', JSON.stringify(mode))
-  },[mode])
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e) => setMode(e.matches ? 'dark' : 'light');
+    mediaQuery.addEventListener('change', handleChange);
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, []);
   
   const theme = React.useMemo( ()=> getTheme(mode) ,[mode])
 

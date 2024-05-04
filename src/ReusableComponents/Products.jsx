@@ -54,7 +54,7 @@ const Products = ({
   const [containerWidth, setContainerWidth] = useState(3);
 
   useEffect(()=>{
-    fetchNextItems(1000)
+    fetchNextItems(50)
   },[])
 
 
@@ -139,7 +139,7 @@ const Products = ({
             </Grid>
           ),
         }}
-        endReached={()=>fetchNextItems( (containerWidth/ 200) * 4  || 20)}
+        endReached={()=>fetchNextItems( (containerWidth/ 200) * 4 || 20)}
         scrollerRef={ref => handleScrollerRef(ref)}
         
         itemContent={(index, item) => (

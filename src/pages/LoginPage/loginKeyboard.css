@@ -2,15 +2,8 @@
 .simple-keyboard.hg-layout-shift .hg-button.hg-red {
     background: rgb(255, 0, 0, 0.7);
     color: white;
-    border : none;
+    border : none
 }
-
-/* .simple-keyboard.hg-layout-default .hg-button.hg-sred,
-.simple-keyboard.hg-layout-shift .hg-button.hg-sred {
-    background: rgb(255, 0, 0, 0.7);
-    color: white;
-    border : none;
-} */
 
 .simple-keyboard.hg-layout-default .hg-button.hg-blue,
 .simple-keyboard.hg-layout-shift .hg-button.hg-blue {
@@ -18,31 +11,15 @@
     color: white;
     max-width: 90px;
     min-width: 90px;
-    border : none;
+    border : none
 }
-
-/* .simple-keyboard.hg-layout-default .hg-button.hg-sblue,
-.simple-keyboard.hg-layout-shift .hg-button.hg-sblue {
-    background: #1976D2;
-    color: white;
-    max-width: 90px;
-    min-width: 90px;
-    border : none;
-} */
 
 .simple-keyboard.hg-layout-default .hg-button.hg-dark,
 .simple-keyboard.hg-layout-shift .hg-button.hg-dark {
     background: #424242;
     color: white;
-    border : none;
+    border : none
 }
-
-/* .simple-keyboard.hg-layout-default .hg-button.hg-sdark,
-.simple-keyboard.hg-layout-shift .hg-button.hg-sdark {
-    background: #424242;
-    color: white;
-    border : none;
-} */
 
 .simple-keyboard.hg-theme-default.darkTheme{
     background: #242424;
@@ -55,28 +32,8 @@
 @media (max-width: 500px) {
     .simple-keyboard.hg-layout-default .hg-button {
       padding: 1px;
-      max-height: 20px;
-      min-height: 0px;
-      height: 20px;
-
-    }
-  }
-
-  @media (max-height: 500px) {  /* Corrected from 'max-heigth' to 'max-height' */
-    .simple-keyboard.hg-layout-default .hg-button {
-      padding: 1px;
       max-height: 30px;
-      min-height: 0px;
-    }
-  
-    .simple-keyboard.hg-theme-default.darkTheme {
-      background: #242424;
-      height: 180px;
-    }
-  
-    .simple-keyboard.hg-theme-default.lightTheme {
-      background: #D1D4DB;
-      height: 180px;
     }
   }
+
 
