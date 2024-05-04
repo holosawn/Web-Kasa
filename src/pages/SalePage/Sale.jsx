@@ -280,14 +280,13 @@ const Sale = () => {
       width={"100%"}
       minHeight={375}
       minWidth={600}
-      alignItems={"center"}
       position={'relative'}
     >
       <Stack
         direction={"column"}
         bgcolor={"background.paper"}
         m={{xs:0,md:1}}
-        my={2}
+        mt={{xs:1}}
         py={{xs:0.5, md:0}}
         height={"96vh"}
         minHeight={'350px'}
@@ -334,7 +333,7 @@ const Sale = () => {
       </Box>
       
       {size.x > 750 ? 
-        <Box sx={{width:'28%', m:1, ml:2,  height: '98vh', display: 'flex', flexDirection: 'row', justifyContent: 'end', alignItems: 'flex-start' }}>
+        <Box sx={{width:'28%', mt:1, ml:2,  height: '98vh', display: 'flex', flexDirection: 'row', justifyContent: 'end', alignItems: 'flex-start' }}>
           <Cart cartItems={cartItems} setCartItems={setCartItems} itemInRegister={itemInRegister} setItemInRegister={setItemInRegister} setNumpadFocus={setNumpadFocus}/>
         </Box>
       :

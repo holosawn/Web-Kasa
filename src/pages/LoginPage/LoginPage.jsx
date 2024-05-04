@@ -80,7 +80,7 @@ const LoginPage = () => {
   const [isButtonLoading, setIsButtonLoading] = useState();
   const {lang, setLang} = useLanguage();
   const navigate = useNavigate();
-  const {data, error, isLoading} = useFetchData('/Login')
+  const [data, error, isLoading] = useFetchData('/Login')
   const { mode } = useCustomTheme();
   const theme = useTheme();
 
@@ -172,9 +172,6 @@ const LoginPage = () => {
     }
   };
 
-  // const handleLangChange = (lang) => {
-  //   setLang(lang);
-  // };
 
   useEffect(() => {
     if (!isLoading) { 

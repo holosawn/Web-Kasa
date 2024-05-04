@@ -19,6 +19,7 @@ import useAlert from "../../CustomHooks/useAlert";
 import CardTotal from "../../ReusableComponents/CardTotal";
 import useFetchData from "../../CustomHooks/useFetchData";
 import { FiberManualRecord } from "@mui/icons-material";
+import { useShiftStatus } from "../../contexts/ShiftContext";
 
 const exampleCartItem = {
   product: {
@@ -120,6 +121,7 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
   const [showAlert, AlertComponent] = useAlert(); // Use the custom hook
   const [isChargeButtonLoading, setIsChargeButtonLoading] = useState(false)
   const [size, setSize] = useState({x:window.innerWidth, y:window.innerHeight})
+  const {shiftStatus, setShiftStatus} = useShiftStatus()
   const navigate = useNavigate();
 
   const subTotal = cartItems.reduce((acc, curr) => {
@@ -245,15 +247,14 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
         ))}
       </Stack>
       <CardTotal subTotal={subTotal} discount={discount} savedByOffers={savedByOffers} />
-      <LoadingButton onClick={onChargeClick} isLoading={isChargeButtonLoading} variant="contained" size={`${size.y < 600 ? 'medium':'large'}`} disabled={ isChargeButtonLoading || cartItems.length<=0} fullWidth  sx={{mt:1, mb:0.5, height: 50, display:'flex', flexDirection:'column', alignItems:'center'}} >
-          <Typography fontSize={{xs:10, md:15}} >{t('sale.charge')}
+      <LoadingButton onClick={onChargeClick} isLoading={isChargeButtonLoading} variant="contained" size={`${size.y < 600 ? 'medium':'large'}`} disabled={ isChargeButtonLoading ||  !shiftStatus.isOpen || shiftStatus.clockedOut || cartItems.length<=0} fullWidth  sx={{mt:1, mb:0.5, height: 50, display:'flex', flexDirection:'column', alignItems:'center'}} >
+          <Typography fontSize={{xs:10, md:15}} >{t('sale.charge')} </Typography>
             <Stack direction={'row'} alignItems={'center'} >
               <FiberManualRecord sx={{color: marketStatus ? 'green' : 'red', width:0.10, mr:1}}  />
               <Typography variant='subtitle2' fontSize={{xs:8, sm:11}} >
                   {t('menu.statusStr')}{marketStatus ? t('menu.online') : t('menu.offline')}
               </Typography>
             </Stack>
-          </Typography>
       </LoadingButton>
       <AlertComponent/>
     </Box>
