@@ -14,7 +14,7 @@ import { t } from 'i18next'
 import useFetchData from '../../CustomHooks/useFetchData.js'
 
 const ProductsPage = () => {
-  const {data, error, isLoading} = useFetchData('/Products')
+  const [data, error, isLoading] = useFetchData('/Products')
   const [itemInRegister, setItemInRegister] = useState({
     product: {},
     qty: 0,
@@ -64,7 +64,7 @@ const ProductsPage = () => {
   }), [data,filterValue, filterCategories]);
 
   const onAddClick=()=>{
-    const searchedProduct = filteredProducts.find(product => product.barcode === filterValue || product.name === filterValue )
+    const searchedProduct = filteredProducts.find(product => ( product.barcode !== '' && product.barcode === filterValue) || product.name === filterValue )
     if (searchedProduct) {
       const item = {
         product:searchedProduct,

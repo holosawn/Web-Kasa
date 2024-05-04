@@ -97,15 +97,15 @@ const Settings = () => {
   const closeReceiptModal=()=>{
     setIsReceiptModalOpen(false)
   }
-
   const openReceiptModal=()=>{
     sessionStorage.setItem('pastTransactions', JSON.stringify(payments))
     setIsReceiptModalOpen(true)
   }
 
-  const handleSwitchChange = ()=>{
-    setMode(prev => prev === 'dark' ? 'light' : 'dark')
+  const handleSwitchChange = (e)=>{
+    setMode(e.target.checked ? 'light' : 'dark')
   }
+
 
   return (
     <Box flex={1} minHeight={375}  minWidth={665} display="flex" flexDirection="column" alignItems={'center'} textAlign={'center'} sx={{height:'100vh', width:'100vw',}} >
@@ -140,7 +140,7 @@ const Settings = () => {
           <TitleWithDescription title={t('settings.theme')} description={t('settings.themeDesc')} />
           <Stack direction={'row'} alignItems={'center'} ml={'auto'} >
             <DarkModeIcon color='black' />
-            <ThemeSwitch onChange={handleSwitchChange} />
+            <ThemeSwitch checked={mode === 'light'} onChange={handleSwitchChange} />
             <LightModeIcon color='warning' />
           </Stack>
           <SettingsDivider sx={{position:'absolute', bottom:0, left:0}} />

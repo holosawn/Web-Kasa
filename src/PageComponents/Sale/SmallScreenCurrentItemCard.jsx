@@ -16,7 +16,7 @@ const SmallScreenCurrentItemCard=({ open, currentItem, setCurrentItem, cartItems
 
   return open ? (
       <Fade in={true}>
-          <Box position={'absolute'} left={'50%'} top={'50%'} bgcolor={'background.paper'} width={500} minWidth={400} minHeight={250}
+          <Box position={'absolute'} left={'50%'} top={'50%'} bgcolor={'background.paper'} width={500} minWidth={400} pb={1} minHeight={250}
               zIndex={9999}
               sx={{
                   transform:'translate(-50%,-50%)',

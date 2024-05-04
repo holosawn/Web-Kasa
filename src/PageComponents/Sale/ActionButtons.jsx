@@ -3,8 +3,8 @@ import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import LoginSharpIcon from "@mui/icons-material/LoginSharp";
 import ForwardSharpIcon from "@mui/icons-material/ForwardSharp";
+import { FiberManualRecord } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -17,7 +17,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import AddCustomer from "./AddCustomer";
 import ShiftModal from "./ShiftModal";
 import { useShiftStatus } from "../../contexts/ShiftContext";
 import { t } from "i18next";
@@ -51,6 +50,7 @@ const ActionButton = ({ children, ...props }) => (
 
 export const ActionButtons = ({onProductsButtonClick}) => {
   const [isCusModalOpen, setIsCusModalOpen] = useState(false)
+  const {shiftStatus, setShiftStatus} = useShiftStatus()
   const navigate = useNavigate();
 
   function openCustomerModal(){
@@ -136,7 +136,7 @@ export const ActionButtons = ({onProductsButtonClick}) => {
         </ActionButton>
       </Grid>
 
-      <AddCustomerModal open={isCusModalOpen} closeModal={closeCustomerModal} />
+      <AddCustomerModal open={isCusModalOpen} onClose={closeCustomerModal} />
     </Grid>
   );
 };
@@ -186,7 +186,6 @@ export const SysControlButtons = () => {
       </Button>
       <Button
         variant="contained"
-        color={shiftStatus.isOpen ? 'error' : "success"}
         sx={{
           width: "48%",
           mt: "auto",
@@ -197,57 +196,30 @@ export const SysControlButtons = () => {
         }}
         onClick={openModal}
       >
-        <LoginSharpIcon sx={{fontSize:{xs:'15px', md:'22px' ,lg:'20px'}, mr:0.5}} />
-        <Typography 
-          overflow={'visible'}
-          sx={{ width: "70%", display: "flex", justifyContent: "center", fontSize:{xs:'9px', md:'12px', lg:'16px'}}}
-        >
-          {shiftStatus.isOpen ? t('sale.closeShift') : t('sale.startShift')}
-        </Typography>
+        <Stack sx={{width: "100%",}}>
+          <Typography 
+            overflow={'visible'} noWrap
+            sx={{ display: "flex", justifyContent: "center", fontSize:{xs:'9px', md:'12px', lg:'16px'}}}
+          >
+            {t('sale.shiftMenu')}
+          </Typography>
+
+          <Stack direction={'row'} sx={{width:'85%', justifyContent:'center'}} >
+            <FiberManualRecord sx={{color: (shiftStatus.isOpen && !shiftStatus.clockedOut ) ? 'green' : 'red', width:0.15, mr:0.5 }}  />
+            <Typography 
+              overflow={'visible'} noWrap
+              sx={{ display: "flex", justifyContent: "center", fontSize:{xs:'9px', md:'12px', lg:'16px'}}}
+            >
+              {t(`sale.shift${(shiftStatus.isOpen && !shiftStatus.clockedOut ) ? 'On' : 'Off'}`)}
+            </Typography>
+          </Stack>
+
+        </Stack>
       </Button>
       <ShiftModal open={isShiftModalOpen} onClose={closeModal} />
     </Stack>
   );
 };
 
-
-// const AddCustomerModal=({isOpen, onClose})=>{
-//   let customer = {};
-
-//   return(
-//     <Modal
-//     open={isOpen}
-//     onClose={onClose}
-//     aria-labelledby="modal-modal-title"
-//     aria-describedby="modal-modal-description"
-
-//   >
-//     <Fade in={isOpen} >
-//     <Box
-//       sx={{
-//         display: "flex",
-//         flexDirection: "column",
-//         alignItems: "start",
-//         textAlign: "center",
-//         position: "absolute",
-//         top: "50%",
-//         left: "50%",
-//         transform: `translate(-50%, -50%)`,
-//         transition:'opacity 1s, transform 0.3s',
-//         minWidth: 400,
-//         width: 600,
-//         bgcolor: "background.paper",
-//         boxShadow: 24,
-//         p: 4,
-//         opacity: isOpen ? 1:0,
-
-//       }}
-//     >
-//       <Typography>kekeke</Typography>
-//     </Box>
-//     </Fade >
-//   </Modal>
-//   )
-// };
 
 export default ActionButtons;
