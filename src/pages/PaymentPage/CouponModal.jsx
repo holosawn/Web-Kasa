@@ -38,6 +38,24 @@ const layouts = {
       func:(num) => {
         return - num* 0.10
       }
+    },
+    'CUSTOMER10': {
+      key: 'CUSTOMER10',
+      description: '10% off on purchases up to 100 TRY, 20% off on purchases over 100',
+      func: (num) => {
+        const taggedCustomer = JSON.parse(sessionStorage.getItem('taggedCustomer'))
+        if (Object.keys(taggedCustomer).length > 0) {
+          if (num <= 100) {
+            return - num * 0.10
+          } else {
+            return - num * 0.20
+          }
+        }
+        else{
+          return 'noTaggedCustomer'
+        }
+      },
+      check:'customer'
     }
   }
 
@@ -79,21 +97,27 @@ const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToP
                 const priceDiff = coupons[input].func(total)
 
                 if (priceDiff < 0) {
-                  showAlert('success', t('common.success'), t('common.couponSaved'));
                   setActiveCoupons(prev => [...prev, {...coupons[input], saved: priceDiff}])
                   setTotal(prev =>  prev + priceDiff)
                   setAmountToPay(prev => prev + priceDiff)
+
+                  showAlert('success', t('common.success'), t('common.couponSaved'));
+
                 }
                 else{
-                  showAlert('warning', t('common.insufficient'), t('common.insufficientCard'));
+                  if (typeof priceDiff === 'string') {
+                    showAlert('warning', t('payment.noTaggedCustomer'), t('payment.noTaggedCustomerDesc'))
+                  }
+                  else{
+                    showAlert('warning', t('common.insufficient'), t('common.insufficientCard'));                    
+                  }
                 }
                 
                 setTimeout(() => {
-                    setTimeout(() => {
-                        setInput('')
-                        setLoading(false)
-                    }, 200);
-                }, 500)
+                    setInput('')
+                    setLoading(false)
+                }, 0)
+
           }, 1000);
       }
   }
@@ -147,7 +171,7 @@ const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToP
               height:'fit-content',
               minWidth:600,
               maxWidth:900,
-              minHeight:350,
+              minHeight:310,
               pt: {xs:1,md:2},
               p:2,
               py:size.y < 500 ? 1 : 2,
@@ -168,7 +192,7 @@ const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToP
                 <Typography variant='h6' fontSize={size.y< 500 ? 16: 18} noWrap sx={{width:90, position:'absolute', left:'2%'}} > 
                     {t('payment.code')}:
                 </Typography>
-                <TextField type='email' value={input} autoFocus onChange={e => onInputChange(e.target.value)} inputRef={inputRef} sx={{
+                <TextField type='email' autoComplete='off' value={input} autoFocus onChange={e => onInputChange(e.target.value)} inputRef={inputRef} sx={{
                     width:'70%',
                     ml:size.x < 1100 ? -3: size.x < 1200 ? -1:0,
                     minWidth:350,

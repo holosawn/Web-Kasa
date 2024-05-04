@@ -79,11 +79,11 @@ const Numpad = ({ setValue, scrollRef=null, layout=null }) => {
   const [isShiftModalOpen, setIsShiftModalOpen] = useState(false)
 
   const defaultLayout = [
-    {
-      name: t('sale.cashSale'),
-      onClick: (setVal) => console.log("Cash Sale clicked"),
-      color: "success",
-    },
+    // {
+    //   name: t('sale.cashSale'),
+    //   onClick: (setVal) => console.log("Cash Sale clicked"),
+    //   color: "success",
+    // },
     {
       name: "1",
     },
@@ -98,11 +98,11 @@ const Numpad = ({ setValue, scrollRef=null, layout=null }) => {
       onClick: (setVal) => console.log("Refund clicked"),
       color: "warning",
     },
-    {
-      name: t('sale.cardSale'),
-      onClick: (setVal) => console.log("Card Sale clicked"),
-      color: "success",
-    },
+    // {
+    //   name: t('sale.cardSale'),
+    //   onClick: (setVal) => console.log("Card Sale clicked"),
+    //   color: "success",
+    // },
     {
       name: "4",
     },
@@ -117,11 +117,11 @@ const Numpad = ({ setValue, scrollRef=null, layout=null }) => {
       onClick: (setVal) => console.log("Refund clicked"),
       color: "warning",
     },
-    {
-      name: t('sale.seeAll'),
-      onClick: (setVal) => console.log("50 clicked"),
-      color: "success",
-    },
+    // {
+    //   name: t('sale.seeAll'),
+    //   onClick: (setVal) => console.log("50 clicked"),
+    //   color: "success",
+    // },
     {
       name: "7",
     },
@@ -140,11 +140,11 @@ const Numpad = ({ setValue, scrollRef=null, layout=null }) => {
         }),
       color: "warning",
     },
-    {
-      name: t('sale.drawerAmount'),
-      onClick: (setVal) => console.log("Drawer Opened"),
-      color: "success",
-    },
+    // {
+    //   name: t('sale.drawerAmount'),
+    //   onClick: (setVal) => console.log("Drawer Opened"),
+    //   color: "success",
+    // },
     {
       name: "0",
     },
@@ -211,7 +211,8 @@ const Numpad = ({ setValue, scrollRef=null, layout=null }) => {
     mb={{ md: 0.5 }}
    >
     {(layout || defaultLayout).map((content) => (
-        <Grid item xs={ largeLayout ? 12/5 : 3} key={content.name} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+        <Grid item xs={3} key={content.name} sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+
         <Key
             content={content.name}
             onClick={

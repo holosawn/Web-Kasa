@@ -137,7 +137,6 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
           <Typography visibility={'hidden'}  >e</Typography> Back <Typography visibility={'hidden'}>e</Typography>
           </Button> */}
           <Typography variant='h5' pt={3} color={'primary'} fontWeight={700} >
-            {/* {transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)} Payment */}
             {getTitle(proggres, method)}
           </Typography>
         </Box>
@@ -151,7 +150,8 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
             } style={{...iconStyles[method]}}  />
             <Typography color={'primary'} variant='h6' mt={6}>
               
-              {t(`payment.${method === 'contactless' ? 'tap' : method}`).charAt(0).toUpperCase() + t(`payment.${method=== 'contactless' ? 'tap' : method}`).slice(1)} {t(`payment.theCard`)}
+              {/* {t(`payment.${method === 'contactless' ? 'tap' : method}`).charAt(0).toUpperCase() + t(`payment.${method=== 'contactless' ? 'tap' : method}`).slice(1)} {t(`payment.theCard`)} */}
+              {t(`payment.${method}Card`)}
             </Typography>
           </Box>
         }
