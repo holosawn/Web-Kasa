@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+## Web Pos App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An application used to make and manage sales for retails, built with React, JavaScript, CSS and Material UI.
 
-## Available Scripts
+## Project Status
+Completed but there will be features added very soon. User currently can login, make sales by choosing products among categorized data and tag offers and discounts and make payments, add and tag customers, print receipts.
 
-In the project directory, you can run:
+## Project Screen Shot(s)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation and Setup Instructions
 
-### `npm test`
+#### Example:  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
 
-### `npm run build`
+Installation:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`npm install`  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To Run Test Suite:  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`npm test`  
 
-### `npm run eject`
+To Start Server:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+`npm start`  
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To Visit App:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+`localhost:3000/` or `localhost:3000/Login`   
+`localhost:3000/Menu`  
+`localhost:3000/Sale`  
+`localhost:3000/Products`  
+`localhost:3000/Payment`  
+`localhost:3000/Settings`  
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## ScreenShots
 
-## Learn More
+![image](https://github.com/holosawn/Web-Kasa/assets/116157920/2b3a1349-e3c4-4d3a-aa8f-ed9bc900a4b8)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![image](https://github.com/holosawn/Web-Kasa/assets/116157920/4f73a210-3507-44bd-ae10-bd2ed56f68cf)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![image](https://github.com/holosawn/Web-Kasa/assets/116157920/f4ab1ede-b5b3-4aeb-a65a-b7211852753a)
 
-### Code Splitting
+![image](https://github.com/holosawn/Web-Kasa/assets/116157920/7a897da2-5193-4d93-b7a2-430373692892)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![image](https://github.com/holosawn/Web-Kasa/assets/116157920/7e0dad11-03ed-4247-8805-f53067a99820)
 
-### Analyzing the Bundle Size
+![image](https://github.com/holosawn/Web-Kasa/assets/116157920/a573f05b-7452-47cd-98cb-4bca6d47b3c3)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## Reflection
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+This was a few month long project built for 32 Bit recruitment event. Project goal was completing project with requested functionalities with given tech stack in given time . 
+  
+During this project I had problems with adding reference lines to specified values in y axis. Customizing ticks in axis doesn't rowk as I expected so I dive into how these values are computed. MUI charts are using D3.js for that so researched related methods in D3.js and copied the mechanisms for computing same values with MUI charts. It can be said it improved my googling skills.
+  
+I also had challenges with customizing appearence of MUI charts as the way I desire. I spent some time with them but I managed to customize with by passing right props and modifying right classes. I also had problems with responsiveness when different amounts of data displayed. I tried to fix this by customizing charts but I ended up adding a customized wrapper component. It pushed me to do more than regular appearence customizations and made me think how can I solve this problem.
 
-### Advanced Configuration
+I also had some problems with positioning of and general customization sidebar. Instead of using Drawer component from MUI I wanted to built it from scratch. I spent some time with it so that I can improve my skills with customizing components.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+During develpoment I wanted to use product data of wallmart for my project but images of dataset were too heavy for listing. I tried different techniques and libraries for optimizing them but they were not enough so I used a random image generator api with small images in an optimized format like webp.
+   
+At the end of the day, technologies implemented in this project are React, MUI as component library, axios for requests, i18next for localization , reacp-virtuoso for data visualization, react-simple-keyboard as virtual keyboard and React-Router.
