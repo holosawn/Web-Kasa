@@ -2,7 +2,13 @@ import React from 'react';
 import { Typography, useTheme } from '@mui/material';
 import { t } from 'i18next';
 
+  // The component returns the first error message found for any field
+  // If no error messages are found, it returns null
+  // errorMsg is an object that contains error messages for each field
+  // touched is an object that tracks whether each field has been interacted with by the user
 const DisplayErrorMessage = ({ errorMsg, touched, sx, ...props }) => {
+
+
   const theme = useTheme();
 
   const renderErrorMessage = () => {
@@ -15,8 +21,9 @@ const DisplayErrorMessage = ({ errorMsg, touched, sx, ...props }) => {
         );
       }
     }
-    return null; // Return null if no error messages found
+    return null; 
   };
+
 
   return renderErrorMessage();
 };

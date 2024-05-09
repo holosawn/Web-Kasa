@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import MultiLineChart from '../../ReusableComponents/MultiLineChart';
+import MultiLineChart from './Dashboard/MultiLineChart';
 import { Box, MenuItem, Select, Typography, Paper } from '@mui/material';
 import useFetchData from '../../CustomHooks/useFetchData'
-import SalesResultInfo from '../../PageComponents/MenuPage/Dashboard/SalesResultInfo';
-import TopEntitiesList from '../../PageComponents/MenuPage/Dashboard/TopEntitiesList';
-import SalesDeductionInfo from '../../PageComponents/MenuPage/Dashboard/SalesDeductionInfo';
+import SalesResultInfo from './Dashboard/SalesResultInfo';
+import TopEntitiesList from './Dashboard/TopEntitiesList';
+import SalesDeductionInfo from './Dashboard/SalesDeductionInfo';
 import { t } from 'i18next';
 
-
+// Selecting timeline to show value according to it
 const SelectTimeline = ({ timeline, setTimeline }) => {
     const onChange = (e) => {
       setTimeline(e.target.value);
@@ -35,6 +35,7 @@ const SelectTimeline = ({ timeline, setTimeline }) => {
     );
 };
 
+// Creates series object for MUI chart 
 const SalesResultChart = ({ data, timeline }) => {
     const dates = data.date.values
     
@@ -78,6 +79,7 @@ const SalesResultChart = ({ data, timeline }) => {
     );
 };
 
+// Creates series object for MUI chart 
 const SalesDeductionChart = ({ data, timeline }) => {
   const dates = data.date.values
   
@@ -116,7 +118,6 @@ const SalesDeductionChart = ({ data, timeline }) => {
 };
 
 const Dashboard = () => {
-  //todo add currency types
     const [timeline, setTimeline] = useState("today");
     const [data, error, isLoading] = useFetchData(`/DashboardData/${timeline}`);
 
@@ -148,6 +149,7 @@ const Dashboard = () => {
           <SelectTimeline timeline={timeline} setTimeline={setTimeline} />
         </Paper>
 
+          {/* Component with multiple tiny graphs to show data  */}
         <SalesResultInfo salesData={{"salesResult": data.salesResult, "salesResultoverTime": data.salesResultOverTime}} timeline={timeline} />
 
           <Box
@@ -161,6 +163,7 @@ const Dashboard = () => {
             <TopEntitiesList topSoldEntities={data.topProducts} totalSale={data.totalSale} timeline={timeline} label={t('dashboard.topProducts')} />
           </Box>    
 
+          {/* Component with multiple tiny graphs to show data  */}
         <SalesDeductionInfo salesData={{"salesDeduction": data.salesDeduction, "salesDeductionOverTime": data.salesDeductionOverTime}} timeline={timeline} />
         <Box
           display={"flex"}

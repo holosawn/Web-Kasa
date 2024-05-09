@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 import { Box, Typography } from '@mui/material';
-import CustomAppBar from '../../PageComponents/MenuPage/CustomAppBar'
-import MenuSideBar from '../../PageComponents/MenuPage/MenuSideBar'
-import { Route, Routes } from 'react-router-dom';
+import CustomAppBar from './CustomAppBar';
+import MenuSideBar from './MenuSideBar';
 import Dashboard from './Dashboard';
 import useFetchData from '../../CustomHooks/useFetchData';
 import { t } from 'i18next';
-import Settings from '../SettingsPage/Settings';
 
 
 const MenuPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  //todo current cashies info is static
-
   const[data, isLoading, error] = useFetchData('/MenuLayoutData')
 
   if (isLoading) {

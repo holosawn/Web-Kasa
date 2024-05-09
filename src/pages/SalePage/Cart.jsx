@@ -9,49 +9,27 @@ import {
   Typography,
 } from "@mui/material";
 import React, {useEffect, useState } from "react"
-import CurrentItemCard from "./CurrentItemCard";
+import CurrentItemCard from "../../ReusableComponents/CurrentItemCard";
 import CartItemCard from "../../ReusableComponents/CartItemCard";
 import { t } from "i18next";
 import { useLanguage } from "../../contexts/LangContext";
 import { useNavigate } from "react-router-dom";
 import LoadingButton from "../../ReusableComponents/LoadingButton";
 import useAlert from "../../CustomHooks/useAlert";
-import CardTotal from "../../ReusableComponents/CardTotal";
+import CartTotal from "../../ReusableComponents/CartTotal";
 import useFetchData from "../../CustomHooks/useFetchData";
 import { FiberManualRecord } from "@mui/icons-material";
 import { useShiftStatus } from "../../contexts/ShiftContext";
+import useSize from "../../CustomHooks/useSize";
 
-const exampleCartItem = {
-  product: {
-    name: "Chocolate Bar",
-    mainCategory: "Snack",
-    subCategory: "Chocolate",
-    code: "10001",
-    price: 2.5,
-    tax: "%18",
-    stock: 100,
-    color: "Brown",
-    cost: 1.2,
-    barcode: "BAR10001",
-    unit: "piece",
-    discount: {
-      amount: "%15",
-      color: "red",
-    },
-  },
-  qty: 5,
-  computedPrice: 12.5,
-  discount: {
-    amount: "%25",
-    color: "yellow",
-  },
-};
 
 function get3Pay2(Items) {
   const updatedItems = Items.map((item) => {
     const isPiece = item.product.unit === "piece";
+    // Set the divide number based on whether the item is a piece or not
     const divideNum = isPiece ? 3 : 3000;
 
+    // Change number to closest power of divideNum
     const qtyToApply = Math.floor(item.qty / divideNum) * divideNum;
 
     const isAppliable =
@@ -59,6 +37,7 @@ function get3Pay2(Items) {
         item.defaultPrice !== item.computedPrice + item.saved) &&
       qtyToApply >= divideNum;
 
+    // Create a new object with updated computed price and offers applied
     const updatedItem = {
       ...item,
       computedPrice: isAppliable
@@ -77,9 +56,9 @@ function get3Pay2(Items) {
     return updatedItem;
   });
 
-
   return updatedItems;
 }
+
 
 function resetOffers(items) {
   const updatedItems = items.map(item => ({
@@ -114,66 +93,80 @@ const offers = {
   },
 };
 
-const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setNumpadFocus, onProductEditClick=null}) => {
-  const [offerName, setofferName] = useState("none");
-  const [discount, setDiscount] = useState(0);
+// CartItems are displayed and can be edited on deleted from card
+// itemInRegistes can be set as a cartItem or can be canceled
+// additionalItemEditClick To make cart sidebar visible in small screens
+const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setNumpadFocus, additionalItemEditClick=null}) => {
+  const [offerName, setofferName] = useState(JSON.parse(sessionStorage.getItem('offerName')) || "none");
+  const [discount, setDiscount] = useState( parseInt(JSON.parse(sessionStorage.getItem('discount'))) || 0);
   const [marketStatus, statusError, statussLoading] = useFetchData('/MarketStatus')
   const [showAlert, AlertComponent] = useAlert(); // Use the custom hook
   const [isChargeButtonLoading, setIsChargeButtonLoading] = useState(false)
-  const [size, setSize] = useState({x:window.innerWidth, y:window.innerHeight})
+  const [size, setSize] = useSize()
   const {shiftStatus, setShiftStatus} = useShiftStatus()
   const navigate = useNavigate();
 
-  const subTotal = cartItems.reduce((acc, curr) => {
+  const subTotal = (cartItems || []).reduce((acc, curr) => {
     return acc + curr.defaultPrice
   },0)
 
-  const savedByOffers = cartItems.reduce((acc, curr) => {
+  const savedByOffers = (cartItems || []).reduce((acc, curr) => {
     return acc + ((curr.offersApplied?.[offerName]?.saved) ? curr.offersApplied[offerName].saved : 0);
   },0)
 
+  const updateOfferName = (input)=>{
+    setofferName(prev => {
+      if (typeof input === 'function') {
+        sessionStorage.setItem('offerName', JSON.stringify(input(prev)))
+        return input(prev)
+      }
+      else{
+        sessionStorage.setItem('offerName', JSON.stringify(input))
+        return input
+      }
+    })
+  }
+
+  const updateDiscount = (input) =>{
+    setDiscount(prev => {
+      if (typeof input === 'function') {
+        sessionStorage.setItem('discount', JSON.stringify(input(prev)))
+        return input(prev)
+      }
+      else{
+        sessionStorage.setItem('discount', JSON.stringify(input))
+        return input
+      }
+    })
+  }
+
+  // Items in cart should be updated on every change related to item amount or offer 
   useEffect(() => {
     if (offers[offerName].offerFunc) setCartItems(offers[offerName].offerFunc(cartItems));
   }, [offerName, cartItems.length, subTotal]);
 
-  useEffect(()=>{
-    const itemsStored = JSON.parse(sessionStorage.getItem('cartItems'))
-    if(itemsStored) setCartItems(itemsStored)
-
-    const discountStored = parseInt(sessionStorage.getItem('discount')) 
-    if(discountStored) setDiscount(discountStored)
-
-    const offerNameStored = JSON.parse(sessionStorage.getItem('offerName'))
-    if (offerNameStored) setofferName(offerNameStored)
-    },[])
-  
-
-  useEffect(() => {
-    function handleResize() {
-      setSize({x:window.innerWidth, y:window.innerHeight})
-    }
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-
+  // Computes total price, if there is any payment made for this sale already decrements the payment amount and sets values related to sale into sessionStorage
   const onChargeClick = async () => {
     setIsChargeButtonLoading(true);
   
     await new Promise(resolve => setTimeout(resolve, 500));
-    
-    if (!marketStatus) {
-      setIsChargeButtonLoading(false);
-      showAlert('warning', t('sale.closedMarket'), t('sale.closedMarketDesc'));
-    }
-    else if (cartItems.length > 0) {
-      
-      const pastTransactions = JSON.parse(sessionStorage.getItem('pastTransactions')) || []
-      const computedTotalPrice = (((subTotal||0)-(savedByOffers||0)) * ((100 - (discount||0))/100))
 
+    if (cartItems.length > 0) {
+      
+      let computedTotalPrice = (((subTotal||0)-(savedByOffers||0)) * ((100 - (discount||0))/100))
+      const pastTransactions = JSON.parse(sessionStorage.getItem('pastTransactions')) || []
+
+      const tempActiveCoupons = JSON.parse(sessionStorage.getItem('activeCoupons'))
+      // Update total price if there are active coupons
+      if (tempActiveCoupons) {
+        for (const index in tempActiveCoupons) {
+          // computedTotalPrice += tempActiveCoupons[index].saved 
+          tempActiveCoupons[index].saved = 0
+        }
+      }
+      sessionStorage.setItem('activeCoupons', JSON.stringify(tempActiveCoupons))
+
+      // If there are already made transactions set calculated amount
       if (pastTransactions.length > 0) {
         const totalTransactionAmount = pastTransactions.reduce((acc, curr) => {
           return acc + curr.amount
@@ -182,16 +175,12 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
       }
       else{  
         sessionStorage.setItem("amountToPay", JSON.stringify(computedTotalPrice));
-        sessionStorage.setItem('activeCoupons', JSON.stringify([]))
       }
 
-
-      sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
-      sessionStorage.setItem("subTotal", JSON.stringify(subTotal));
       sessionStorage.setItem("total", JSON.stringify(computedTotalPrice));
+      sessionStorage.setItem("subTotal", JSON.stringify(subTotal));
       sessionStorage.setItem("savedByOffers", JSON.stringify(savedByOffers));
-      sessionStorage.setItem('offerName', JSON.stringify(offerName))
-      sessionStorage.setItem("discount", JSON.stringify(discount));
+
       setIsChargeButtonLoading(false);
       navigate('/Payment');
 
@@ -201,6 +190,36 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
       showAlert('warning', t('sale.noItemsTitle'), t('sale.noItemsContent'));
     }
   };
+
+  const onCartItemEdit = setItemInRegister !== null // If the setItemInRegister function is provided
+    ? (item) => {
+        setItemInRegister({
+          ...item,
+          qty: item.qty.toLocaleString("fullwide", {
+            maximumFractionDigits: 0, // Format the quantity to have no decimal places
+            useGrouping: true, // Enable grouping of digits
+          }).replace(/,/g, "."),
+        });
+        // Delete the item with given code
+        setCartItems((prev) => {
+          const filteredCartItems = prev.filter(
+            (cartItem) => cartItem.product.code !== item.product.code
+          );
+          return filteredCartItems;
+        });
+        if (additionalItemEditClick) additionalItemEditClick();
+      }
+    : null;
+
+    const onCartItemDelete =  (item) => {
+      setCartItems((prevCartItems) => {
+        // Filter out the item with the given ID
+        const updatedCartItems = prevCartItems.filter(
+          (cartItem) => cartItem.product.code !== item.product.code
+        );
+        return updatedCartItems || [];
+      });
+    }
 
   return (
     <Box
@@ -216,8 +235,10 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
       flexDirection={'column'}
       sx={{ overflowY: "hidden", overflowX: "hidden" }}
     >
-      <CartActions offerName={offerName} setofferName={setofferName} discount= {discount} setDiscount= {setDiscount} />
+      {/* Offer and discount Select Component */}
+      <CartActions offerName={offerName} setofferName={updateOfferName} discount= {discount} setDiscount= {updateDiscount} />
       
+      {/* If screen is small SmallScreenCurrentItemCard will be rendered instead */}
       {(window.innerWidth > 750) && 
         <CurrentItemCard
           item={itemInRegister}
@@ -239,16 +260,16 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
         {cartItems.map((cartItem) => (
           <CartItemCard
             item={cartItem}
-            setCartItems={setCartItems}
-            setItemInRegister={setItemInRegister}
+            onDeleteClick={onCartItemDelete}
             key={cartItem.product.code}
-            onEditClick={onProductEditClick}
+            onEditClick={onCartItemEdit}
           />
         ))}
       </Stack>
-      <CardTotal subTotal={subTotal} discount={discount} savedByOffers={savedByOffers} />
-      <LoadingButton onClick={onChargeClick} isLoading={isChargeButtonLoading} variant="contained" size={`${size.y < 600 ? 'medium':'large'}`} disabled={ isChargeButtonLoading ||  !shiftStatus.isOpen || shiftStatus.clockedOut || cartItems.length<=0} fullWidth  sx={{mt:1, mb:0.5, height: 50, display:'flex', flexDirection:'column', alignItems:'center'}} >
-          <Typography fontSize={{xs:10, md:15}} >{t('sale.charge')} </Typography>
+      <CartTotal subTotal={subTotal} discount={discount} savedByOffers={savedByOffers} />
+      <LoadingButton onClick={onChargeClick} isLoading={isChargeButtonLoading}  variant='contained' size={`${size.y < 600 ? 'medium' : 'large'}`} disabled={isChargeButtonLoading || !shiftStatus.isOpen || shiftStatus.clockedOut || cartItems.length <=0} fullWidth sx={{mt:1, mb:0.5, height: 50, display:'flex', flexDirection:'column', alignItems:'center'}} >  
+
+          <Typography fontSize={{xs:10, md:15}} >{t('sale.charge')}</Typography>
 
             <Stack direction={'row'} alignItems={'center'} >
               <FiberManualRecord sx={{color: marketStatus ? 'green' : 'red', width:0.10, mr:1}}  />

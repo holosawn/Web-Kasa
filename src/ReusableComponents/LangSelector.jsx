@@ -1,9 +1,10 @@
 import React from 'react'
 import { Select, MenuItem } from '@mui/material'
-import { useLanguage } from '../../contexts/LangContext'
+import { useLanguage } from '../contexts/LangContext'
 
 const LangSelector = ({...props})=>{
   const{lang, setLang} = useLanguage();
+  
   return(
     <Select
     sx={{ ml: "auto" }}

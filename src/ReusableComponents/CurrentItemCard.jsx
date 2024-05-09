@@ -4,14 +4,14 @@ import AddShoppingCartSharpIcon from '@mui/icons-material/AddShoppingCartSharp';
 import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp';
 import { useTheme } from "@emotion/react";
 import { t } from "i18next";
-import useAlert from "../../CustomHooks/useAlert";
+import useAlert from "../CustomHooks/useAlert";
+import useSize from "../CustomHooks/useSize";
 
 const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, boxSx}) =>{
     const theme = useTheme();
     const textFieldRef = useRef(null);
     const [showAlert, AlertComponent] = useAlert(); // Use the custom hook
-
-    const [size, setSize] = useState({x:window.innerWidth, y: window.innerHeight})
+    const [size, setSize] = useSize()
 
     useEffect(() => {
       if (textFieldRef.current) {
@@ -19,16 +19,6 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
       }
     }, [item]);
 
-    useEffect(() => {
-      function handleResize() {
-        setSize({x:window.innerWidth, y:window.innerHeight})
-      }
-      window.addEventListener('resize', handleResize);
-  
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
-    }, []);
 
     const onTextfieldChange = (e) => {
       const inputValue = e.target.value;       
@@ -44,6 +34,7 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
       }
     };
 
+    
     const onDeleteIconClick=()=>{
       setNumpadFocus('products')
       setItem({
@@ -68,26 +59,17 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
 
       // Find the index of the existing item in the cart
       const existingItemIndex = cartItems.findIndex(existingItem => existingItem.product.code === item.product.code);
-
-      // Calculate the discounts
-      let discounts;
-      if (item.discount && item.product.discount) {
-        discounts = [item.discount, item.product.discount];
-      } else if (item.discount || item.product.discount) {
-        discounts = [item.discount || item.product.discount];
-      } else {
-        discounts = [];
-      }
-
+      
       // Calculate the computed price
-      let defaultPrice = (isPiece ? convertedQty : convertedQty / 1000) * (item.product.price * ( item.product.discount ?  100-(parseInt(item.product.discount.replace('%', ''))) : 100 ) / 100);
+      let defaultPrice = (isPiece ? convertedQty : convertedQty / 1000) * item.product.price;
 
       let computedPrice = defaultPrice
 
+      let updatedCartItems = []
       // Update the cart items
       if (existingItemIndex !== -1) {
         // If the item already exists in the cart, update its quantity and computed price
-        const updatedCartItems = cartItems.map((cartItem, index) => {
+        updatedCartItems = cartItems.map((cartItem, index) => {
           if (index === existingItemIndex) {
             return {
               ...cartItem,
@@ -99,15 +81,19 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
           return cartItem;
         });
 
-        setCartItems(()=>updatedCartItems);
+        setCartItems(updatedCartItems);
+        sessionStorage.setItem('cartItems' , JSON.stringify(updatedCartItems))
       } else {
         // If the item does not exist in the cart, add it to the cart
-        setCartItems(prev => [{
+        updatedCartItems = [{
           ...item,
           qty: convertedQty,
           defaultPrice: defaultPrice,
           computedPrice: computedPrice
-        }, ...prev]);
+        }, ...cartItems]
+
+        setCartItems(updatedCartItems);
+        sessionStorage.setItem('cartItems' , JSON.stringify(updatedCartItems))
       }
 
       // Reset the item state
@@ -118,9 +104,9 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
         defaultPrice: 0
       });
     };
-
+    // To display placeholders or data of itemInRegister
     const isThereItem = Object.keys(item.product).length !==0
-    const inputLabel = item.product.unit === 'piece' ? 'Quantity' : 'Gram'
+    const inputLabel = !item.product?.unit ? 'Quantity' : item.product.unit === 'piece' ? 'Quantity' : 'Gram'
     return(
       <Box
       display={"flex"}
@@ -129,7 +115,8 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
         border: "1px solid gray",
         borderRadius: 1,
         width: "100%",
-        height: size.y < 500 ? 130 : size.y < 800 ? 140 : 170 ,
+        // height: size.y < 500 ? 120 : size.y < 800 ? 140 : 170 ,
+        height:'fit-content',
         overflow:'visible',
         ...boxSx,
       }}
@@ -156,6 +143,7 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
             onKeyUp={e =>{
               e.key === 'Enter' && onAddIconClick()
             }}
+            autoComplete="off"
             disabled={Object.keys(item.product).length === 0}
             inputRef={textFieldRef}
             onFocus={()=> setNumpadFocus('cart')}
@@ -176,25 +164,15 @@ const CurrentItemCard=({item, setItem, cartItems, setCartItems, setNumpadFocus, 
           />
         </Box>
 
-        <Box display={'flex'} flexDirection={'row'} width={'92%'} mx={2} my={size.y > 800 ? 0.7 :0} justifyContent={'space-between'} alignItems={'center'} >
-          <Button variant="contained"  disabled={!isThereItem} sx={{width:'50%', mr:1, height:size.y < 500 ? 30 : 40}} onClick={onAddIconClick} >
-            <AddShoppingCartSharpIcon fontSize={size.y < 600 ? 'small' : size.y < 900 ? 'medium' : 'large'}/>
+        <Box display={'flex'} flexDirection={'row'} width={'92%'} mx={2} height={'auto'} pb={0.5} my={size.y > 800 ? 0.7 :0} justifyContent={'space-between'} alignItems={'center'} >
+          <Button variant="contained"  disabled={!isThereItem} sx={{width:'50%', mr:1, height:size.y < 500 ? 35 : 45}} onClick={onAddIconClick} >
+            <AddShoppingCartSharpIcon fontSize={size.y < 600 ? 'small' : size.y <1100 ? 'medium' : 'large'}/>
           </Button>
-          <Button variant="contained" disabled={!isThereItem} color="error" sx={{width:'50%', mr:1, height:size.y < 500 ? 30 : 40}} onClick={onDeleteIconClick} >
-            <DeleteForeverSharpIcon fontSize={size.y < 600 ? 'small' : size.y < 900 ? 'medium' : 'large'}/>
+          <Button variant="contained" disabled={!isThereItem} color="error" sx={{width:'50%', mr:1, height:size.y < 500 ? 35 : 45}} onClick={onDeleteIconClick} >
+            <DeleteForeverSharpIcon fontSize={size.y < 600 ? 'small' : size.y <1100 ? 'medium' : 'large'}/>
           </Button>
         </Box>
 
-       {/* { alert.open &&  (
-        <Grow in={alert.open} >
-          <Alert sx={{position:'absolute', top:'3%', right:0, translate:'(-50%, -50%)', width:'400px', height:'100px', zIndex:999 }}
-              severity={alert.severity}
-            >
-              {alert.title && <AlertTitle>{alert.title}</AlertTitle>}
-              {alert.content}
-          </Alert>
-        </Grow>
-        )} */}
         <AlertComponent/>
       </Box>
     )

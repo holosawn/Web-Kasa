@@ -6,11 +6,11 @@ import { LanguageProvider, useLanguage } from './contexts/LangContext';
 import { BrowserRouter } from 'react-router-dom';
 import { CustomThemeProvider } from './contexts/CutomThemeContext';
 import MenuPage from './pages/MenuPage/MenuPage';
-import Sale from './pages/SalePage/Sale';
+import SalePage from './pages/SalePage/SalePage';
 import { ShiftStatusProvider } from './contexts/ShiftContext';
-import Payment from './pages/PaymentPage/Payment';
 import ProductsPage from './pages/ProductsPage/ProductsPage';
-import Settings from './pages/SettingsPage/Settings';
+import Settings from './pages/SettingsPage/SettingsPage';
+import PaymentPage from './pages/PaymentPage/PaymentPage';
 
 
 
@@ -26,8 +26,8 @@ function App() {
               <Route path='/Login' element={<LoginPage/>} />
               <Route path='/Menu' element={<MenuPage/>} />
               <Route path='/Settings' element={<Settings/>} />
-              <Route path='/Sale' element={<Sale/>} />
-              <Route path='/Payment' element={<Payment/>} />
+              <Route path='/Sale' element={<SalePage/>} />
+              <Route path='/Payment' element={<PaymentPage/>} />
               <Route path='/Products' element={<ProductsPage/>} />
             </Routes>
           </BrowserRouter>

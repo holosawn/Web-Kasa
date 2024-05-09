@@ -1,23 +1,21 @@
-import { Box, Button, IconButton, Typography, Stack, Divider } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
+import { Box, Button, Typography, Stack, Divider } from '@mui/material'
+import React, { useRef, } from 'react'
 import CartItemCard from '../../ReusableComponents/CartItemCard'
 import { ArrowBack } from '@mui/icons-material'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import CardTotal from '../../ReusableComponents/CardTotal'
+import CartTotal from '../../ReusableComponents/CartTotal'
 import { useNavigate } from 'react-router-dom'
 import useSize from '../../CustomHooks/useSize'
-import { get3Pay2, offers, resetOffers } from '../../Data/Offers';
 import { t } from 'i18next';
 
 
 
-const ItemsList = ({amountToPay, activeCoupons, subTotal, total, discount, cartItems, setCartItems, setTotal, setSubTotal, setActiveCoupons, setAmountToPay, activeOffer, setActiveOffer, savedByOffers, setSavedByOffers}) => {
-    //todo drwaer amount can not be empty alert on currentItemCard
-    const [size, setSize] = useSize()
-    const scrollRef = useRef(null);
-    const scrollIntervalRef = useRef(null);
-    const navigate = useNavigate()
+const ItemsList = ({coupons, amountToPay, activeCoupons, subTotal, total, discount, cartItems, setCartItems, setTotal, setSubTotal, setActiveCoupons, setAmountToPay, activeOffer, savedByOffers, setSavedByOffers}) => {
+  const [size, setSize] = useSize()
+  const scrollRef = useRef(null);
+  const scrollIntervalRef = useRef(null);
+  const navigate = useNavigate()
 
   const scroll = (scrollVal)=>{
     const currPos = scrollRef.current.scrollTop;
@@ -37,67 +35,75 @@ const ItemsList = ({amountToPay, activeCoupons, subTotal, total, discount, cartI
     scrollIntervalRef.current = null
   };
 
+  // Update items and make necessary updates on subtotal, active coupons etc.
   const setItems = (updateFunc) => {
-        const prevIds = cartItems.map(item => item.product.id);
+    // Get updated items and get removed element
+    const prevIds = cartItems.map(item => item.product.id);
+    const newItems = updateFunc(cartItems);
+    const newIds = newItems.map(item => item.product.id);
+    const deletedId = prevIds.find(id => !newIds.includes(id));
+    const deletedElement = cartItems.find(item => item.product.id === deletedId);
 
-        const newItems = updateFunc(cartItems)
-        const newIds = newItems.map(item => item.product.id);
-        const deletedId = prevIds.find(id => !newIds.includes(id));
-        const deletedElement = cartItems.find(item => item.product.id === deletedId);
+    setSubTotal(subTotal - deletedElement.defaultPrice);
 
+    // Use the active offer and deleted item to calculate the new list of items and the new saved amount 
+    const updatedCartItems = activeOffer.offerFunc(cartItems.filter(item => item.product.id !== deletedId ), setCartItems) || [];
+    const newSavedByOffers = updatedCartItems.reduce((total, curr) => {
+      const saved = curr?.offersApplied?.[activeOffer.key]?.saved || 0; 
+      return total + saved; 
+    }, 0);
+    setSavedByOffers(newSavedByOffers);
 
-        setSubTotal(subTotal - deletedElement.defaultPrice)
+    // Calculate the new total by subtracting the amount saved from the subtotal and applying the discount
+    const tempTotal = (updatedCartItems.reduce((total, curr) => total + curr.defaultPrice ,0) - newSavedByOffers)  * (1 - discount/100);
 
-        
-        const updatedCartItems = activeOffer.offerFunc(cartItems.filter(item => item.product.id !== deletedId ), setCartItems) || []
-        const newSavedByOfferss = updatedCartItems.reduce((total, curr) => {
-          const saved = curr?.offersApplied?.[activeOffer.key]?.saved || 0; // Proper use of optional chaining and default value
-          return total + saved; // Add the saved value to the total
-        }, 0);
-        setSavedByOffers(newSavedByOfferss)
-        
+    let newTotal = tempTotal;
 
-        const tempTotal = (updatedCartItems.reduce((total,curr) => total + curr.defaultPrice ,0) - newSavedByOfferss )  * (1 - discount/100);
-        
-        // Initialize total and amountToPay with initial values
-        let newTotal = tempTotal;
-        
-        // Create a new list of valid coupons
-        const validCoupons = [];
-        
-        // Loop through active coupons and process them
-        for (const coupon of activeCoupons) {
-          const activeCouponFunc = coupon.func || (()=>0) ;
-        
-          if (activeCouponFunc) {
-            const priceDiff = activeCouponFunc(newTotal);
-        
-            // Validate the price difference
-            if (priceDiff < 0) {
-              newTotal += priceDiff;        
-              // Keep the valid coupon in the list
-              validCoupons.push(coupon);
-            }
-          }
+    const validCoupons = [];
+
+    // Loop through coupons to find appliable coupons after change on items and compute new total value
+    for (const coupon of activeCoupons) {
+      const activeCouponFunc = coupons[coupon.key].func || (()=>0) ;
+
+      if (activeCouponFunc) {
+        const priceDiff = activeCouponFunc(newTotal);
+
+        if (priceDiff < 0) {
+          validCoupons.push({...coupon, saved: priceDiff});
         }
-        setActiveCoupons(validCoupons)        
-        setTotal(newTotal)
-
-        let newAmountToPay =newTotal ;
-        const pastTransactions = JSON.parse(sessionStorage.getItem('pastTransactions')) || []
-        for (const Transactions of pastTransactions) {
-          newAmountToPay = newAmountToPay - Transactions.amount
-        }
-        setAmountToPay(newAmountToPay)
-
-        setCartItems(updatedCartItems)
-        sessionStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
-    };
-
-    const onBackClick=()=>{
-    navigate('/Sale')
+      }
     }
 
+    setActiveCoupons(validCoupons);
+    setTotal(newTotal)
+    // Calculate the new amount to pay by subtracting the amount paid with past transactions
+    let newAmountToPay = newTotal;
+    const pastTransactions = JSON.parse(sessionStorage.getItem('pastTransactions')) || [];
+    for (const Transactions of pastTransactions) {
+      newAmountToPay = newAmountToPay - Transactions.amount;
+    }
+    setAmountToPay(newAmountToPay);
+
+    // Update the state with the updated list of items 
+    setCartItems(updatedCartItems);
+  };
+
+  const onCartItemDelete =  (item) => {
+    setItems((prevCartItems) => {
+      // Filter out the item with the given ID
+      const updatedCartItems = prevCartItems.filter(
+        (cartItem) => cartItem.product.code !== item.product.code
+      );
+      return updatedCartItems || [];
+    });
+  }
+
+
+  const onBackClick=()=>{
+  navigate('/Sale')
+  }
+
+  
   return (
     <Box
         sx={{
@@ -135,6 +141,7 @@ const ItemsList = ({amountToPay, activeCoupons, subTotal, total, discount, cartI
                 item={item}
                 setCartItems={setItems}
                 key={item.product.code}
+                onDeleteClick={onCartItemDelete}
             />
             ))}
 
@@ -173,7 +180,7 @@ const Balance = ({amountToPay, discount, savedByOffers, subTotal, total, activeC
 
 
   return (
-    <CardTotal
+    <CartTotal
       subTotal={subTotal}
       total = {total}
       discount={discount}

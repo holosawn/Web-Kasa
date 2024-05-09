@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Alert, AlertTitle, Fade } from '@mui/material';
 
-const useAlert = (sx, ...alertComponentProps) => {
+const useAlert = (...alertComponentProps) => {
   const [alert, setAlert] = useState({
     open: false,
     severity: 'info',
@@ -27,7 +27,7 @@ const useAlert = (sx, ...alertComponentProps) => {
     }, duration);
   };
 
-  const AlertComponent = () => {
+  const AlertComponent = useCallback(({sx}) => {
     return (
       <Fade in={alert.open}>
         <Alert
@@ -49,7 +49,7 @@ const useAlert = (sx, ...alertComponentProps) => {
         </Alert>
       </Fade>
     );
-  };
+  }, [alert]);
 
   return [showAlert, AlertComponent];
 };

@@ -6,7 +6,7 @@ import {
   LinePlot,
   AreaPlot,
 } from "@mui/x-charts";
-import { getDateOptions, dateValueFormatter } from "../utils/helpers";
+import { getDateOptions, dateValueFormatter } from "../../../utils/helpers";
 
 export default function TinyLineChart({ yData, xData, timeline, dataLabel }) {
   const dateObjects = xData.map((item) => new Date(item));

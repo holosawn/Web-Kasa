@@ -13,8 +13,8 @@ import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
 import "../LoginPage/loginKeyboard.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import DisplayErrorMessage from "../../PageComponents/LoginPage/DisplayErrorMessage";
-import LangSelector from "../../PageComponents/LoginPage/LangSelector";
+import DisplayErrorMessage from "./DisplayErrorMessage";
+import LangSelector from "../../ReusableComponents/LangSelector";
 import { t } from "i18next";
 import { useLanguage } from "../../contexts/LangContext";
 import { enLayout, trLayout, ruLayout } from "../../LangLayouts/LayoutsWithArrows";
@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 import useSize from '../../CustomHooks/useSize';
 import LoadingButton from "../../ReusableComponents/LoadingButton";
 
+// The layouts object contains the keyboard layouts for each supported language
 const layouts = {
   en: enLayout,
   ru: ruLayout,
@@ -33,7 +34,6 @@ const layouts = {
 };
 
 const user = { userCode: "admin", password: "123" };
-const currentDate= new Date();
 
 const setInputCaretPosition = (elem, pos) => {
   if (elem.setSelectionRange) {
@@ -50,7 +50,10 @@ const validateLoginValues = (loginValues, setErrors) => {
   if (loginValues.password.length < 3) {
     errors.password = true;
   }
-  setErrors(errors);
+  setErrors(prev => ({
+    ...errors,
+    submit:''
+  }));
 };
 
 const LoginPage = () => {
@@ -58,12 +61,15 @@ const LoginPage = () => {
     userCode: "",
     password: "",
   });
+  // The Keyboard layout state 
   const [layout, setLayout] = useState("default");
+  // The errors state object contains the validation errors for each field
   const [errors, setErrors] = useState({
     userCode: true,
     password: true,
     submit:''
   });
+  // The touched state object contains whether each field has been interacted with
   const [touched, setTouched] = useState({
     userCode: false,
     password: false,
@@ -83,25 +89,23 @@ const LoginPage = () => {
   const [data, error, isLoading] = useFetchData('/Login')
   const { mode } = useCustomTheme();
   const theme = useTheme();
-  const [size] = useSize();
 
   const isMedium = useMediaQuery('(max-height:800px)')
+  const currentDate= new Date();
 
+  // The handleClickShowPassword function toggles the showPassword state variable
   function handleClickShowPassword() {
-    setShowPassword(!showPassword);
-  }
-  function handleMouseDownPassword() {
     setShowPassword(!showPassword);
   }
 
   function moveCaret(value) {
     const inputElement = inputRefs.current[keyboard.current.inputName];
     if (inputElement) {
-      inputElement.selectionStart = Math.max(
+      const newCaretPos = Math.max(
         0,
         inputElement.selectionStart + value
       );
-      inputElement.selectionEnd = inputElement.selectionStart;
+      inputElement.selectionEnd = newCaretPos;
       inputElement.focus();
     }
   }
@@ -127,53 +131,68 @@ const LoginPage = () => {
     }
   };
 
+
   const onChangeInput = (input) => {
+    keyboard.current.setInput(input);
+
     const inputName = keyboard.current.inputName;
     const initLoginValues = { ...loginValues, [inputName]: input };
 
     setLoginValues({ ...loginValues, [inputName]: input });
     validateLoginValues(initLoginValues, setErrors);
-    keyboard.current.setInput(input);
   };
 
+  // Sets focus of keyboard to current field
   const onFocus = (event) => {
     const inputName = event.target.name;
+
     keyboard.current.setInput(loginValues[inputName]);
     keyboard.current.inputName = inputName;
+
     if(touched[inputName] !== true) setTouched((prev) => ({ ...prev, [inputName]: true }));
   };
 
+  // Sets field's value to keyboard and validates current form values   
   const onChange = (input) => {
     const inputName = keyboard.current.inputName;
     const initLoginValues = { ...loginValues, [inputName]: input };
+
     setLoginValues({ ...loginValues, [inputName]: input });
     validateLoginValues(initLoginValues, setErrors);
     setCaretPos(keyboard.current.caretPosition);
-    if(errors.submit !== '') setErrors(prev => ({...prev, submit:true}))
-    if(touched.submit !== false) setTouched(prev => ({...prev, submit:false}))
+
+    // Didn't understand why underneath code block do it's thing
+
+    // if(errors.submit !== ''){
+    //   setErrors(prev => ({...prev, submit:true}))
+    // } 
+    // if(touched.submit !== false) setTouched(prev => ({...prev, submit:''}))
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setTouched(prev => ({...prev, submit:true}))
     const anyErrors = Object.values(errors).some((value) => value !== "");
+
     if (!anyErrors) {
       setIsButtonLoading(true)
-      if (
-        loginValues.userCode === user.userCode &&
-        loginValues.password === user.password
-      ) {
-        setIsButtonLoading(false)
-        navigate('/Menu')
-      }
-      else{
-        setErrors(prev => ({...prev, submit:true}))
-        setIsButtonLoading(false)
-      }
+      setTimeout(() => {
+        if (
+          loginValues.userCode === user.userCode &&
+          loginValues.password === user.password
+        ) {
+          setIsButtonLoading(false)
+          navigate('/Menu')
+        }
+        else{
+          setErrors(prev => ({...prev, submit:true}))
+          setIsButtonLoading(false)
+        }
+      }, 500);
     }
   };
 
-
+  // Sets caret position into keyboard
   useEffect(() => {
     if (!isLoading) { 
       const inputName = keyboard.current.inputName;
@@ -183,6 +202,7 @@ const LoginPage = () => {
       }
     }
   }, [caretPos]);
+
 
   return (
     <Paper
@@ -275,7 +295,6 @@ const LoginPage = () => {
                     <IconButton
                       aria-label="toggle password visibility"
                       onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
                     >
                       {showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
@@ -302,7 +321,7 @@ const LoginPage = () => {
               variant="contained"
               onClick={handleSubmit}
               isLoading={isButtonLoading}
-              disabled={Object.values(errors).some((value) => value !== "")}
+              disabled={ isButtonLoading || Object.values(errors).some((value) => value !== "")}
               sx={{
                 width: "50%",
                 height: {xs: 25, sm:35 ,md:40, lg:50},

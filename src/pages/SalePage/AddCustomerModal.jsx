@@ -39,7 +39,7 @@ if (customerValues.surname.trim() === "") {
 else if(/\d/.test(customerValues.surname)){//regex for digits test
   errors.surname = t('common.invalidSurname')
 }
-else if(customerValues.surname.trim().length < 3){
+else if(customerValues.surname.trim().length < 2){
   errors.surname= t('common.shortSurname')
 }
 
@@ -71,6 +71,7 @@ const AddCustomerModal=({open, onClose})=>{
         email:''
     }) 
     const keyboardRef = useRef()
+    // keyboard layout caps lock open/closed
     const [layout, setLayout] = useState("default");
     const {lang, setLang} = useLanguage();
     const inputRefs = useRef({
@@ -91,7 +92,7 @@ const AddCustomerModal=({open, onClose})=>{
     const [showAlert, AlertComponent] = useAlert();
     const [isLoading, setIsLoading] = useState(false);
 
-  
+  // Setting value into keyboard and validating values
     const onInputChange = (input) => {
         const inputName = keyboardRef.current.inputName;
         const initCustomerValues = { ...customerValues, [inputName]: input };
@@ -107,12 +108,14 @@ const AddCustomerModal=({open, onClose})=>{
         setLayout(newLayoutName);
     }
 
+    // Focusing keyboard into field
     const onFocus = (event) => {
         const inputName = event.target.name;
         keyboardRef.current.setInput(customerValues[inputName]);
         keyboardRef.current.inputName = inputName;
       };
 
+    // Sets states from keyboard and validates values 
     const onChange = (input) => {
         const inputName = keyboardRef.current.inputName;
         const initCustomerValues = { ...customerValues, [inputName]: input };
@@ -136,6 +139,7 @@ const AddCustomerModal=({open, onClose})=>{
         }
       };
 
+    // If values are valid it computes a date string and saves the customer with date string and an unique id into localStorage
     const handleSubmit = (event) => {
       setIsLoading(true)
         event.preventDefault();
@@ -157,17 +161,29 @@ const AddCustomerModal=({open, onClose})=>{
               signUp : `${yearMonthDay}T${hour}:${minute}`,
               id:id
             }
-            localStorage.setItem('customers', JSON.stringify([...storedCustomers, customer]))
-            showAlert('success', t('common.customerSaved'), t('common.customerSaveSuccess'))
+
+            // Check for duplicate customers
+            const isDuplicate = storedCustomers.some(
+              (c) =>
+                c.email === customer.email ||
+                c.phone === customer.phone
+            );
+
+            if (!isDuplicate) {
+              localStorage.setItem("customers", JSON.stringify([...storedCustomers, customer]));
+              showAlert("success", t("common.customerSaved"), t("common.customerSaveSuccess"));
+            } else {
+              setIsLoading(false);
+              showAlert("error", t("sale.duplicateCustomer"), t("sale.duplicateCustomerDesc"));
+            }
           }
           else{
             setIsLoading(false)
-            showAlert('Error', t('common.invalidInput'), anyError)  
+            showAlert('error', t('common.invalidInput'), anyError)  
           }
         },500)
 
     };
-
     return(
       <Modal
         open={open}
@@ -190,7 +206,7 @@ const AddCustomerModal=({open, onClose})=>{
               transform: "translate(-50%, -50%)",
               bgcolor: "background.paper",
               width: '70vw',
-              height:'fit-content
+              height:'fit-content',
               maxHeight:'95%',
               minWidth:600,
               maxWidth:900,
@@ -207,7 +223,7 @@ const AddCustomerModal=({open, onClose})=>{
                 <ArrowBack fontSize={size.y < 800 ? 'small' : 'medium'} />
               </Button>
               <Typography variant='h6' fontSize={size.y < 500 ? 18 : 20} fontWeight={700} color={'primary'} >
-              {t('sale.addCustomer')}
+                {t('sale.addCustomer')}
               </Typography>
             </Stack>
             <Divider sx={{width:'100%'}} />
@@ -225,6 +241,7 @@ const AddCustomerModal=({open, onClose})=>{
                       required
                       sx={{width:'48%',}}
                       inputMode='text'
+                      autoComplete='off'
                   />
                   <TextField
                       onChange={(e) => onInputChange(e.target.value)}
@@ -237,6 +254,7 @@ const AddCustomerModal=({open, onClose})=>{
                       variant="filled"
                       required
                       sx={{width:'48%'}}
+                      autoComplete='off'
                   />
                 </Stack>
                 <TextField 
@@ -250,6 +268,7 @@ const AddCustomerModal=({open, onClose})=>{
                     variant="filled"
                     required
                     sx={{my:0.5, width:'90%'}}
+                    autoComplete='off'
                 />
                 <TextField 
                     onChange={(e) => onInputChange(e.target.value)}
@@ -263,6 +282,7 @@ const AddCustomerModal=({open, onClose})=>{
                     variant="filled"
                     required
                     sx={{my:0.5, width:'90%'}} 
+                    autoComplete='off'
                 />
                 <LoadingButton size='large' variant='contained' color='success' isLoading={isLoading} onClick={handleSubmit}
                   sx={{

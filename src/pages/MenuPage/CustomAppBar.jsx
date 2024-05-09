@@ -10,7 +10,7 @@ import { useLocation } from 'react-router-dom';
 import { IconButton } from '@mui/material';
 import { t } from 'i18next';
 
-
+// It will toggle the Siderbar menu and show marketStatus
 export default function CustomAppBar({ setIsMenuOpen, marketStatus}) {
 
   const currentPage = useLocation().pathname.slice(1);
@@ -25,9 +25,8 @@ export default function CustomAppBar({ setIsMenuOpen, marketStatus}) {
         height:'100%',
       }} >
 
-        <IconButton onClick={toggleIsMenuOpen}  className="toggleButton"
-          sx={{height:50, width:70, display:'flex', justifyContent:'center', alignItems:'center', position:'absolute', left:0}} >
-         <MenuSharpIcon className='toggleIcon' sx={{ color:'white', ":hover":{cursor:'pointer'}, height: 30, width: 30}} />
+        <IconButton onClick={toggleIsMenuOpen}  className="toggleButton"sx={{height:50, width:70, display:'flex', justifyContent:'center', alignItems:'center', position:'absolute', left:0}} >
+          <MenuSharpIcon className='toggleIcon' sx={{ color:'white', ":hover":{cursor:'pointer'}, height: 30, width: 30}} />
         </IconButton>
 
         <Typography  variant='h6' position={'relative'} ml={9.5} mb={1} sx={{ fontSize: '20px' }}>

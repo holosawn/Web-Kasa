@@ -22,6 +22,7 @@ const getIconStyle = (pageName, currentPage)=>({
   ml: 1.4
 })
 
+//Color will change if it's button of current
 const getButtonStyle=(pageName, currentPage)=>({
   borderRadius: 0,
   width:'100%',
@@ -39,6 +40,7 @@ const getButtonStyle=(pageName, currentPage)=>({
   ":hover":{backgroundColor:'background.secondary'},
 })
 
+//Color will change if it's description of icon of current
 const IconDescription = ({children, isMenuOpen, currentPage=false ,  color})=>(
   <Typography ml={2} variant='body2' fontSize={{xs:12, sm:14}} textTransform={'none'} color={color ? color : currentPage? '#0E4D90' : 'text.primary'} whiteSpace={'nowrap'} overflow={'hidden'} sx={{transition:'opacity 0.3s', opacity:isMenuOpen? 1 : 0}}
   >
@@ -46,12 +48,14 @@ const IconDescription = ({children, isMenuOpen, currentPage=false ,  color})=>(
   </Typography>
 );
 
+// It can be wider according to isMenuOpen state and show info of current user
 const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
-  //todo scroll, workerInfo, responsivenes
+  //Current page name derived from url
   const currentPage = useLocation().pathname.slice(1) || '';
   const menuRef = useRef();
   const navigate = useNavigate();
 
+  //event handler for closing menu when clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -76,10 +80,7 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
       ref={menuRef}
       sx={{width: isMenuOpen? 'calc(max(210px, 30vw))':'70px', maxWidth:230, minWidth: 50, position:'sticky', mb:`calc(-100vh + 84px)`,
        top:64, zIndex:999, height:`calc(100vh - 64px)` , transition: 'width 0.3s linear', overflowY:'auto',
-      // '&::-webkit-scrollbar': {
-      //   width: 0,  // This will hide the scrollbar in webkit browsers
-      // },
-      // scrollbarWidth: 'none',  // This will hide the scrollbar in Firefox
+
     }}>
       <Box height={60} display={'flex'} flexDirection={'row'} alignItems={'center'}  >
           <AccountCircleIcon sx={{...getIconStyle('', currentPage), ml:2.5}} />
@@ -120,7 +121,7 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
         </Button>
       </Tooltip>
       <Tooltip title='Products' arrow>
-        <Button sx={getButtonStyle("Products", currentPage)}>
+        <Button sx={getButtonStyle("Products", currentPage)} onClick={()=> navigate('/Products')} >
             <ProductsIcon sx={getIconStyle('Products', currentPage)} />
             <IconDescription currentPage={'Products' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.products')}</IconDescription>
         </Button>

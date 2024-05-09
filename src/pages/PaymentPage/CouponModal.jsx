@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Fade, Grid, Modal, Stack, TextField, Typography, colors } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ArrowBack } from '@mui/icons-material'
 import { enLayout, trLayout, ruLayout } from "../../LangLayouts/LayoutsWithoutArrows";
 import Keyboard from "react-simple-keyboard";
@@ -19,45 +19,8 @@ const layouts = {
     tr: trLayout,
   };
 
-  const coupons={
-    'ABC123':{
-      key:'ABC123',
-      description:'20 TRY off on any purchase above 50 TRY',
-      func:(num)=>{
-        if (num > 50) {
-          return -20
-        }
-        else {
-          return 0
-        }
-      }
-    },
-    'PERCENT10':{
-      key: 'PERCENT10',
-      description: '10% off on your total purchase',
-      func:(num) => {
-        return - num* 0.10
-      }
-    },
-    'CUSTOMER10': {
-      key: 'CUSTOMER10',
-      description: '10% off on purchases up to 100 TRY, 20% off on purchases over 100',
-      func: (num) => {
-        const taggedCustomer = JSON.parse(sessionStorage.getItem('taggedCustomer'))
-        if (Object.keys(taggedCustomer).length > 0) {
-          if (num <= 100) {
-            return - num * 0.10
-          } else {
-            return - num * 0.20
-          }
-        }
-        else{
-          return 'noTaggedCustomer'
-        }
-      },
-      check:'customer'
-    }
-  }
+
+
 
 const validateCouponCode = (code) => {
   // Regular expression for at least one uppercase letter, one digit, and minimum length of 5 characters
@@ -65,32 +28,33 @@ const validateCouponCode = (code) => {
   return regex.test(code);
 }
 
-const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToPay, total, setTotal})=>{
+const CouponModal=({open, onClose, coupons, activeCoupons, setActiveCoupons, setAmountToPay, total, setTotal})=>{
     const [input, setInput] = useState('') 
     const [loading, setLoading] = useState(false)
-    const {mode} = useCustomTheme()
     const keyboardRef = useRef()
     const [layout, setLayout] = useState("default");
-    const {lang, setLang} = useLanguage();
     const inputRef = useRef()
+    const {mode} = useCustomTheme()
+    const {lang, setLang} = useLanguage();
     const [size] = useSize()
     const [showAlert, AlertComponent] = useAlert();
 
-
+    // Save email if it's valid and not active already
+    // Make necessary updates on subTotal, total and active coupons also update states and give feedback via alerts
     const onSaveButtonClick = () => {
       setLoading(true)
       if (!validateCouponCode(input) ||  !coupons[input]) {
           setTimeout(() => {
               setLoading(false)
-              showAlert('warning', t('common.invalidInput'), t(`common.invalidCoupo${!validateCouponCode(input) ? 'nFormat' : 'n'}`));
               onChange('')
               inputRef.current.focus()
+              showAlert('warning', t('common.invalidInput'), t(`common.invalidCoupo${!validateCouponCode(input) ? 'nFormat' : 'n'}`));
           }, 300);
       } 
       else if (activeCoupons.find(c=> c.key === input)){
-        showAlert('info', t('common.couponActive'), t('common.activatedCoupon'))
         onChange('')
         setLoading(false)
+        showAlert('info', t('common.couponActive'), t('common.activatedCoupon'))
       }
       else {
           setTimeout(() => {
@@ -105,23 +69,22 @@ const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToP
 
                 }
                 else{
-                  if (typeof priceDiff === 'string') {
+                  if (priceDiff === 'noTaggedCustomer') {
                     showAlert('warning', t('payment.noTaggedCustomer'), t('payment.noTaggedCustomerDesc'))
                   }
                   else{
                     showAlert('warning', t('common.insufficient'), t('common.insufficientCard'));                    
                   }
                 }
-                
-                setTimeout(() => {
-                    setInput('')
-                    setLoading(false)
-                }, 0)
+                setInput('')
+                setLoading(false)
 
           }, 1000);
       }
   }
+
   
+    // Sets changes on field onto state and keyboard
     const onInputChange=(inputVal)=>{
       setInput(inputVal)
       keyboardRef.current.setInput(inputVal)
@@ -132,6 +95,7 @@ const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToP
         setLayout(newLayoutName);
     }
 
+    // Sets changes on keyboard onto state
     const onChange = (input) => {
         setInput(input)
     };
@@ -187,7 +151,9 @@ const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToP
                 {t('payment.couponCode')}
               </Typography>
             </Stack>
+
             <Divider sx={{width:'100%'}} />
+
             <Stack direction='row' justifyContent={'center'} alignItems={'center'} sx={{my:size.y < 500 ?  1: 3, minWidth:450, width:'100%', position:'relative'}} >
                 <Typography variant='h6' fontSize={size.y< 500 ? 16: 18} noWrap sx={{width:90, position:'absolute', left:'2%'}} > 
                     {t('payment.code')}:
@@ -209,6 +175,7 @@ const CouponModal=({open, onClose, activeCoupons, setActiveCoupons, setAmountToP
                     {t('payment.save')}
                   </LoadingButton>
             </Stack>
+            
             <Keyboard
             keyboardRef={(r) => (keyboardRef.current = r)}
             layoutName={layout}

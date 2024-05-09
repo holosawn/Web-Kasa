@@ -1,14 +1,11 @@
 import React, { useRef, useState } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Box, ClickAwayListener, InputAdornment, Fade, Grow, Menu, MenuItem, MenuList, Paper, Popover, Popper, TextField } from '@mui/material'; // Make sure to import the TextField and MenuItem components from @mui/material
+import { Box, ClickAwayListener, InputAdornment, Grow, MenuList, Paper, Popper, TextField } from '@mui/material'; // Make sure to import the TextField and MenuItem components from @mui/material
 
-function CustomTextFieldWithMenu({
-  value,
-  onValueChange,
-  menuItemsFunc,
-  onDeleteIconClick,
-  ...TextFieldProps
-}) {
+// onvalueChange is an event handler takes value
+// MenuItemsFunc is function that generates menu items it should take menuItem click handler and input value
+// onDeleteIconClick is an function should execute durin deletion
+function TextFieldWithMenu({value, onValueChange, menuItemsFunc, onDeleteIconClick, ...TextFieldProps}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const inputRef = useRef()
 
@@ -16,18 +13,12 @@ function CustomTextFieldWithMenu({
     setMenuOpen(true);
   };
 
-  const handletextFieldBlur = ()=>{
-    setMenuOpen(false)
-  }
-
   const handleMenuItemClick = (value) => {
-    onValueChange(value);
     onValueChange(value);
     closeMenu()
   };
 
   const handleTextFieldChange = (value) => {
-    onValueChange(value);
     onValueChange(value);
   };
 
@@ -35,14 +26,6 @@ function CustomTextFieldWithMenu({
       setMenuOpen(false);
   }
 
-  function handleListKeyDown(event) {
-    if (event.key === 'Tab') {
-      event.preventDefault();
-      setMenuOpen(false);
-    } else if (event.key === 'Escape') {
-      setMenuOpen(false);
-    }
-  }
   return (
     <ClickAwayListener onClickAway={closeMenu}>
 
@@ -110,4 +93,4 @@ function CustomTextFieldWithMenu({
 
 
 
-export default CustomTextFieldWithMenu;
+export default TextFieldWithMenu;

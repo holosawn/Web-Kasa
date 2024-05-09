@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 import discountIcon from '../../../assets/discount.svg';
 import refundIcon from '../../../assets/refund.svg';
 import creditNoteIcon from '../../../assets/creditNote.svg';
-import SaleInfoCard from '../../../PageComponents/MenuPage/Dashboard/SaleInfoCard';
+import SaleInfoCard from './SaleInfoCard';
 import { t } from 'i18next';
 
 const SalesDeductionInfo = ({ salesData, timeline }) => (

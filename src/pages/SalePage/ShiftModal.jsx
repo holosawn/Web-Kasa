@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Fade, Modal, TextField, Button, Typography, Alert, Grow, AlertTitle, Stack } from "@mui/material";
 
-import { getNumLayout } from "../../utils/Numpadlayouts";
+import { getNumLayout } from "../../Constants/Numpadlayouts";
 import Numpad from "../../ReusableComponents/Numpad";
 import useAlert from "../../CustomHooks/useAlert";
 import { t } from "i18next";
@@ -9,13 +9,17 @@ import { useShiftStatus } from "../../contexts/ShiftContext";
 import LoadingButton from "../../ReusableComponents/LoadingButton";
 
 const ShiftModal = ({ open, onClose }) => { 
+  //Loading states of different buttons and processes
   const [drawerUpdateLoading, setDrawerUpdateLoading] = useState(false)
   const [clockUpdateLoading, setClockUpdateLoading] = useState(false)
   const [shiftUpdateLoading, setShiftUpdateLoading] = useState(false)
-  const [showAlert, AlertComponent] = useAlert(); // Use the custom hook
+
+  const [showAlert, AlertComponent] = useAlert(); 
   const {shiftStatus, setShiftStatus} = useShiftStatus()
   const [drawerAmount, setDrawerAmount] = useState(shiftStatus.amount || '');
 
+
+  //Start shift if there is money in drawer and feedback with MUI alerts
   const handleStartShift = () => {
     setShiftUpdateLoading(true);
     setTimeout(() => {
@@ -33,6 +37,7 @@ const ShiftModal = ({ open, onClose }) => {
     }, 500);
   };
 
+  // Clock out and give feedback via alerts
   const handleClockOut = () => {
     setClockUpdateLoading(true);
     setTimeout(() => {
@@ -46,6 +51,7 @@ const ShiftModal = ({ open, onClose }) => {
     }, 500);
   };
 
+  // Clock in and give feedback 
   const handleClockIn = () => {
     setClockUpdateLoading(true);
     setTimeout(() => {
@@ -59,6 +65,7 @@ const ShiftModal = ({ open, onClose }) => {
     }, 500);
   };
 
+  // Close shift if there no money or money in drawer
   const handleCloseShift = () => {
     setShiftUpdateLoading(true);
     setTimeout(() => {
@@ -77,6 +84,7 @@ const ShiftModal = ({ open, onClose }) => {
     }, 500);
   };
 
+  // Update drawer amount if it's a valid amount
   const handleUpdateDrawer = () => {
     setDrawerUpdateLoading(true);
     setTimeout(() => {
@@ -94,6 +102,7 @@ const ShiftModal = ({ open, onClose }) => {
     }, 500);
   };
 
+  // Event handler for TextField
   const handleInputChange = (inputValue) => {
     if (inputValue === "") {
       setDrawerAmount("");
@@ -102,6 +111,7 @@ const ShiftModal = ({ open, onClose }) => {
     }
   };
 
+  // Event handler for Numpad
   function handleAmountChange(setVal) {
     setDrawerAmount((prev) => {
       return setVal(prev);
@@ -157,7 +167,7 @@ const ShiftModal = ({ open, onClose }) => {
                 ml:1
               }}
             >
-              Update Drawer
+              {t('sale.updateDrawer')}
             </LoadingButton>
           </Stack>
           <Numpad setValue={handleAmountChange} layout={getNumLayout(t)} />

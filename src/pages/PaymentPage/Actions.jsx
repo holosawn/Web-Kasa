@@ -1,9 +1,8 @@
 import { Box, Button, Fade, Grid, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Modal, Stack, TextField, Typography, colors } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import MailModal from './MailModal';
 import CouponModal from './CouponModal';
 import HighlightOffSharpIcon from "@mui/icons-material/HighlightOffSharp";
-import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
 import { KeyboardArrowDown } from "@mui/icons-material";
 import useSize from '../../CustomHooks/useSize';
@@ -11,7 +10,7 @@ import { t } from 'i18next';
 import TagCustomerModal from './TagCustomerModal';
 
 
-const Actions = ({cartItems, setCartItems, taggedCustomer, setTaggedCustomer, total, activeCoupons, setActiveCoupons,amountToPay, setAmountToPay, setTotal}) => {
+const Actions = ({coupons, cartItems, setCartItems, taggedCustomer, setTaggedCustomer, total, activeCoupons, setActiveCoupons,amountToPay, setAmountToPay, setTotal}) => {
   //todo finish, e fatura, preview, cancel
   const navigate = useNavigate()
   const [isMailModalOpen, setIsMailModalOpen ] = useState(false);
@@ -35,6 +34,48 @@ const Actions = ({cartItems, setCartItems, taggedCustomer, setTaggedCustomer, to
     setIsCouponModalOpen(true)
   }
 
+  // Check if activeCoupons are still valid and recalculate savings
+  useEffect(()=>{
+
+    if (activeCoupons) {
+
+    let tempTotal = total;
+    let tempActiveCoupons = activeCoupons
+
+      for (const currCoupon of tempActiveCoupons) {
+        const priceDiff = coupons[currCoupon.key].func(tempTotal)
+        
+
+        // Check if it should save different amount and calculate new tatol value
+        if (priceDiff !== currCoupon.saved) {
+          tempTotal += (priceDiff === 1 ? 0 : priceDiff) - currCoupon.saved
+        }
+
+        // delete coupons if its not valid anymore
+        if (priceDiff === 1 || typeof priceDiff === 'string') {
+          tempActiveCoupons = tempActiveCoupons.filter(coupon => coupon.key !== currCoupon.key )
+        }
+        
+        else{
+        // Update saved value if its still valid
+          tempActiveCoupons = tempActiveCoupons.map(coup => {
+            if (coup.key === currCoupon.key) {
+              return { ...coup, saved: priceDiff };
+            } else {
+              return coup;
+            }
+          })
+        }
+      }
+
+      setTotal(tempTotal)
+      // Decrement amount to pay as much as total decremented
+      setAmountToPay(prev => prev - (total - tempTotal))
+      setActiveCoupons(tempActiveCoupons)
+    }
+  },[])
+
+  // Delete coupon and make necessary updates on total and amount to pay
   const onDeleteCouponClick=(coupon)=>{
     setActiveCoupons(prev => {
       const disabledCoupon = prev.find(c => c.key === coupon.key)
@@ -47,22 +88,22 @@ const Actions = ({cartItems, setCartItems, taggedCustomer, setTaggedCustomer, to
     })
   }
 
+  // Clear sale related data from states and sessionStorage
   const onCancelButtonClick=()=>{
     setActiveCoupons([]);
     setAmountToPay(0);
     setTotal(0)
     setCartItems([])
-    sessionStorage.setItem('cartItems', JSON.stringify([]))
     sessionStorage.setItem("discount", JSON.stringify(0));
     sessionStorage.setItem("subTotal", JSON.stringify(0));
-    sessionStorage.setItem("amountToPay", JSON.stringify(0));
     sessionStorage.setItem("savedByOffers", JSON.stringify(0));
     sessionStorage.setItem('offerName', JSON.stringify('none'))
     sessionStorage.setItem('activeOffers', JSON.stringify([]))
-    sessionStorage.setItem('activeCoupons', JSON.stringify([]))
     sessionStorage.setItem('email', JSON.stringify(''))
     sessionStorage.setItem('pastTransactions', JSON.stringify(''))
     sessionStorage.setItem('taggedCustomer', JSON.stringify({}))
+    sessionStorage.setItem('taggedCustomer', JSON.stringify({}))
+    sessionStorage.setItem('cartItems', JSON.stringify([]))
     navigate('/Sale')
   }
 
@@ -101,9 +142,9 @@ const Actions = ({cartItems, setCartItems, taggedCustomer, setTaggedCustomer, to
             {t('payment.cancel')}
           </Button>
         </Grid>
-      <MailModal open={isMailModalOpen} onClose={onCloseMailModal} />
-      <CouponModal open={isCouponModalOpen} onClose={onCloseCouponModal} activeCoupons={activeCoupons} setActiveCoupons={setActiveCoupons} setAmountToPay={setAmountToPay} total={total} setTotal={setTotal} />
-      <TagCustomerModal open={isTagCusModalOpen} onClose={closeCusModal} onDeleteCoupon={onDeleteCouponClick} activeCoupons={activeCoupons} taggedCustomer={taggedCustomer} setTaggedCustomer={setTaggedCustomer} />
+      { isMailModalOpen && <MailModal open={isMailModalOpen} onClose={onCloseMailModal} />}
+      { isCouponModalOpen && <CouponModal coupons={coupons} open={isCouponModalOpen} onClose={onCloseCouponModal} activeCoupons={activeCoupons} setActiveCoupons={setActiveCoupons} setAmountToPay={setAmountToPay} total={total} setTotal={setTotal} />}
+      { isTagCusModalOpen &&  <TagCustomerModal open={isTagCusModalOpen} onClose={closeCusModal} onDeleteCoupon={onDeleteCouponClick} activeCoupons={activeCoupons} taggedCustomer={taggedCustomer} setTaggedCustomer={setTaggedCustomer} />}
       </Grid>
 
       <CouponMenu activeCoupons={activeCoupons} onDeleteCouponClick={onDeleteCouponClick} />
@@ -112,6 +153,8 @@ const Actions = ({cartItems, setCartItems, taggedCustomer, setTaggedCustomer, to
   )
 }
 
+// Renders current coupons 
+// If screen size is small becomes a collapsable menu 
 const CouponMenu = ({ activeCoupons, onDeleteCouponClick }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -128,7 +171,7 @@ const CouponMenu = ({ activeCoupons, onDeleteCouponClick }) => {
   return (
     <>
       {size.y > 500 ? (
-        <Stack direction={"column"} width={"100%"} maxWidth={490} sx={{ overflowY: "scroll", overflowX:'hidden' }}>
+        <Stack direction={"column"} width={"100%"} maxWidth={600} sx={{ overflowY: "scroll", overflowX:'hidden' }}>
           {activeCoupons.map((coupon) => (
             <CouponRow key={coupon.key} coupon={coupon} onDeleteClick={onDeleteCouponClick} />
           ))}
@@ -200,23 +243,15 @@ const CouponRow = ({ coupon, onDeleteClick }) => {
 
     }}
   >
-    {/* <Button
-      variant='contained'
-      onClick={() => onDeleteClick(coupon)}
-      color='error'
-      sx={{ p: '1px', pr: 0, minWidth: 20, minHeight: 0, borderRadius: '50%', mr: 0.5 }}
-      disableRipple
-    >
-      <ClearIcon sx={{ fontSize: { xs: '20px', lg: '25px' } }} />
-    </Button> */}
+
     <IconButton
-            variant="contained"
-            color="error"
-            onClick={()=> onDeleteClick(coupon)}
-            sx={{ p: '1px', pl: 0, minWidth: 20, minHeight: 0, borderRadius: '50%', mr: 0.5 }}
-          >
-            <HighlightOffSharpIcon sx={{ fontSize: {xs:20, md:30} }} />
-          </IconButton>
+      variant="contained"
+      color="error"
+      onClick={()=> onDeleteClick(coupon)}
+      sx={{ p: '1px', pl: 0, minWidth: 20, minHeight: 0, borderRadius: '50%', mr: 0.5 }}
+    >
+      <HighlightOffSharpIcon sx={{ fontSize: {xs:20, md:30} }} />
+    </IconButton>
     <Stack direction={'column'} justifyContent={'center'} width={'auto'} flex={1} maxWidth={size.x < 700 ? 210 : 500} mr={0.5} minHeight={30} >
 
       <Typography
