@@ -8,6 +8,7 @@ import { useLanguage } from '../../../contexts/LangContext';
 const TopSoldCard = ({entity, totalSale}) => {
     const {mode} = useCustomTheme();
     const {lang, setLang} = useLanguage();
+
   return (
     <Box width={'90%'} height={90} display={'flex'} flexDirection={'row'} alignItems={'center'} ml={'auto'} mr={'auto'} borderBottom={'0.5px solid #E8E8E8'} >
         <Box height={'60%'} sx={{backgroundColor:entity.color, aspectRatio:'1'}} borderRadius={2} ></Box>
@@ -15,10 +16,10 @@ const TopSoldCard = ({entity, totalSale}) => {
             <Typography>{entity.name[lang]}</Typography>
             <Box display={'flex'} flexDirection={'row'}>
                 <Typography borderRadius={1} sx={{backgroundColor: mode === 'light' ? '#E3ECFC' : '#151c29'}} color={'#5A8DEF'} mr={1} >
-                    {entity.qty} sales
+                    {entity.qty} {t('menu.sales')}
                 </Typography>
                 <Typography borderRadius={1} sx={{backgroundColor:mode === 'light' ? '#DEF9EB' : '#002411'}} color={'#39DA8A'} >
-                    USD {entity.totalSale}
+                    {entity.totalSale} TRY
                 </Typography>
             </Box>
         </Box>
@@ -29,7 +30,7 @@ const TopSoldCard = ({entity, totalSale}) => {
   )
 }
 
-
+// Renders Entities with their sale info
 const TopEntitiesList=({topSoldEntities, totalSale, label, timeline})=>{
     return(
         <Paper

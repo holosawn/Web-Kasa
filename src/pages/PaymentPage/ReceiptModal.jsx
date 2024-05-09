@@ -21,7 +21,6 @@ const getCurrentDateTimeFormatted = () => {
   };
 
 const ReceiptModal = ({cartItems, subTotal, savedByOffers, amountToPay, discount, total, activeCoupons, open, onClose, onFinish=null}) => {
-    //todo print shows extra pages rarely
     const [size] = useSize();
 
     const marketName = "Öztürk Market A.Ş.";
@@ -37,7 +36,7 @@ const ReceiptModal = ({cartItems, subTotal, savedByOffers, amountToPay, discount
         const taxRate = parseFloat(item.product.tax) / 100; // Convert the tax rate to a decimal
         const itemTax = item.computedPrice * taxRate; // Calculate the tax for the item
         return accumulatedTax + itemTax; // Accumulate the total tax
-      }, 0) * ((100 -discount)/100) ; // Initialize with 0
+      }, 0) * ((100 -discount)/100) ; // extract tax lost by discount
 
     const payments = JSON.parse(sessionStorage.getItem('pastTransactions'))
 
@@ -126,11 +125,11 @@ const Receipt = ({ marketName, address, detailedAddress, date, hour, receiptNo, 
             <Typography>{address}</Typography>
             <Typography mb={1.5} >{detailedAddress}</Typography>
             {/* Date and Hour */}
-            <Typography mr={'auto'} ml={'5%'} width={'fit-content'} >Date: {date}</Typography>
-            <Typography mr={'auto'} ml={'5%'} width={'fit-content'} >Hour: {hour}</Typography>
+            <Typography mr={'auto'} ml={'5%'} width={'fit-content'} >{t('payment.date')}: {date}</Typography>
+            <Typography mr={'auto'} ml={'5%'} width={'fit-content'} >{t('payment.hour')}: {hour}</Typography>
             {/* Receipt Number */}
 
-            <Typography mb={2} mr={'auto'} ml={'5%'} width={'fit-content'} >Fiş No: {receiptNo}</Typography>
+            <Typography mb={2} mr={'auto'} ml={'5%'} width={'fit-content'} >{t('payment.receiptNo')}: {receiptNo}</Typography>
             {/* Items */}
             {items.map((item, index) => (
                 item.product.unit === 'piece' ? (
@@ -140,7 +139,7 @@ const Receipt = ({ marketName, address, detailedAddress, date, hour, receiptNo, 
                     </Stack>
                 ) : (
                     <Stack direction={'column'} key={`${item.product.id}-${item.qty}`}  sx={{width:'90%', height:'fit-content', alignItems:'end'}} >
-                        <Typography  mr={'auto'} mb={-1}>{item.quantity / 1000}KG x {item.product.price}TL </Typography>
+                        <Typography  mr={'auto'} mb={-1}>{item.quantity / 1000}KG x {item.product.price}TRY </Typography>
                         <Stack direction={'row'} >
                             <Typography sx={{maxWidth:'70%', flexWrap:'wrap', textAlign:'start'}} >{item.product.name}    %{item.tax}</Typography>
                             <Typography ml={'auto'}>*{parseFloat(item.defaultPrice).toFixed(2)}</Typography>
@@ -152,32 +151,32 @@ const Receipt = ({ marketName, address, detailedAddress, date, hour, receiptNo, 
             <Divider sx={{my:1, width:'100%', backgroundColor:'black', strokeWidth:1    }} />
             {/* Total Tax */}
             <Stack direction={'row'} width={'85%'}  >
-                <Typography>Sub Total: </Typography>
+                <Typography>{t('payment.subTotal')}: </Typography>
                 <Typography ml={'auto'} >*{subTotal.toFixed(2)}</Typography>
             </Stack>
 
             {savedByOffers > 0 && <Stack direction={'row'} width={'85%'}  >
-                <Typography>Saved By Offers: </Typography>
+                <Typography>{t('payment.savedByOffers')}: </Typography>
                 <Typography ml={'auto'} >*{savedByOffers.toFixed(2)}</Typography>
             </Stack>}
 
             {totalDiscount > 0 && <Stack direction={'row'} width={'85%'}  >
-                <Typography>Saved By Discount: </Typography>
+                <Typography>{t('payment.savedByDiscount')}: </Typography>
                 <Typography ml={'auto'} >*{totalDiscount.toFixed(2)}</Typography>
             </Stack>}
 
             {savedByCoupons > 0 && <Stack direction={'row'} width={'85%'}  >
-                <Typography>Saved By Coupons: </Typography>
+                <Typography>{t('payment.savedByCoupons')}: </Typography>
                 <Typography ml={'auto'} >*{savedByCoupons.toFixed(2)}</Typography>
             </Stack>}
 
             <Stack direction={'row'} width={'85%'}  >
-                <Typography>Total: </Typography>
+                <Typography>{t('payment.total')}: </Typography>
                 <Typography ml={'auto'} >*{total.toFixed(2)}</Typography>
             </Stack>
 
             <Stack direction={'row'} width={'85%'}  >
-                <Typography>Tax: </Typography>
+                <Typography>{t('payment.tax')}: </Typography>
                 <Typography ml={'auto'} >*{totalTax.toFixed(2)}</Typography>
             </Stack>
 
@@ -187,23 +186,23 @@ const Receipt = ({ marketName, address, detailedAddress, date, hour, receiptNo, 
             {/* Payment Details */}
             {payments.map((payment, index) => (
                 <Stack direction={'row'} key={index} width={'90%'} >
-                    <Typography>{payment.type}</Typography>
+                    <Typography>{t(`payment.${payment.type}`)}</Typography>
                     <Typography ml={'auto'} >*{parseFloat(payment.amount).toFixed(2)}</Typography>
                 </Stack>
             ))}
             {/* Change Amount */}
             <Stack direction={'row'} width={'90%'} mb={2} >
-                <Typography>Change:</Typography>
+                <Typography>{t('payment.changeAmount')}:</Typography>
                 <Typography ml={'auto'} >*{parseFloat(changeAmount).toFixed(2)}</Typography>
             </Stack>
             {/* Additional Information */}
             
-            <Typography mr={'auto'} ml={'5%'} >Kasiyer: Kasiyer1</Typography>
+            <Typography mr={'auto'} ml={'5%'} >{t('payment.cashier')}: Kasiyer1</Typography>
             <Typography mr={'auto'} ml={'5%'} >1425 Silivri</Typography>
             <Typography mr={'auto'} ml={'5%'} >001425/001/000007/990710/000282/</Typography>
             <Stack direction={'row'} width={'90%'} >
-                <Typography>Z No:0707</Typography>
-                <Typography ml={'auto'}>EKO No:0007</Typography>
+                <Typography>{t('payment.zNo')}:0707</Typography>
+                <Typography ml={'auto'}>{t('payment.ekoNo')}:0007</Typography>
             </Stack>
             <Typography>YN07033105</Typography>
         </Box>

@@ -10,12 +10,12 @@ const initialStatus = {
 
 // Helper function to save to session storage
 const saveShiftStatusToSessionStorage = (shiftStatus) => {
-  sessionStorage.setItem('shiftStatus', JSON.stringify(shiftStatus));
+  localStorage.setItem('shiftStatus', JSON.stringify(shiftStatus));
 };
 
 // Helper function to load from session storage
 const loadShiftStatusFromSessionStorage = () => {
-  const storedStatus = sessionStorage.getItem('shiftStatus');
+  const storedStatus = localStorage.getItem('shiftStatus');
   return storedStatus ? JSON.parse(storedStatus) : initialStatus;
 };
 

@@ -1,7 +1,7 @@
-import { Box, Button, CircularProgress, Divider, Fade, Grow, Modal, Stack, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Divider, Fade, Modal, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import contaclessMethod from '../../assets/ContactlessPayment.svg'
+import contaclessMethod from '../../assets/ContactlessPayment.jpg'
 import swipeMethod from '../../assets/SwipeMethod.jpeg'
 import insertMethod from '../../assets/InsertCard.jpg'
 import PINEnter from '../../assets/PINEnter.jpg'
@@ -10,7 +10,8 @@ import { t } from 'i18next';
 const steps=['choose','contact', 'payment', 'PIN', 'approve']
 const methods=['tap', 'insert', 'swipe']
 
-const getTitle = (step, method) => {
+// Returns title according to given payment step
+const getTitle = (step) => {
   switch (step) {
     case 'choose':
       return t('payment.choosePaymentMethod');
@@ -27,26 +28,29 @@ const getTitle = (step, method) => {
   }
 }
 
-const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
-  const [proggres, setProggres]  = useState('choose')
+const PaymentModal = ({ open, onClose }) => {
+  const [proggress, setProggress]  = useState('choose')
   const [method, setMethod] = useState('')
   const [loading, setLoading] = useState(false)
 
+  // Sets payment method and advances to next proggress
   const onMethodClick = (method) => {
     setMethod(method);
-    setProggres('contact');
-    startPayment(method); // Pass method to startPayment
+    setProggress('contact');
+    startPayment(); // Pass method to startPayment
   };
   
-  const startPayment = (method) => { // Receive method as an argument
+  // Starts payment and advances after 2 seconds (2 second represent time of establishing connection in real word payments)
+  const startPayment = () => { 
     setTimeout(() => {
-      setProggres('payment');
+      setProggress('payment');
       setLoading(true);
-      initiatePayment(method); // Pass method to initiatePayment
+      initiatePayment(); 
     }, 2000);
   };
   
-  const initiatePayment = (method) => { // Receive method as an argument
+  // Connection established!! and advanced to pin enter or approval
+  const initiatePayment = () => {
     setTimeout(() => {
       setLoading(false);
       if (method === 'insert') {
@@ -57,9 +61,11 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
     }, 2000);
   };
   
+  // PIN taken and after 2 seconds that represents passing time in real world next step is approval
   const toPINInput = () => {
     setTimeout(() => {
-      setProggres('PIN');
+      setProggress('PIN');
+      // Will toggle loading state fow a while for loading icon to show up
       toggleLoading();
       setTimeout(() => {
         approvePayment();
@@ -67,9 +73,10 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
     }, 1000);
   };
   
+  // Payment will be approved and finished
   const approvePayment = () => {
     setTimeout(() => {
-      setProggres('approve');
+      setProggress('approve');
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
@@ -78,37 +85,30 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
     }, 1000);
   };
   
+  // Will toggle loading state fow a while for loading icon to show up
   const toggleLoading = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
     }, 1000);
   };
-  
+
+  // States cleared on Finish
   const finishPayment=()=>{
     setTimeout(() => {
       onClose()
       setTimeout(() => {
-        setProggres('choose')
+        setProggress('choose')
         setMethod('')
         setLoading(false)
       }, 200);
     }, 1000);
   }
 
-  // const onBackClick=()=>{
-  //   const index = steps.findIndex(str => str=== proggres);
-  //   if ( method !== 'insert' && steps[index -1] === 'PIN') {
-  //     setProggres(steps[index-2])
-  //   }
-  //   else if(index >0 ) setProggres(steps[index-1]);
-
-  // }
-
   const onCloseButtonClick=()=>{
     onClose()
     setTimeout(() => {
-      setProggres('choose')
+      setProggress('choose')
       setMethod('')
       setLoading(false)
     }, 400);
@@ -133,29 +133,26 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
           <Button sx={{position:'absolute', top:0, left:0, mt:2, ml:2}}  onClick={onCloseButtonClick} color='error' variant='contained' >
             {t('payment.cancel')}
           </Button>
-          {/* <Button sx={{position:'absolute', top:0, right:0, mt:2, mr:2}} disabled={loading} onClick={onBackClick} color='warning' variant='contained' >
-          <Typography visibility={'hidden'}  >e</Typography> Back <Typography visibility={'hidden'}>e</Typography>
-          </Button> */}
+
           <Typography variant='h5' pt={3} color={'primary'} fontWeight={700} >
-            {getTitle(proggres, method)}
+            {getTitle(proggress, method)}
           </Typography>
         </Box>
         <Divider sx={{width:'100%', mt:1}}  />
         
-        {proggres === 'choose' && <ChooseMethod onClick={onMethodClick} />}
-        {proggres === 'contact' && 
+        {proggress === 'choose' && <ChooseMethod onClick={onMethodClick} />}
+        {proggress === 'contact' && 
           <Box sx={{ marginBlock:'auto', display:'flex', flexDirection:'column', alignItems:'center' }}>
             <img src={
               method === 'swipe' ? swipeMethod : method === 'insert' ? insertMethod : contaclessMethod
             } style={{...iconStyles[method]}}  />
             <Typography color={'primary'} variant='h6' mt={6}>
               
-              {/* {t(`payment.${method === 'contactless' ? 'tap' : method}`).charAt(0).toUpperCase() + t(`payment.${method=== 'contactless' ? 'tap' : method}`).slice(1)} {t(`payment.theCard`)} */}
               {t(`payment.${method}Card`)}
             </Typography>
           </Box>
         }
-        {proggres === 'payment' && 
+        {proggress === 'payment' && 
           <Box sx={{ marginBlock:'auto', display:'flex', flexDirection:'column', alignItems:'center' }}>
 
             {loading 
@@ -167,7 +164,7 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
           </Box>
         }
         {
-          proggres === 'PIN' &&
+          proggress === 'PIN' &&
           <Box sx={{ marginBlock:'auto', display:'flex', flexDirection:'column', alignItems:'center' }}>
               <CircularProgress size={60} color='success' style={{display: loading ? 'inline' : 'none'}} />  
               <img src={PINEnter}  style={{display: loading ? 'none' : 'inline', width:150, height:150}}  /> 
@@ -176,7 +173,7 @@ const PaymentModal = ({ transaction, open, onClose , onFinish}) => {
           </Box>
         }
         {
-          proggres === 'approve' &&
+          proggress === 'approve' &&
           <Box sx={{ marginBlock:'auto', display:'flex', flexDirection:'column', alignItems:'center' }}>
             {loading 
               ? <CircularProgress size={60} color='success' />  

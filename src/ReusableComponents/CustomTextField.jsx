@@ -24,8 +24,7 @@ import { useCustomTheme } from "../contexts/CutomThemeContext";
 import { useLanguage } from "../contexts/LangContext";
 import useSize from "../CustomHooks/useSize";
 
-
-const CustomTextField=({value, setValue, sx, setNumpadFocus = null, ...props})=>{
+const CustomTextField=({value, setValue, setNumpadFocus, sx, inputProps, textFieldProps})=>{
   const [size, setSize] = useSize()
   const [isKeyboardModalOpen, setIsKeyboardModalOpen] = useState(false);    
   
@@ -33,6 +32,7 @@ const CustomTextField=({value, setValue, sx, setNumpadFocus = null, ...props})=>
     setValue(event.target.value);
   };
 
+  // to be opened when keyboard icon clicked
   const openKeyboardModal=()=>{
     setIsKeyboardModalOpen(true)
   }
@@ -41,6 +41,7 @@ const CustomTextField=({value, setValue, sx, setNumpadFocus = null, ...props})=>
     setIsKeyboardModalOpen(false)
   }
 
+  // It needs to set focus of virtual keyboard to itself on Sale page when focused
   const handleFocus = ()=>{
     if (setNumpadFocus) {
       setNumpadFocus('products')
@@ -91,9 +92,9 @@ const CustomTextField=({value, setValue, sx, setNumpadFocus = null, ...props})=>
             <KeyboardModal open={isKeyboardModalOpen} onClose={closeKeyboardModal} value={value} setValue={setValue} />
             </Stack>
           ),
+          ...inputProps
         }}
         size={size.y > 400 ? "large": 'small'}
-        
         sx={{
           display:'flex',
           flexDirection:'row',
@@ -117,7 +118,9 @@ const CustomTextField=({value, setValue, sx, setNumpadFocus = null, ...props})=>
               },
             }
           },
+          ...sx
         }}
+        {...textFieldProps}
       />
   )
 }
@@ -132,6 +135,7 @@ const KeyboardModal = ({open, onClose, value, setValue})=>{
     const inputRef = useRef()
     const [size] = useSize()
 
+    // Set coming value(value of origin textfield) to current textfield
     useEffect(()=>{
       if (open) {
         setInput(value)
@@ -196,7 +200,7 @@ const KeyboardModal = ({open, onClose, value, setValue})=>{
               height:'fit-content',
               minWidth:600,
               maxWidth:900,
-              minHeight:350,
+              minHeight:310,
               pt: {xs:1,md:2},
               p:2,
               py:size.y < 500 ? 1 : 2,
@@ -211,15 +215,18 @@ const KeyboardModal = ({open, onClose, value, setValue})=>{
               <Typography variant='h6' fontSize={size.y < 500 ? 18 : 20} fontWeight={700} color={'primary'} >
                 {t('common.search')}
               </Typography>
+              
             </Stack>
             <Divider sx={{width:'100%'}} />
             <Stack direction='row' justifyContent={'center'} alignItems={'center'} sx={{my:size.y < 500 ?  1: 3, minWidth:450, width:'100%', position:'relative'}} >
                 {/* <Typography variant='h6' fontSize={size.y< 500 ? 16: 18} noWrap sx={{width:90, position:'absolute', left:'2%'}} > 
                 {t('payment.email')}:
                 </Typography> */}
+                <SearchIcon  fontSize={size.y< 500 ? 16: 18} style={{position:'absolute', left:'3%'}}/>
+
                 <TextField type='email' value={input} autoFocus onChange={e => onInputChange(e.target.value)} inputRef={inputRef} sx={{
-                    width:'70%',
-                    ml:size.x < 1100 ? -3: size.x < 1200 ? -1:0,
+                    width:{xs:'70%', lg:'75%'},
+                    ml:size.x < 1100 ? -7: size.x < 1200 ? -9:-7,
                     minWidth:350,
                     maxWidth:'80%',
                     }}

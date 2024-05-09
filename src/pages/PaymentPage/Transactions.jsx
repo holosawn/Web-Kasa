@@ -1,10 +1,11 @@
-import { Box, Button, Stack, TextField, Typography } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
+import { Box, Button, TextField, Typography } from '@mui/material'
+import React, { useRef, useState } from 'react'
 import Numpad from '../../ReusableComponents/Numpad'
-import { getNumLayout } from '../../utils/Numpadlayouts'
+import { getNumLayout } from '../../Constants/Numpadlayouts';
 import PaymentModal from './PaymentModal';
 import useSize from '../../CustomHooks/useSize';
 import { t } from 'i18next';
+import useAlert from '../../CustomHooks/useAlert';
 
 const paymentTypes=['card', 'cash']
 
@@ -15,13 +16,17 @@ const commaKey={
 
 const Transactions = ({cartItems, amountToPay, setAmountToPay}) => {
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
+  // Current transaction state to execute
   const [transaction, setTransaction] = useState({
     amount:'',
     type:'cash'
   })
+  // State of textField input
   const inputRef = useRef()
+  const [showAlert, AlertComponent] = useAlert();
   const [size] = useSize();
 
+  // Validates given input before updating to state
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     if (inputValue === '') {
@@ -37,6 +42,8 @@ const Transactions = ({cartItems, amountToPay, setAmountToPay}) => {
     }
   }
 
+  // Callback function to pass into Numpad component
+  // It will set output of given function eith prev transaction state passed as parameter
   function handleAmountChange(setVal) {
     setTransaction(prev => ({
       ...prev,
@@ -45,15 +52,22 @@ const Transactions = ({cartItems, amountToPay, setAmountToPay}) => {
     inputRef.current.focus()
   }
 
+  // Starts card payment chain functionality
   const onCardClick=()=>{
-    setTransaction(prev => ({
-      ...prev,
-      type:'card'
-    }))
+    if (transaction.amount > amountToPay) {
+      showAlert('warning', t('payment.invalidCardAmount'), t('payment.invalidCardAmountDesc') )
+    }
+    else{
+      setTransaction(prev => ({
+        ...prev,
+        type:'card'
+      }))
 
-    setIsPaymentModalOpen(true)
+      setIsPaymentModalOpen(true)
+    }
   }
   
+  // Stores transaction into sessionStorage
   const onCashClick=()=>{
     setTransaction(prev =>({
       ...prev,
@@ -69,9 +83,10 @@ const Transactions = ({cartItems, amountToPay, setAmountToPay}) => {
       amount:'',
       type:''
     })
+    showAlert('success', t('payment.successfulCashPayment'), t('payment.successfulCashPaymentDesc') )
   }
 
-
+  // Stores transaction on card payment modal close
   const onPaymentModalClose=()=>{
 
     setAmountToPay(prev => prev - transaction.amount.replace(',', '.'))
@@ -89,12 +104,13 @@ const Transactions = ({cartItems, amountToPay, setAmountToPay}) => {
   return (
     <Box sx={{ display:'flex', width:'100%', flexDirection:'column', mt: size.y < 500 ? 0.5 : 1, mt:'auto'}}>
       <Box borderRadius={1} display={'flex'} flexDirection={'row'} sx={{width:size.y < 900 ? '98%' : '96%',mx:size.y < 900 ? '1%' : '2%', height:size.y < 400 ? 35 : size.y < 900 ? 45 : 70, mb: size.y< 400 ? 1 : 2 }}>
-          <TextField fullWidth inputRef={inputRef} sx={{mr:0.2}} InputProps={{style:{height:'100%'}}} label={t(`payment.amount`)} focused value={transaction.amount} onChange={handleInputChange} />
+          <TextField fullWidth inputRef={inputRef} autoComplete='off' sx={{mr:0.2}} InputProps={{style:{height:'100%'}}} label={t(`payment.amount`)} focused value={transaction.amount} onChange={handleInputChange} />
           <PaymentTypeButton label={t(`payment.card`)} disabled={!transaction.amount > 0 || amountToPay < 0 || !cartItems.length > 0} transaction={transaction} onCardClick={onCardClick} />
           <PaymentTypeButton label={t(`payment.cash`)} disabled={!transaction.amount > 0 || amountToPay < 0 || !cartItems.length > 0} transaction={transaction} onCardClick={onCashClick} />
       </Box>
       <Numpad setValue={handleAmountChange} layout={[...getNumLayout(t).slice(0,11), commaKey, ...getNumLayout(t).slice(11, getNumLayout(t).length)]} />
-      <PaymentModal transaction={transaction} open={isPaymentModalOpen} onClose={onPaymentModalClose} />
+      <PaymentModal open={isPaymentModalOpen} onClose={onPaymentModalClose} />
+      <AlertComponent sx={{width:330}} />
     </Box>
   )
 }

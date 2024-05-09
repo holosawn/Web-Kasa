@@ -6,7 +6,6 @@ import {
   Grid,
   IconButton,
   Modal,
-  Paper,
   Stack,
   Typography,
   CircularProgress
@@ -17,8 +16,9 @@ import Fade from "@mui/material/Fade";
 import NoImg from "../assets/NoImage.jpg";
 import { VirtuosoGrid } from "react-virtuoso";
 import { t } from "i18next";
+import ProductCard from "./ProductCard";
 
-
+// grid components for products container grid
 const gridComponents = {
   List: forwardRef(({ style, children, ...props }, ref) => (
     <Grid
@@ -29,6 +29,7 @@ const gridComponents = {
         display: "flex",
         flexWrap: "wrap",
         ...style,
+        minWidth:'100%',
       }}
     >
       {children}
@@ -39,32 +40,38 @@ const gridComponents = {
   )
 } 
 
-const Products = ({
-  products,
-  sendToRegister,
-  setNumpadFocus=null,
-  containerRef
-}) => {
-  //todo loading icon
+// setNumpadFocus is for setting focus to currentItemCard's textfield when a product set as itemInRegister
+// containerRef is for scroll buttons to get ref of VirtuosoGrid 
+const Products = ({ products, sendToRegister, setNumpadFocus=null, containerRef}) => {
 
-
-  const[itemsToRender, setItemsToRender] = useState([])
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [itemsToRender, setItemsToRender] = useState([])
+  const [isLoadingMore, setIsLoadingMore] = useState(false);// state to compute how many items will be in a row
+  const [productModalStatus, setProductModalStatus] = useState({
+    isOpen:false,
+    product:{}
+  });
+  const [containerWidth, setContainerWidth] = useState(3);// state to compute how many items will be in a row
   const refContainer = useRef();
-  const [containerWidth, setContainerWidth] = useState(3);
 
+  // fetch initial items to render
   useEffect(()=>{
-    fetchNextItems(1000)
+    getNextItems(1000)
   },[])
 
-
-  const updateContainerWidth = () => {
-    if (refContainer.current && containerWidth !== refContainer.current.offsetWidth) {
-      setContainerWidth(refContainer.current.offsetWidth);
-    }
-  };
-
+  // Fetch new products every time products changes
   useEffect(() => {
+    setItemsToRender(products.slice(0, 20));
+  }, [products]);
+
+  
+  useEffect(() => {
+    const updateContainerWidth = () => {
+      if (refContainer.current && containerWidth !== refContainer.current.offsetWidth) {
+        setContainerWidth(refContainer.current.offsetWidth);
+      }
+    };
+
+    // Observer to get size of container on every size change
     if (refContainer.current) {
       updateContainerWidth(); // Initial setup
       const observer = new ResizeObserver(() => updateContainerWidth());
@@ -77,23 +84,43 @@ const Products = ({
     }
   }, []);
 
+  // Will be passed to ProductCard as badge click handler.It stops propagation to prevent calling 
+  const openProductModal = useCallback((product) => {
+    setProductModalStatus({
+      isOpen:true,
+      product:product
+    })
+  }, [setProductModalStatus]);
 
-  useEffect(() => {
-    setItemsToRender(products.slice(0, 20));
-  }, [products]);
 
+  const closeProductModal = useCallback((event) => {
+    setProductModalStatus(prev => ({
+      isOpen: false,
+      product: prev.product
+    }))
+  },[setProductModalStatus]);
+
+
+  // If there is a discount on product applies and sendsToRegister
   const setCurrentItem = useCallback((product) =>{
-    sendToRegister({ product: product, qty: "" });
+    
+    const discountAppliedProduct = {
+      ...product,
+      price:product.discount ? parseFloat(product.price) * (100 - parseInt(product.discount.replace('%','')))/100: product.price
+    }
+
+    sendToRegister({ product: discountAppliedProduct, qty: "" });
     if (setNumpadFocus) {
       setNumpadFocus("cart");
     }
   },[])
 
-  const handleScrollerRef = useCallback((ref) => {
+  const handleScrollerRef = (ref) => {
     containerRef.current = ref;
-  }, []);
+  };
 
-  async function fetchNextItems(length) {
+  // fetches specified number of data
+  async function getNextItems(length) {
     const startIndex = itemsToRender.length;
     const endIndex = startIndex + length;
     const newItems = products.slice(startIndex, endIndex);
@@ -106,12 +133,15 @@ const Products = ({
   }
 
   return (
-    <Box mt={1} ref={refContainer} flex={1} width={'100%'} maxWidth={{xs:450, md:2000}} minHeight={150} mb={{xs:1,md:1.5}} ml={1} p={0}  >
+    <Box mt={1} ref={refContainer} flex={1} width={'100%'} maxWidth={{xs:600, md:2000}} minHeight={150} mb={{xs:1,md:1.5}} ml={1} p={0} sx={{scrollbarGutter:'stable'}}  >
       <VirtuosoGrid
         data={itemsToRender}
+        style={{
+          scrollbarGutter:'stable'
+        }}
         components={{
           ...gridComponents,
-          Footer: () => (
+          Footer: useCallback(() => (
             <Stack direction={'row'} justifyContent={'center'} alignItems={'center'} mt={1} >
               {isLoadingMore ? (
                 <CircularProgress/>
@@ -119,12 +149,13 @@ const Products = ({
                 <div></div>
               )}
             </Stack>
-          ),
-          Item: ({ children, ...props }) => (
+          ),[isLoadingMore]),
+          Item: useCallback(({ children, ...props }) => (
             <Grid
               {...props}
               item
-              xs={containerWidth < 550 ? 4 : containerWidth < 700 ? 3 : containerWidth < 900 ? 12/5 : containerWidth < 1100 ? 2 : containerWidth < 1800 ? 1.5 : 1}
+              xs={containerWidth < 550 ? 4 : containerWidth < 700 ? 3 : containerWidth < 900 ? 3 : containerWidth < 1100 ? 12/5 : containerWidth < 1800 ? 2 : 1}
+              // xs={12/5}
               style={{
                 paddingBlock: "0.5rem",
                 paddingInline:'0.5rem',
@@ -137,256 +168,23 @@ const Products = ({
             >
               {children}
             </Grid>
-          ),
+          ), [containerWidth]),
         }}
-        endReached={()=>fetchNextItems( (containerWidth/ 200) * 4  || 20)}
-
+        endReached={()=>getNextItems( (containerWidth/ 200) * 4  || 20)}
         scrollerRef={ref => handleScrollerRef(ref)}
-        
         itemContent={(index, item) => (
-            <ProductCard product={item} key={item.id} onClick={setCurrentItem} index={item.id} />
+            <ProductCard onBadgeclick={openProductModal} product={item} key={item.id} onClick={setCurrentItem} />
             )
           }
       />
+        { productModalStatus.isOpen && <ProductModal
+          isOpen={productModalStatus.isOpen}
+          product={productModalStatus.product}
+          onClose={closeProductModal}
+        />}
     </Box>
   );
 };
-
-const ProductCard = memo(({ product, style,  url =null,index, onClick,  ...props }) => {
-
-  const onCardClick = () => {
-    onClick(product)
-  };
-
-
-  const theme = useTheme();
-  const [isNonCardClick, setisNonCardClick] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const discount = product.discount
-    ? product.discount
-    : false;
-
-  const closeModal = (event) => {
-    event.stopPropagation();
-    setIsModalOpen(false);
-    setisNonCardClick(false);
-  };
-
-  const openModal = (event) => {
-    event.stopPropagation();
-    setIsModalOpen(true);
-    setisNonCardClick(true);
-  };
-
-  const onMouseDownBadge = () => {
-    setisNonCardClick(true);
-  };
-
-  const onMouseUpBadge = () => {
-    setisNonCardClick(false);
-  };
-
-  const handleCardClick = (product) => {
-    const discount = product.discount || "0";
-
-    const updatedProduct = {
-      ...product,
-      price: Math.min(
-        product.price,
-        product.price *
-          (1 - parseFloat(discount.replace("%", "")) / 100)
-      ),
-    };
-    onCardClick(updatedProduct);
-  };
-
-
-  return (
-      <Paper
-        onClick={() => handleCardClick(product)}
-        elevation={0}
-        sx={{
-          ...style,
-          backgroundColor: "background.paper",
-          width: "99%",
-          maxWidth:{xs:140, md:200},
-          maxHeight: 180,
-          height:'25vh',
-          minHeight:130,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          alignItems: "center",
-          p: 0,
-          position: "relative",
-          transition:
-            "transform 0.2s ease" /* Add a transition for smooth scaling */,
-          "&:hover": {
-            cursor: "pointer",
-            transform: "scale(1.05)",
-          },
-          "&:active": {
-            transform: isNonCardClick
-              ? "none"
-              : "scale(0.95)" /* Reduce the scale slightly on click */,
-          },
-        }}
-      >
-        <Box
-          // width={"85%"}
-          width={"100%"}
-          // minWidth={100}
-          height={{xs:'45%', md:"55%"}}
-          overflow={"visible"}
-          position={"relative"}
-          // pt={2}
-        >
-          <div>
-            <img src={`https://picsum.photos/id/${parseInt(product.code)}/300/170.webp`} style={{  position:'absolute', width:'100%', height:'100%'}} 
-              onError={(e) => {
-                e.target.onerror = null; // Prevent infinite loop
-                e.target.src = NoImg ; // Replace with the path to your fixed image
-              }} 
-            />
-         </div>
-          <Button
-            onMouseDown={onMouseDownBadge}  
-            onMouseUp={onMouseUpBadge}
-            onClick={openModal}
-            sx={{
-              boxSizing: "border-box",
-              position: "absolute",
-              top: {xs:-5,md:-14}, // Adjust top position to center the badge
-              right: {xs:-1,md:-3}, // Adjust right position to center the badge
-              width: {xs:17, md:27},
-              height: {xs:17, md:27},
-              minWidth: 0,
-              minHeight: 0,
-              borderRadius: "100%", // Make the Button circular to resemble a badge
-              fontSize: 15,
-              fontWeight: 600,
-              textTransform: "none",
-              zIndex: 999,
-              boxShadow: `0 0 0 1.5px ${theme.palette.primary.dark}`, // Adjust the alpha value (0.5) for transparency
-              backgroundColor: "background.paper",
-              transition:
-                "transform 0.3s ease" /* Add a transition for smooth scaling */,
-              "&:hover": {
-                transform:
-                  "scale(1.1)" /* Scale up the object by 10% when hovered */,
-                backgroundColor: "background.paper", // Prevent button from becoming transparent on hover
-              },
-              "&:focus": {
-                backgroundColor: "background.paper", // Prevent button from becoming transparent on focus
-              },
-              "&:active": {
-                backgroundColor: "background.paper", // Prevent button from becoming transparent on click
-                transform: "scale(1)" /* Reduce the scale slightly on click */,
-              },
-            }}
-          >
-            i
-          </Button>
-          <Box
-            position={"absolute"}
-            color={"white"}
-            bottom={0}
-            height={30}
-            width={"100%"}
-            sx={{
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-              borderRadius: 1,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {discount && (
-              <Typography
-                mr={0.5}
-                fontSize={{xs:11,md:15}}
-                fontWeight={700}
-                color={"#39c31d"}
-              >
-                {(
-                  product.price *
-                  ((100 - parseInt(discount.replace("%", ""))) / 100)
-                )
-                  .toFixed(2)
-                  .toLocaleString()
-                  .replace(/\./, ",")}{" "}
-                TRY
-              </Typography>
-            )}
-            <Typography
-              sx={{
-                textDecorationLine: discount ? "line-through" : "none",
-                color: discount ? "#d6d6d6" : "inherit",
-              }}
-              fontSize={discount ? 12 : {xs:12,md:15}}
-            >
-              {product.price.replace(/\./, ",")} {!discount && "TRY"}
-            </Typography>
-          </Box>
-        </Box>
-
-        <Typography
-          variant="subtitle2"
-          mr={"auto"}
-          ml={"auto"}
-          mt={{xs:0.5,md:1}}
-          fontWeight={700}
-        >
-          {product.code}
-        </Typography>
-        <Typography
-          textTransform={"none"}
-          mb={"auto"}
-          mt={"auto"}
-          mx={{xs:1,md:2}}
-          variant="subtitle2"
-          fontSize={{xs:9,md:12}}
-          lineHeight={1.2}
-          color={"gray"}
-          sx={{
-            wordWrap: "break-word",
-            overflow: "hidden",
-            display: "-webkit-box",
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: "vertical",
-          }}
-        >
-          {product.name.length > 65
-            ? product.name.substring(
-                0,
-                product.name.lastIndexOf(" ", 65)
-              ) + "..."
-            : product.name}
-        </Typography>
-        <ProductModal
-          isOpen={isModalOpen}
-          product={product}
-          onClose={closeModal}
-        />
-
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "black", // Semi-transparent gray overlay
-            opacity: 0,
-            ":hover": {
-              opacity: 0.15,
-            },
-          }}
-        ></Box>
-      </Paper>
-  );
-});
 
 const ProductModal = ({ isOpen, onClose, product }) => {
   const bgImg = product.images.split("|")[0] || NoImg;
@@ -397,7 +195,7 @@ const ProductModal = ({ isOpen, onClose, product }) => {
   const computedPrice = (
     product.price *
     ((100 - parseInt(discount.replace("%", ""))) / 100)
-  )
+    )
     .toFixed(2)
     .toLocaleString()
     .replace(/\./, ",");

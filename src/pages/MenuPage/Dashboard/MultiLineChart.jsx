@@ -11,28 +11,30 @@ import {
   ChartsYAxis,
 } from "@mui/x-charts";
 import { Paper } from "@mui/material";
-import { getDateOptions, dateValueFormatter } from "../utils/helpers";
+import { getDateOptions, dateValueFormatter } from "../../../utils/helpers";
 
+// data is an array of values of different lines that will be used to derive domain
+// Returns the value domain and range as an object
 function calculateLinearScaleDomain(data, marginTop, marginBottom) {
-  const minValue = 0; // Minimum value for the domain
-  const maxValue = Math.max(...data); // Maximum value from the data
+  const minValue = 0; 
+  const maxValue = Math.max(...data); 
 
   // Nice the domain to make it more human-readable
   const niceMinValue = minValue;
   const niceMaxValue = Math.ceil(maxValue / 10) * 10; // Round up to the nearest 10
 
   // Calculate the range based on the provided margins and height
-  const height = 500; // Example height of the chart
+  const height = 500; 
   const rangeMin = height - marginBottom;
   const rangeMax = marginTop;
 
-  // Return the domain and range as an object
   return {
       domain: [niceMinValue, niceMaxValue],
       range: [rangeMin, rangeMax]
   };
 }
 
+// Takes a domain (i.e. an array of two numbers representing the start and end of a range) and a count (defaulting to 5) and returns a new domain with "nice" numbers. 
 function nice(domain, count = 5) {
   let start = domain[0];
   let stop = domain[1];
@@ -46,26 +48,28 @@ function nice(domain, count = 5) {
   return [start, stop];
 }
 
+// takes a start number, a stop number, and returns an array of ticks based on the `tickIncrement` function.
+// This function is used to configure the tick numbers for a chart axis.
 function customConfigureTickNumber(startNum, stopNum){
   let start = startNum, stop = stopNum;
-  
+
   const count = 7;
-  const range = stop-start;
+
   const step = tickIncrement(startNum, stopNum, count);
   start = Math.ceil(start/step)
   stop = Math.floor(stop/step);
   const ticks=[];
-  
 
   for (let i = 0 ; i < Math.ceil(stop - start + 1); i++) {
-    ticks[i] = (start + i) * step;
+    ticks[i] = (start + i) * step; 
   }
 
   return ticks;
-};
+}
 
+//Takes a start number, a stop number, and a count and returns a step size that will result in approximately the desired number of ticks within the range.
 export function tickIncrement(start, stop, count) {
-  const e10 = Math.sqrt(50), // Adjust these values as per your requirements
+  const e10 = Math.sqrt(50), 
         e5 = Math.sqrt(10),
         e2 = Math.sqrt(2);
 
@@ -79,15 +83,18 @@ export function tickIncrement(start, stop, count) {
       : -Math.pow(10, -power) / (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1);
 }
 
-
+// series is an object contains props for a MUI graph
 export default function MultiLineChart({ series, dates, timeline, height }) {
 
   const dateObjects = dates.map((item) => new Date(item));
+
+  // Map the `series` array to an array of single coordinate values
   const dataArray = series.map((obj) => obj.data);
   const flattenData = dataArray.reduce((acc, curr) => acc.concat(curr), []);
 
-  const dateOptions = getDateOptions(timeline);
 
+  // Calculate the domain and range of the y-axis
+  const dateOptions = getDateOptions(timeline);
   const scaleProperties = calculateLinearScaleDomain(flattenData,0, 0);
   const tickValues = customConfigureTickNumber(...nice(scaleProperties.domain));
 
@@ -104,6 +111,7 @@ export default function MultiLineChart({ series, dates, timeline, height }) {
       <ResponsiveChartContainer
         margin={{ left: 60, bottom: 80 }}
         sx={{
+          // Customize the appearance of the lines
           ".MuiLineElement-root": {
             strokeWidth: 2,
           },
@@ -111,10 +119,12 @@ export default function MultiLineChart({ series, dates, timeline, height }) {
             strokeWidth: 6,
             transition: "all 0.15s ease",
           },
+          // Customize the appearance of the x-axis ticks
           ".MuiChartsAxis-tick":{
             stroke:'gray',
             strokeWidth:0.5
           },
+          // Hide the x-axis ticks that are not highlighted
           ".MuiMarkElement-root:not(.MuiMarkElement-highlighted)": {
             display: "none",
           },

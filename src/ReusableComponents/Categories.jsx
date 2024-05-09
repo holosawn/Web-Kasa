@@ -1,29 +1,24 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import categoryData from '../Data/WallmartCategoryData.json'
-import { Box, Button, Chip, Fade, Grow, IconButton, Stack, Typography, Grid } from '@mui/material'
+import React, { useCallback, useRef} from 'react'
+import CategoryCard from './CategoryCard';
+import { Box, Button, Stack, Typography, Grid } from '@mui/material'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ClearIcon from '@mui/icons-material/Clear';
 
-const currCatStyles={
-    backgroundColor:'warning.main',
-    color: 'white',
-}
-const currCatHoverStyles={
-    backgroundColor:'warning.main',
-    color: 'white',
-}
 
- const Categories = ({filterCategories, setFilterCategories}) => {
+ const Categories = ({categoryData, filterCategories, setFilterCategories}) => {
+  // Ref for scrolled component
   const scrollRef = useRef(null);
+  // Ref to hold scroll interval
   const scrollIntervalRef = useRef(null);
 
+  // Single scroll execution
   const scroll = (scrollVal)=>{
     const currPos = scrollRef.current.scrollTop;
     scrollRef.current.scrollTo({left:0, top:(currPos + scrollVal), behavior:'auto'})
   }
 
-
+  // Start scroll interval
   const startScroll = (scrollVal) => {
     if(scrollIntervalRef.current === null){
       scrollIntervalRef.current = setInterval(() => {
@@ -32,58 +27,65 @@ const currCatHoverStyles={
     }
   };
 
+  // End scroll interval
   const stopScroll = () => {
     clearInterval(scrollIntervalRef.current);
     scrollIntervalRef.current = null
   };
 
+  // Recreate func when filterCategories or setFilterCategories changes 
+  const onCategoryClick = useCallback((name, depth) => {
 
-    const onCategoryClick = useCallback((name, depth) => {
+    const catOfDepth = filterCategories[depth]// Get the current category at the given depth
 
-        const catOfDepth = filterCategories[depth]
+  // If the clicked category is already selected at the given depth, deselect it
+  if (catOfDepth !== undefined && catOfDepth === name) {
+        setFilterCategories(prev => {
+            const newArr = [...prev];
+            newArr.pop(); 
+            return newArr; 
+        });
+    }
+  // If a different category is already selected at the given depth, select the clicked category and deselect the previous one
+  else if (catOfDepth !== undefined && catOfDepth !== name ) {
 
-        if (catOfDepth !== undefined && catOfDepth === name) {
-            setFilterCategories(prev => {
-                const newArr = [...prev]; // Create a copy of the current array
-                newArr.pop(); // Remove the last element
-                return newArr; // Return the new array
-            });
-        }
-        else if (catOfDepth !== undefined && catOfDepth !== name ) {
+        setFilterCategories(prev => {
+            const newArr = [...prev];
+            newArr[depth] = name; 
+            return newArr; 
+        });
+    }
+  // If no category is selected at the given depth, select the clicked category
+  else if (catOfDepth === undefined) {
+        setFilterCategories(prev => {
+            const newArr = [...prev]; 
+            newArr[depth] = name; 
+            return newArr; 
+        });
+    }
+  },[filterCategories, setFilterCategories])
 
-            setFilterCategories(prev => {
-                const newArr = [...prev]; // Create a copy of the current array
-                newArr[depth] = name; // Remove the last element
-                return newArr; // Return the new array
-            });
-        }
-        else if (catOfDepth === undefined) {
-            setFilterCategories(prev => {
-                const newArr = [...prev]; // Create a copy of the current array
-                newArr[depth] = name; // Remove the last element
-                return newArr; // Return the new array
-            });
-        }
-    },[filterCategories, setFilterCategories])
-
-    const onChipClick = useCallback(
-      (name) => {
-        const catPos = filterCategories.indexOf(name);
-        const newArr = filterCategories.slice(0, catPos + 1); // Include the clicked category
-        setFilterCategories(newArr);
-      },
-      [filterCategories, setFilterCategories]
-    );
-
-    const onChipDeleteClick = useCallback((e,name) => {
-      e.stopPropagation()
+  // Removes categories after clicked category
+  const onChipClick = useCallback(
+    (name) => {
       const catPos = filterCategories.indexOf(name);
-      const newArr = [...filterCategories.slice(0, catPos)];
+      const newArr = filterCategories.slice(0, catPos + 1); // Include the clicked category
       setFilterCategories(newArr);
-    }, [filterCategories, setFilterCategories]); // Add filterCategories as a dependency
+    },
+    [filterCategories, setFilterCategories]
+  );
 
-    const largerValue = Math.max(0.15 * window.innerHeight, 100); // Determine the larger value between 15% of window height and 100px
-    const heightValue = `calc(90% - ${largerValue}px)`; // Construct the height value
+  // Removes clicked category and categories after
+  const onChipDeleteClick = useCallback((e,name) => {
+    e.stopPropagation()
+    const catPos = filterCategories.indexOf(name);
+    const newArr = [...filterCategories.slice(0, catPos)];
+    setFilterCategories(newArr);
+  }, [filterCategories, setFilterCategories]); 
+
+  // Heigth computing for Stack component
+  const largerValue = Math.max(0.15 * window.innerHeight, 100); 
+  const heightValue = `calc(85% - ${largerValue}px)`; 
 
   return (
     <Stack flex={1} width={'100%'} height={heightValue} direction={'column'} justifyContent={'space-between'} alignItems={'center'} >
@@ -133,12 +135,14 @@ const currCatHoverStyles={
   )
 }
 
+// catObj is object of parent category which contains child categories
 const renderCategories = (catObj, filterCategories, onCategoryClick) => {
   let categories = catObj;
   let depth = 0
 
-  const slicedCategories = filterCategories.slice(0, 3); // Slice the first three elements
-  for(const cat of slicedCategories){
+
+  // Calculate depth
+  for(const cat of filterCategories){
       if(Object.keys(categories[cat]).length > 0){
           categories = categories[cat]
           depth += 1
@@ -150,48 +154,12 @@ const renderCategories = (catObj, filterCategories, onCategoryClick) => {
       // console.log(catKey);
       return (
           <React.Fragment key={catKey} >
-              <CategoryCard key={catKey} isCurrent={filterCategories.includes(catKey)} name={catKey} onClick={() => onCategoryClick(catKey, depth)} sx={{ width:`88%`, }} />
-              {/* { ( filterCategories.includes(catKey) && Object.entries(value).length) ? renderCategories(value, depth + 1) : null} */}
+              <CategoryCard key={catKey} isCurrent={filterCategories.includes(catKey)} name={catKey} onClick={() => onCategoryClick(catKey, depth)} buttonSx={{ width:`88%`, }} />
           </React.Fragment>
           )
     })
   )
 }
-
-const CategoryCard = ({ name, onClick, sx, depth, isCurrent, ...props }) => {
-    return(
-    <Fade in={true}>
-    <Stack width={'calc(95% - 45px)'}  >
-        <Button variant='contained'  disableElevation onClick={onClick} sx={{
-            minHeight: {xs:25, md:35, l:45, lg:46, xl:55},
-            m: 0.5,
-            width:'95%',
-            color:'text.primary',
-            overflow:'hidden',
-            transition: 'transform 0.2s ease-in-out',
-                '&:hover': {
-                    transform: 'scale(1.08)',
-                    opacity: '1',
-                    color: '#6a4a96',
-                    backgroundColor:'background.default',
-                    ...((depth !== 0 && isCurrent)? currCatStyles : null),
-                },
-            backgroundColor: 'background.default',
-            justifyContent: 'space-between',
-            ...sx,
-            ...((depth !== 0 && isCurrent)? currCatHoverStyles : null),
-            }}
-            {...props}
-            >
-            <Typography variant='subtitle2'
-            fontSize={{xs:10, md:12, lg:16}}
-            noWrap overflow={'ellipsis'} textTransform={'none'} >
-                {name}
-            </Typography>
-        </Button>
-    </Stack>
-    </Fade>
-)};
 
 
 export default React.memo(Categories)

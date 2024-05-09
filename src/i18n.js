@@ -82,7 +82,8 @@ i18n
             products: 'Products',
             reports: 'Reports',
             settings: 'Settings',
-            exit: 'Exit'
+            exit: 'Exit',
+            sales:'sales'
           },
           dashboard:{
             today:'Today',
@@ -156,12 +157,12 @@ i18n
             shiftClosedContent: "The shift has been successfully closed.",
             drawerUpdated: "Drawer Updated",
             drawerUpdatedContent: "The drawer amount has been updated.",
-            
             invalidDrawerAmount:'Invalid Amount',
             invalidDrawerAmountDesc:'Drawer Amount cannotbe empty',
-            updateDrawer:'Update Drawer',
             shiftOn:'Shift On',
-            shiftOff:'Shift Off'
+            shiftOff:'Shift Off',
+            duplicateCustomer:'Customer Already Saved',
+            duplicateCustomerDesc:'This Customer is already saved in system'
           },
           payment:{
             tap:'tap',
@@ -200,11 +201,38 @@ i18n
             insertCard:'Insert Card',
             activeCoupons:'Active Coupons',
             tagCustomer:'Tag Customer',
+            customerTagged:'Customer Tagged',
+            customerTaggedDesc:'Customer Tagged Succesfully',
             detachCustomer:'Detach Customer',
+            customerDetached:'Customer Detached',
+            customerDetachedDesc:'Customer Detached Succesfully',
             selectedCustomer:'Selected Customer',
             searchCus:'Search For Customer',
             noTaggedCustomer:'No Tagged Customer',
-            noTaggedCustomerDesc:'There is no tagged customer'
+            noTaggedCustomerDesc:'There is no tagged customer',
+            cash:'Cash',
+            card:'Card',
+            marketName: 'Market Name',
+            address: 'Address',
+            detailedAddress: 'Detailed Address',
+            date: 'Date',
+            hour: 'Hour',
+            receiptNo: 'Receipt No',
+            subTotal: 'Sub Total',
+            savedByOffers: 'Saved By Offers',
+            savedByDiscount: 'Saved By Discount',
+            savedByCoupons: 'Saved By Coupons',
+            total: 'Total',
+            tax: 'Tax',
+            paymentType: 'Payment Type',
+            cashier: 'Cashier',
+            silivri: 'Silivri',
+            zNo: 'Z No',
+            ekoNo: 'EKO No',
+            invalidCardAmount:'Invalid Amount',
+            invalidCardAmountDesc:'Card payment amount cannot be more than amount to pay',
+            successfulCashPayment:'Cash payment Successful',
+            successfulCashPaymentDesc:'Cash payment executed succesfuly'
           },
           products:{
             back:"Back",
@@ -234,9 +262,6 @@ i18n
             multiPaymentDesc:'Enable multi payment to accept payments in multiple',
             exit:'Exit'
           },
-          receiipt:{
-            
-          }
         }
       },
       tr: { 
@@ -307,13 +332,14 @@ i18n
             version: 'Sürüm',
             loginTime: 'Giriş Saati',
             dashboard:'Gösterge Paneli',
-            newSales: 'Yeni Satışlar',
+            newSales: 'Satış',
             manageSales: 'Satışları Yönet',
             refunds: 'İadeler',
             products: 'Ürünler',
             reports: 'Raporlar',
             settings: 'Ayarlar',
-            exit: 'Çıkış'
+            exit: 'Çıkış',
+            sales:'satış'
           },
           dashboard: {
             today: 'Bugün',
@@ -383,12 +409,13 @@ i18n
             shiftClosedContent: "Vardiya başarıyla kapandı.",
             drawerUpdated: "Çekmece Güncellendi",
             drawerUpdatedContent: "Çekmece tutarı güncellendi.",
-
             invalidDrawerAmount: "Geçersiz Tutar",
             invalidDrawerAmountDesc: "Çekmece tutarı boş olamaz",
-            updateDrawer: "Çekmeceyi Güncelle",
             shiftOn: "Vardiya Açık",
-            shiftOff: "Vardiya Kapalı"
+            shiftOff: "Vardiya Kapalı",
+            shiftMenu: "Vardiya Menüsü",
+            duplicateCustomer:'Müşteri Zaten Var',
+            duplicateCustomerDesc:'Bu müşteri sistemde zaten kayıtlı'
           },
           payment: {
             billTotal: "Fatura Toplamı",
@@ -426,12 +453,34 @@ i18n
             insertCard:'Kartı Yerleştirin',
             activeCoupons:'Aktif Kuponlar',
             tagCustomer:'Müşteriyi Etiketle',
+            customerTagged: "Müşteri Etiketlendi",
+            customerTaggedDesc: "Müşteri Başarıyla Etiketlendi",
             detachCustomer:'Müşteriyi Ayır',
+            customerDetached: "Müşteri Ayrıldı",
+            customerDetachedDesc: "Müşteri Başarıyla Ayrıldı",
             selectedCustomer:'Seçilen Müşteri',
             searchCus:'Müşteri Ara',
             noTaggedCustomer:'Etiketli Müşteri Yok',
-            noTaggedCustomerDesc:'Etiketlenmiş müşteri yok'
-
+            noTaggedCustomerDesc:'Etiketlenmiş müşteri yok',
+            cash:'Nakit',
+            date: 'Tarih',
+            hour: 'Saat',
+            receiptNo: 'Fiş No',
+            subTotal: 'Alt Toplam',
+            savedByOffers: 'Tekliflerden Tasarruf',
+            savedByDiscount: 'İndirimlerden Tasarruf',
+            savedByCoupons: 'Kuponlardan Tasarruf',
+            total: 'Toplam',
+            tax: 'Vergi',
+            changeAmount: 'Para Üstü',
+            cashier: 'Kasiyer',
+            silivri: 'Silivri',
+            zNo: 'Z No',
+            ekoNo: 'EKO No',
+            invalidCardAmount:'Geçersiz Tutar',
+            invalidCardAmountDesc:'Kart ödeme tutarı, ödenmesi gereken tutardan fazla olamaz',
+            successfulCashPayment:'Nakit ödemesi başarılı',
+            successfulCashPaymentDesc:'Nakit ödemesi başarıyla gerçekleştirildi'
           },
           products: {
             back: "Geri",
@@ -536,7 +585,8 @@ i18n
             products: 'Товары',
             reports: 'Отчеты',
             settings: 'Настройки',
-            exit: 'Выход'
+            exit: 'Выход',
+            sales:'продажи'
           },
           dashboard: {
             today: 'Сегодня',
@@ -609,9 +659,11 @@ i18n
             drawerUpdatedContent: "Сумма в кассе обновлена.",
             invalidDrawerAmount: "Неверная Сумма",
             invalidDrawerAmountDesc: "Сумма в кассе не может быть пустой",
-            updateDrawer: "Обновить Кассу",
             shiftOn: "Смена Открыта",
-            shiftOff: "Смена Закрыта"
+            shiftOff: "Смена Закрыта",
+            shiftMenu: "Меню смены",
+            duplicateCustomer:'Клиент уже сохранен',
+            duplicateCustomerDesc:'Этот клиент уже сохранен в системе'
           },
           payment: {
             billTotal: "Общая сумма счета",
@@ -649,12 +701,32 @@ i18n
             insertCard:'Вставьте карту',
             activeCoupons:'Активные купоны',
             tagCustomer:'Отметить клиента',
+            customerTagged: "Клиент Помечен",
+            customerTaggedDesc: "Клиент Успешно Помечен",
             detachCustomer:'Отсоединить клиента',
             selectedCustomer:'Выбранный клиент',
             searchCus:'Поиск клиента',
             noTaggedCustomer:'Нет отмеченных клиентов',
-            noTaggedCustomerDesc:'Нет отмеченных клиентов'
-
+            noTaggedCustomerDesc:'Нет отмеченных клиентов',
+            card:'Карта',
+            cash:'Наличные',
+            date: 'Дата',
+            hour: 'Час',
+            receiptNo: 'Номер чека',
+            subTotal: 'Подитог',
+            savedByOffers: 'Сэкономлено по предложениям',
+            savedByDiscount: 'Сэкономлено по скидкам',
+            savedByCoupons: 'Сэкономлено по купонам',
+            total: 'Общий',
+            tax: 'Налог',
+            changeAmount: 'Сдача',
+            cashier: 'Кассир',            
+            zNo: 'З No',
+            ekoNo: 'ЭКО No',
+            invalidCardAmount:'Неверная Сумма',
+            invalidCardAmountDesc:'Сумма оплаты по карте не может превышать сумму к оплате',  
+            successfulCashPayment:' Наличный платеж успешен',
+            successfulCashPaymentDesc:'Наличный платеж выполнен успешно'
           },
           products: {
             back: "Назад",

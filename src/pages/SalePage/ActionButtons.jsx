@@ -7,13 +7,8 @@ import ForwardSharpIcon from "@mui/icons-material/ForwardSharp";
 import { FiberManualRecord } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import {
-  Box,
   Button,
-  Fade,
   Grid,
-  Icon,
-  IconButton,
-  Modal,
   Stack,
   Typography,
 } from "@mui/material";
@@ -22,35 +17,10 @@ import { useShiftStatus } from "../../contexts/ShiftContext";
 import { t } from "i18next";
 import AddCustomerModal from "./AddCustomerModal";
 
-const ActionButton = ({ children, ...props }) => (
-  <Button
-    variant="contained"
-    sx={{
-      width: "100%",
-      height:'90%',
-      // minWidth: 10,
-      textTransform: "none",
-      p: 0,
-      px: 1,
-      minHeight:{xs: 32, md:40}
 
-    }}
-    {...props}
-  >
-    <Stack
-      direction={"row"}
-      justifyContent={"start"}
-      alignItems={"center"}
-      width={"100%"}
-    >
-      {children}
-    </Stack>
-  </Button>
-);
-
-export const ActionButtons = ({onProductsButtonClick}) => {
+export const ActionButtons = () => {
+  // State to show AddCustomerModal
   const [isCusModalOpen, setIsCusModalOpen] = useState(false)
-  const {shiftStatus, setShiftStatus} = useShiftStatus()
   const navigate = useNavigate();
 
   function openCustomerModal(){
@@ -60,8 +30,7 @@ export const ActionButtons = ({onProductsButtonClick}) => {
     setIsCusModalOpen(false)
   }
 
-  const onProductClick=()=>{
-    onProductsButtonClick();
+  const onProductsClick=()=>{
     navigate('/Products')
   }
 
@@ -71,13 +40,14 @@ export const ActionButtons = ({onProductsButtonClick}) => {
       direction={"row"}
       width={"90%"}
       mt={{ md:1, lg:2 }}
-      height={{xs:"80px",md:'130px', lg:'135px'}}
+      minHeight={{xs:80,md:110, xl:130}}
+      maxHeight={{xs:80,md:110, xl:130}}
       columnSpacing={1}
       rowSpacing={0.5}
       mb={1}
     >
       <Grid item xs={6} sx={{display:'flex', justifyContent:'center', alignItems:'center'}} >
-        <ActionButton color={"info"} onClick={onProductClick} >
+        <ActionButton color={"info"} onClick={onProductsClick} >
           <LocalOfferOutlinedIcon
             // fontSize="medium"
             key={'Products'}
@@ -144,6 +114,7 @@ export const ActionButtons = ({onProductsButtonClick}) => {
 export const SysControlButtons = () => {
   const navigate = useNavigate();
   const [isShiftModalOpen, setIsShiftModalOpen] = useState(false)
+  //Shift context reached to display related data
   const {shiftStatus, setShiftStatus} = useShiftStatus()
 
   function openModal(){
@@ -159,11 +130,12 @@ export const SysControlButtons = () => {
       direction={"row"}
       justifyContent={"space-between"}
       width={"95%"}
-      height={'10%'}
-      minHeight={'45px'}
-      maxHeight={'100px'}
-      my={{xs:0.2, lg:1}}
-      mt={2}
+      // height={'10%'}
+      minHeight={{xs:45, md:55, lg:65, xl:80}}
+      maxHeight={{xs:45, md:55, lg:65, xl:80}}
+
+      mb={{xs:0.2, lg:1}}
+      mt='auto'
     >
       <Button
         variant="contained"
@@ -204,10 +176,10 @@ export const SysControlButtons = () => {
             {t('sale.shiftMenu')}
           </Typography>
 
-          <Stack direction={'row'} sx={{width:'85%', justifyContent:'center'}} >
+          <Stack direction={'row'} sx={{width:'100%', justifyContent:'center', alignItems:'center'}} >
             <FiberManualRecord sx={{color: (shiftStatus.isOpen && !shiftStatus.clockedOut ) ? 'green' : 'red', width:0.15, mr:0.5 }}  />
             <Typography 
-              overflow={'visible'} noWrap
+              overflow={'visible'} noWrap 
               sx={{ display: "flex", justifyContent: "center", fontSize:{xs:'9px', md:'12px', lg:'16px'}}}
             >
               {t(`sale.shift${(shiftStatus.isOpen && !shiftStatus.clockedOut ) ? 'On' : 'Off'}`)}
@@ -223,3 +195,28 @@ export const SysControlButtons = () => {
 
 
 export default ActionButtons;
+
+const ActionButton = ({ children, ...props }) => (
+  <Button
+    variant="contained"
+    sx={{
+      width: "100%",
+      height:'90%',
+      textTransform: "none",
+      p: 0,
+      px: 1,
+      minHeight:{xs: 32, md:40}
+
+    }}
+    {...props}
+  >
+    <Stack
+      direction={"row"}
+      justifyContent={"start"}
+      alignItems={"center"}
+      width={"100%"}
+    >
+      {children}
+    </Stack>
+  </Button>
+);

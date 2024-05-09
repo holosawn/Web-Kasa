@@ -2,18 +2,18 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 
 const useFetchData = (url) => {
-    //todo integrate abortController
     const [data, setdata] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState();
 
     const cache = useRef({});
 
-    // Fetches data if it's not cached
+    // Fetches data if it's not cached already
     useEffect(()=>{
-        if (cache.current[url]) {
+        if (cache.current?.[url]) {
             setdata(cache.current[url])
         } else{
+            
             async function fetchData(url){
                 setIsLoading(true)
                 try {
@@ -31,7 +31,7 @@ const useFetchData = (url) => {
         }
       },[url])
 
-
+// console.log(error);
   return [data, error, isLoading]
 }
 

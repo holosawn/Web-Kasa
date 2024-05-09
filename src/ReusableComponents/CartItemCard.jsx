@@ -10,61 +10,40 @@ import {
   import HighlightOffSharpIcon from "@mui/icons-material/HighlightOffSharp";
 import { t } from "i18next";
 
-  
-const CartItemCard = ({ item, setCartItems, setItemInRegister=null,
-   onEditClick
-   }) => {
-    const isPiece = item.product.unit === "piece";
-    const amount = isPiece ? item.qty : item.qty / 1000;
 
-    const formattedQty =
-      amount.toFixed(isPiece ? 0: 3).toLocaleString("fullwide", {
-        maximumFractionDigits: 2,
-        useGrouping: false,
-      }).replace(".", ",") + (isPiece ? "" : "kg");
+  // A component renders data of items in cart. It can have delete and edit functionality if related functions passed
+  // Cart item is not always needs to be editable so if onEditClick is null there won't be edit icon 
+  const CartItemCard = ({item, onDeleteClick, onEditClick, boxSx, boxProps }) => {
+
+    const isPiece = item.product.unit === "piece"; 
+    const amount = isPiece ? item.qty : item.qty / 1000; // Calculate the amount based on the unit
+
+    const isIconButtonsActive = onEditClick || onDeleteClick
   
-    const formattedPrice = item.computedPrice
-      .toFixed(3)
+    const formattedQtyString =
+      amount
+        .toFixed(isPiece ? 0 : 3) // Format the quantity to have 3 decimal places for non-piece items
+        .toLocaleString("fullwide", {
+          maximumFractionDigits: 2, // Set the maximum number of decimal places to 2
+          useGrouping: false, // Disable grouping of digits
+        })
+        .replace(".", ",") + (isPiece ? "" : "kg"); // Add the unit to the formatted quantity
+  
+    const formattedPriceString = item.computedPrice
+      .toFixed(3) // Format the price to have 3 decimal places
       .toLocaleString("fullwide", {
-        maximumFractionDigits: 3,
-        useGrouping: false,
+        maximumFractionDigits: 3, // Set the maximum number of decimal places to 3
+        useGrouping: false, // Disable grouping of digits
       })
       .replace(".", ",")
-      .slice(0, 18);
-  
-    const onDeleteIconClick = useCallback(() => {
-      setCartItems((prevCartItems) => {
-        // Filter out the item with the given ID
-        const updatedCartItems = prevCartItems.filter(
-          (cartItem) => cartItem.product.code !== item.product.code
-        );
-        return updatedCartItems || [];
-      });
-    }, [item, setCartItems]);
-  
-    const onEditIconClick = setItemInRegister ?( () => {
-      setItemInRegister({
-        ...item,
-        qty:item.qty.toLocaleString('fullwide', {
-          maximumFractionDigits: 0,
-          useGrouping: true
-      }).replace(/,/g, '.')
-      });
-      setCartItems((prev) => {
-        const filteredCartItems = prev.filter(
-          (cartItem) => cartItem.product.code !== item.product.code
-        );
-        return filteredCartItems;
-      });
-      if(onEditClick) onEditClick();
-    })
-    : null
+      .slice(0, 18); // Limit the length of the formatted price
   
     return (
       <Grow in={true} translate="yes" appear={true} >
       <Box
         display={"flex"}
         alignItems={"center"}
+        justifyContent={ isIconButtonsActive ? 'start' : 'center'}
         my={0.5}
         position={"relative"}
         sx={{
@@ -75,37 +54,40 @@ const CartItemCard = ({ item, setCartItems, setItemInRegister=null,
           height: {xs:65, md:85}, // Set the height to the maximum content height
           maxHeight: 90, // Set the height to the maximum content height
           py: 0.5,
+          ...boxSx,
         }}
+        {...boxProps}
       >
-        <Stack
+        { isIconButtonsActive &&  <Stack
           direction={"column"}
           justifyContent={"space-around"}
           height={"100%"}
           mx={0.5}
         >
-          <IconButton
+          { onDeleteClick && <IconButton
             variant="contained"
             color="error"
-            onClick={onDeleteIconClick}
+            onClick={()=>onDeleteClick(item)}
             sx={{ p: 0 }}
           >
             <HighlightOffSharpIcon sx={{ fontSize: {xs:20, md:30} }} />
-          </IconButton>
+          </IconButton>}
   
           { 
-            setItemInRegister && <IconButton
+            onEditClick && <IconButton
               variant="contained"
               color="primary"
-              onClick={onEditIconClick}
+              onClick={() => onEditClick(item)}
               sx={{ p: 0 }}
             >
               <EditIcon sx={{ fontSize: {xs:20, md:30} }} />
             </IconButton>
           }
         </Stack>
+        }
   
         <Box
-          width={"calc(100% - 45px)"}
+          width={`calc(100% - ${isIconButtonsActive ? '4' : '2'}5px)`}
           height={"100%"}
           display={"flex"}
           flexDirection={"column"}
@@ -127,8 +109,8 @@ const CartItemCard = ({ item, setCartItems, setItemInRegister=null,
               flexWrap={"wrap"}
               fontSize={{xs:10,md:14}}
             >
-              x {formattedQty}
-              {formattedQty.length > 15 && "..."}
+              x {formattedQtyString}
+              {formattedQtyString.length > 15 && "..."}
             </Typography>
             <Typography
               variant="h7"
@@ -155,7 +137,6 @@ const CartItemCard = ({ item, setCartItems, setItemInRegister=null,
                 <React.Fragment key={offer.name} >
                   <Typography
                     variant="h7"
-                    // fontSize={12}
                     fontSize={{xs:9,md:12}}
                     color={"warning.main"}
                   >{offer.name}</Typography>
@@ -184,8 +165,8 @@ const CartItemCard = ({ item, setCartItems, setItemInRegister=null,
               {t('sale.total')}
             </Typography>
             <Typography variant="h7" fontSize={{xs:9,md:12}} color={"secondary"}>
-              {formattedPrice}
-              {formattedPrice.length > 10 && "..."} TRY
+              {formattedPriceString}
+              {formattedPriceString.length > 10 && "..."} TRY
             </Typography>
           </Stack>
   

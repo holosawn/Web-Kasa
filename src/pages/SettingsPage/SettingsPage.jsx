@@ -1,6 +1,6 @@
 import React, { Children, useState } from 'react';
 import { Box, Button, Container, Divider, Grid, MenuItem, Select, Stack, Switch, Typography, colors, styled, useTheme } from '@mui/material';
-import LangSelector from '../../PageComponents/LoginPage/LangSelector';
+import LangSelector from '../../ReusableComponents/LangSelector';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ReceiptModal from '../PaymentPage/ReceiptModal';
@@ -11,6 +11,7 @@ import { t } from 'i18next';
 import { useLanguage } from '../../contexts/LangContext';
 import { useNavigate } from 'react-router-dom';
 
+// Values for printer test
 const cartItems =
 [
   {
@@ -87,9 +88,10 @@ const payments = [
   }
 ]
 
-const Settings = () => {
+const SettingsPage = () => {
   const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false)
   const {mode, setMode} = useCustomTheme();
+  // Lang context used to trigger re-render when language changes
   const {lang, setLang} = useLanguage();
   const [size] = useSize();
   const navigate = useNavigate();
@@ -97,11 +99,14 @@ const Settings = () => {
   const closeReceiptModal=()=>{
     setIsReceiptModalOpen(false)
   }
+
+  // Store payments to reach them on receipt modal
   const openReceiptModal=()=>{
     sessionStorage.setItem('pastTransactions', JSON.stringify(payments))
     setIsReceiptModalOpen(true)
   }
 
+  // Event handler for theme 
   const handleSwitchChange = (e)=>{
     setMode(e.target.checked ? 'light' : 'dark')
   }
@@ -110,6 +115,7 @@ const Settings = () => {
   return (
     <Box flex={1} minHeight={375}  minWidth={665} display="flex" flexDirection="column" alignItems={'center'} textAlign={'center'} sx={{height:'100vh', width:'100vw',}} >
       <Grid container bgcolor={'background.paper'} sx={{borderRadius: size.x< 700 ? 0 : 3, my:'auto', width: size.x < 700 ? '100%' : '80%', heigth:size.y < 500 ? '100%' : '80%'}} >
+        
         <Grid item xs={12} my={3} mb={3}>
           <Typography color={'primary'} fontSize={{xs:16, md:22, lg:26, xl:30}} variant='h5' fontWeight={700} letterSpacing={0.7} >{t('settings.applicationSettings')}</Typography>
         </Grid>
@@ -179,9 +185,6 @@ const Settings = () => {
   );
 };
 
-
-export default Settings
-
 const TitleWithDescription = ({ title, description }) => (
   <Stack direction="column" alignItems="start">
     <Typography variant="h6" fontSize={{xs:12, md:16, xl:20}} fontWeight={500}>
@@ -214,8 +217,6 @@ const SettingsButton = ({ label, onClick, sx }) => {
   </Button>
 )};
 
-
-
 const ThemeSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase': {
     '&.Mui-checked': {
@@ -239,3 +240,7 @@ const ThemeSwitch = styled(Switch)(({ theme }) => ({
     opacity: 1,
   },
 }));
+
+export default SettingsPage
+
+

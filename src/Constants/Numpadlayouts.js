@@ -57,11 +57,14 @@ const getNumLayout =(t)=>{
       name: "0",
     },
     {
+      name: "00",
+    },
+    {
       name: 'Space',
       onClick: (setVal) => setVal((prev) => prev + ' '),
     },
     {
-      name: "00",
+      name: "000",
     },
 ]
 

@@ -1,12 +1,14 @@
 import React from "react";
 import { Box, Icon, Paper, Typography } from "@mui/material";
-import TinyLineChart from "../../../ReusableComponents/TinyLineChart";
+import TinyLineChart from "./TinyLineChart";
 
+// CurrentValue will also be shown as text
+// ChartXaxisData and chartYaxisData is needed for tiny chart in card
 const SaleInfoCard = ({ currentValue, label, iconBgcolor, chartXaxisData, chartYaxisData, timeline, iconSrc, iconSx, imgSx }) => {
   const isMonthly = timeline === 'thisMonth' || timeline === 'lastMonth'
   const isWeekly = timeline === 'thisWeek' || timeline === 'lastWeek'
   
-  const tinyLineChartStyle = {
+  const chartContainerStyle = {
     width: isMonthly ? "calc(102%)" : isWeekly? "calc(116%)":  "calc(114%)",
     left: isMonthly ? "calc(-1%)" :  isWeekly? "calc(-8%)": 'calc(-7%)'
   };
@@ -49,7 +51,7 @@ const SaleInfoCard = ({ currentValue, label, iconBgcolor, chartXaxisData, chartY
         <img src={iconSrc} style={{ height: 25, ...imgSx, }} />
       </Icon>
     </Box>
-    <Box position={'absolute'} height={'100px'} overflow={'visible'} {...tinyLineChartStyle} bottom={0}>
+    <Box position={'absolute'} height={'100px'} overflow={'visible'} {...chartContainerStyle} bottom={0}>
       <TinyLineChart xData={chartXaxisData} yData={chartYaxisData} dataLabel={label} timeline={timeline} />
     </Box>
   </Paper>

@@ -14,7 +14,7 @@ const Actions = () => {
         direction={"row"}
         width={"90%"}
         mt={{ md:1, lg:2 }}
-        height={{xs:"80px",md:'130px', lg:'108px'}}
+        height={{xs:"80px",md:'108px',}}
         columnSpacing={1}
         rowSpacing={0.5}
         mb={1} 

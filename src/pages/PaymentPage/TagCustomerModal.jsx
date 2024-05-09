@@ -1,5 +1,5 @@
 import { Box, Button, Container, Divider, Fade, Grid, Menu, MenuItem, MenuList, Modal, Popper, Stack, TextField, Typography, colors } from '@mui/material'
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useMemo, useRef, useState, useEffect } from 'react'
 import { ArrowBack, Preview, WrapText } from '@mui/icons-material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { enLayout, trLayout, ruLayout } from "../../LangLayouts/LayoutsWithoutArrows";
@@ -14,21 +14,24 @@ import '../../pages/LoginPage/loginKeyboard.css'
 import useAlert from '../../CustomHooks/useAlert';
 import LoadingButton from '../../ReusableComponents/LoadingButton';
 import useFetchData from '../../CustomHooks/useFetchData'
-import CustomTextFieldWithMenu from '../../ReusableComponents/CustomTextfieldWithMenu';
+import TextFieldWithMenu from '../../ReusableComponents/TextFieldWithMenu'
 
+// Layouts for keyboard
 const layouts = {
     en: enLayout,
     ru: ruLayout,
     tr: trLayout,
   };
 
-
 const AddCustomerModal=({taggedCustomer, setTaggedCustomer, onDeleteCoupon, activeCoupons, open, onClose})=>{
+
     const [customers, error, isDataLoading] = useFetchData('Customers')
     const [input, setInput] = useState('')
+    // Ref of virtual keyboard
     const keyboardRef = useRef()
     const [layout, setLayout] = useState("default");
     const {lang, setLang} = useLanguage();
+    // Ref of textfield input
     const inputRef = useRef()
 
     const {mode} = useCustomTheme()
@@ -38,110 +41,111 @@ const AddCustomerModal=({taggedCustomer, setTaggedCustomer, onDeleteCoupon, acti
     const [isDetachLoading, setIsDetachLoading] = useState(false);
 
 
+    useEffect(()=>{
+      const getFullStringOfCustomer=(cus)=>{
+        return `${cus.name} ${cus.surname} ${cus.telNo} ${cus.email}`
+      }
+      const storedTaggedCustomer = JSON.parse(sessionStorage.getItem('taggedCustomer'))
+      if (Object.keys(storedTaggedCustomer).length > 0) {
+        setInput(getFullStringOfCustomer(storedTaggedCustomer))        
+      }
+    },[])
+
+
+    // Sets state and keyboard value on field change
     const onInputChange=(inputVal)=>{
-        setInput(inputVal)
-        keyboardRef.current.setInput(inputVal)
-      }
+      setInput(inputVal)
+      keyboardRef.current.setInput(inputVal)
+    }
 
-      function handleShift() {
-          const newLayoutName = layout === "default" ? "shift" : "default";
-          setLayout(newLayoutName);
-      }
+    function handleShift() {
+        const newLayoutName = layout === "default" ? "shift" : "default";
+        setLayout(newLayoutName);
+    }
 
-      const onChange = (input) => {
-          setInput(input)
+    // Sets state value on keyboard value change
+    const onChange = (input) => {
+        setInput(input)
+    };
+
+    // Different function on differen virtual keyboard button
+    function onKeyPress(button) {
+        if (button === "{shift}" || button === "{lock}") handleShift();
+        if (button === "{clear}") onInputChange("");
+        if (button === "{bksp}") customOnBksp();
+    }
+
+    const customOnBksp = () => {
+        setInput(prev => prev.slice(0, -1))
       };
 
-      function onKeyPress(button) {
-          if (button === "{shift}" || button === "{lock}") handleShift();
-          if (button === "{clear}") onInputChange("");
-          if (button === "{bksp}") customOnBksp();
-      }
-
-      const customOnBksp = () => {
-          setInput(prev => prev.slice(0, -1))
-        };
-
+    // Customers filttered according to input state
     const filteredCustomers = useMemo(() => {
-        if (!input) {
-          return customers;
-        }
-
-        return customers.filter((cus) => {
-          const fullInfo = `${cus.name} ${cus.surname} ${cus.telNo} ${cus.email}`;
-          const searchTerm = `${input}`.toLowerCase();
-
-          return (
-            // cus.name.toLowerCase().includes(searchTerm) ||
-            // cus.surname.toLowerCase().includes(searchTerm) ||
-            // cus.telNo.toLowerCase().includes(searchTerm) ||
-            // cus.email.toLowerCase().includes(searchTerm) ||
-            // fullName.toLowerCase().includes(searchTerm) ||
-            // (fullName.toLowerCase() + ' ' + cus.telNo.toLowerCase()).includes(searchTerm)
-
-            fullInfo.toLocaleLowerCase().includes(searchTerm)
-          );
-        });
-      }, [input, customers]);
-
-      const onMenuItemClick=(cus, extraOnClick)=>{
-        extraOnClick(`${cus.name} ${cus.surname} ${cus.telNo}`)
-        setTaggedCustomer(cus)
+      if (!input) {
+        return customers;
       }
+      // Return if full string that consists values of customer includes input
+      return customers.filter((cus) => {
+        const fullInfo = `${cus.name} ${cus.surname} ${cus.telNo} ${cus.email}`;
+        const searchTerm = `${input}`.toLowerCase();
 
-      const onTagCustomerClick=()=>{
-        setIsTagLoading(true)
+        return (
+          fullInfo.toLocaleLowerCase().includes(searchTerm)
+        );
+      });
+    }, [input, customers]);
+
+    // For menu of CustomTextFieldWithMenu 
+    // extraOnClick will be given in CustomTextFildWithMenu component
+    const onMenuItemClick=(cus, extraOnClick)=>{
+      extraOnClick(`${cus.name} ${cus.surname} ${cus.telNo}`)
+      setTaggedCustomer(cus)
+    }
+
+    const onTagCustomerClick=()=>{
+      setIsTagLoading(true)
+      setTimeout(()=>{
+        sessionStorage.setItem('taggedCustomer', JSON.stringify(taggedCustomer))
+        setIsTagLoading(false)
+        showAlert('success', t('payment.customerTagged'),t('payment.customerTaggedDesc'))
+      },1000)
+    }
+
+    // Clears input and customer dependent coupons when customer detached
+    const onDetachCustomerClick=()=>{
+      setIsDetachLoading(true)
+      const customerDependentCoupons = activeCoupons.filter(coup => coup.check && coup.check === 'customer')
+      customerDependentCoupons.map(coup => {
+        onDeleteCoupon(coup)
+      })
+      setInput('')
+
+      if (Object.keys(taggedCustomer).length  === 0) {
         setTimeout(()=>{
-          sessionStorage.setItem('taggedCustomer', JSON.stringify(taggedCustomer))
-          showAlert('success', 'Customer Tagged', 'Customer tagged succesfully')
-          setIsTagLoading(false)
+          showAlert('success', t('payment.noTaggedCustomer'),t('payment.noTaggedCustomerDesc'))
+          setIsDetachLoading(false)
         },1000)
+          
       }
+      else{
+        setTaggedCustomer({})
+        sessionStorage.setItem('taggedCustomer', JSON.stringify({}))
+        setTimeout(()=>{
+          showAlert('success', t('payment.customerDetached'), t('payment.customerDetachedDesc'))
+          setIsDetachLoading(false)
+        },1000)
 
-      const onDetachCustomerClick=()=>{
-        setIsDetachLoading(true)
-        const customerDependentCoupons = activeCoupons.filter(coup => coup.check && coup.check === 'customer')
-        customerDependentCoupons.map(coup => {
-          onDeleteCoupon(coup)
-        })
-        setInput('')
-
-        if (Object.keys(taggedCustomer).length  === 0) {
-          setTimeout(()=>{
-            showAlert('success', 'No Customer', 'There are no customer detached')
-            setIsDetachLoading(false)
-          },1000)
-            
-        }
-        else{
-          setTaggedCustomer({})
-          sessionStorage.setItem('taggedCustomer', JSON.stringify({}))
-          setTimeout(()=>{
-            showAlert('success', 'Customer detached', 'Customer detached succesfully')
-            setIsDetachLoading(false)
-          },1000)
-  
-        }
       }
+    }
 
-      return isDataLoading? (
-        <Container>
-            <Typography>Loading</Typography>
-        </Container>
-    )
-    : error ? (
-        <Container>
-            <Typography>{error}</Typography>
-        </Container>
-    )
-    : (
+  return isDataLoading || error ? null : (
       <Modal
         open={open}
         onClose={onClose}
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
         sx={{
-        //   zIndex:999
+          zIndex:9999
         }}
       >
         <Fade in={open}>
@@ -157,7 +161,6 @@ const AddCustomerModal=({taggedCustomer, setTaggedCustomer, onDeleteCoupon, acti
               bgcolor: "background.paper",
               width: '70vw',
               height:'fit-content',
-              maxHeight:'95%',
               minWidth:600,
               maxWidth:900,
               minHeight:310,
@@ -180,7 +183,7 @@ const AddCustomerModal=({taggedCustomer, setTaggedCustomer, onDeleteCoupon, acti
 
             <Stack direction={'column'} width={'100%'} my={{xs:1, md:2}} gap={{xs:1,md:2}} alignItems={'center'}  sx={{overflowY:'auto', }}>
                 <Stack direction={'row'} justifyContent={'space-between'} my={0.5} px={1} mt={1} width={'100%'} >
-                  <CustomTextFieldWithMenu
+                  <TextFieldWithMenu
                     onValueChange={onInputChange}
                     value={ input}
                     inputRef={(r) => (inputRef.current = r)}
@@ -223,7 +226,6 @@ const AddCustomerModal=({taggedCustomer, setTaggedCustomer, onDeleteCoupon, acti
                     }}
                     >
                         {t('payment.tagCustomer')}
-                        {/* Tag Customer */}
                 </LoadingButton>
 
                 <LoadingButton size='large'  variant='contained' color='error' onClick={onDetachCustomerClick} isLoading={isDetachLoading} disabled={Object.keys(JSON.parse(sessionStorage.getItem('taggedCustomer')) || {}).length === 0}

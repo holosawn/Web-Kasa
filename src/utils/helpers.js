@@ -1,5 +1,6 @@
 import React from 'react'
 
+// Returns options for date value display. Passed as parameter to dateValueFormatter
 function getDateOptions(timeline){
     if (timeline === "today" || timeline === "yesterday") {
         return { hour: "2-digit" };
@@ -8,6 +9,7 @@ function getDateOptions(timeline){
     }
 };
 
+// To be used in MUI chart to display date values
 function dateValueFormatter(dateItem, dateOptions){
     return dateItem.toLocaleString("En-us", dateOptions);
 };
@@ -35,7 +37,37 @@ function productArrHandler(productArr){
     return updatedProductArr
 };
 
+const salesDataHandler = (data) => {
 
-export {getDateOptions, dateValueFormatter, productArrHandler}
+    const salesResult={};
+    
+    for (const financial in data.salesResultOverTime ) {
+        if (financial === 'date') {
+            continue;
+        } else {
+            salesResult[financial] = data.salesResultOverTime[financial].values.reduce((acc, curr)=> acc+curr, 0)
+        }
+    }
+    
+    const salesDeduction={};
+    
+    for (const financial in data.salesDeductionOverTime ) {
+        if (financial === 'date') {
+            continue;
+        } else {
+            salesDeduction[financial] = data.salesDeductionOverTime[financial].values.reduce((acc, curr)=> acc+curr, 0)
+        }
+    }
+    
+    data.salesResult = salesResult;
+    data.salesDeduction = salesDeduction;
+    data.topProducts.sort((a,b) => b.qty - a.qty);
+    data.topCategories.sort((a,b) => b.qty - a.qty);
+    
+    return data;
+    }
+    
+
+export {getDateOptions, dateValueFormatter, salesDataHandler, productArrHandler}
 
 

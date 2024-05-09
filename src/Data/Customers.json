@@ -3,7 +3,7 @@
         "name":"Zafer",
         "id":"0",
         "surname":"Bacaksız",
-        "telNo":"0555 555 55 55",
+        "telNo":"*555 555 55 55",
         "email":"örnek@gmail.com",
         "signUp":"2024-04-30T15:30"
     },
@@ -11,7 +11,7 @@
         "name":"Mehmet",
         "id":"1",
         "surname":"Öztürk",
-        "telNo":"0444 555 55 55",
+        "telNo":"*444 555 55 55",
         "email":"örnek1@gmail.com",
         "signUp":"2021-02-30T05:30"
     }

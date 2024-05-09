@@ -10,56 +10,64 @@ import {
   import HighlightOffSharpIcon from "@mui/icons-material/HighlightOffSharp";
 import { t } from "i18next";
 
-  
-const CartItemCard = ({ item, setCartItems, setItemInRegister=null,
-   onEditClick
-   }) => {
-    const isPiece = item.product.unit === "piece";
-    const amount = isPiece ? item.qty : item.qty / 1000;
+  // setCartItems to delete from cart Items when item quantity edited or deleted
+const CartItemCard = ({ item, setCartItems, setItemInRegister=null, onEditClick }) => {
+  const isPiece = item.product.unit === "piece";
+  const amount = isPiece ? item.qty : item.qty / 1000;
 
-    const formattedQty =
-      amount.toFixed(isPiece ? 0: 3).toLocaleString("fullwide", {
+  // Format the quantity and price with the correct number of decimal places
+  const formattedQty =
+    amount
+      .toFixed(isPiece ? 0 : 3)
+      .toLocaleString("fullwide", {
         maximumFractionDigits: 2,
         useGrouping: false,
-      }).replace(".", ",") + (isPiece ? "" : "kg");
-  
-    const formattedPrice = item.computedPrice
-      .toFixed(3)
-      .toLocaleString("fullwide", {
-        maximumFractionDigits: 3,
-        useGrouping: false,
       })
-      .replace(".", ",")
-      .slice(0, 18);
-  
-    const onDeleteIconClick = useCallback(() => {
-      setCartItems((prevCartItems) => {
-        // Filter out the item with the given ID
-        const updatedCartItems = prevCartItems.filter(
-          (cartItem) => cartItem.product.code !== item.product.code
-        );
-        return updatedCartItems;
-      });
-    }, [item, setCartItems]);
-  
-    const onEditIconClick = setItemInRegister ?( () => {
-      setItemInRegister({
-        ...item,
-        qty:item.qty.toLocaleString('fullwide', {
-          maximumFractionDigits: 0,
-          useGrouping: true
-      }).replace(/,/g, '.')
-      });
-      setCartItems((prev) => {
-        const filteredCartItems = prev.filter(
-          (cartItem) => cartItem.product.code !== item.product.code
-        );
-        return filteredCartItems;
-      });
-      if(onEditClick) onEditClick();
+      .replace(".", ",") + (isPiece ? "" : "kg");
+
+  const formattedPrice = item.computedPrice
+    .toFixed(3)
+    .toLocaleString("fullwide", {
+      maximumFractionDigits: 3,
+      useGrouping: false,
     })
-    : null
-  
+    .replace(".", ",")
+    .slice(0, 18);
+
+  // Callback function to remove the item from the cart
+  const onDeleteIconClick = useCallback(() => {
+    setCartItems((prevCartItems) => {
+      // Filter out the item with the given ID
+      const updatedCartItems = prevCartItems.filter(
+        (cartItem) => cartItem.product.code !== item.product.code
+      );
+      return updatedCartItems;
+    });
+  }, [item, setCartItems]);
+
+  // Callback function to edit the item in the register
+  const onEditIconClick =
+    setItemInRegister !== null
+      ? () => {
+          setItemInRegister({
+            ...item,
+            qty: item.qty
+              .toLocaleString("fullwide", {
+                maximumFractionDigits: 0,
+                useGrouping: true,
+              })
+              .replace(/,/g, "."),
+          });
+          setCartItems((prev) => {
+            const filteredCartItems = prev.filter(
+              (cartItem) => cartItem.product.code !== item.product.code
+            );
+            return filteredCartItems;
+          });
+          if (onEditClick) onEditClick();
+        }
+      : null;
+
     return (
       <Grow in={true} translate="yes" appear={true} >
       <Box
@@ -71,9 +79,9 @@ const CartItemCard = ({ item, setCartItems, setItemInRegister=null,
           border: "1px solid gray",
           borderRadius: 3,
           width: "97%",
-          minHeight: 50, // Set the minimum height
-          height: {xs:60, md:80}, // Set the height to the maximum content height
-          maxHeight: 80, // Set the height to the maximum content height
+          minHeight: 50, 
+          height: {xs:60, md:80},
+          maxHeight: 80, 
           py: 0.5,
         }}
       >

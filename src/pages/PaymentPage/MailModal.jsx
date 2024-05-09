@@ -26,16 +26,19 @@ const layouts = {
 }
 
 const MailModal=({open, onClose})=>{
+  // Input value on textfield
     const [input, setInput] = useState('') 
     const [loading, setLoading] = useState(false)
     const {mode} = useCustomTheme()
     const keyboardRef = useRef()
     const [layout, setLayout] = useState("default");
     const {lang, setLang} = useLanguage();
+    // Ref of input to use with virtual keyboard
     const inputRef = useRef()
     const [size] = useSize()
     const [showAlert, AlertComponent] = useAlert();
 
+    // Save email if it's valid, clear values and give feedback via alerts
     const onSaveButtonClick=()=>{
       setLoading(true)
         if (!validateEmail(input)) {
@@ -48,20 +51,18 @@ const MailModal=({open, onClose})=>{
         }
         else{
           setTimeout(() => {
-            showAlert('success', 'Success', 'Email saved successfully');
             sessionStorage.setItem('email', JSON.stringify(input))
             setTimeout(()=>{
-              onClose()
-              setTimeout(() => {
-                setInput('')
-                setLoading(false)
-              }, 200);
+              setInput('')
+              setLoading(false)
+              showAlert('success', 'Success', 'Email saved successfully');
             },1000)
         }, 1000);
         
         }
     }
   
+    // Set value of field onto state and keyboard
     const onInputChange=(inputVal)=>{
       setInput(inputVal)
       keyboardRef.current.setInput(inputVal)
@@ -72,6 +73,7 @@ const MailModal=({open, onClose})=>{
         setLayout(newLayoutName);
     }
 
+    // Set value of keyboard onto state
     const onChange = (input) => {
         setInput(input)
     };
@@ -127,11 +129,15 @@ const MailModal=({open, onClose})=>{
                 {t('payment.eFatura')}
               </Typography>
             </Stack>
+
+
             <Divider sx={{width:'100%'}} />
+
             <Stack direction='row' justifyContent={'center'} alignItems={'center'} sx={{my:size.y < 500 ?  1: 3, minWidth:450, width:'100%', position:'relative'}} >
                 <Typography variant='h6' fontSize={size.y< 500 ? 16: 18} noWrap sx={{width:90, position:'absolute', left:'2%'}} > 
                 {t('payment.email')}:
                 </Typography>
+
                 <TextField type='email' value={input} autoFocus onChange={e => onInputChange(e.target.value)} inputRef={inputRef} sx={{
                     width:'70%',
                     ml:size.x < 1100 ? -3: size.x < 1200 ? -1:0,
@@ -145,10 +151,12 @@ const MailModal=({open, onClose})=>{
                       }
                     }}
                   />
+                  
                   <LoadingButton isLoading={loading} disabled={loading || !input.length > 0} variant='contained' onClick={onSaveButtonClick} sx={{width: size.x < 1000 ? 70 :size.x < 1200 ? 85 : 100, position:'absolute', right:'2%', height:'90%'}} >
                     Save
                   </LoadingButton>
             </Stack>
+
             <Keyboard
             keyboardRef={(r) => (keyboardRef.current = r)}
             layoutName={layout}
