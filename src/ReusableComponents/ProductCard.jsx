@@ -1,4 +1,3 @@
-import { useTheme } from "@emotion/react";
 import {
   Box,
   Button,
@@ -12,9 +11,8 @@ import NoImg from "../assets/NoImage.jpg";
 // onBadgeClick will be called when badge-like button clicked
 // sx: an object containing additional styles to be applied to the Paper component
 // ...props: any additional props to be passed to the Paper component
-const ProductCard = ({ product, onClick, onBadgeclick, sx, ...props }) => {
+const ProductCard = React.memo(({ product, onClick, onBadgeclick, sx, ...props }) => {
   
-    const theme = useTheme();
     const discount = product.discount
       ? product.discount
       : false;
@@ -28,7 +26,16 @@ const ProductCard = ({ product, onClick, onBadgeclick, sx, ...props }) => {
         onBadgeclick(product)
     }
   
-    return (
+    return false ? (
+                 <div>
+            <img src={`https://picsum.photos/id/${parseInt(product.code)}/160/80.webp`}  
+              onError={(e) => {
+                e.target.onerror = null; // Prevent infinite loop
+                e.target.src = NoImg ; // Replace with the path to your fixed image
+              }} 
+            />
+          </div> 
+    ) : (
       <Paper
         onClick={() => handleCardClick(product)}
         elevation={0}
@@ -37,9 +44,9 @@ const ProductCard = ({ product, onClick, onBadgeclick, sx, ...props }) => {
           backgroundColor: "background.paper",
           width: "99%",
           maxWidth:{xs:140, md:200},
-          maxHeight: 180,
+          maxHeight: 350,
           height:'25vh',
-          minHeight:130,
+          minHeight:{xs:170, md:240, lg:270},
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -65,7 +72,7 @@ const ProductCard = ({ product, onClick, onBadgeclick, sx, ...props }) => {
           position={"relative"}
         >
           <div>
-            <img src={`https://picsum.photos/id/${parseInt(product.code)}/300/170.webp`} style={{  position:'absolute', width:'100%', height:'100%'}} 
+            <img src={`https://picsum.photos/id/${parseInt(product.code)}/200/120.webp`} style={{  position:'absolute', width:'100%', height:'100%'}} 
               onError={(e) => {
                 e.target.onerror = null; // Prevent infinite loop
                 e.target.src = NoImg ; // Replace with the path to your fixed image
@@ -88,7 +95,7 @@ const ProductCard = ({ product, onClick, onBadgeclick, sx, ...props }) => {
               fontWeight: 600,
               textTransform: "none",
               zIndex: 999,
-              boxShadow: `0 0 0 1.5px ${theme.palette.primary.dark}`, // Adjust the alpha value (0.5) for transparency
+              boxShadow: `0 0 0 1.5px #1565c0`, // Adjust the alpha value (0.5) for transparency
               backgroundColor: "background.paper",
               transition:
                 "transform 0.3s ease" /* Add a transition for smooth scaling */,
@@ -201,7 +208,7 @@ const ProductCard = ({ product, onClick, onBadgeclick, sx, ...props }) => {
         ></Box>
       </Paper>
     );
-  };
+  });
   
 
 export default ProductCard

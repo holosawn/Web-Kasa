@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import MenuSharpIcon from '@mui/icons-material/MenuSharp';
-import data from '../../Data/MenuLayoutData.json'
+import data from '../Data/MenuLayoutData.json'
 import FiberManualRecord from '@mui/icons-material/FiberManualRecord';
 import { useLocation } from 'react-router-dom';
 import { IconButton } from '@mui/material';
@@ -20,7 +20,7 @@ export default function CustomAppBar({ setIsMenuOpen, marketStatus}) {
   };
 
   return (
-    <AppBar position="static" sx={{height:'64px', maxHeight:'64px', minHeight:'64px', width:'100%', position:'sticky', top:0, zIndex:998 }}  >
+    <AppBar position="static" sx={{height:'64px', maxHeight:'64px', minHeight:'64px', width:'100%', position:'sticky', top:0, zIndex:998, displayPrint:'none' }}  >
       <Toolbar sx={{
         height:'100%',
       }} >

@@ -5,6 +5,8 @@ import useFetchData from '../../CustomHooks/useFetchData'
 import SalesResultInfo from './Dashboard/SalesResultInfo';
 import TopEntitiesList from './Dashboard/TopEntitiesList';
 import SalesDeductionInfo from './Dashboard/SalesDeductionInfo';
+import LoadingPage from '../ErrorAndLoadingPages/LoadingPage'
+import ErrorPage from '../ErrorAndLoadingPages/ErrorPage'
 import { t } from 'i18next';
 
 // Selecting timeline to show value according to it
@@ -121,25 +123,13 @@ const Dashboard = () => {
     const [timeline, setTimeline] = useState("today");
     const [data, error, isLoading] = useFetchData(`/DashboardData/${timeline}`);
 
-    if (isLoading) {
-        return (
-          <Box>
-            <Typography>...{t('common.loading')}</Typography>
-          </Box>
-        );
-      }
-    
-      if (error) {
-        return (
-          <Box>
-            <Typography>{error}</Typography>
-          </Box>
-        );
-      }
-
-      
-  if (!isLoading) {
-
+  if (isLoading) {
+    return <LoadingPage/>
+  } 
+  else if (error){
+    return <ErrorPage/>
+  }
+  else{
     return (
     <Box mx={"16px"} ml={"85px"} mb={2} display={'flex'} flexDirection={'column'} alignItems={'center'} >
         <Paper sx={{

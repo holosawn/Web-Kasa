@@ -161,12 +161,11 @@ const AddCustomerModal=({open, onClose})=>{
               signUp : `${yearMonthDay}T${hour}:${minute}`,
               id:id
             }
-
             // Check for duplicate customers
             const isDuplicate = storedCustomers.some(
-              (c) =>
-                c.email === customer.email ||
-                c.phone === customer.phone
+              (c) =>{
+                return c.email === customer.email ||
+                c.telNo === customer.telNo}
             );
 
             if (!isDuplicate) {

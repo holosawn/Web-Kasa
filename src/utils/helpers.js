@@ -67,7 +67,14 @@ const salesDataHandler = (data) => {
     return data;
     }
     
+    function formatDateToISO(date) {
+        const timezoneOffsetMilliseconds = Math.abs(date.getTimezoneOffset() * 60000);
+        const adjustedTime = new Date(date.getTime() + timezoneOffsetMilliseconds);
+        const isoDateString = adjustedTime.toISOString();
+        return isoDateString.split('T')[0];
+    }
 
-export {getDateOptions, dateValueFormatter, salesDataHandler, productArrHandler}
+
+export {getDateOptions, dateValueFormatter, salesDataHandler, productArrHandler, formatDateToISO}
 
 

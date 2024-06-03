@@ -7,6 +7,7 @@ import { productArrHandler } from '../utils/helpers'
 import wallmartData from "../Data/WallmartCompatibleData.json";
 import customerData from '../Data/Customers.json'
 import categoryData from '../Data/WallmartCategoryData.json'
+import reportData from '../Data/Reports.json'
 import { offers } from '../Data/Offers'
 
 export const handlers = [
@@ -34,5 +35,8 @@ export const handlers = [
     }),
     http.get('/Categories',()=>{
         return HttpResponse.json(categoryData)
+    }),
+    http.get('/Reports',()=>{
+        return HttpResponse.json(reportData)
     }),
 ]

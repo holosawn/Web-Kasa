@@ -162,7 +162,10 @@ i18n
             shiftOn:'Shift On',
             shiftOff:'Shift Off',
             duplicateCustomer:'Customer Already Saved',
-            duplicateCustomerDesc:'This Customer is already saved in system'
+            duplicateCustomerDesc:'This Customer is already saved in system',
+            clockIn:'Clock In',
+            clockOut:'Clock Out',
+
           },
           payment:{
             tap:'tap',
@@ -232,7 +235,13 @@ i18n
             invalidCardAmount:'Invalid Amount',
             invalidCardAmountDesc:'Card payment amount cannot be more than amount to pay',
             successfulCashPayment:'Cash payment Successful',
-            successfulCashPaymentDesc:'Cash payment executed succesfuly'
+            successfulCashPaymentDesc:'Cash payment executed succesfuly',
+            invalidEmail:'Invalid Email',
+            invalidEmailDesc:'Invalid email format',
+            emailSuccess:'Email Saved',
+            emailSuccessDesc:'Email Saved successfuly',
+            changeAmount: 'Charge Amount',
+
           },
           products:{
             back:"Back",
@@ -415,7 +424,9 @@ i18n
             shiftOff: "Vardiya Kapalı",
             shiftMenu: "Vardiya Menüsü",
             duplicateCustomer:'Müşteri Zaten Var',
-            duplicateCustomerDesc:'Bu müşteri sistemde zaten kayıtlı'
+            duplicateCustomerDesc:'Bu müşteri sistemde zaten kayıtlı',
+            clockIn: 'Giriş Yap',
+            clockOut: 'Çıkış Yap'
           },
           payment: {
             billTotal: "Fatura Toplamı",
@@ -480,7 +491,11 @@ i18n
             invalidCardAmount:'Geçersiz Tutar',
             invalidCardAmountDesc:'Kart ödeme tutarı, ödenmesi gereken tutardan fazla olamaz',
             successfulCashPayment:'Nakit ödemesi başarılı',
-            successfulCashPaymentDesc:'Nakit ödemesi başarıyla gerçekleştirildi'
+            successfulCashPaymentDesc:'Nakit ödemesi başarıyla gerçekleştirildi',
+            invalidEmail: 'Geçersiz E-posta',
+            invalidEmailDesc: 'Geçersiz e-posta formatı',
+            emailSuccess:'E-posta Kaydedildi',
+            emailSuccessDesc:'E-posta başarıyla kaydedildi',
           },
           products: {
             back: "Geri",
@@ -663,7 +678,9 @@ i18n
             shiftOff: "Смена Закрыта",
             shiftMenu: "Меню смены",
             duplicateCustomer:'Клиент уже сохранен',
-            duplicateCustomerDesc:'Этот клиент уже сохранен в системе'
+            duplicateCustomerDesc:'Этот клиент уже сохранен в системе',
+            clockIn: 'Вход',
+            clockOut: 'Выход'
           },
           payment: {
             billTotal: "Общая сумма счета",
@@ -726,7 +743,11 @@ i18n
             invalidCardAmount:'Неверная Сумма',
             invalidCardAmountDesc:'Сумма оплаты по карте не может превышать сумму к оплате',  
             successfulCashPayment:' Наличный платеж успешен',
-            successfulCashPaymentDesc:'Наличный платеж выполнен успешно'
+            successfulCashPaymentDesc:'Наличный платеж выполнен успешно',
+            invalidEmail: 'Неверный адрес электронной почты',
+            invalidEmailDesc: 'Неверный формат электронной почты',
+            emailSuccess:'Электронная почта сохранена',
+            emailSuccessDesc:'Электронная почта успешно сохранена',
           },
           products: {
             back: "Назад",

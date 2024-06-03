@@ -24,8 +24,8 @@ import { useCustomTheme } from "../contexts/CutomThemeContext";
 import { useLanguage } from "../contexts/LangContext";
 import useSize from "../CustomHooks/useSize";
 
-const CustomTextField=({value, setValue, setNumpadFocus, sx, inputProps, textFieldProps})=>{
-  const [size, setSize] = useSize()
+const CustomTextField=({value, setValue, setNumpadFocus, sx, inputProps, ...textFieldProps})=>{
+  // const [size, setSize] = useSize()
   const [isKeyboardModalOpen, setIsKeyboardModalOpen] = useState(false);    
   
   const handleChange = (event) => {
@@ -63,7 +63,7 @@ const CustomTextField=({value, setValue, setNumpadFocus, sx, inputProps, textFie
             width:'100%'
           },
           startAdornment: (
-            <InputAdornment position="start"  >
+            <InputAdornment position="start" sx={{display:'flex', justifyContent:'center', alignItems:'center'}} >
               <SearchIcon width={{xs: 20, md:25}} style={{width:{xs:20, md:30}}}/>
             </InputAdornment>
           ),
@@ -94,7 +94,7 @@ const CustomTextField=({value, setValue, setNumpadFocus, sx, inputProps, textFie
           ),
           ...inputProps
         }}
-        size={size.y > 400 ? "large": 'small'}
+        // size={size.y > 400 ? "large": 'small'}
         sx={{
           display:'flex',
           flexDirection:'row',

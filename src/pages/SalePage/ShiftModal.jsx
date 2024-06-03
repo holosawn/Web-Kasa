@@ -79,7 +79,7 @@ const ShiftModal = ({ open, onClose }) => {
         showAlert("success", t("sale.shiftClosed"), t("sale.shiftClosedContent")); // Success alert
       } else {
         setShiftUpdateLoading(false);
-        showAlert("warning", "Invalid Amount", "Drawer amount cannot be empty.");
+        showAlert("warning", t("sale.invalidDrawerAmount"), t("sale.invalidDrawerAmountDesc"));
       }
     }, 500);
   };
@@ -195,7 +195,7 @@ const ShiftModal = ({ open, onClose }) => {
             >
               <Typography variant="body2" textTransform={'none'} fontSize={{xs:12, md:16}} >
                 {/* {t('sale.updateDrawer')} */}
-                {shiftStatus.clockedOut ? 'Clock in' : 'Clock out'}
+                {shiftStatus.clockedOut ? t('sale.clockIn') : t('sale.clockOut')}
               </Typography>
             </LoadingButton>
 

@@ -20,17 +20,12 @@ const ProductsPage = () => {
     product: {},
     qty: 0,
   });
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(JSON.parse(sessionStorage.getItem("cartItems")) || []);
   const [filterCategories, setFilterCategories] = useState([]);
   const [filterValue, setFilterValue] = useState("");
   const navigate = useNavigate();
   const productsRef = useRef(null);
   const [showAlert, AlertComponent] = useAlert();
-
-console.log(cartItems);
-  useEffect(()=>{
-    setCartItems(JSON.parse(sessionStorage.getItem("cartItems")))
-  },[])
 
   // Callback function to send an item to the register
   const sendToRegister = useCallback((item) => {

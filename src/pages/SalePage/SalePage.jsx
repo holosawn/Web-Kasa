@@ -39,8 +39,6 @@ const SalePage = () => {
 
   const isWide = useMediaQuery('(min-width:1000px)')
 
-  console.log(JSON.parse(sessionStorage.getItem('cartItems')));
-
 
   // function to update value in sessionStorage on every state change
   // It will be passed instead of setItemInRegister function
