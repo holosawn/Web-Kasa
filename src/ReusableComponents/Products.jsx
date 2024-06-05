@@ -154,8 +154,7 @@ const Products = ({ products, sendToRegister, setNumpadFocus=null, containerRef}
             <Grid
               {...props}
               item
-              xs={containerWidth < 550 ? 4 : containerWidth < 700 ? 3 : containerWidth < 900 ? 3 : containerWidth < 1100 ? 12/5 : containerWidth < 1800 ? 2 : 1}
-              // xs={12/5}
+              xs={containerWidth < 700 ? 4 : containerWidth < 900 ? 3 : containerWidth < 1100 ? 12/5 : containerWidth < 1800 ? 2 : 1}
               style={{
                 paddingBlock: "0.5rem",
                 paddingInline:'0.5rem',
@@ -164,6 +163,7 @@ const Products = ({ products, sendToRegister, setNumpadFocus=null, containerRef}
                 width:'100%',
                 alignContent: 'stretch',
                 boxSizing: "border-box",
+                marginBlock:'10px'
               }}
             >
               {children}

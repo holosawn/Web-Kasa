@@ -45,7 +45,7 @@ const AddCustomerModal=({taggedCustomer, setTaggedCustomer, onDeleteCoupon, acti
       const getFullStringOfCustomer=(cus)=>{
         return `${cus.name} ${cus.surname} ${cus.telNo} ${cus.email}`
       }
-      const storedTaggedCustomer = JSON.parse(sessionStorage.getItem('taggedCustomer'))
+      const storedTaggedCustomer = JSON.parse(sessionStorage.getItem('taggedCustomer')) || {}
       if (Object.keys(storedTaggedCustomer).length > 0) {
         setInput(getFullStringOfCustomer(storedTaggedCustomer))        
       }
@@ -193,6 +193,11 @@ const AddCustomerModal=({taggedCustomer, setTaggedCustomer, onDeleteCoupon, acti
                     variant="filled"
                     required
                     inputMode='text'
+                    ContainerProps={{
+                      sx:{
+                          flex:1
+                      }
+                  }}
                     menuItemsFunc={(handleMenuItemClick)=>{
                         return filteredCustomers.map((cus) => (
                             <MenuItem key={cus.id} selected={cus.id === taggedCustomer.id} onClick={()=> onMenuItemClick(cus, handleMenuItemClick)} >

@@ -1,0 +1,36 @@
+[
+    {
+        "id": "2024157",
+        "ZNO": "Z2024157",
+        "shop": "Çerkezköy Şube",
+        "location": "Turkiye/Tekirdağ/Kapaklı/Cumhuriyet Mah.",
+        "cashier": "Kate Grimes",
+        "date": "2024-06-01",
+        "dateRangeStr": "2024-06-01 - 2024-06-01",
+        "drawerActions": {
+            "openingBalance": "38",
+            "removals": -4,
+            "additions": 7,
+            "total": "41"
+        },
+        "totalTaxAmount": 18.8286,
+        "transactions": {
+            "cashTotal": 9540,
+            "cashTransactions": 3,
+            "cardTotal": 43600,
+            "cardTransactions": 1
+        },
+        "saleSummary": {
+            "grossSales": 88.350352,
+            "totalDiscount": 9.288928,
+            "totalSavedByOffers": 46.08,
+            "totalCouponsSaved": -29.288928,
+            "totalNetSales": 67.020352
+        },
+        "categorySales": {
+            "Products Without Beauty": 200,
+            "Seasonal": 10
+        }
+    }
+]
+  

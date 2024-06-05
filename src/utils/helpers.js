@@ -67,7 +67,26 @@ const salesDataHandler = (data) => {
     return data;
     }
     
+    function formatDateToISO(date) {
+        const timezoneOffsetMilliseconds = Math.abs(date.getTimezoneOffset() * 60000);
+        const adjustedTime = new Date(date.getTime() + timezoneOffsetMilliseconds);
+        const isoDateString = adjustedTime.toISOString();
+        const [isoDate, isoTime] = isoDateString.split('T');
+        const [year, month, day] = isoDate.split('-');
+        const [hourMinute, seconds] = isoTime.split(':');
+        return `${year}-${month}-${day} ${hourMinute}:${seconds}`;
+    }
 
-export {getDateOptions, dateValueFormatter, salesDataHandler, productArrHandler}
+    // Utility function to format date and time as dd/mm/yyyy hh:mm
+    export function formatDateTimeString(date) {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const year = date.getFullYear();
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${year}/${month}/${day} `;
+    }
+
+export {getDateOptions, dateValueFormatter, salesDataHandler, productArrHandler, formatDateToISO}
 
 

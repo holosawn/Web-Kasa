@@ -13,6 +13,7 @@ import { t } from "i18next";
 import useFetchData from "../../CustomHooks/useFetchData";
 
 const PaymentPage = () => {
+  // TODO charge Amount goes crazy
   const [cartItems, setCartItems] = useState(JSON.parse(sessionStorage.getItem('cartItems')) || [])
   const [subTotal, setSubTotal] = useState(JSON.parse(sessionStorage.getItem('subTotal')) || 0)
   const [savedByOffers, setSavedByOffers] = useState(JSON.parse(sessionStorage.getItem('savedByOffers')) || 0)
@@ -83,6 +84,23 @@ const PaymentPage = () => {
   }
 
   const onFinish =()=>{
+
+    const transactions = JSON.parse(sessionStorage.getItem("pastTransactions"))
+
+    const sale = {
+      "date" : new Date(),
+      "items": cartItems,
+      "transactions": transactions,
+      "total" : total,
+      "coupons" : activeCoupons,
+      "savedByOffers" : savedByOffers,
+      "discount" : discount,
+      "change" : amountToPay >= 0 ? 0 : amountToPay,
+    }
+
+    const pastSales = JSON.parse(sessionStorage.getItem("sales")) || []
+    sessionStorage.setItem("sales", JSON.stringify([...pastSales, sale]))
+
     sessionStorage.setItem('activeCoupons',JSON.stringify([]))
     sessionStorage.setItem('amountToPay',JSON.stringify(0))
     sessionStorage.setItem('total',JSON.stringify(0))

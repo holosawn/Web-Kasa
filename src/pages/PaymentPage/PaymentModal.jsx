@@ -146,7 +146,7 @@ const PaymentModal = ({ open, onClose }) => {
             <img src={
               method === 'swipe' ? swipeMethod : method === 'insert' ? insertMethod : contaclessMethod
             } style={{...iconStyles[method]}}  />
-            <Typography color={'primary'} variant='h6' mt={6}>
+            <Typography color={'primary'} variant='h6'>
               
               {t(`payment.${method}Card`)}
             </Typography>
@@ -191,7 +191,7 @@ const PaymentModal = ({ open, onClose }) => {
 
 
 const ChooseMethod=({onClick})=>(
-  <Box sx={{ height:'100%', display:'flex', flexDirection:'row', justifyContent:'space-around', alignItems:'center', my:4}}>
+  <Box sx={{ height:'100%', display:'flex', flexDirection:'row', justifyContent:'space-around', alignItems:'center', mb:4, }}>
       <MethodButton onClick={()=>onClick('tap')} label={t('payment.contactless')} icon={contaclessMethod} imgSx={{width:120, height:80, }} />
       <MethodButton onClick={()=>onClick('swipe')} label={t('payment.swipe')} icon={swipeMethod} imgSx={{width:120, height:120, }} />
       <MethodButton onClick={()=>onClick('insert')} label={t('payment.insert')} icon={insertMethod} imgSx={{width:130, height:120, }} />
@@ -214,7 +214,7 @@ const MethodButton=({label, icon, imgSx, onClick})=>(
 
 const iconStyles={
   'tap':{
-    width:120, height:80,
+    width:120, height:80, marginBlockEnd:'20px'
   },
   'swipe':{
     width:120, height:120, 
@@ -235,7 +235,7 @@ const styles={
     transform: "translate(-50%, -50%)",
     bgcolor: "background.paper",
     width: "fit-content",
-    height:'fit-content',
+    height:300,
     p: 0,
     borderRadius: 3,
     minWidth:550,

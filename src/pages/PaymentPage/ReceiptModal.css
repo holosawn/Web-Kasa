@@ -44,8 +44,10 @@ body, .print-container, .overflow-print {
   padding: 0;
 }
   
+/* /// margin left is for fixing  */
 .print-wrapper {
     margin: 0;
+    margin-left:70px; 
     padding: 0;
     top: 0 !important;
     transform: translate(-50%, 0%) !important; /* Move to the left and upwards */

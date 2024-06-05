@@ -79,9 +79,9 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
     <Paper
       ref={menuRef}
       sx={{width: isMenuOpen? 'calc(max(210px, 30vw))':'70px', maxWidth:230, minWidth: 50, position:'sticky', mb:`calc(-100vh + 84px)`,
-       top:64, zIndex:999, height:`calc(100vh - 64px)` , transition: 'width 0.3s linear', overflowY:'auto',
-
-    }}>
+       top:64, zIndex:999, height:`calc(100vh - 64px)` , transition: 'width 0.3s linear', overflowY:'auto', displayPrint:'none'
+      }}
+    >
       <Box height={60} display={'flex'} flexDirection={'row'} alignItems={'center'}  >
           <AccountCircleIcon sx={{...getIconStyle('', currentPage), ml:2.5}} />
           
@@ -97,7 +97,7 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
 
       
       <Tooltip title='Dashboard' arrow >
-        <Button sx={getButtonStyle("Menu", currentPage)}>
+        <Button sx={getButtonStyle("Menu", currentPage)} onClick={()=> navigate('/Menu')} >
             <BarChartSharpIcon sx={getIconStyle('Menu', currentPage)} />
             <IconDescription currentPage={'Menu' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.dashboard')}</IconDescription>
         </Button>
@@ -127,7 +127,7 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
         </Button>
       </Tooltip>
       <Tooltip title='Reports' arrow >
-        <Button sx={getButtonStyle("Reports", currentPage)}>
+        <Button sx={getButtonStyle("Reports", currentPage)} onClick={()=> navigate('/Reports')}>
             <LibraryBooksRoundedIcon sx={getIconStyle('Reports', currentPage)} />
             <IconDescription currentPage={'Reports' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.reports')}</IconDescription>
         </Button>
@@ -139,7 +139,7 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
         </Button>
       </Tooltip>
       <Tooltip title='Exit' arrow>
-        <Button onClick={()=>{navigate('/Login')}} sx={{ ...getButtonStyle("", currentPage), color: 'red' }}>
+        <Button onClick={()=>{navigate(-1)}} sx={{ ...getButtonStyle("", currentPage), color: 'red' }}>
             <ForwardIcon sx={{ ...getIconStyle('', currentPage), transform: 'rotate(180deg)', color: '#f83e3e' }} />
             <IconDescription isMenuOpen={isMenuOpen} color={'red'}>{t('menu.exit')}</IconDescription>
         </Button>

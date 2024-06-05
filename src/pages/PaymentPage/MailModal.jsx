@@ -44,7 +44,7 @@ const MailModal=({open, onClose})=>{
         if (!validateEmail(input)) {
           setTimeout(() => {
             setLoading(false)
-            showAlert('warning', 'Invalid input', 'Invalid email format');
+            showAlert('warning', t('payment.invalidEmail'), t('payment.invalidEmailDesc'));
             onChange('')
             inputRef.current.focus()
           }, 300);
@@ -55,7 +55,7 @@ const MailModal=({open, onClose})=>{
             setTimeout(()=>{
               setInput('')
               setLoading(false)
-              showAlert('success', 'Success', 'Email saved successfully');
+              showAlert('success', t('payment.emailSuccess'),t('payment.emailSuccessDesc'));
             },1000)
         }, 1000);
         

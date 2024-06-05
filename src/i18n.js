@@ -83,7 +83,8 @@ i18n
             reports: 'Reports',
             settings: 'Settings',
             exit: 'Exit',
-            sales:'sales'
+            sales:'sales',
+            Reports:"Reports"
           },
           dashboard:{
             today:'Today',
@@ -162,7 +163,10 @@ i18n
             shiftOn:'Shift On',
             shiftOff:'Shift Off',
             duplicateCustomer:'Customer Already Saved',
-            duplicateCustomerDesc:'This Customer is already saved in system'
+            duplicateCustomerDesc:'This Customer is already saved in system',
+            clockIn:'Clock In',
+            clockOut:'Clock Out',
+
           },
           payment:{
             tap:'tap',
@@ -232,7 +236,13 @@ i18n
             invalidCardAmount:'Invalid Amount',
             invalidCardAmountDesc:'Card payment amount cannot be more than amount to pay',
             successfulCashPayment:'Cash payment Successful',
-            successfulCashPaymentDesc:'Cash payment executed succesfuly'
+            successfulCashPaymentDesc:'Cash payment executed succesfuly',
+            invalidEmail:'Invalid Email',
+            invalidEmailDesc:'Invalid email format',
+            emailSuccess:'Email Saved',
+            emailSuccessDesc:'Email Saved successfuly',
+            changeAmount: 'Charge Amount',
+
           },
           products:{
             back:"Back",
@@ -262,6 +272,36 @@ i18n
             multiPaymentDesc:'Enable multi payment to accept payments in multiple',
             exit:'Exit'
           },
+          reports:{
+            shop:"Shop",
+            reports:'Reports',
+            noReports:'No reports found in specified date range.',
+            date:'Date',
+            chooseReport:'Choose a report to view',
+            zReport:'Z-REPORT',
+            cashier:'Cashier',
+            transactions:'Transactions',
+            cash:'Cash',
+            card:'Card',
+            total:'Total',
+            totalTax:'Total Tax',
+            drawerTotal:'Drawer Total',
+            openingBalance:'Opening Balance',
+            removeTender:'Remove Tender',
+            floatEntry:'Float Entry',
+            saleSummary:'Sale Summary',
+            grossSales:'Gross Sales',
+            discount:'Discount',
+            offer:'Offer',
+            coupon:'Coupon',
+            totalNetSales:'Total Net Sales',
+            salesByCategories:'Sales By Categories',
+            thanks:'Thank you for your business',
+            print:'Print'
+          },
+          layout:{
+            errorLoading:"Error During Loading The Page"
+          }
         }
       },
       tr: { 
@@ -339,7 +379,8 @@ i18n
             reports: 'Raporlar',
             settings: 'Ayarlar',
             exit: 'Çıkış',
-            sales:'satış'
+            sales:'satış',
+            Reports:"Reports"
           },
           dashboard: {
             today: 'Bugün',
@@ -415,7 +456,9 @@ i18n
             shiftOff: "Vardiya Kapalı",
             shiftMenu: "Vardiya Menüsü",
             duplicateCustomer:'Müşteri Zaten Var',
-            duplicateCustomerDesc:'Bu müşteri sistemde zaten kayıtlı'
+            duplicateCustomerDesc:'Bu müşteri sistemde zaten kayıtlı',
+            clockIn: 'Giriş Yap',
+            clockOut: 'Çıkış Yap'
           },
           payment: {
             billTotal: "Fatura Toplamı",
@@ -480,7 +523,11 @@ i18n
             invalidCardAmount:'Geçersiz Tutar',
             invalidCardAmountDesc:'Kart ödeme tutarı, ödenmesi gereken tutardan fazla olamaz',
             successfulCashPayment:'Nakit ödemesi başarılı',
-            successfulCashPaymentDesc:'Nakit ödemesi başarıyla gerçekleştirildi'
+            successfulCashPaymentDesc:'Nakit ödemesi başarıyla gerçekleştirildi',
+            invalidEmail: 'Geçersiz E-posta',
+            invalidEmailDesc: 'Geçersiz e-posta formatı',
+            emailSuccess:'E-posta Kaydedildi',
+            emailSuccessDesc:'E-posta başarıyla kaydedildi',
           },
           products: {
             back: "Geri",
@@ -509,7 +556,39 @@ i18n
             multiPayment: "Çoklu Ödeme",
             multiPaymentDesc: "Birden fazla şekilde ödeme kabul etmek için çoklu ödeme seçeneğini etkinleştirin",
             exit: "Çıkış"
+          },
+          reports: {
+            shop: "Mağaza",
+            reports: 'Raporlar',
+            noReports: 'Belirtilen tarih aralığında rapor bulunamadı.',
+            date: 'Tarih',
+            chooseReport: 'Görüntülemek için bir rapor seçin',
+            zReport: 'Z-RAPORU',
+            cashier: 'Kasiyer',
+            transactions: 'İşlemler',
+            cash: 'Nakit',
+            card: 'Kart',
+            total: 'Toplam',
+            totalTax: 'Toplam Vergi',
+            drawerTotal: 'Çekmece Toplamı',
+            openingBalance: 'Açılış Bakiyesi',
+            removeTender: 'Nakit Çek',
+            floatEntry: 'Kasaya Giriş',
+            saleSummary: 'Satış Özeti',
+            grossSales: 'Brüt Satışlar',
+            discount: 'İndirim',
+            offer: 'Teklif',
+            coupon: 'Kupon',
+            totalNetSales: 'Toplam Net Satışlar',
+            salesByCategories: 'Kategorilere Göre Satışlar',
+            thanks: 'İşiniz için teşekkür ederiz',
+            print: 'Yazdır'
+          },
+          layout:{
+            errorLoading:"Ошибка загрузки",
+            
           }
+          
         }
       },
       ru: {
@@ -586,7 +665,8 @@ i18n
             reports: 'Отчеты',
             settings: 'Настройки',
             exit: 'Выход',
-            sales:'продажи'
+            sales:'продажи',
+            Russian: "Отчёты",
           },
           dashboard: {
             today: 'Сегодня',
@@ -663,7 +743,9 @@ i18n
             shiftOff: "Смена Закрыта",
             shiftMenu: "Меню смены",
             duplicateCustomer:'Клиент уже сохранен',
-            duplicateCustomerDesc:'Этот клиент уже сохранен в системе'
+            duplicateCustomerDesc:'Этот клиент уже сохранен в системе',
+            clockIn: 'Вход',
+            clockOut: 'Выход'
           },
           payment: {
             billTotal: "Общая сумма счета",
@@ -726,7 +808,11 @@ i18n
             invalidCardAmount:'Неверная Сумма',
             invalidCardAmountDesc:'Сумма оплаты по карте не может превышать сумму к оплате',  
             successfulCashPayment:' Наличный платеж успешен',
-            successfulCashPaymentDesc:'Наличный платеж выполнен успешно'
+            successfulCashPaymentDesc:'Наличный платеж выполнен успешно',
+            invalidEmail: 'Неверный адрес электронной почты',
+            invalidEmailDesc: 'Неверный формат электронной почты',
+            emailSuccess:'Электронная почта сохранена',
+            emailSuccessDesc:'Электронная почта успешно сохранена',
           },
           products: {
             back: "Назад",
@@ -755,7 +841,35 @@ i18n
             multiPayment: "Множественный платеж",
             multiPaymentDesc: "Включить множественный платеж для принятия платежей разными способами",
             exith: "Завершить"
+          },
+          reports: {
+            shop: "Магазин",
+            reports: 'Отчеты',
+            noReports: 'Отчеты за указанный период не найдены.',
+            date: 'Дата',
+            chooseReport: 'Выберите отчет для просмотра',
+            zReport: 'Z-ОТЧЕТ',
+            cashier: 'Кассир',
+            transactions: 'Транзакции',
+            cash: 'Наличные',
+            card: 'Карта',
+            total: 'Итого',
+            totalTax: 'Общий налог',
+            drawerTotal: 'Итог в кассе',
+            openingBalance: 'Начальный баланс',
+            removeTender: 'Изъятие наличных',
+            floatEntry: 'Внесение наличных',
+            saleSummary: 'Итог по продажам',
+            grossSales: 'Валовые продажи',
+            discount: 'Скидка',
+            offer: 'Предложение',
+            coupon: 'Купон',
+            totalNetSales: 'Итог чистых продаж',
+            salesByCategories: 'Продажи по категориям',
+            thanks: 'Спасибо за ваш бизнес',
+            print: 'Печать'
           }
+          
         }
       }
     }

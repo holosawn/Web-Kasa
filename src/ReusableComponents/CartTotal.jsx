@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Stack, Typography, styled} from '@mui/material'
+import {Box, Stack, Typography} from '@mui/material'
 import { t } from 'i18next'
 
 // total, amountToPay and coupons are optional
@@ -18,8 +18,8 @@ const CartTotal=({subTotal, discount, savedByOffers, total, amountToPay, coupons
   )
   
   // Deriving additional height according to optinal properties
-  const additionalxsHeight = (((amountToPay || amountToPay === 0) && 15 ) || 0) + (coupons?.length || 0) * 15;  
-  const additionalmdHeight = (((amountToPay || amountToPay === 0) && 20 ) || 0) + (coupons?.length || 0) * 20;  
+  const additionalxsHeight = (((amountToPay || amountToPay === 0) && 15 ) || 0) + (amountToPay < 0 && 15) + (coupons?.length || 0) * 15;  
+  const additionalmdHeight = (((amountToPay || amountToPay === 0) && 20 ) || 0) + (amountToPay < 0 && 20) + (coupons?.length || 0) * 20;  
 
   const savedByDiscount = (subTotal - savedByOffers)* ((discount ||0) / 100);
 
@@ -51,10 +51,17 @@ const CartTotal=({subTotal, discount, savedByOffers, total, amountToPay, coupons
         <CustomTypography color={'primary'}>&nbsp;TRY</CustomTypography>
       </CustomStack>
       {(amountToPay || amountToPay === 0) && <CustomStack>
-        <CustomTypography color={'secondary'} >Remaining Amount:</CustomTypography>
-        <CustomTypography color={'secondary'}  ml={'auto'} >{amountToPay.toFixed(3).replace(".", ",")}</CustomTypography>
+        <CustomTypography color={'secondary'} >{t('payment.remainingAmount')}:</CustomTypography>
+        <CustomTypography color={'secondary'}  ml={'auto'} >{(!amountToPay < 0 ? amountToPay : 0).toFixed(3).replace(".", ",")}</CustomTypography>
         <CustomTypography color={'primary'}>&nbsp;TRY</CustomTypography>
-      </CustomStack>}
+      </CustomStack>
+      }
+      {(amountToPay && amountToPay < 0) && <CustomStack>
+        <CustomTypography color={'secondary'} >{t('payment.changeAmount')}:</CustomTypography>
+        <CustomTypography color={'secondary'}  ml={'auto'} >{(-amountToPay).toFixed(3).replace(".", ",")}</CustomTypography>
+        <CustomTypography color={'primary'}>&nbsp;TRY</CustomTypography>
+      </CustomStack>
+      }
 
     </Box>
   )};

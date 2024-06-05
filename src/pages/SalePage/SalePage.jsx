@@ -39,8 +39,6 @@ const SalePage = () => {
 
   const isWide = useMediaQuery('(min-width:1000px)')
 
-  console.log(JSON.parse(sessionStorage.getItem('cartItems')));
-
 
   // function to update value in sessionStorage on every state change
   // It will be passed instead of setItemInRegister function
@@ -149,7 +147,7 @@ const SalePage = () => {
       <Stack
         direction={"column"}
         bgcolor={"background.paper"}
-        m={{xs:0,md:1}}
+        mx={{xs:0,md:1}}
         mt={{xs:1}}
         py={{xs:0.5, md:0}}
         height={"98vh"}

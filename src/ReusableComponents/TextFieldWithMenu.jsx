@@ -4,8 +4,8 @@ import { Box, ClickAwayListener, InputAdornment, Grow, MenuList, Paper, Popper, 
 
 // onvalueChange is an event handler takes value
 // MenuItemsFunc is function that generates menu items it should take menuItem click handler and input value
-// onDeleteIconClick is an function should execute durin deletion
-function TextFieldWithMenu({value, onValueChange, menuItemsFunc, onDeleteIconClick, ...TextFieldProps}) {
+// onDeleteIconClick is an function should execute during deletion
+function TextFieldWithMenu({value, onValueChange, menuItemsFunc, onDeleteIconClick, inputProps, TextFieldsx, ContainerProps, ...TextFieldProps}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const inputRef = useRef()
 
@@ -29,7 +29,7 @@ function TextFieldWithMenu({value, onValueChange, menuItemsFunc, onDeleteIconCli
   return (
     <ClickAwayListener onClickAway={closeMenu}>
 
-        <Box flex={1} >
+        <Box  sx={{backgroundColor:'background.paper', width:'30%'}}  {...ContainerProps} >
             <TextField
                 onFocus={handleTextFieldFocus}
                 value={value}
@@ -38,24 +38,36 @@ function TextFieldWithMenu({value, onValueChange, menuItemsFunc, onDeleteIconCli
                 fullWidth
                 {...TextFieldProps}
                 autoComplete='off'
-                InputProps={{
-                    endAdornment:(
-                        <InputAdornment sx={{
-                            ":hover":{
-                              cursor:'pointer'
-                            }
-                          }} 
-                          onClick={()=>{
-                            handleTextFieldChange('')
-                            onDeleteIconClick()
-                          }}
-                          position='end' 
-                        >
-                          <ClearIcon width={25} sx={{fontSize:{xs:20, md:30}}} />
-                        </InputAdornment>
-                      )
+                sx={{
+                  display:'flex',
+                  flexDirection:'row',
+                  alignItems:'center',
+                  // height:'100%',
+                  ...TextFieldsx
                 }}
-            />
+                InputProps={{
+                  sx:{
+                    fontSize:{xs:12, md:15},
+                    height:{xs:40, md:55},
+                  },
+                  endAdornment:(
+                    <InputAdornment sx={{
+                        ":hover":{
+                          cursor:'pointer'
+                        }
+                      }} 
+                      onClick={()=>{
+                        handleTextFieldChange('')
+                        onDeleteIconClick()
+                      }}
+                      position='end' 
+                    >
+                      <ClearIcon width={25} sx={{fontSize:{xs:20, md:30}}} />
+                    </InputAdornment>
+                  ),
+                  ...inputProps
+                }}
+              />
             <Popper
                 open={menuOpen}
                 anchorEl={inputRef.current}
@@ -85,7 +97,7 @@ function TextFieldWithMenu({value, onValueChange, menuItemsFunc, onDeleteIconCli
                     </Grow>
                 )}}
             </Popper>
-            
+                
         </Box>
     </ClickAwayListener>
   );
