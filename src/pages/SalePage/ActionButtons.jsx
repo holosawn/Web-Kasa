@@ -40,8 +40,8 @@ export const ActionButtons = () => {
       direction={"row"}
       width={"90%"}
       mt={{ md:1, lg:2 }}
-      minHeight={{xs:80,md:110, xl:130}}
-      maxHeight={{xs:80,md:110, xl:130}}
+      minHeight={{xs:80,md:100, xl:120}}
+      maxHeight={{xs:80,md:100, xl:120}}
       columnSpacing={1}
       rowSpacing={0.5}
       mb={1}

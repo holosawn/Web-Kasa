@@ -83,7 +83,8 @@ i18n
             reports: 'Reports',
             settings: 'Settings',
             exit: 'Exit',
-            sales:'sales'
+            sales:'sales',
+            Reports:"Reports"
           },
           dashboard:{
             today:'Today',
@@ -271,6 +272,36 @@ i18n
             multiPaymentDesc:'Enable multi payment to accept payments in multiple',
             exit:'Exit'
           },
+          reports:{
+            shop:"Shop",
+            reports:'Reports',
+            noReports:'No reports found in specified date range.',
+            date:'Date',
+            chooseReport:'Choose a report to view',
+            zReport:'Z-REPORT',
+            cashier:'Cashier',
+            transactions:'Transactions',
+            cash:'Cash',
+            card:'Card',
+            total:'Total',
+            totalTax:'Total Tax',
+            drawerTotal:'Drawer Total',
+            openingBalance:'Opening Balance',
+            removeTender:'Remove Tender',
+            floatEntry:'Float Entry',
+            saleSummary:'Sale Summary',
+            grossSales:'Gross Sales',
+            discount:'Discount',
+            offer:'Offer',
+            coupon:'Coupon',
+            totalNetSales:'Total Net Sales',
+            salesByCategories:'Sales By Categories',
+            thanks:'Thank you for your business',
+            print:'Print'
+          },
+          layout:{
+            errorLoading:"Error During Loading The Page"
+          }
         }
       },
       tr: { 
@@ -348,7 +379,8 @@ i18n
             reports: 'Raporlar',
             settings: 'Ayarlar',
             exit: 'Çıkış',
-            sales:'satış'
+            sales:'satış',
+            Reports:"Reports"
           },
           dashboard: {
             today: 'Bugün',
@@ -524,7 +556,39 @@ i18n
             multiPayment: "Çoklu Ödeme",
             multiPaymentDesc: "Birden fazla şekilde ödeme kabul etmek için çoklu ödeme seçeneğini etkinleştirin",
             exit: "Çıkış"
+          },
+          reports: {
+            shop: "Mağaza",
+            reports: 'Raporlar',
+            noReports: 'Belirtilen tarih aralığında rapor bulunamadı.',
+            date: 'Tarih',
+            chooseReport: 'Görüntülemek için bir rapor seçin',
+            zReport: 'Z-RAPORU',
+            cashier: 'Kasiyer',
+            transactions: 'İşlemler',
+            cash: 'Nakit',
+            card: 'Kart',
+            total: 'Toplam',
+            totalTax: 'Toplam Vergi',
+            drawerTotal: 'Çekmece Toplamı',
+            openingBalance: 'Açılış Bakiyesi',
+            removeTender: 'Nakit Çek',
+            floatEntry: 'Kasaya Giriş',
+            saleSummary: 'Satış Özeti',
+            grossSales: 'Brüt Satışlar',
+            discount: 'İndirim',
+            offer: 'Teklif',
+            coupon: 'Kupon',
+            totalNetSales: 'Toplam Net Satışlar',
+            salesByCategories: 'Kategorilere Göre Satışlar',
+            thanks: 'İşiniz için teşekkür ederiz',
+            print: 'Yazdır'
+          },
+          layout:{
+            errorLoading:"Ошибка загрузки",
+            
           }
+          
         }
       },
       ru: {
@@ -601,7 +665,8 @@ i18n
             reports: 'Отчеты',
             settings: 'Настройки',
             exit: 'Выход',
-            sales:'продажи'
+            sales:'продажи',
+            Russian: "Отчёты",
           },
           dashboard: {
             today: 'Сегодня',
@@ -776,7 +841,35 @@ i18n
             multiPayment: "Множественный платеж",
             multiPaymentDesc: "Включить множественный платеж для принятия платежей разными способами",
             exith: "Завершить"
+          },
+          reports: {
+            shop: "Магазин",
+            reports: 'Отчеты',
+            noReports: 'Отчеты за указанный период не найдены.',
+            date: 'Дата',
+            chooseReport: 'Выберите отчет для просмотра',
+            zReport: 'Z-ОТЧЕТ',
+            cashier: 'Кассир',
+            transactions: 'Транзакции',
+            cash: 'Наличные',
+            card: 'Карта',
+            total: 'Итого',
+            totalTax: 'Общий налог',
+            drawerTotal: 'Итог в кассе',
+            openingBalance: 'Начальный баланс',
+            removeTender: 'Изъятие наличных',
+            floatEntry: 'Внесение наличных',
+            saleSummary: 'Итог по продажам',
+            grossSales: 'Валовые продажи',
+            discount: 'Скидка',
+            offer: 'Предложение',
+            coupon: 'Купон',
+            totalNetSales: 'Итог чистых продаж',
+            salesByCategories: 'Продажи по категориям',
+            thanks: 'Спасибо за ваш бизнес',
+            print: 'Печать'
           }
+          
         }
       }
     }

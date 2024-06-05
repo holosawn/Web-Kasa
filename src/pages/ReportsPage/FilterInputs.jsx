@@ -3,7 +3,8 @@ import React from 'react'
 import CustomTextField from '../../ReusableComponents/CustomTextField'
 import TextFieldWithMenu from '../../ReusableComponents/TextFieldWithMenu'
 import useAlert from '../../CustomHooks/useAlert.js'
-import { formatDateToISO } from '../../utils/helpers.js'
+import { t } from 'i18next'
+import { useLanguage } from '../../contexts/LangContext.jsx'
 
 const exampleShops = [
     'Çerkezköy Şube',
@@ -14,6 +15,7 @@ const exampleShops = [
 
 const FilterInputs = ({filterValues ,setFilterValues}) => {
     const [showAlert, AlertComponent] = useAlert();
+    const {lang} = useLanguage()
     // const [size, setSize] = useSize();
 
     const handleFieldChange=(input, inputName)=>{
@@ -46,12 +48,12 @@ const FilterInputs = ({filterValues ,setFilterValues}) => {
     }
 
   return (
-    <Box gap={2} sx={{backgroundColor:'background.paper' , display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center',  width:'100%', height:80,  px:1, borderRadius:3, displayPrint:'none'}} >
+    <Box gap={{xs:1, md:2}} sx={{backgroundColor:'background.paper' , display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center',  width:'100%', height:{xs:50, md:80, xl:100},  px:1, borderRadius:3, displayPrint:'none'}} >
         <CustomTextField value={filterValues.id} setValue={value => handleFieldChange(value, 'id')} 
             size='small'
-            placeholder='Search By ID'
+            placeholder='ID'
             sx={{
-                width: '30%',
+                width:'30%',
                 height:'fit-content',
                 mb:0,
                 "& .MuiOutlinedInput-root": {
@@ -77,18 +79,19 @@ const FilterInputs = ({filterValues ,setFilterValues}) => {
                 borderRadius:0,
                 fontSize:{xs:12, md:15},
                 height:{xs:30, md:40},
+                p:0
                 },
                 
             }}
         />
 
         <TextFieldWithMenu value={filterValues.shop} onValueChange={value => handleFieldChange(value, 'shop')} menuItemsFunc={menuItemsFunc} onDeleteIconClick={handleShopInputDelete}
-            placeholder="Search Shops"
+            placeholder={t('reports.shop')}
             size='small'
             ContainerProps={{
                 sx:{
                     height:'fit-content',
-                    width:'30%',
+                    width:{xs:'25%', md:'30%'},
                 }
             }}
             TextFieldsx={{
@@ -117,26 +120,25 @@ const FilterInputs = ({filterValues ,setFilterValues}) => {
                     fontSize:{xs:12, md:15},
                     height:{xs:30, md:40},
                     backgroundColor:'background.paper',
+                    p:0
                 },
 
 
             }}
         />
 
-        <Box display={'flex'} flexDirection={'row'}  width={'35%'} alignItems={'center'} gap={0.7} >
+        <Box display={'flex'} flexDirection={'row'} width={'35%'} alignItems={'center'} gap={0.7} >
             <TextField
-            value={filterValues.startDate}
+            value={filterValues.startDate.split(" ")[0]}
             onChange={e => handleFieldChange(e.target.value, 'startDate')}
             type="date"
             size='small'
             sx={{
                 width:'45%',
-                backgroundColor:'background.paper',
                 "& .MuiOutlinedInput-root": {
                     "& .MuiOutlinedInput-input": {
                         pb: 0.4,
                         px: 0.5,
-                        fontSize:15
                     },
                     "& .MuiOutlinedInput-notchedOutline": {
                         border: 'none', // Remove the border
@@ -159,15 +161,15 @@ const FilterInputs = ({filterValues ,setFilterValues}) => {
                     height:{xs:30, md:40},
                     color:'text.secondary',
                     borderRadius:0,
-                    padding:0
+                    p:0
                 },
             }}
             />
 
-            <Typography display={'flex'} alignItems={'center'} justifyContent={'center'} fontSize={20}  color={'text.secondary'} >---</Typography>
+            <Typography display={'flex'} alignItems={'center'} noWrap justifyContent={'center'} fontSize={20}  color={'text.secondary'} >---</Typography>
 
             <TextField
-            value={filterValues.endDate}
+            value={filterValues.endDate.split(" ")[0]}
             onChange={e => handleFieldChange(e.target.value, 'endDate')}
             type='date'
             size='small'
@@ -198,7 +200,7 @@ const FilterInputs = ({filterValues ,setFilterValues}) => {
                     height:{xs:30, md:40},
                     color:'text.secondary',
                     borderRadius:0,
-                    padding:0
+                    p:0
                 },
             }}
             />

@@ -132,7 +132,6 @@ const Products = ({ products, sendToRegister, setNumpadFocus=null, containerRef}
     setItemsToRender([...itemsToRender, ...newItems]);
   }
 
-  console.log(containerWidth);
   return (
     <Box mt={1} ref={refContainer} flex={1} width={'100%'} maxWidth={{xs:600, md:2000}} minHeight={150} mb={{xs:1,md:1.5}} ml={1} p={0} sx={{scrollbarGutter:'stable'}}  >
       <VirtuosoGrid

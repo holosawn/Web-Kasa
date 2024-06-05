@@ -139,7 +139,7 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
         </Button>
       </Tooltip>
       <Tooltip title='Exit' arrow>
-        <Button onClick={()=>{navigate('/Login')}} sx={{ ...getButtonStyle("", currentPage), color: 'red' }}>
+        <Button onClick={()=>{navigate(-1)}} sx={{ ...getButtonStyle("", currentPage), color: 'red' }}>
             <ForwardIcon sx={{ ...getIconStyle('', currentPage), transform: 'rotate(180deg)', color: '#f83e3e' }} />
             <IconDescription isMenuOpen={isMenuOpen} color={'red'}>{t('menu.exit')}</IconDescription>
         </Button>
