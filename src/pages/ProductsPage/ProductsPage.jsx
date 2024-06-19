@@ -14,8 +14,8 @@ import LoadingPage from '../ErrorAndLoadingPages/LoadingPage.jsx'
 import ErrorPage from '../ErrorAndLoadingPages/ErrorPage.jsx'
 
 const ProductsPage = () => {
-  const [products, productsFetchError, productsFetchLoading] = useFetchData('/Products')
-  const [categories, categoriesFetchError, categoriesFetchLoading] = useFetchData('/Categories')
+  const [products, productsFetchLoading, productsFetchError] = useFetchData('/Products')
+  const [categories, categoriesFetchLoading, categoriesFetchError] = useFetchData('/Categories')
   const [itemInRegister, setItemInRegister] = useState({
     product: {},
     qty: 0,

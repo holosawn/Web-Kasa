@@ -19,9 +19,6 @@ const layouts = {
     tr: trLayout,
   };
 
-
-
-
 const validateCouponCode = (code) => {
   // Regular expression for at least one uppercase letter, one digit, and minimum length of 5 characters
   const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{5,}$/;

@@ -95,6 +95,7 @@ const CustomTextField=({value, setValue, setNumpadFocus, sx, inputProps, ...text
           ...inputProps
         }}
         // size={size.y > 400 ? "large": 'small'}
+        // sx={sx}
         sx={{
           display:'flex',
           flexDirection:'row',

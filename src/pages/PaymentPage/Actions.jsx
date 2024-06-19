@@ -116,7 +116,7 @@ const Actions = ({coupons, cartItems, setCartItems, taggedCustomer, setTaggedCus
   }
 
   return (
-    <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', width:'100%' , height:'auto', pt:0.5 }}>
+    <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', width:'100%' , height:'auto', pt:0.5, mb:1 }}>
       <Grid container rowSpacing={0.5} sx={{width:'100%', minHeight:size.y < 600 ? 60: 150, height:size.y < 600 ? 80 : 150}} >
         
         <Grid item xs={6} sx={{display:'flex',justifyContent:'center', alignItems:'center'}} >
@@ -170,7 +170,7 @@ const CouponMenu = ({ activeCoupons, onDeleteCouponClick }) => {
 
   return (
     <>
-      {size.y > 500 ? (
+      {size.y > 500 || activeCoupons.length > 3 ? (
         <Stack direction={"column"} width={"100%"} maxWidth={600} sx={{ overflowY: "scroll", overflowX:'hidden' }}>
           {activeCoupons.map((coupon) => (
             <CouponRow key={coupon.key} coupon={coupon} onDeleteClick={onDeleteCouponClick} />

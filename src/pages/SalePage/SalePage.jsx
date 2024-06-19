@@ -21,8 +21,8 @@ import ErrorPage from "../ErrorAndLoadingPages/ErrorPage.jsx";
 const SalePage = () => {
   const [filterCategories, setFilterCategories] = useState([]);
   const [filterValue, setFilterValue] = useState("");
-  const [products, productsFetchError, productsFetchLoading] = useFetchData('/Products')
-  const [categories, categoriesFetchError, categoriesFetchLoading] = useFetchData('/Categories')
+  const [products, productsFetchLoading, productsFetchError ] = useFetchData('/Products')
+  const [categories, categoriesFetchLoading, categoriesFetchError ] = useFetchData('/Categories')
   // Ref of products container for scrolling via buttons
   const productsRef = useRef(null)
   const [cartItems, setCartItems] = useState( JSON.parse(sessionStorage.getItem("cartItems")) || []);

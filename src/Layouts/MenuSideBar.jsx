@@ -14,6 +14,7 @@ import { useLocation } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from "react-router-dom";
 import { t } from 'i18next';
+import { useAuth } from '../contexts/AuthContext';
   
 const getIconStyle = (pageName, currentPage)=>({
   color: pageName === currentPage ? '#0E4D90' : '#AAC0D7',
@@ -52,6 +53,7 @@ const IconDescription = ({children, isMenuOpen, currentPage=false ,  color})=>(
 const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
   //Current page name derived from url
   const currentPage = useLocation().pathname.slice(1) || '';
+  const { logout } = useAuth()
   const menuRef = useRef();
   const navigate = useNavigate();
 
@@ -74,6 +76,11 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  }
 
   return (
     <Paper
@@ -139,7 +146,7 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
         </Button>
       </Tooltip>
       <Tooltip title='Exit' arrow>
-        <Button onClick={()=>{navigate(-1)}} sx={{ ...getButtonStyle("", currentPage), color: 'red' }}>
+        <Button onClick={handleLogout} sx={{ ...getButtonStyle("", currentPage), color: 'red' }}>
             <ForwardIcon sx={{ ...getIconStyle('', currentPage), transform: 'rotate(180deg)', color: '#f83e3e' }} />
             <IconDescription isMenuOpen={isMenuOpen} color={'red'}>{t('menu.exit')}</IconDescription>
         </Button>

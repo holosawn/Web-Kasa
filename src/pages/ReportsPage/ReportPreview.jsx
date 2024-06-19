@@ -14,7 +14,7 @@ const ReportPreview = ({ currentReport }) => {
     </Paper>
 
   ) : (
-    <Paper elevation={0}  sx={{ position:'relative', width: '80%', height:'100%', py: {xs:1, md:4}, borderRadius: 3,  }} className='print-container'>
+    <Paper elevation={0}  sx={{ position:'relative', width: '80%', height:'100%', minHeight:220, py: {xs:1, md:4}, borderRadius: 3,  }} className='print-container'>
       <Stack direction={'column'} width={'100%'} alignItems={'center'} sx={{ displayPrint:'block', overflowY:'scroll', height:'100%', px:4}} className='print-wrapper' >
         <Typography variant="h6" fontWeight={700} align="center">
           {t('reports.zReport')}
@@ -198,7 +198,7 @@ const ReportPreview = ({ currentReport }) => {
           </Grid>
 
           {Object.entries(currentReport.categorySales).map(([key, value]) => (
-            <Grid container item xs={12}>
+            <Grid container key={key} item xs={12}>
               <Grid item xs={6}>
                 <Typography variant="body2" >{key} :</Typography>
               </Grid>

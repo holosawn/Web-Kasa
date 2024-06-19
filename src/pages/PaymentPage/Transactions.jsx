@@ -102,8 +102,8 @@ const Transactions = ({cartItems, amountToPay, setAmountToPay}) => {
   }
 
   return (
-    <Box sx={{ display:'flex', width:'100%', flexDirection:'column', mt: size.y < 500 ? 0.5 : 1, mt:'auto'}}>
-      <Box borderRadius={1} display={'flex'} flexDirection={'row'} sx={{width:size.y < 900 ? '98%' : '96%',mx:size.y < 900 ? '1%' : '2%', height:size.y < 400 ? 35 : size.y < 900 ? 55 : 70, mb: size.y< 400 ? 1 : 2 }}>
+    <Box sx={{ display:'flex', width:'100%', flexDirection:'column', alignItems:'center', mt: size.y < 500 ? 0.5 : 1, mt:'auto'}}>
+      <Box borderRadius={1} display={'flex'} flexDirection={'row'} sx={{width:size.y < 900 ? '98%' : '96%',mx:size.y < 900 ? '1%' : '2%', height:size.y < 600 ? 35 : size.y < 900 ? 55 : 70, mb: size.y< 400 ? 1 : 2 }}>
           <TextField fullWidth inputRef={inputRef} autoComplete='off' sx={{mr:0.2}} InputProps={{style:{height:'100%'}}} label={t(`payment.amount`)} focused value={transaction.amount} onChange={handleInputChange} />
           <PaymentTypeButton label={t(`payment.card`)} disabled={!transaction.amount > 0 || amountToPay < 0 || !cartItems.length > 0} transaction={transaction} onCardClick={onCardClick} />
           <PaymentTypeButton label={t(`payment.cash`)} disabled={!transaction.amount > 0 || amountToPay < 0 || !cartItems.length > 0} transaction={transaction} onCardClick={onCashClick} />
@@ -131,7 +131,7 @@ const PaymentTypeButton = ({ label, disabled, onCardClick }) => {
         minWidth:{md:90}
       }}
     >
-      <Typography width={'fit-content'}>{label.charAt(0).toUpperCase() + label.slice(1)}</Typography>
+      <Typography width={'fit-content'} textTransform={'none'} fontSize={{xs:11, md:15, xl:20}} >{label.charAt(0).toUpperCase() + label.slice(1)}</Typography>
     </Button>
   );
 };

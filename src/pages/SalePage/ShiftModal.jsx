@@ -108,8 +108,6 @@ const ShiftModal = ({ open, onClose }) => {
     });
   }
 
-  console.log(shiftStatus);
-
   return (
     <Modal
       open={open}

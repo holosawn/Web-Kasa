@@ -112,8 +112,8 @@ const Numpad = ({ setValue, scrollRef, layout }) => {
   return(
     <Grid
     container
-    width={{ xs: 300, md: 400, lg: 500, xl: 600 }}
-    height={{xs: 150 ,md: 200 , lg: 270 , xl: 320 , }}
+    width={{ xs: 300, md: 400, lg: 430, xl: 550 }}
+    height={{xs: 150 ,md: 170 , lg: 240 , xl: 260 , }}
     mb={{ md: 0.5 }}
    >
     {(layout || defaultLayout).map((content) => (
@@ -163,10 +163,10 @@ const Key = ({ content, sx, onClick, onMouseUp, onMouseDown, setValue, color, ..
         variant="contained"
         color={color}
         sx={{
-          width:{xs:60,md:75, lg:90, xl:110},
+          width:{xs:60,md:75, lg:85, xl:100},
           minWidth: 25,
           // maxWidth:180,
-          height: {xs:35,md:45, lg:60, xl:75},
+          height: {xs:35,md:40, lg:55, xl:60},
           // minHeight: 60,
           // maxHeight:120,
           display: "flex",

@@ -166,10 +166,11 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
       }
       sessionStorage.setItem('activeCoupons', JSON.stringify(tempActiveCoupons))
 
+      console.log("Before set amountToPay",pastTransactions);
       // If there are already made transactions set calculated amount
       if (pastTransactions.length > 0) {
         const totalTransactionAmount = pastTransactions.reduce((acc, curr) => {
-          return acc + curr.amount
+          return parseInt(acc) + parseInt(curr.amount)
         } ,0)
         sessionStorage.setItem("amountToPay", JSON.stringify(computedTotalPrice - totalTransactionAmount));
       }

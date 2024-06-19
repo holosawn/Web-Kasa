@@ -32,7 +32,7 @@ const useFetchData = (url) => {
       },[url])
 
 // console.log(error);
-  return [data, error, isLoading]
+  return [data, isLoading, error]
 }
 
 export default useFetchData

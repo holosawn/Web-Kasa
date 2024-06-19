@@ -7,6 +7,7 @@ import {
   Paper,
   useMediaQuery,
   Stack,
+  Button,
 } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import Keyboard from "react-simple-keyboard";
@@ -23,8 +24,9 @@ import { useTheme } from "@emotion/react";
 import useFetchData from "../../CustomHooks/useFetchData";
 import buttons from "../../Constants/KeyboardButtons";
 import { useNavigate } from "react-router-dom";
-import useSize from '../../CustomHooks/useSize';
+import { useAuth } from '../../contexts/AuthContext'
 import LoadingButton from "../../ReusableComponents/LoadingButton";
+import axios from "axios";
 
 // The layouts object contains the keyboard layouts for each supported language
 const layouts = {
@@ -34,6 +36,11 @@ const layouts = {
 };
 
 const user = { userCode: "admin", password: "123" };
+
+const users = [
+  { userCode: "admin", password: "123" },
+  { userCode: "cashier", password: "123" }
+]
 
 const setInputCaretPosition = (elem, pos) => {
   if (elem.setSelectionRange) {
@@ -61,6 +68,8 @@ const LoginPage = () => {
     userCode: "",
     password: "",
   });
+  // Functions to authorize user
+  const { login } = useAuth();
   // The Keyboard layout state 
   const [layout, setLayout] = useState("default");
   // The errors state object contains the validation errors for each field
@@ -86,7 +95,7 @@ const LoginPage = () => {
   const [isButtonLoading, setIsButtonLoading] = useState();
   const {lang, setLang} = useLanguage();
   const navigate = useNavigate();
-  const [data, error, isLoading] = useFetchData('/Login')
+  const [data, isLoading, error] = useFetchData('/Login')
   const { mode } = useCustomTheme();
   const theme = useTheme();
 
@@ -169,26 +178,28 @@ const LoginPage = () => {
     // if(touched.submit !== false) setTouched(prev => ({...prev, submit:''}))
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setTouched(prev => ({...prev, submit:true}))
     const anyErrors = Object.values(errors).some((value) => value !== "");
-
+  
     if (!anyErrors) {
       setIsButtonLoading(true)
-      setTimeout(() => {
-        if (
-          loginValues.userCode === user.userCode &&
-          loginValues.password === user.password
-        ) {
+  
+      try {
+        const isLoggedIn = await login(loginValues.userCode, loginValues.password);
+        if (isLoggedIn) {
           setIsButtonLoading(false)
           navigate('/Menu')
-        }
-        else{
+        } else {
           setErrors(prev => ({...prev, submit:true}))
           setIsButtonLoading(false)
         }
-      }, 500);
+      } catch (err) {
+        setErrors(prev => ({...prev, submit:true}))
+        setIsButtonLoading(false)
+        console.log(err)
+      }
     }
   };
 
@@ -203,7 +214,13 @@ const LoginPage = () => {
     }
   }, [caretPos]);
 
-
+  const customLoginRequest = async () => {
+    axios.post('/auth/login', {userCode: 'admin', password: '123'})
+    .then( res => {
+      console.log('successful login');
+    })
+    .catch(err => console.log(err))
+  }
   return (
     <Paper
       sx={{

@@ -6,30 +6,27 @@ import CustomAppBar from './CustomAppBar';
 import useFetchData from '../CustomHooks/useFetchData';
 import { Box, Typography } from '@mui/material';
 import { t } from 'i18next';
+import ErrorPage from '../pages/ErrorAndLoadingPages/ErrorPage';
+import LoadingPage from '../pages/ErrorAndLoadingPages/LoadingPage';
 
 const MenuPagesLayout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const[data, isLoading, error] = useFetchData('/MenuLayoutData')
 
+  // console.log(error, isLoading);
+
 
   if (isLoading) {
     return (
-      <Box flex={1} minHeight={'100vh'} display="flex" flexDirection="column" position={'relative'} justifyContent={'flex-start'} >
-        <Typography>...{('common.loading')}</Typography>
-        <Outlet/>
-      </Box>
+      <LoadingPage/>
     );
   }
 
   if (error) {
     return (
-      <Box flex={1} minHeight={'100vh'} display="flex" flexDirection="column" position={'relative'} justifyContent={'flex-start'} >
-        <Typography>Error Loading </Typography>
-        <Outlet/>
-      </Box>
+      <ErrorPage/>
     );
   }
-
 
   return (
     <Box flex={1} height={'100%'} minHeight={375} width={'100%'} minWidth={665} display={'flex'} flexDirection={'column'} position={'relative'} justifyContent={'flex-start'}  >

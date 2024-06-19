@@ -1,5 +1,5 @@
-import { Box, Divider, Fade, Grow, Stack, Typography } from '@mui/material'
-import React, { useCallback, useMemo } from 'react'
+import { Box, Divider, Grow, Stack, Typography } from '@mui/material'
+import React, { useMemo } from 'react'
 import { formatDateTimeString } from '../../utils/helpers'
 import { t } from 'i18next'
 
@@ -7,10 +7,6 @@ const ReportList = ({reports, filterValues, currentReport, setCurrentReport}) =>
 
     const filteredReports = useMemo(()=>{
         return reports.filter(rp =>{
-
-            // if (rp.id == '2024159') {
-            //     console.log(rp);
-            // }
 
             if (filterValues.id !== '' && !rp.id.toLowerCase().includes(filterValues.id.toLowerCase())) {
                 return false
@@ -33,7 +29,7 @@ const ReportList = ({reports, filterValues, currentReport, setCurrentReport}) =>
     }
 
   return (
-    <Box width={'30%'} height={'100%'} minHeight={0} sx={{backgroundColor:'background.paper', pt:{xs:0, md:1}, borderRadius:3, displayPrint:'none'}} >
+    <Box width={'30%'} height={'100%'} minHeight={220} sx={{backgroundColor:'background.paper', pt:{xs:0, md:1}, borderRadius:3, displayPrint:'none'}} >
         <Typography fontSize={{xs:15, md:20}} color={'primary'} width={'100%'} display={'flex'} justifyContent={'center'} >
             {t('reports.reports')}
         </Typography>

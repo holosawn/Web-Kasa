@@ -113,17 +113,17 @@ const SettingsPage = () => {
 
 
   return (
-    <Box flex={1} minHeight={375}  minWidth={665} display="flex" flexDirection="column" alignItems={'center'} textAlign={'center'} sx={{height:'100vh', width:'100vw',}} >
+    <Box  minHeight={375}  minWidth={665} display="flex" flexDirection="column" alignItems={'center'} textAlign={'center'} sx={{height:'100vh', width:'100vw',}} >
       <Grid container bgcolor={'background.paper'} sx={{borderRadius: size.x< 700 ? 0 : 3, my:'auto', width: size.x < 700 ? '100%' : '80%', heigth:size.y < 500 ? '100%' : '80%'}} >
         
-        <Grid item xs={12} my={3} mb={3}>
+        <Grid item xs={12} my={2} mb={2}>
           <Typography color={'primary'} fontSize={{xs:16, md:22, lg:26, xl:30}} variant='h5' fontWeight={700} letterSpacing={0.7} >{t('settings.applicationSettings')}</Typography>
         </Grid>
         <SettingsDivider />
 
         <GridItem >
           <TitleWithDescription title={t('settings.language')} description={t('settings.langDesc')} />
-          <LangSelector size='large' sx={{width:130, height: size.y < 500 ? 40 : 56, ml:'auto'}} />
+          <LangSelector size='large' sx={{width:130, height: size.y < 500 ? 35 : 50, ml:'auto'}} />
           <SettingsDivider sx={{position:'absolute', bottom:0, left:0}} />
         
         </GridItem>
@@ -131,7 +131,7 @@ const SettingsPage = () => {
         
         <GridItem >
           <TitleWithDescription title={t('settings.alternativeCurrency')} description={t('settings.altDesc')} />
-          <Select size='large' sx={{width:130, ml:'auto', height: size.y < 500 ? 40 : 56}} defaultValue={'TRY'} >
+          <Select size='large' sx={{width:130, ml:'auto', height: size.y < 500 ? 35 : 50}} defaultValue={'TRY'} >
             <MenuItem value={'TRY'} >
               TRY
             </MenuItem>
@@ -144,7 +144,7 @@ const SettingsPage = () => {
 
         <GridItem >
           <TitleWithDescription title={t('settings.theme')} description={t('settings.themeDesc')} />
-          <Stack direction={'row'} alignItems={'center'} ml={'auto'} >
+          <Stack direction={'row'} alignItems={'center'} ml={'auto'} height={size.y < 500 ? 35 : 50} >
             <DarkModeIcon color='black' />
             <ThemeSwitch checked={mode === 'light'} onChange={handleSwitchChange} />
             <LightModeIcon color='warning' />
@@ -175,8 +175,8 @@ const SettingsPage = () => {
         </GridItem>
 
 
-        <GridItem xs={12} sx={{py:0, mb:size.y < 400 ? 1 : 2, mt:1 }} >
-          <SettingsButton label={t('settings.exit')} onClick={()=>navigate(-1)} sx={{mb:0, width: size.x < 800  ?  120  : size.x < 1300 ? 140 : 160}} />
+        <GridItem xs={12} sx={{py:0, mb:size.y < 900 ? 0 : 1, mt:1 }} >
+          <SettingsButton label={t('settings.exit')} onClick={()=>navigate(-1)} sx={{mb:0, mt:0, width: size.x < 800  ?  120  : size.x < 1300 ? 140 : 160, height: size.y < 500 ? 40 : size.y < 800 ?  45 : 50  }} />
         </GridItem>
 
        <ReceiptModal cartItems={cartItems} subTotal={subtotal} total={total} discount={discount} savedByOffers={savedByOffers} amountToPay={amountToPay} activeCoupons={activeCoupons} open={isReceiptModalOpen} onClose={closeReceiptModal} />
@@ -187,15 +187,15 @@ const SettingsPage = () => {
 
 const TitleWithDescription = ({ title, description }) => (
   <Stack direction="column" alignItems="start">
-    <Typography variant="h6" fontSize={{xs:12, md:16, xl:20}} fontWeight={500}>
+    <Typography variant="h7" fontSize={{xs:11, md:15, xl:20}} fontWeight={500}>
       {title}
     </Typography>
-    <Typography color="gray" fontSize={{xs:10, md:14, xl:18}} textAlign={'start'} >{description}</Typography>
+    <Typography color="gray" fontSize={{xs:7, md:10, xl:14}} textAlign={'start'} >{description}</Typography>
   </Stack>
 );
 
 const GridItem = ({children, sx, ...props})=>(
-  <Grid item xs={6} lg={12} sx={{position:'relative', px:3, pb:{xs:1, md:2}, my:1, borderRadius:3, display:'flex', flexDirection:'row', alignItems:'center' , ...sx}} {...props} >
+  <Grid item xs={6} md={12} sx={{position:'relative', px:3, pb:{xs:1, md:2}, my:1, borderRadius:3, display:'flex', flexDirection:'row', alignItems:'center' , ...sx}} {...props} >
     {children}
   </Grid>
 )
@@ -210,7 +210,7 @@ const SettingsButton = ({ label, onClick, sx }) => {
   <Button
     variant="contained"
     color="success"
-    sx={{textTransform:'none',  ml: "auto", mr: 0, mb: 2, mt: 1,  height: size.y < 500 ? 40 : size.y < 800 ?  55 : 65 , width: 120, fontSize:{xs:12, md:16, xl:20}, ...sx }}
+    sx={{textTransform:'none',  ml: "auto", mr: 0, mb: 2, mt: 1,  height: size.y < 500 ? 35 : size.y < 800 ?  40 : 45 , width: 120, fontSize:{xs:8, md:12, xl:16}, ...sx }}
     onClick={onClick}
   >
     {label}

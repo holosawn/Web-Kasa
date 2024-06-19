@@ -114,14 +114,14 @@ const ItemsList = ({coupons, amountToPay, activeCoupons, subTotal, total, discou
         }}
         bgcolor={"background.paper"}
         p={1}
-        pb={1}
+        pt={2}
         minWidth={220}
         borderRadius={2}
         display={'flex'}
         flexDirection={'column'}
       >
-        <Stack direction={'row'} justifyContent={'center'} height={size.y < 800 ? 35 : 45 } alignItems={'end'} width={'100%'} ml={'auto'} p={1} mb={0} position={'relative'} >
-            <Button variant='contained' size={size.y < 800 ? 'small' : 'large'} color='error' onClick={onBackClick} sx={{mr:'auto', position:'absolute', left:0}} >
+        <Stack direction={'row'} justifyContent={'center'} height={size.y < 800 ? 35 : 45 } alignItems={'end'} width={'100%'} ml={'auto'} p={1} pb={0.5} mb={0} position={'relative'} >
+            <Button variant='contained' size={size.y < 800 ? 'small' : 'large'} color='error' onClick={onBackClick} sx={{mr:'auto', mb:0.5, position:'absolute', left:0}} >
                 <ArrowBack fontSize={size.y < 800 ? 'small' : 'medium'} />
             </Button>
             <Typography

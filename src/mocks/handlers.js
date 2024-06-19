@@ -8,35 +8,187 @@ import wallmartData from "../Data/WallmartCompatibleData.json";
 import customerData from '../Data/Customers.json'
 import categoryData from '../Data/WallmartCategoryData.json'
 import reportData from '../Data/Reports.json'
+import shopBranches from '../Data/ShopBranches.json'
+import users from '../Data/Users.json'
 import { offers } from '../Data/Offers'
+import { verifyToken, generateAccessToken, generateRefreshToken, extractPayloadFromToken } from './AuthHelpers';
+
+const accessSecret = 'access-secret-key';
+const refreshSecret = 'refresh-secret-key';
+
 
 export const handlers = [
-    http.get("/Login", ()=>{
-        return HttpResponse.json(loginPageData)
-    }),
-    http.get("/MenuLayoutData", ()=>{
-        return HttpResponse.json(menuLayoutData)
-    }),
-    http.get("/DashboardData/:timeline", (req)=>{
-        const timeline = req.params.timeline
-        return HttpResponse.json(salesDataHandler(dashboardData[timeline]))
-    }),
-    http.get("/Products", (req)=>{
-        return HttpResponse.json(productArrHandler(wallmartData))
-    }),
-    http.get("/MarketStatus", ()=>{
-        return HttpResponse.json({"marketStatus":true,})
-    }),
-    http.get("/Offers", ()=>{
-        return HttpResponse.json(offers)
-    }),
-    http.get('/Customers',()=>{
-        return HttpResponse.json([...customerData, ...(JSON.parse(localStorage.getItem('customers')) || [])])
-    }),
-    http.get('/Categories',()=>{
-        return HttpResponse.json(categoryData)
-    }),
-    http.get('/Reports',()=>{
-        return HttpResponse.json(reportData)
-    }),
+  http.get("/Login", (req, ) => {
+    return HttpResponse.json(loginPageData);
+  }),
+  
+  http.get("/MenuLayoutData", (req, res) => {
+    const token = req.request.headers.get('authorization');
+    if (!token) {
+      return new HttpResponse('Token Expired', {status: 403});
+    }
+    return HttpResponse.json(menuLayoutData);
+  }),
+  
+  http.get("/DashboardData/:timeline", (req, res) => {
+    const token = req.request.headers.get('authorization');
+    if (!token) {
+      return new HttpResponse('Token Expired', {status: 403});
+    }
+    const timeline = req.params.timeline;
+    return HttpResponse.json(salesDataHandler(dashboardData[timeline]));
+  }),
+  
+  http.get("/Products", (req, res) => {
+    const token = req.request.headers.get('authorization');
+    if (!token) {
+      return new HttpResponse('Token Expired', {status: 403});
+    }
+    return HttpResponse.json(productArrHandler(wallmartData));
+  }),
+  
+  http.get("/MarketStatus", (req, res) => {
+    const token = req.request.headers.get('authorization');
+    if (!token) {
+      return new HttpResponse('Token Expired', {status: 403});
+    }
+    return HttpResponse.json({"marketStatus": true});
+  }),
+  
+  http.get("/Offers", (req, res) => {
+    const token = req.request.headers.get('authorization');
+    if (!token) {
+      return new HttpResponse('Token Expired', {status: 403});
+    }
+    return HttpResponse.json(offers);
+  }),
+  
+  http.get('/Customers', (req, res) => {
+    const token = req.request.headers.get('authorization');
+    if (!token) {
+      return new HttpResponse('Token Expired', {status: 403});
+    }
+    return HttpResponse.json([...customerData,...(JSON.parse(localStorage.getItem('customers')) || [])]);
+  }),
+  
+  http.get('/Categories', (req, res) => {
+    const token = req.request.headers.get('authorization');
+    if (!token) {
+      return new HttpResponse('Token Expired', {status: 403});
+    }
+    return HttpResponse.json(categoryData);
+  }),
+  
+  http.get('/Reports', (req, res) => {
+    const token = req.request.headers.get('authorization');
+    if (!token) {
+      return new HttpResponse('Token Expired', {status: 403});
+    }
+    return HttpResponse.json(reportData);
+  }),
+  
+  http.get('/ShopBranches', (req, res) => {
+    const token = req.request.headers.get('authorization');
+    if (!token) {
+      return new HttpResponse('Token Expired', {status: 403});
+    }
+    return HttpResponse.json(shopBranches);
+  }),
+  
+  http.get('/Users', (req, res) => {
+    const token = req.request.headers.get('authorization');
+    if (!token) {
+      return new HttpResponse('Token Expired', {status: 403});
+    }
+    return HttpResponse.json(users);
+  }),
+
+  http.post('/auth/login', async (req) => {
+
+      const reader = req.request.body.getReader();
+      const decoder = new TextDecoder();
+      
+      let data = '';
+      while (true) {
+        const {done, value} = await reader.read();
+        if (done) break;
+        data += decoder.decode(value)
+      }
+  
+      data = JSON.parse(data);
+      const { userCode, password } = data;
+  
+      const user = users.find(user => user.userCode === userCode && user.password === password)
+  
+      if (!user) {
+        return new HttpResponse('Unauthorized', { status: 401, error: 'Invalid credentials' });
+      }
+  
+      const accessToken = await generateAccessToken(user, accessSecret);
+      const refreshToken = await generateRefreshToken(user, refreshSecret);
+  
+      localStorage.setItem(`${userCode}ServerAccessToken`, JSON.stringify(accessToken))
+      localStorage.setItem(`${userCode}ServerRefreshToken`, JSON.stringify(refreshToken))
+  
+      return new HttpResponse(
+        JSON.stringify({
+          user: {
+            userCode: user.username,
+            role: user.role,
+            email: user.email,
+          },
+          accessToken: accessToken,
+        }),
+        {
+          status: 200,
+          headers: { 'Set-Cookie': `refreshToken=${refreshToken};` },
+        }
+      );
+  }),
+
+  http.get('/auth/refresh', async (req) => {
+      const refreshToken = req.cookies.refreshToken
+
+      try {
+        const user = await extractPayloadFromToken(refreshToken, refreshSecret);
+  
+        const newAccessToken = await generateAccessToken(user);
+  
+        return new HttpResponse({}, {status:200, headers:{'authorization' : newAccessToken}})
+      } catch (error) {
+        if (error.message === 'Null Token') {
+          console.log('null');
+          return new HttpResponse('Null Token', { status: 401, });
+        } else if (error.message === 'Invalid Signature') {
+          console.log('expired');
+          return new HttpResponse('Invalid Signature', { status: 401, });
+        } else{
+          console.log(error);
+          return new HttpResponse('Internal Server Error', { status: 500, });
+        }
+      }
+  }),
+
+  http.get('/auth/me', async (req) => {
+
+      const token = req.request.headers.get('authorization')
+  
+      try {
+        const verifiedUser = await verifyToken(token, accessSecret);    
+        return new HttpResponse(JSON.stringify({userCode: verifiedUser.username, role: verifiedUser.role, email: verifiedUser.email}) , {status:200, headers:{'authorization' : token} })  
+      } catch (err) {
+        // console.log('hadnler', err);
+        if (err.message === 'Null Token') {
+          return new HttpResponse('Null Token', { status: 403, });
+        } else if (err.message === 'Token Expired') {
+          return new HttpResponse('Token Expired', { status: 403, });
+        } else if (err.message === 'Invalid Signature') {
+          return new HttpResponse('Invalid Signature', { status: 401, });
+        } else {
+          console.log(err);
+          return new HttpResponse('Internal Server Error', { status: 500 });
+        }
+      }
+  })
+
 ]

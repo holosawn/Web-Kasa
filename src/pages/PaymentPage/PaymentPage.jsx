@@ -4,13 +4,10 @@ import ItemsList from "./ItemsList";
 import Actions from "./Actions";
 import Transactions from "./Transactions";
 import ReceiptModal from "./ReceiptModal";
-import LoadingPage from '../ErrorAndLoadingPages/LoadingPage'
-import ErrorPage from '../ErrorAndLoadingPages/ErrorPage'
 import { useNavigate } from "react-router-dom";
 import { offers } from "../../Data/Offers";
 import useSize from "../../CustomHooks/useSize";
 import { t } from "i18next";
-import useFetchData from "../../CustomHooks/useFetchData";
 
 const PaymentPage = () => {
   // TODO charge Amount goes crazy
@@ -137,7 +134,7 @@ const PaymentPage = () => {
         {/* Payment actions */}
         <Transactions cartItems={cartItems} amountToPay={amountToPay} setAmountToPay={updateAmountToPay} />
         
-        <Button onClick={onFinishButtonClick} disabled={amountToPay > 0.001 || !cartItems.length > 0} variant='contained' size="large" color='success'  sx={{textTransform:'uppercase', mt:0.5, mx:'1%', mb:size.y < 500 ? 1 : 2, width:'98%', height: size.y < 400 ? 30 : size.y < 600 ? 45 : 60, fontSize:{xs:12, md:14, lg:18, xl:20}}} >
+        <Button onClick={onFinishButtonClick} disabled={amountToPay > 0.001 || !cartItems.length > 0} variant='contained' size="large" color='success'  sx={{textTransform:'uppercase', mt:size.y < 500 ? 0.5 : 1, mx:'1%', mb:size.y < 500 ? 0.5 : size.y < 700 ? 1 : 2, width:'98%', height: size.y < 400 ? 30 : size.y < 600 ? 45 : 60, fontSize:{xs:12, md:14, lg:18, xl:20}}} >
           {t('payment.finish')}
         </Button>
       </Stack>

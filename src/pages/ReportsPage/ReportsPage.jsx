@@ -16,7 +16,9 @@ endDate.setHours(23, 59, 59, 999); // Set to the end of the day (23 hours, 59 mi
 
 const ReportsPage = () => {
   // TODO Settings back error
-  const [data, dataFetchError, dataFetchLoading] = useFetchData('/Reports')  
+  const [reports, reportsFetchLoading, reportsFetchError] = useFetchData('/Reports')  
+  const [shops, shopsFetchLoading, shopsFetchError] = useFetchData('/shopBranches')
+
   const [filterValues, setFilterValues] = useState(JSON.parse(sessionStorage.getItem('filterValues')) || {
     id:'',
     shop:'',
@@ -39,22 +41,19 @@ const ReportsPage = () => {
       })
   }
 
-  // localStorage.setItem("reports", JSON.stringify([]))
-  const reports = JSON.parse(localStorage.getItem("reports")) || []
-  // console.log(reports[reports.length-1]);
+  const storedReports = JSON.parse(localStorage.getItem("reports")) || []
 
-
-  return dataFetchLoading ? (
+  return reportsFetchLoading || shopsFetchLoading ? (
     <LoadingPage/>
   )
-  : dataFetchError ? (
+  : reportsFetchError || shopsFetchError ? (
     <ErrorPage/>
   )
   :(
     <Box mx={"16px"} ml={"85px"} display={'flex'} p={1} pt={{xs:0, md:1}} flexDirection={'column'} alignItems={'center'} >
-      <FilterInputs filterValues={filterValues} setFilterValues={updateFilterValues} />
+      <FilterInputs filterValues={filterValues} setFilterValues={updateFilterValues} shops={shops} />
       <Stack display={'flex'} flexDirection={'row'} justifyContent={'start'} width={'100%'} height={{xs:'calc(100vh - 150px)', md:'calc(100vh - 180px)', lg:'calc(100vh - 200px)' }} gap={3} py={1} >
-        <ReportList reports={[...data, ...reports]} filterValues={filterValues} currentReport={currentReport} setCurrentReport={setCurrentReport} />
+        <ReportList reports={[...reports, ...storedReports]} filterValues={filterValues} currentReport={currentReport} setCurrentReport={setCurrentReport} />
         <ReportPreview currentReport={currentReport} setCurrentReport={currentReport} />
       </Stack>
     </Box>
