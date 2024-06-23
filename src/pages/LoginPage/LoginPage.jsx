@@ -95,7 +95,7 @@ const LoginPage = () => {
   const [isButtonLoading, setIsButtonLoading] = useState();
   const {lang, setLang} = useLanguage();
   const navigate = useNavigate();
-  const [data, isLoading, error] = useFetchData('/Login')
+  const [data, isLoading, error] = useFetchData('/login')
   const { mode } = useCustomTheme();
   const theme = useTheme();
   const {loggedIn} = useAuth()
@@ -105,7 +105,7 @@ const LoginPage = () => {
 
   useEffect( () => {
     if (loggedIn) {
-      navigate('/Menu')
+      navigate('/menu')
     }
   } , [])
 
@@ -146,7 +146,6 @@ const LoginPage = () => {
       onChange(newValue);
     }
   };
-
 
   const onChangeInput = (input) => {
     keyboard.current.setInput(input);
@@ -197,7 +196,7 @@ const LoginPage = () => {
         const isLoggedIn = await login(loginValues.userCode, loginValues.password);
         if (isLoggedIn) {
           setIsButtonLoading(false)
-          navigate('/Menu')
+          navigate('/menu')
         } else {
           setErrors(prev => ({...prev, submit:true}))
           setIsButtonLoading(false)

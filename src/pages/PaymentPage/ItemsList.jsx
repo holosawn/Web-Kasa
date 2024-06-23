@@ -100,7 +100,7 @@ const ItemsList = ({coupons, amountToPay, activeCoupons, subTotal, total, discou
 
 
   const onBackClick=()=>{
-  navigate('/Sale')
+  navigate('/sale')
   }
 
   

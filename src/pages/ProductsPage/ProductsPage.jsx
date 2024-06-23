@@ -14,8 +14,8 @@ import LoadingPage from '../ErrorAndLoadingPages/LoadingPage.jsx'
 import ErrorPage from '../ErrorAndLoadingPages/ErrorPage.jsx'
 
 const ProductsPage = () => {
-  const [products, productsFetchLoading, productsFetchError] = useFetchData('/Products')
-  const [categories, categoriesFetchLoading, categoriesFetchError] = useFetchData('/Categories')
+  const [products, productsFetchLoading, productsFetchError] = useFetchData('/products')
+  const [categories, categoriesFetchLoading, categoriesFetchError] = useFetchData('/categories')
   const [itemInRegister, setItemInRegister] = useState({
     product: {},
     qty: 0,
@@ -161,7 +161,7 @@ const ProductsPage = () => {
             <Typography textTransform={'none'} fontSize={{xs:12, md:14, lg:16}}>{t('products.add')}</Typography> 
           </Button>
 
-          <Button onClick={()=>navigate('/Sale')} variant='contained' color='warning' sx={{fontSize:{xs:15, md:22, lg:22},ml:{xs:0.5, md:2}, minWidth:{xs:70, md:100}, height:'90%' ,mb:{xs:0, md:1}}}  >
+          <Button onClick={()=>navigate('/sale')} variant='contained' color='warning' sx={{fontSize:{xs:15, md:22, lg:22},ml:{xs:0.5, md:2}, minWidth:{xs:70, md:100}, height:'90%' ,mb:{xs:0, md:1}}}  >
           <Badge badgeContent={cartItems.length} color="primary" anchorOrigin={{vertical: 'top', horizontal: 'left'}} 
             sx={{
               '.MuiBadge-standard':{

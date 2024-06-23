@@ -16,7 +16,7 @@ endDate.setHours(23, 59, 59, 999); // Set to the end of the day (23 hours, 59 mi
 
 const ReportsPage = () => {
   // TODO Settings back error
-  const [reports, reportsFetchLoading, reportsFetchError] = useFetchData('/Reports')  
+  const [reports, reportsFetchLoading, reportsFetchError] = useFetchData('/reports')  
   const [shops, shopsFetchLoading, shopsFetchError] = useFetchData('/shopBranches')
 
   const [filterValues, setFilterValues] = useState(JSON.parse(sessionStorage.getItem('filterValues')) || {

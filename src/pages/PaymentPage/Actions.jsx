@@ -104,7 +104,7 @@ const Actions = ({coupons, cartItems, setCartItems, taggedCustomer, setTaggedCus
     sessionStorage.setItem('taggedCustomer', JSON.stringify({}))
     sessionStorage.setItem('taggedCustomer', JSON.stringify({}))
     sessionStorage.setItem('cartItems', JSON.stringify([]))
-    navigate('/Sale')
+    navigate('/sale')
   }
 
   const openCusModal=()=>{

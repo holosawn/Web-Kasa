@@ -27,26 +27,26 @@ function App() {
             <BrowserRouter>
               <AuthProvider>
                 <Routes>
-                  <Route path="/" element={<Navigate to="/Login" />} />
-                  <Route path='/Login' element={<LoginPage/>} />
+                  <Route path="/" element={<Navigate to="/login" />} />
+                  <Route path='/login' element={<LoginPage/>} />
 
                   <Route element={<Authorization />}>
-                    <Route path='/Settings' element={<Settings/>} />
+                    <Route path='/settings' element={<Settings/>} />
                   </Route>
 
                   <Route element={<Authorization allowedRoles={['cashier']} />}>
-                    <Route path='/Sale' element={<SalePage/>} />
-                    <Route path='/Payment' element={<PaymentPage/>} />
-                    <Route path='/Products' element={<ProductsPage/>} />
+                    <Route path='/sale' element={<SalePage/>} />
+                    <Route path='/payment' element={<PaymentPage/>} />
+                    <Route path='/products' element={<ProductsPage/>} />
                   </Route>
 
 
                   <Route element={<Authorization />}>
                     <Route element={<MenuPagesLayout/>} >
-                      <Route path='/Menu' element={<Dashboard/>} />
+                      <Route path='/menu' element={<Dashboard/>} />
                       <Route element={<Authorization allowedRoles={['admin']} />}>
-                        <Route path='/Reports' element={<ReportsPage/>} />
-                        <Route path='/Customers' element={<CustomersPage/>} />
+                        <Route path='/reports' element={<ReportsPage/>} />
+                        <Route path='/customers' element={<CustomersPage/>} />
                       </Route>
                     </Route>
                   </Route>

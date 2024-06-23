@@ -121,7 +121,7 @@ const PaymentPage = () => {
     sessionStorage.setItem('pastTransactions', JSON.stringify(''))
     sessionStorage.setItem('taggedCustomer', JSON.stringify({}))
 
-    navigate('/Sale')
+    navigate('/sale')
   }
 
   const onFinishButtonClick =()=>{

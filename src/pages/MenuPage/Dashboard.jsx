@@ -121,7 +121,7 @@ const SalesDeductionChart = ({ data, timeline }) => {
 
 const Dashboard = () => {
     const [timeline, setTimeline] = useState("today");
-    const [data, isLoading, error] = useFetchData(`/DashboardData/${timeline}`);
+    const [data, isLoading, error] = useFetchData(`/dashboard/${timeline}`);
 
   if (isLoading) {
     return <LoadingPage/>

@@ -99,7 +99,7 @@ const offers = {
 const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setNumpadFocus, additionalItemEditClick=null}) => {
   const [offerName, setofferName] = useState(JSON.parse(sessionStorage.getItem('offerName')) || "none");
   const [discount, setDiscount] = useState( parseInt(JSON.parse(sessionStorage.getItem('discount'))) || 0);
-  const [marketStatus, statusError, statussLoading] = useFetchData('/MarketStatus')
+  const [marketStatus, statusError, statussLoading] = useFetchData('/marketStatus')
   const [showAlert, AlertComponent] = useAlert(); // Use the custom hook
   const [isChargeButtonLoading, setIsChargeButtonLoading] = useState(false)
   const [size, setSize] = useSize()
@@ -183,7 +183,7 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
       sessionStorage.setItem("savedByOffers", JSON.stringify(savedByOffers));
 
       setIsChargeButtonLoading(false);
-      navigate('/Payment');
+      navigate('/payment');
 
     }
     else {

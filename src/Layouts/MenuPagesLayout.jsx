@@ -11,9 +11,7 @@ import LoadingPage from '../pages/ErrorAndLoadingPages/LoadingPage';
 
 const MenuPagesLayout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const[data, isLoading, error] = useFetchData('/MenuLayoutData')
-
-  // console.log(error, isLoading);
+  const[data, isLoading, error] = useFetchData('/menuLayoutData')
 
 
   if (isLoading) {
