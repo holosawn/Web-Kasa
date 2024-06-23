@@ -63,7 +63,7 @@ export const handlers = [
     return HttpResponse.json(offers);
   }),
   
-  http.get('/Customers', (req, res) => {
+  http.get('/customers', (req, res) => {
     const token = req.request.headers.get('authorization');
     if (!token) {
       return new HttpResponse('Token Expired', {status: 403});
@@ -147,26 +147,33 @@ export const handlers = [
   }),
 
   http.get('/auth/refresh', async (req) => {
+      const accessToken = req.request.headers.get('authorization')
       const refreshToken = req.cookies.refreshToken
 
-      try {
-        const user = await extractPayloadFromToken(refreshToken, refreshSecret);
-  
-        const newAccessToken = await generateAccessToken(user);
-  
-        return new HttpResponse({}, {status:200, headers:{'authorization' : newAccessToken}})
-      } catch (error) {
-        if (error.message === 'Null Token') {
-          console.log('null');
-          return new HttpResponse('Null Token', { status: 401, });
-        } else if (error.message === 'Invalid Signature') {
-          console.log('expired');
-          return new HttpResponse('Invalid Signature', { status: 401, });
-        } else{
-          console.log(error);
-          return new HttpResponse('Internal Server Error', { status: 500, });
+      if (accessToken) {
+        try {
+          const user = await extractPayloadFromToken(refreshToken, refreshSecret);
+    
+          const newAccessToken = await generateAccessToken(user);
+    
+          return new HttpResponse({}, {status:200, headers:{'authorization' : newAccessToken}})
+        } catch (error) {
+          if (error.message === 'Null Token') {
+            console.log('null');
+            return new HttpResponse('Null Token', { status: 401, });
+          } else if (error.message === 'Invalid Signature') {
+            console.log('expired');
+            return new HttpResponse('Invalid Signature', { status: 401, });
+          } else{
+            console.log(error);
+            return new HttpResponse('Internal Server Error', { status: 500, });
+          }
         }
       }
+      else{
+        return new HttpResponse('Null Token', { status: 401, });
+      }
+
   }),
 
   http.get('/auth/me', async (req) => {

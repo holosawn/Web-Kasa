@@ -15,7 +15,7 @@ import {
 import ShiftModal from "./ShiftModal";
 import { useShiftStatus } from "../../contexts/ShiftContext";
 import { t } from "i18next";
-import AddCustomerModal from "./AddCustomerModal";
+import AddCustomerModal from "../../ReusableComponents/AddCustomerModal";
 
 
 export const ActionButtons = () => {

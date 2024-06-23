@@ -15,6 +15,7 @@ import ReportsPage from './pages/ReportsPage/ReportsPage';
 import MenuPagesLayout from './Layouts/MenuPagesLayout'
 import Dashboard from './pages/MenuPage/Dashboard';
 import Authorization from './Auth/Authorization';
+import CustomersPage from './pages/CustomersPage/CustomersPage';
 
 
 function App() {
@@ -40,14 +41,16 @@ function App() {
                   </Route>
 
 
-                  <Route element={<MenuPagesLayout/>} >
-                    <Route element={<Authorization />}>
+                  <Route element={<Authorization />}>
+                    <Route element={<MenuPagesLayout/>} >
                       <Route path='/Menu' element={<Dashboard/>} />
-                    </Route>
-                    <Route element={<Authorization allowedRoles={['admin']} />}>
-                      <Route path='/Reports' element={<ReportsPage/>} />
+                      <Route element={<Authorization allowedRoles={['admin']} />}>
+                        <Route path='/Reports' element={<ReportsPage/>} />
+                        <Route path='/Customers' element={<CustomersPage/>} />
+                      </Route>
                     </Route>
                   </Route>
+
 
                 </Routes>
               </AuthProvider>

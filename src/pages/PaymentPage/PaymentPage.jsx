@@ -98,6 +98,17 @@ const PaymentPage = () => {
     const pastSales = JSON.parse(sessionStorage.getItem("sales")) || []
     sessionStorage.setItem("sales", JSON.stringify([...pastSales, sale]))
 
+
+    if (Object.keys(taggedCustomer).length > 0) {
+      let storedCustomers = JSON.parse(localStorage.getItem('customers')) || []
+      const customerIndex = storedCustomers.findIndex((customer) => customer.id === taggedCustomer.id)
+
+      if (customerIndex !== -1) {
+        storedCustomers[customerIndex].spendingScore = parseFloat(((storedCustomers[customerIndex].spendingScore || 0) + parseInt(sale.total) / 100).toFixed(2))
+        localStorage.setItem('customers', JSON.stringify(storedCustomers))
+      }
+    }
+
     sessionStorage.setItem('activeCoupons',JSON.stringify([]))
     sessionStorage.setItem('amountToPay',JSON.stringify(0))
     sessionStorage.setItem('total',JSON.stringify(0))
