@@ -5,7 +5,6 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ReceiptModal from '../PaymentPage/ReceiptModal';
 import { useCustomTheme } from '../../contexts/CutomThemeContext';
-import { Language } from '@mui/icons-material';
 import useSize from '../../CustomHooks/useSize';
 import { t } from 'i18next';
 import { useLanguage } from '../../contexts/LangContext';
@@ -91,8 +90,6 @@ const payments = [
 const SettingsPage = () => {
   const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false)
   const {mode, setMode} = useCustomTheme();
-  // Lang context used to trigger re-render when language changes
-  const {lang, setLang} = useLanguage();
   const [size] = useSize();
   const navigate = useNavigate();
 

@@ -80,6 +80,7 @@ const PaymentPage = () => {
     })
   }
 
+  // Create sale object and store it on session
   const onFinish =()=>{
 
     const transactions = JSON.parse(sessionStorage.getItem("pastTransactions"))
@@ -98,7 +99,7 @@ const PaymentPage = () => {
     const pastSales = JSON.parse(sessionStorage.getItem("sales")) || []
     sessionStorage.setItem("sales", JSON.stringify([...pastSales, sale]))
 
-
+    // Set spending score based on sale amount
     if (Object.keys(taggedCustomer).length > 0) {
       let storedCustomers = JSON.parse(localStorage.getItem('customers')) || []
       const customerIndex = storedCustomers.findIndex((customer) => customer.id === taggedCustomer.id)

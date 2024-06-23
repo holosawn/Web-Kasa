@@ -45,6 +45,7 @@ export function ShiftStatusProvider({ children }) {
       });
     };
   
+    // Default shift status on start
     const startShift = (amount) => {
       setShiftStatus(prevStatus => ({
         ...prevStatus,
@@ -55,6 +56,7 @@ export function ShiftStatusProvider({ children }) {
       }));
     };
   
+    // Store sales on sessionStorage and set status to default end status
     const endShift = () => {
       const sales = JSON.parse(sessionStorage.getItem('sales')) || [];
       createReport(sales, shiftStatus)
