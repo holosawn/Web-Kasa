@@ -220,13 +220,6 @@ const LoginPage = () => {
     }
   }, [caretPos]);
 
-  const customLoginRequest = async () => {
-    axios.post('/auth/login', {userCode: 'admin', password: '123'})
-    .then( res => {
-      console.log('successful login');
-    })
-    .catch(err => console.log(err))
-  }
   return (
     <Paper
       sx={{

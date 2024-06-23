@@ -6,7 +6,6 @@ import { t } from 'i18next';
 
 
 const ReportPreview = ({ currentReport }) => {
-  /// TODO seperate acording to headers
 
   return currentReport == null ? (
     <Paper elevation={0}  sx={{ position:'relative', width: '80%', height:'100%', borderRadius: 3, display:'flex', justifyContent:'center', alignItems:'center' }} className='print-container'>

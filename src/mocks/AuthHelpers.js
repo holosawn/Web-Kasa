@@ -90,6 +90,7 @@ async function createHmac(algorithm, secret) {
     return `${headerBase64}.${payloadBase64}.${signatureBase64}`;
   };
   
+  // Verifying token by comparing signatures and returns user if its verified
   export const verifyToken = async (token, secret) => {
     if (token) {
         const [headerBase64, payloadBase64, signatureBase64] = token.split('.');

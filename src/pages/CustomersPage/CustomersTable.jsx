@@ -7,7 +7,7 @@ import AddCustomerModal from '../../ReusableComponents/AddCustomerModal';
 import { t } from 'i18next';
 import { useLanguage } from '../../contexts/LangContext';
 
-
+// For custompagination buttons
 const CustomPagination = () => {
   const apiRef = useGridApiContext();
   const page = useGridSelector(apiRef, gridPageSelector);
@@ -74,7 +74,9 @@ const CustomPagination = () => {
 };
   
 const CustomersTable = ({filterValue, customers, setCustomers}) => {
+  // to pass id to operations on customers
   const [customerIdToUpdate, setCustomerIdToUpdate] = useState(null)
+
   const { lang } = useLanguage()
 
   const componentLang = lang === 'en' ? enUS : lang === 'tr' ? trTR : ruRU
@@ -103,6 +105,7 @@ const CustomersTable = ({filterValue, customers, setCustomers}) => {
     setCustomers(updatedCustomer)
   };
 
+  // For columns MUI DataGrid
   const columns = [
     {
       field: 'id',

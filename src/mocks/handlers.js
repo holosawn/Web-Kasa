@@ -97,6 +97,7 @@ export const handlers = [
 
   http.post('/auth/login', async (req) => {
 
+      // reader to read data
       const reader = req.request.body.getReader();
       const decoder = new TextDecoder();
       
@@ -119,6 +120,7 @@ export const handlers = [
       const accessToken = await generateAccessToken(user, accessSecret);
       const refreshToken = await generateRefreshToken(user, refreshSecret);
   
+      // Storing tokens to use in handlers (which mimics server)
       localStorage.setItem(`${userCode}ServerAccessToken`, JSON.stringify(accessToken))
       localStorage.setItem(`${userCode}ServerRefreshToken`, JSON.stringify(refreshToken))
   
@@ -144,8 +146,8 @@ export const handlers = [
 
       if (accessToken) {
         try {
+          // Extract payload and generate a new token with it
           const user = await extractPayloadFromToken(refreshToken, refreshSecret);
-    
           const newAccessToken = await generateAccessToken(user);
     
           return new HttpResponse({}, {status:200, headers:{'authorization' : newAccessToken}})
@@ -176,7 +178,7 @@ export const handlers = [
         const verifiedUser = await verifyToken(token, accessSecret);    
         return new HttpResponse(JSON.stringify({userCode: verifiedUser.username, role: verifiedUser.role, email: verifiedUser.email}) , {status:200, headers:{'authorization' : token} })  
       } catch (err) {
-        // console.log('hadnler', err);
+        // console.log('handler', err);
         if (err.message === 'Null Token') {
           return new HttpResponse('Null Token', { status: 403, });
         } else if (err.message === 'Token Expired') {

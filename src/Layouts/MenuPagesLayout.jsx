@@ -13,7 +13,6 @@ const MenuPagesLayout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const[data, isLoading, error] = useFetchData('/menuLayoutData')
 
-
   if (isLoading) {
     return (
       <LoadingPage/>

@@ -45,7 +45,7 @@ export function ShiftStatusProvider({ children }) {
       });
     };
   
-    // Default shift status on start
+    // Initial shift state
     const startShift = (amount) => {
       setShiftStatus(prevStatus => ({
         ...prevStatus,
@@ -56,7 +56,7 @@ export function ShiftStatusProvider({ children }) {
       }));
     };
   
-    // Store sales on sessionStorage and set status to default end status
+    // Create Z report and clean the shift state
     const endShift = () => {
       const sales = JSON.parse(sessionStorage.getItem('sales')) || [];
       createReport(sales, shiftStatus)
@@ -104,6 +104,7 @@ const createReport = (sales, shiftStatus) =>{
   let categorySales = {};
 
 
+  // Computing transactions based on payment type
   sales.forEach(sale => {
     sale.transactions.forEach(transaction => {
         if (transaction.type === 'cash') {
@@ -136,6 +137,7 @@ const createReport = (sales, shiftStatus) =>{
     totalNetSales += grossSales - totalDiscount - totalSavedByOffers - totalCouponsSaved;
   });
 
+  // Computing additions to drawer amount and total on end
   const drawerActions = {
     openingBalance: shiftStatus.startAmount,
     removals: shiftStatus.transactions.reduce((totRemoval, currAction) => {

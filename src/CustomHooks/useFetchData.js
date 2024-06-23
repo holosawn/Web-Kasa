@@ -6,7 +6,6 @@ const useFetchData = (url, fetchTriggerToggle) => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState();
 
-    // Fetches data if it's not cached already
     useEffect(()=>{
         async function fetchData(url){
             setIsLoading(true)

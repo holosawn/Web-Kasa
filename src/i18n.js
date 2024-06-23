@@ -59,7 +59,14 @@ i18n
             customerUpdateSuccess:'Customer updated successfuly',
             male:'Male',
             female:'Female',
-            other:'Other'
+            other:'Other',
+            unAuthorized:'You do not have permission to view this page',
+            youCanLoginWithDifferentAccount: "You can login with a different account",
+            login: "login",
+            orYouCanGoBack: "Or you can go back",
+            goBack: "go back",
+            weAreSorry:'We Are Sorry :',
+            errorHappenedDuringFetching:'There is an error happened during fetching data'
           },
           login:{
             Welcome: 'Welcome Back!',
@@ -378,7 +385,13 @@ i18n
             male: 'Erkek',
             female: 'Kadın',
             other: 'Diğer',
-
+            unAuthorized: 'Bu sayfayı görüntülemek için izin yok',
+            youCanLoginWithDifferentAccount: 'Farklı bir hesapla giriş yapabilirsiniz',
+            login: 'giriş',
+            orYouCanGoBack: 'Ya da geri dönülebilir',
+            goBack: 'geri dön',
+            weAreSorry: 'Üzgünüz :',
+            errorHappenedDuringFetching: 'Veri getirilirken bir hata oluştu'
           },
           login:{
             Welcome: 'Tekrar Hoşgeldin!',
@@ -686,8 +699,14 @@ i18n
             customerUpdateSuccess: 'Клиент успешно обновлен',
             male: 'Мужской',
             female: 'Женский',
-            other: 'Другой'
-
+            other: 'Другой',
+            unAuthorized: 'У вас нет разрешения на просмотр этой страницы',
+            youCanLoginWithDifferentAccount: 'Вы можете войти с помощью другого аккаунта',
+            login: 'войти',
+            orYouCanGoBack: 'Или вернуться назад',
+            goBack: 'назад',
+            weAreSorry: 'Извините :',
+            errorHappenedDuringFetching: 'Произошла ошибка при получении данных'
           },          
           login: {
             Welcome: 'С возвращением!',

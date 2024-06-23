@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const useSize = () => {
     const [size, setSize] = useState({x:window.innerWidth, y: window.innerHeight})

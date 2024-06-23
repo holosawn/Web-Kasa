@@ -5,13 +5,7 @@ import CsvReader from './CSVReader'
 import AddCustomerModal from '../../ReusableComponents/AddCustomerModal'
 import { t } from 'i18next'
 
-const exportData = [
-  { id: 1, name: 'John', age: 25 },
-  { id: 2, name: 'Jane', age: 30 },
-  { id: 3, name: 'Bob', age: 35 },
-]
-
-const Actions = ({triggerFetch}) => {
+const Actions = ({triggerFetch, customers}) => {
   const [ isAddCustomerModalOpen, setIsCustomerModalOpen ] = useState(false)
   
   const openAddCustomerModal = () => {
@@ -21,6 +15,12 @@ const Actions = ({triggerFetch}) => {
   const closeAddCustomerModal = () => {
     setIsCustomerModalOpen(false)
   }
+
+  const DropdownButtonItems = [
+    { label: 'CSV', action: () => handleCSVExport(customers) },
+    { label: 'JSON', action: () => handleJsonExport(customers) },
+    { label: 'SQL', action: () => handleSQLEntityExport(customers) },
+  ];
 
   return (
     <Box height={'100%'} display={'flex'} gap={{xs:1, lg:2}} ml={'auto'} mr={{xs:2, lg:7}} >
@@ -42,20 +42,22 @@ const handleCSVExport = (data) =>{
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'data.csv';
+    a.download = 'customers.csv';
     a.click();
     URL.revokeObjectURL(url);
 }
+
 const handleJsonExport = (data) => {
   const jsonData = JSON.stringify(data, null, 2);
   const blob = new Blob([jsonData], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'data.json';
+  a.download = 'customers.json';
   a.click();
   URL.revokeObjectURL(url);
 }
+
 const handleSQLEntityExport = (data) => {
   const sqlData = data.map((row) => {
     const columns = Object.keys(row);
@@ -66,15 +68,9 @@ const handleSQLEntityExport = (data) => {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'data.sql';
+  a.download = 'customers.sql';
   a.click();
   URL.revokeObjectURL(url);
 };
 
-const DropdownButtonItems = [
-  { label: 'CSV', action: () => handleCSVExport(exportData) },
-  { label: 'JSON', action: () => handleJsonExport(exportData) },
-  { label: 'SQL', action: () => handleSQLEntityExport(exportData) },
-
-];
 

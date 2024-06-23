@@ -8,9 +8,16 @@ import LoadingPage from '../ErrorAndLoadingPages/LoadingPage'
 import ErrorPage from '../ErrorAndLoadingPages/ErrorPage'
 
 const CustomersPage = () => {
+  // state to trigger fetch by toggling when an operation happened on customers 
   const [ fetchTriggerToggle, setFetchTriggerToggle ] = useState(false)
+
   const [ customers, customersFetchLoading, customersFetchError, setCustomers ] = useFetchData('/customers', fetchTriggerToggle)
   const [ filterValue, setFilterValue] = useState('')
+  
+  const triggerCustomersFetch = () => {
+    setFetchTriggerToggle(prev => !prev)
+  }
+
 
   if (customersFetchLoading) {
     return <LoadingPage/>
@@ -20,15 +27,11 @@ const CustomersPage = () => {
     return <ErrorPage/>
   }
 
-  const triggerCustomersFetch = () => {
-    setFetchTriggerToggle(prev => !prev)
-  }
-
   return (
     <Paper elevation={1} sx={{height:{xs: 'calc(100vh - 100px)', lg:'calc(100vh - 120px)'}, ml:{xs:'84px', lg:'100px'}, mr:{xs:2, lg:4}, my:{xs:0, lg:1.5, }, borderRadius:2}} >
       <Stack direction={'row'} my={{xs:1, md:2,}}  mx={{xs:1, lg:2}} alignItems={'center'} width={'100%'} height={{xs:40, lg:50}} >
         <CustomFilterTextField filterValue={filterValue} setFilterValue={setFilterValue} />
-        <Actions triggerFetch={triggerCustomersFetch} />
+        <Actions triggerFetch={triggerCustomersFetch} customers={customers} />
       </Stack>
       <Box height={{xs:'calc(100% - 56px)', md:'calc(100% - 70px)',  lg:'calc(100% - 80px)'}} >
         <CustomersTable filterValue={filterValue} customers={customers} setCustomers={setCustomers} />

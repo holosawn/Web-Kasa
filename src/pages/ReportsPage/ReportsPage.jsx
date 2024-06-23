@@ -8,14 +8,15 @@ import ReportList from './ReportList.jsx'
 import ReportPreview from './ReportPreview.jsx'
 import { formatDateToISO } from '../../utils/helpers.js'
 
+// Initial date values to filter reports
 const startDate = new Date();
-startDate.setHours(0, 0, 0, 0); // Set milliseconds to 0 to ensure it's part of the current day
+startDate.setHours(0, 0, 0, 0); 
+startDate.setMonth(startDate.getMonth() - 1); 
 
 const endDate = new Date();
-endDate.setHours(23, 59, 59, 999); // Set to the end of the day (23 hours, 59 minutes, 59 seconds, 999 milliseconds)
+endDate.setHours(23, 59, 59, 999); 
 
 const ReportsPage = () => {
-  // TODO Settings back error
   const [reports, reportsFetchLoading, reportsFetchError] = useFetchData('/reports')  
   const [shops, shopsFetchLoading, shopsFetchError] = useFetchData('/shopBranches')
 
@@ -27,6 +28,7 @@ const ReportsPage = () => {
   });
   const [currentReport, setCurrentReport] = useState(null)
 
+  // Functions to set state and session storage together
   const updateFilterValues= (input)=>{
       setFilterValues((prev)=> {
         if (typeof input === 'function') {
@@ -41,6 +43,7 @@ const ReportsPage = () => {
       })
   }
 
+  // Reports on localstorage to display with reports on json file
   const storedReports = JSON.parse(localStorage.getItem("reports")) || []
 
   return reportsFetchLoading || shopsFetchLoading ? (
