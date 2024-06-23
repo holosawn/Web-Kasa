@@ -50,7 +50,16 @@ i18n
             customerName:'Customer Name',
             customerSurname:'Customer Surname',
             customerTelNo:'Customer Tel No',
-            customerEmail:'Customer E-mail'
+            customerEmail:'Customer E-mail',
+            emptyGender:'Gender cannot be empty',
+            emptyAge:'Age cannot be empty',
+            customerAge:'Customer Age',
+            customerGender:'Customer Gender',
+            customerUpdated:'Customer Updated',
+            customerUpdateSuccess:'Customer updated successfuly',
+            male:'Male',
+            female:'Female',
+            other:'Other'
           },
           login:{
             Welcome: 'Welcome Back!',
@@ -84,7 +93,8 @@ i18n
             settings: 'Settings',
             exit: 'Exit',
             sales:'sales',
-            Reports:"Reports"
+            Reports:"Reports",
+            Customers:'Customers',
           },
           dashboard:{
             today:'Today',
@@ -301,6 +311,20 @@ i18n
           },
           layout:{
             errorLoading:"Error During Loading The Page"
+          },
+          customers:{
+            searchPlaceHolder:'Search Any Value',
+            addCustomer:'Add Customer',
+            export:'Export',
+            uploadFile:'Upload File',
+            name:'Name',
+            surname:'Surname',
+            phoneNumber:'Phone Number',
+            spendingScore:'Spending Score',
+            createdAt:'Created At',
+            actions:'Actions',
+            update:'Update',
+            delete:'Delete'
           }
         }
       },
@@ -344,8 +368,16 @@ i18n
             customerName:'Müşteri Adı',
             customerSurname:'Müşteri Soyadı',
             customerTelNo:'Müşteri Telefon No',
-            customerEmail:'Müşteri E-posta'
-
+            customerEmail:'Müşteri E-posta',
+            emptyGender: 'Cinsiyet boş olamaz',
+            emptyAge: 'Yaş boş olamaz',
+            customerAge: 'Müşteri Yaşı',
+            customerGender: 'Müşteri Cinsiyeti',
+            customerUpdated: 'Müşteri Güncellendi',
+            customerUpdateSuccess: 'Müşteri başarıyla güncellendi',
+            male: 'Erkek',
+            female: 'Kadın',
+            other: 'Diğer',
 
           },
           login:{
@@ -380,7 +412,8 @@ i18n
             settings: 'Ayarlar',
             exit: 'Çıkış',
             sales:'satış',
-            Reports:"Reports"
+            Reports:"Reports",
+            Customers:'Müşteriler'
           },
           dashboard: {
             today: 'Bugün',
@@ -585,8 +618,21 @@ i18n
             print: 'Yazdır'
           },
           layout:{
-            errorLoading:"Ошибка загрузки",
-            
+            errorLoading:"Sayfa Yüklenirken Hata Oluştu"
+          },
+          customers:{
+            searchPlaceHolder:'Herhangi bir değeri ara',
+            addCustomer:'Müşteri Ekle',
+            export:'Dışa Aktar',
+            uploadFile:'Dosya Yükle',
+            name:'İsim',
+            surname:'Soyisim',
+            phoneNumber:'Telefon Numarası',
+            spendingScore:'Harcama Skoru',
+            createdAt:'Oluşturulma Tarihi',
+            actions:'İşlemler',
+            update:'Güncelle',
+            delete:'Sil'
           }
           
         }
@@ -631,7 +677,16 @@ i18n
             customerName:'Имя клиента',
             customerSurname:'Фамилия клиента',
             customerTelNo:'Телефон клиента',
-            customerEmail:'Эл. почта клиента'
+            customerEmail:'Эл. почта клиента',
+            emptyGender: 'Пол не может быть пустым',
+            emptyAge: 'Возраст не может быть пустым',
+            customerAge: 'Возраст клиента',
+            customerGender: 'Пол клиента',
+            customerUpdated: 'Клиент обновлен',
+            customerUpdateSuccess: 'Клиент успешно обновлен',
+            male: 'Мужской',
+            female: 'Женский',
+            other: 'Другой'
 
           },          
           login: {
@@ -667,6 +722,7 @@ i18n
             exit: 'Выход',
             sales:'продажи',
             Russian: "Отчёты",
+            Customers:'Клиенты'
           },
           dashboard: {
             today: 'Сегодня',
@@ -868,6 +924,23 @@ i18n
             salesByCategories: 'Продажи по категориям',
             thanks: 'Спасибо за ваш бизнес',
             print: 'Печать'
+          },
+          layout:{
+            errorLoading:"Ошибка при загрузке страницы"
+          },
+          customers:{
+            searchPlaceHolder:'Поиск любого значения',
+            addCustomer:'Добавить клиента',
+            export:'Экспорт',
+            uploadFile:'Загрузить файл',
+            name:'Имя',
+            surname:'Фамилия',
+            phoneNumber:'Номер телефона',
+            spendingScore:'Баллы траты',
+            createdAt:'Дата создания',
+            actions:'Действия',
+            update:'Обновить',
+            delete:'Удалить'
           }
           
         }

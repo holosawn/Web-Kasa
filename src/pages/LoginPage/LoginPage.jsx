@@ -23,7 +23,7 @@ import { useCustomTheme } from "../../contexts/CutomThemeContext";
 import { useTheme } from "@emotion/react";
 import useFetchData from "../../CustomHooks/useFetchData";
 import buttons from "../../Constants/KeyboardButtons";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from '../../contexts/AuthContext'
 import LoadingButton from "../../ReusableComponents/LoadingButton";
 import axios from "axios";
@@ -98,9 +98,16 @@ const LoginPage = () => {
   const [data, isLoading, error] = useFetchData('/Login')
   const { mode } = useCustomTheme();
   const theme = useTheme();
+  const {loggedIn} = useAuth()
 
   const isMedium = useMediaQuery('(max-height:800px)')
   const currentDate= new Date();
+
+  useEffect( () => {
+    if (loggedIn) {
+      navigate('/Menu')
+    }
+  } , [])
 
   // The handleClickShowPassword function toggles the showPassword state variable
   function handleClickShowPassword() {

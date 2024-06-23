@@ -3,7 +3,7 @@ import { Box, Button, Paper, Tooltip, Typography } from '@mui/material';
 import {
   LocalGroceryStoreTwoTone as SaleIcon,
   Loop as RefundsIcon,
-  FeedTwoTone as ReportsIcon,
+  People as CustomersIcon,
   LocalOfferTwoTone as ProductsIcon,
   SettingsTwoTone as SettingsIcon,
   ForwardTwoTone as ForwardIcon,
@@ -121,16 +121,16 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
           <IconDescription currentPage={'Refunds' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.refunds')}</IconDescription>
         </Button>
       </Tooltip>
-      <Tooltip title="Manage Sales" arrow>
-        <Button sx={getButtonStyle("ManageSales", currentPage)}>
-            <ReportsIcon sx={getIconStyle('ManageSales', currentPage)} />
-            <IconDescription currentPage={'ManageSales' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.manageSales')}</IconDescription>
-        </Button>
-      </Tooltip>
       <Tooltip title='Products' arrow>
         <Button sx={getButtonStyle("Products", currentPage)} onClick={()=> navigate('/Products')} >
             <ProductsIcon sx={getIconStyle('Products', currentPage)} />
             <IconDescription currentPage={'Products' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.products')}</IconDescription>
+        </Button>
+      </Tooltip>
+      <Tooltip title="Customers" arrow>
+        <Button sx={getButtonStyle("Customers", currentPage)} onClick={() => navigate('/Customers')} >
+            <CustomersIcon sx={getIconStyle('Customers', currentPage)} />
+            <IconDescription currentPage={'Customers' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.Customers')}</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title='Reports' arrow >

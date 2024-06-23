@@ -1,17 +1,17 @@
-import { Box, Button, Divider, Fade, Grid, Modal, Stack, TextField, Typography, colors } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import { Box, Button, Divider, Fade, FormControl, Grid, InputLabel, MenuItem, Modal, Select, Stack, TextField, Typography, colors } from '@mui/material'
+import React, { useEffect, useRef, useState } from 'react'
 import { ArrowBack } from '@mui/icons-material'
-import { enLayout, trLayout, ruLayout } from "../../LangLayouts/LayoutsWithoutArrows";
+import { enLayout, trLayout, ruLayout } from "../LangLayouts/LayoutsWithoutArrows";
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
-import { useCustomTheme } from '../../contexts/CutomThemeContext';
-import buttons from "../../Constants/KeyboardButtons";
+import { useCustomTheme } from '../contexts/CutomThemeContext';
+import buttons from "../Constants/KeyboardButtons";
 import { t } from 'i18next';
-import { useLanguage } from '../../contexts/LangContext';
-import useSize from '../../CustomHooks/useSize';
-import '../../pages/LoginPage/loginKeyboard.css'
-import useAlert from '../../CustomHooks/useAlert';
-import LoadingButton from '../../ReusableComponents/LoadingButton';
+import { useLanguage } from '../contexts/LangContext';
+import useSize from '../CustomHooks/useSize';
+import '../pages/LoginPage/loginKeyboard.css'
+import useAlert from '../CustomHooks/useAlert';
+import LoadingButton from './LoadingButton';
 
 const layouts = {
     en: enLayout,
@@ -25,6 +25,7 @@ const validateCustomerValues = (customerValues, setErrors) => {
 const errors = {};
 if (customerValues.name.trim() === "") {
     errors.name = t('common.emptyName');
+    console.log(errors.name);
 }
 else if(/\d/.test(customerValues.name)){//regex for digits test
   errors.name = t('common.invalidName')
@@ -60,15 +61,26 @@ else if(!emailRegex.test(customerValues.email.trim())){
   errors.email = t('common.invalidEmail')
 }
 
-setErrors(errors);
-  };
+if (customerValues.gender === "") {
+  errors.gender = t('common.emptyGender');
+}
 
-const AddCustomerModal=({open, onClose})=>{
+if (customerValues.age === "") {
+  errors.age = t('common.emptyAge');
+}
+
+setErrors(errors);
+};
+
+const AddCustomerModal=({open, onClose, onSubmit, customerId, customersOnSystem, setCustomersOnSystem})=>{
     const [customerValues, setCustomerValues] = useState({
+        id:customerId,
         name:'',
         surname:'',
         telNo:'',
-        email:''
+        email:'',
+        age: '',
+        gender:''
     }) 
     const keyboardRef = useRef()
     // keyboard layout caps lock open/closed
@@ -78,30 +90,45 @@ const AddCustomerModal=({open, onClose})=>{
         name:useRef(),
         surname:useRef(),
         telNo:useRef(),
-        email:useRef()
+        email:useRef(),
     })
     const [errors, setErrors] = useState({
-        name: true,
+        name: t('common.emptyName'),
         surname:true,
         telNo:true,
         email: true,
-        submit:''
+        submit:'',
+        gender: true,
+        age: true
     });
     const {mode} = useCustomTheme()
     const [size] = useSize()
     const [showAlert, AlertComponent] = useAlert();
     const [isLoading, setIsLoading] = useState(false);
 
-  // Setting value into keyboard and validating values
-    const onInputChange = (input) => {
-        const inputName = keyboardRef.current.inputName;
-        const initCustomerValues = { ...customerValues, [inputName]: input };
     
-        setCustomerValues(initCustomerValues);
-        validateCustomerValues(initCustomerValues, setErrors);
-        keyboardRef.current.setInput(input);
-      };
+    useEffect(() => {
+      if (customerId) {
+        const customer = customersOnSystem.find((customer) => customer.id === customerId)
+        if (customer) {
+          setCustomerValues(customer)
+        }
+      }
+    }, [customerId])
+    
+  // Setting value into keyboard and validating values
+    const onInputChange = (input, inputName) => {
+      let inputRefName ;
 
+      if (!inputName) {
+        inputRefName = keyboardRef.current.inputName;        
+      }
+      const initCustomerValues = { ...customerValues, [(inputName || inputRefName)]: input };
+  
+      setCustomerValues(initCustomerValues);
+      validateCustomerValues(initCustomerValues, setErrors);
+      keyboardRef.current.setInput(input);
+    };
 
     function handleShift() {
         const newLayoutName = layout === "default" ? "shift" : "default";
@@ -113,7 +140,7 @@ const AddCustomerModal=({open, onClose})=>{
         const inputName = event.target.name;
         keyboardRef.current.setInput(customerValues[inputName]);
         keyboardRef.current.inputName = inputName;
-      };
+    };
 
     // Sets states from keyboard and validates values 
     const onChange = (input) => {
@@ -137,52 +164,86 @@ const AddCustomerModal=({open, onClose})=>{
           const newValue = customerValues[inputName].slice(0, -1);
           onChange(newValue);
         }
-      };
+    };
 
     // If values are valid it computes a date string and saves the customer with date string and an unique id into localStorage
     const handleSubmit = (event) => {
       setIsLoading(true)
         event.preventDefault();
-        const anyError = Object.values(errors).find((value) => value !== "");
+        const anyError = Object.values(errors).find((value) => {
+          if (value !== "") {
+            return value
+          }
+        });
         setTimeout(()=>{
           if (!anyError) {
             setIsLoading(false)
-            const storedCustomers = JSON.parse(localStorage.getItem('customers')) || []
 
-            const signUpDate = new Date();
-
-            const yearMonthDay = signUpDate.toISOString().split("T")[0]; // Gets the date part (YYYY-MM-DD)
-            const hour = signUpDate.getHours().toString().padStart(2, '0'); // Gets the hour in 2-digit format
-            const minute = signUpDate.getMinutes().toString().padStart(2, '0'); // Gets the minute in 2-digit format
-            const id = crypto.randomUUID()
-
-            const customer = {
-              ...customerValues, 
-              signUp : `${yearMonthDay}T${hour}:${minute}`,
-              id:id
+            let customerIndex = -1;
+            if (customersOnSystem) {
+              customerIndex = customersOnSystem.findIndex((customer) => customer.id === customerValues.id)
             }
-            // Check for duplicate customers
-            const isDuplicate = storedCustomers.some(
-              (c) =>{
-                return c.email === customer.email ||
-                c.telNo === customer.telNo}
-            );
 
-            if (!isDuplicate) {
-              localStorage.setItem("customers", JSON.stringify([...storedCustomers, customer]));
-              showAlert("success", t("common.customerSaved"), t("common.customerSaveSuccess"));
+            let isDuplicate = false
+            
+            if (customerIndex !== -1) {
+              // Update existing customer
+              const updatedCustomer = {
+                ...customerValues,
+                signUp: customersOnSystem[customerIndex].signUp,
+                id: customerValues.id,
+              };
+              
+              const tempCustomers = [...customersOnSystem]
+              tempCustomers[customerIndex] = updatedCustomer;
+              setCustomersOnSystem(tempCustomers)
+              if (onSubmit) {
+                onSubmit()                
+              }
+              showAlert("success", t("common.customerUpdated"), t("common.customerUpdateSuccess"));
+
             } else {
-              setIsLoading(false);
-              showAlert("error", t("sale.duplicateCustomer"), t("sale.duplicateCustomerDesc"));
+              // Create new customer
+              const signUpDate = new Date();
+              const yearMonthDay = signUpDate.toISOString().split("T")[0]; // Gets the date part (YYYY-MM-DD)
+              const hour = signUpDate.getHours().toString().padStart(2, '0'); // Gets the hour in 2-digit format
+              const minute = signUpDate.getMinutes().toString().padStart(2, '0'); // Gets the minute in 2-digit format
+              const id = 1 + JSON.parse(localStorage.getItem('customers')).length
+      
+              const customer = {
+                ...customerValues, 
+                spendingScore:0,
+                signUp : `${yearMonthDay}T${hour}:${minute}`,
+                id:id
+              }
+
+              const storedCustomers = JSON.parse(localStorage.getItem('customers'))
+
+              // Check for duplicate customers
+              isDuplicate = storedCustomers.some(
+                (c) =>{
+                  return c.email === customer.email ||
+                  c.telNo === customer.telNo}
+              );
+
+              if (!isDuplicate) {
+                localStorage.setItem("customers", JSON.stringify([...storedCustomers, customer]));
+                showAlert("success", t("common.customerSaved"), t("common.customerSaveSuccess"));
+                if (onSubmit) {
+                  onSubmit()                
+                }
+              } else {
+                showAlert("error", t("sale.duplicateCustomer"), t("sale.duplicateCustomerDesc"));
+              }
             }
           }
           else{
             setIsLoading(false)
             showAlert('error', t('common.invalidInput'), anyError)  
           }
-        },500)
-
+        },50)
     };
+
     return(
       <Modal
         open={open}
@@ -190,7 +251,7 @@ const AddCustomerModal=({open, onClose})=>{
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
         sx={{
-          zIndex:9999
+          zIndex:999
         }}
       >
         <Fade in={open}>
@@ -246,7 +307,7 @@ const AddCustomerModal=({open, onClose})=>{
                       onChange={(e) => onInputChange(e.target.value)}
                       onFocus={(e) => onFocus(e)}
                       value={customerValues.surname}
-                      inputRef={(r) => (inputRefs.current.name = r)}
+                      inputRef={(r) => (inputRefs.current.surname = r)}
                       label={t('common.customerSurname')}
                       name='surname'
                       inputMode='text'
@@ -256,6 +317,36 @@ const AddCustomerModal=({open, onClose})=>{
                       autoComplete='off'
                   />
                 </Stack>
+
+                <Stack direction={'row'} justifyContent={'space-between'} my={0.5} width={'95%'} > 
+                  <FormControl variant="filled" sx={{ width: '48%', }}>
+                    <InputLabel>{t('common.customerAge')}</InputLabel>
+                    <Select
+                      value={customerValues.age}
+                      onChange={(e) => onInputChange(e.target.value, 'age')}
+                      name='age'
+                      required
+                    >
+                          {[...Array(101).keys()].map((age) => (
+                            <MenuItem key={age} value={age}>{age}</MenuItem>
+                          ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl variant="filled" sx={{ width: '48%', }}>
+                    <InputLabel>{t('common.customerGender')}</InputLabel>
+                    <Select
+                      value={customerValues.gender}
+                      onChange={(e) => onInputChange(e.target.value, 'gender')}
+                      name='gender'
+                      required
+                    >
+                      <MenuItem value="male">{t('common.male')}</MenuItem>
+                      <MenuItem value="female">{t('common.female')}</MenuItem>
+                      <MenuItem value="other">{t('common.other')}</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Stack>
+
                 <TextField 
                     onChange={(e) => onInputChange(e.target.value)}
                     onFocus={(e) => onFocus(e)}

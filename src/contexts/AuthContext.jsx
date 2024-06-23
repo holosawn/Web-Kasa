@@ -53,7 +53,8 @@ export const AuthProvider = ({children})=>{
 
   const logout = () => {
     updateToken(null);
-    updateUser(null)
+    updateUser(null);
+    localStorage.setItem('clientAccessToken', JSON.stringify(null))
   };
 
   // Try to get this out of useLayoutEffect
