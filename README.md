@@ -3,7 +3,7 @@
 An application used to make and manage sales for retails, built with React, JavaScript, CSS and Material UI.
 
 ## Project Status
-Although completed, new features will be added soon. At present, users can log in, make sales by selecting products from categorized data, apply offers and discounts, process payments, add and tag customers, and print receipts.
+Users can log in, make sales by selecting products from categorized data, apply offers and discounts, process payments, add and tag customers and print receipts. There are also dedicated pages for customer management and Z reports, accessible only to admins.
 
 ## ScreenShots
 
@@ -19,6 +19,9 @@ Although completed, new features will be added soon. At present, users can log i
 
 ![image](https://github.com/holosawn/Web-Kasa/assets/116157920/a573f05b-7452-47cd-98cb-4bca6d47b3c3)
 
+![image](https://github.com/holosawn/Web-Kasa/assets/116157920/6e256a75-2634-4176-8afd-516da2e902cd)
+
+![image](https://github.com/holosawn/Web-Kasa/assets/116157920/d7dd7c78-eaef-4cb2-9485-ac4f2edb2792)
 
 ## Installation and Setup Instructions  
 
@@ -38,23 +41,25 @@ To Start Server:
 
 To Visit App:
 
-`localhost:3000/` or `localhost:3000/Login`   
-`localhost:3000/Menu`  
-`localhost:3000/Sale`  
-`localhost:3000/Products`  
-`localhost:3000/Payment`  
-`localhost:3000/Settings`  
+`localhost:3000/` or `localhost:3000/login`   
+`localhost:3000/menu`  
+`localhost:3000/sale`  
+`localhost:3000/products`  
+`localhost:3000/payment`  
+`localhost:3000/settings`  
+`localhost:3000/reports`  
+`localhost:3000/customers`  
 
 ## Reflection
 
-This was a few month long project built for 32 Bit recruitment event. Project goal was completing project with requested functionalities with given tech stack in given time . 
-  
-One of the main issues I encountered was adding reference lines to specified values on the Y-axis. Customizing axis ticks didn't work as expected, so I delved into how these values are calculated. Since MUI Charts use D3.js for their underlying logic, I researched the relevant D3.js methods and adapted their value-computation mechanisms to component. It can be said it improved my googling skills.
-  
-Another challenge was customizing the appearance of MUI Charts to meet my design goals. I spent some time with them but I managed to customize with by passing right props and modifying right classes. I also had problems with responsiveness when different amounts of data displayed. I tried to fix this by customizing charts but I ended up adding a customized wrapper component. It pushed me to do more than regular appearence customizations and made me think how can I solve a problem.
+This was a few month long project built for 32 Bit recruitment event. Project goal was completing project with requested functionalities with given tech stack in given time.
 
-I also had some problems with positioning of and general customization sidebar. Instead of using Drawer component from MUI I wanted to built it from scratch. So that I improved my skills with component customization and layout.
+During the development of this project, I highly prioritized responsive design to ensure that all pages are usable on any kind of device. Additionally, I was careful about maintaining a good branch-based workflow, creating a branch for every feature and issue with clear and understandable descriptions. I also gave great importance to reusable and modular components to enhance readability and maintainability of the code.
 
-During development, I intended to use product data from Walmart, but the image files in the dataset were too large for efficient listing. I tried various optimization techniques and libraries without success. Ultimately, I used a random image generator API that provided smaller, optimized images in WebP format.
+I learned about authorization, ensuring that users can only access authorized features, using Axios with Mock Service Worker (MSW) for API mocking, and implemented localization for Turkish, english and Russian users. I also optimized performance with hooks such as useMemo and useCallback to prevent unnecessary renders. Used lazy loading to reduce bundle size.
+
+Developing this project in general enabled me to think ahead and prevent potential issues in project design. Additionally, I gained more experience with React, which increased my development speed and efficiency.
+  
+During development, I had issues with MUI charts when adding reference lines to specified values on the Y-axis. Customizing axis ticks didn't work as expected, so I delved into how these values are calculated. Since MUI Charts use D3.js for their underlying logic, I researched the relevant D3.js methods and adapted their value-computation mechanisms to component. It can be said it improved my googling skills.
    
 At the end of the day, technologies implemented in this project are React, MUI as component library, axios for requests, i18next for localization , reacp-virtuoso for data visualization, react-simple-keyboard as virtual keyboard and React-Router.
