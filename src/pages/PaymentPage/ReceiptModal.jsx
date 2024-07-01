@@ -150,32 +150,32 @@ const Receipt = ({ marketName, address, detailedAddress, date, hour, receiptNo, 
             {/* Divider */}
             <Divider sx={{my:1, width:'100%', backgroundColor:'black', strokeWidth:1    }} />
             {/* Total Tax */}
-            <Stack direction={'row'} width={'85%'}  >
+            <Stack direction={'row'} width={'90%'}  >
                 <Typography>{t('payment.subTotal')}: </Typography>
                 <Typography ml={'auto'} >*{subTotal.toFixed(2)}</Typography>
             </Stack>
 
-            {savedByOffers > 0 && <Stack direction={'row'} width={'85%'}  >
+            {savedByOffers > 0 && <Stack direction={'row'} width={'90%'}  >
                 <Typography>{t('payment.savedByOffers')}: </Typography>
                 <Typography ml={'auto'} >*{savedByOffers.toFixed(2)}</Typography>
             </Stack>}
 
-            {totalDiscount > 0 && <Stack direction={'row'} width={'85%'}  >
+            {totalDiscount > 0 && <Stack direction={'row'} width={'90%'}  >
                 <Typography>{t('payment.savedByDiscount')}: </Typography>
                 <Typography ml={'auto'} >*{totalDiscount.toFixed(2)}</Typography>
             </Stack>}
 
-            {savedByCoupons > 0 && <Stack direction={'row'} width={'85%'}  >
+            {savedByCoupons > 0 && <Stack direction={'row'} width={'90%'}  >
                 <Typography>{t('payment.savedByCoupons')}: </Typography>
                 <Typography ml={'auto'} >*{savedByCoupons.toFixed(2)}</Typography>
             </Stack>}
 
-            <Stack direction={'row'} width={'85%'}  >
+            <Stack direction={'row'} width={'90%'}  >
                 <Typography>{t('payment.total')}: </Typography>
                 <Typography ml={'auto'} >*{total.toFixed(2)}</Typography>
             </Stack>
 
-            <Stack direction={'row'} width={'85%'}  >
+            <Stack direction={'row'} width={'90%'}  >
                 <Typography>{t('payment.tax')}: </Typography>
                 <Typography ml={'auto'} >*{totalTax.toFixed(2)}</Typography>
             </Stack>

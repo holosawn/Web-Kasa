@@ -82,6 +82,7 @@ i18n
             submitErr: 'No user with given info',
           },
           menu: {
+            menu: 'Menu',
             Menu: 'Menu',
             statusStr: 'Market is ',
             online: 'Online',
@@ -101,6 +102,7 @@ i18n
             exit: 'Exit',
             sales:'sales',
             Reports:"Reports",
+            customers:'Customers',
             Customers:'Customers',
           },
           dashboard:{
@@ -209,7 +211,7 @@ i18n
             contactless:'Contactless',
             swipe:'Swipe',
             insert:'Insert',
-            cardPayment:'Cart Payment',
+            cardPayment:'Card Payment',
             enterPIN:'Enter PIN',
             approveTransaction:'Approve Transaction',
             theCard:'The Card',
@@ -407,6 +409,7 @@ i18n
             submitErr: 'Böyle bir kullanıcı yok',
           },
           menu: {
+            menu: 'Menü',
             Menu: 'Menü',
             statusStr: 'Market ',
             online: 'Çevrimiçi',
@@ -426,6 +429,7 @@ i18n
             exit: 'Çıkış',
             sales:'satış',
             Reports:"Reports",
+            customers:'Müşteriler',
             Customers:'Müşteriler'
           },
           dashboard: {
@@ -647,7 +651,6 @@ i18n
             update:'Güncelle',
             delete:'Sil'
           }
-          
         }
       },
       ru: {
@@ -722,6 +725,7 @@ i18n
             submitErr: 'Такого пользователя не существует'
           },
           menu: {
+            menu: 'Меню',
             Menu: 'Меню',
             statusStr: 'Статус',
             online: 'Онлайн',
@@ -741,6 +745,7 @@ i18n
             exit: 'Выход',
             sales:'продажи',
             Russian: "Отчёты",
+            customers:'Клиенты',
             Customers:'Клиенты'
           },
           dashboard: {

@@ -22,9 +22,7 @@ const SalesDeductionInfo = ({ salesData, timeline }) => (
         label={t('dashboard.discount')}
         currentValue={salesData.salesDeduction.discount}
         iconSrc={discountIcon}
-        iconSx={{
-          backgroundColor:"#EEEDFD",
-        }}
+        iconBgColor={{ backgroundColor:"#EEEDFD" }}
         imgSx={{
           height:35,
         }}
@@ -38,9 +36,7 @@ const SalesDeductionInfo = ({ salesData, timeline }) => (
         label={t('dashboard.cashRefund')}
         currentValue={salesData.salesDeduction.cashRefund}
         iconSrc={refundIcon}
-        iconSx={{
-          backgroundColor:"#E5F8ED",
-        }}
+        iconBgColor={{ backgroundColor:"#E5F8ED" }}
         imgSx={{
           height:35,
           color:'gray'
@@ -55,9 +51,7 @@ const SalesDeductionInfo = ({ salesData, timeline }) => (
         label={t('dashboard.creditNote')}
         currentValue={salesData.salesDeduction.creditNote}
         iconSrc={creditNoteIcon}
-        iconSx={{
-          backgroundColor:"#FCEAEA",
-        }}
+        iconBgColor={{ backgroundColor:"#FCEAEA" }}
         imgSx={{
           height:35,
         }}

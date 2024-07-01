@@ -4,14 +4,13 @@ import { Outlet } from 'react-router-dom';
 import  MenuSideBar from './MenuSideBar';
 import CustomAppBar from './CustomAppBar';
 import useFetchData from '../CustomHooks/useFetchData';
-import { Box, Typography } from '@mui/material';
-import { t } from 'i18next';
+import { Box } from '@mui/material';
 import ErrorPage from '../pages/ErrorAndLoadingPages/ErrorPage';
 import LoadingPage from '../pages/ErrorAndLoadingPages/LoadingPage';
 
 const MenuPagesLayout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const[data, isLoading, error] = useFetchData('/menuLayoutData')
+  const [data, isLoading, error] = useFetchData('/menuLayoutData')
 
   if (isLoading) {
     return (

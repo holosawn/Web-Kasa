@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { formatDateToISO } from '../utils/helpers';
+import { formatDateToISO } from '../helpers/helpers';
 
 const ShiftStatusContext = React.createContext(null);
 
@@ -116,12 +116,13 @@ const createReport = (sales, shiftStatus) =>{
         }
     });
 
-    grossSales += parseFloat(sale.total);
-    totalDiscount += (sale.total * (100 / (100 - sale.discount))) * (sale.discount/100)  ;
+    grossSales += parseFloat(sale.subTotal);
+    totalDiscount += sale.subTotal * sale.discount/100  ;
     totalSavedByOffers += sale.savedByOffers;
     sale.coupons.forEach(coupon => {
         totalCouponsSaved += coupon.saved;
     });
+    
 
     sale.items.forEach(item => {
       const taxRate = parseFloat(item.product.tax) / 100;
@@ -134,7 +135,7 @@ const createReport = (sales, shiftStatus) =>{
       categorySales[category] += item.qty;
     });
 
-    totalNetSales += grossSales - totalDiscount - totalSavedByOffers - totalCouponsSaved;
+    totalNetSales += grossSales.toFixed(2) - totalDiscount.toFixed(2) - totalSavedByOffers.toFixed(2) - totalCouponsSaved.toFixed(2);
   });
 
   // Computing additions to drawer amount and total on end
@@ -148,7 +149,6 @@ const createReport = (sales, shiftStatus) =>{
     }, 0),
     total: shiftStatus.amount
   };
-
 
   const newReport = {
     id:ZNO.replace("Z", ""),
@@ -176,8 +176,8 @@ const createReport = (sales, shiftStatus) =>{
     categorySales:categorySales
   }
 
+
   const pastReports = JSON.parse(localStorage.getItem("reports") || "[]");
-  console.log(pastReports);
   // Check if there's already a report with the same ID
   const isDuplicate = pastReports.some(report => report.id === newReport.id);
   

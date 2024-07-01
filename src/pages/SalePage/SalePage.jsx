@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Categories from "../../ReusableComponents/Categories.jsx";
-import { Box, Stack, useMediaQuery, Button, Drawer, Container, Typography } from "@mui/material";
+import { Box, Stack, useMediaQuery} from "@mui/material";
 import Products from "../../ReusableComponents/Products.jsx";
 import Numpad from "../../ReusableComponents/Numpad.jsx";
 import CustomTextField from "../../ReusableComponents/CustomTextField.jsx";
@@ -9,13 +9,12 @@ import {
   ActionButtons,
   SysControlButtons,
 } from "./ActionButtons.jsx";
-import Badge from '@mui/material/Badge';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SmallScreenCurrentItemCard from "../../ReusableComponents/SmallScreenCurrentItemCard.jsx";
 import useSize from "../../CustomHooks/useSize.js";
 import useFetchData from "../../CustomHooks/useFetchData.js";
 import LoadingPage from '../ErrorAndLoadingPages/LoadingPage.jsx'
 import ErrorPage from "../ErrorAndLoadingPages/ErrorPage.jsx";
+import CartDrawer from "./CartDrawer.jsx";
 
 
 const SalePage = () => {
@@ -36,9 +35,6 @@ const SalePage = () => {
   // Collabsible cart component visibility on small screens
   const [isCartVisible, setIsCartVisible] = useState(false)
   const [size] = useSize();
-
-  const isWide = useMediaQuery('(min-width:1000px)')
-
 
   // function to update value in sessionStorage on every state change
   // It will be passed instead of setItemInRegister function
@@ -68,8 +64,7 @@ const SalePage = () => {
     })
   }
 
-
-// Sets the output of given function with prev quantity value passed as new quantity of item in register
+  // Sets the output of given function with prev quantity value passed as new quantity of item in register
   function onQtyFocus(setVal) {
     updateItemInRegister((prev) => {
       const updatedItemInRegister = {
@@ -79,9 +74,6 @@ const SalePage = () => {
     return updatedItemInRegister
     });
   }
-
-
-
 
   // Memoize filtered products while any of data, filterValue or filterCategories not changed
   const filteredProducts = useMemo(()=> {
@@ -203,49 +195,9 @@ const SalePage = () => {
           <Cart cartItems={cartItems} setCartItems={updateCartItems} itemInRegister={itemInRegister} setItemInRegister={updateItemInRegister} setNumpadFocus={setNumpadFocus}/>
         </Box>
       :
-        <Box sx={{ position: 'absolute', right:0, height: '100%', minHeight:365, display: 'flex', flexDirection: 'row', justifyContent: 'end', alignItems: 'flex-start' }}>
-          { !isWide &&  
-          <Button
-            onClick={() => setIsCartVisible(prev => !prev)}
-            variant="contained"
-            color="warning"
-            sx={{
-              height: '100%',
-              minWidth: 40,
-              width: '5%',
-              borderRadius: 0,
-              pr:1.5,
-              zIndex: 2999,
-              ml:'auto'
-            }}
-          >
-            <Badge badgeContent={cartItems.length} color="primary" anchorOrigin={{vertical: 'top', horizontal: 'left'}} 
-            sx={{
-              '.MuiBadge-standard':{
-                padding:0,
-                minWidth:10,
-                width:15,
-                minHeight:10,
-                height:15
-                
-              }
-            }}
-            >
-              <ShoppingCartIcon fontSize="medium" />
-            </Badge>
-
-          </Button>}
-          <Drawer
-            keepMounted
-            anchor={'right'}
-            open={isWide || isCartVisible}
-            variant= {isWide ? 'persistent' : 'temporary' } 
-          >
-            <Box height={'100%'} width={400} pl={0.5} pr={5}  >
-              <Cart cartItems={cartItems} setCartItems={updateCartItems} itemInRegister={itemInRegister} setItemInRegister={updateItemInRegister} setNumpadFocus={setNumpadFocus} additionalItemEditClick={()=>setIsCartVisible(false)} />
-            </Box>
-          </Drawer>
-        </Box>
+        <CartDrawer itemAmount={cartItems.length} >
+          <Cart cartItems={cartItems} setCartItems={updateCartItems} itemInRegister={itemInRegister} setItemInRegister={updateItemInRegister} setNumpadFocus={setNumpadFocus} additionalItemEditClick={()=>setIsCartVisible(false)} />
+        </CartDrawer>
       }
 
       <SmallScreenCurrentItemCard open={size.x < 750  && Object.keys(itemInRegister.product).length > 1} currentItem={itemInRegister} setCurrentItem={updateItemInRegister} cartItems={cartItems} setCartItems={updateCartItems} />

@@ -111,7 +111,7 @@ const SettingsPage = () => {
 
   return (
     <Box  minHeight={375}  minWidth={665} display="flex" flexDirection="column" alignItems={'center'} textAlign={'center'} sx={{height:'100vh', width:'100vw',}} >
-      <Grid container bgcolor={'background.paper'} sx={{borderRadius: size.x< 700 ? 0 : 3, my:'auto', width: size.x < 700 ? '100%' : '80%', heigth:size.y < 500 ? '100%' : '80%'}} >
+      <Grid container bgcolor={'background.paper'} sx={{borderRadius: size.x< 700 ? 0 : 3, my:'auto', width: size.x < 700 ? '100%' : '80%', heigth:size.y < 500 ? '100%' : '80%', maxHeight:'100%'}} >
         
         <Grid item xs={12} my={2} mb={2}>
           <Typography color={'primary'} fontSize={{xs:16, md:22, lg:26, xl:30}} variant='h5' fontWeight={700} letterSpacing={0.7} >{t('settings.applicationSettings')}</Typography>
@@ -192,7 +192,7 @@ const TitleWithDescription = ({ title, description }) => (
 );
 
 const GridItem = ({children, sx, ...props})=>(
-  <Grid item xs={6} md={12} sx={{position:'relative', px:3, pb:{xs:1, md:2}, my:1, borderRadius:3, display:'flex', flexDirection:'row', alignItems:'center' , ...sx}} {...props} >
+  <Grid item xs={6} md={12} sx={{position:'relative', px:3, pb:{xs:1, md:1.5, lg:2}, my:1, borderRadius:3, display:'flex', flexDirection:'row', alignItems:'center' , ...sx}} {...props} >
     {children}
   </Grid>
 )

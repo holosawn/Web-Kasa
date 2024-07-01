@@ -23,7 +23,7 @@ const getIconStyle = (pageName, currentPage)=>({
   ml: 1.4
 })
 
-//Color will change if it's button of current
+//Color will change if it's button of current page
 const getButtonStyle=(pageName, currentPage)=>({
   borderRadius: 0,
   width:'100%',
@@ -41,7 +41,7 @@ const getButtonStyle=(pageName, currentPage)=>({
   ":hover":{backgroundColor:'background.secondary'},
 })
 
-//Color will change if it's description of icon of current
+//Color will change if it's description of icon of current page
 const IconDescription = ({children, isMenuOpen, currentPage=false ,  color})=>(
   <Typography ml={2} variant='body2' fontSize={{xs:12, sm:14}} textTransform={'none'} color={color ? color : currentPage? '#0E4D90' : 'text.primary'} whiteSpace={'nowrap'} overflow={'hidden'} sx={{transition:'opacity 0.3s', opacity:isMenuOpen? 1 : 0}}
   >

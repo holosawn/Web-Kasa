@@ -170,23 +170,24 @@ const CouponMenu = ({ activeCoupons, onDeleteCouponClick }) => {
 
   return (
     <>
-      {size.y > 500 || activeCoupons.length > 3 ? (
-        <Stack direction={"column"} width={"100%"} maxWidth={600} sx={{ overflowY: "scroll", overflowX:'hidden' }}>
-          {activeCoupons.map((coupon) => (
-            <CouponRow key={coupon.key} coupon={coupon} onDeleteClick={onDeleteCouponClick} />
-          ))}
-        </Stack>
-      ) : (
-        <Button
+      {activeCoupons.length > 1 ? (
+          <Button
           variant="contained"
           color='warning'
           onClick={handleMenuOpen}
           disabled={!activeCoupons.length > 0}
-          sx={{ textTransform: "none", width:'47%', mr:'1.5%', ml:'auto', mt:1,  height:35, minHeight: 30, fontSize:{xs:12, md:14, lg:18, xl:20}}}
+          sx={{ textTransform: "none", width:'47%', mr:'1.5%', ml:'auto', mt:1,  height:size.y < 600 ? 40 : 60, minHeight: 35, fontSize:{xs:12, md:14, lg:18, xl:20}}}
           endIcon={<KeyboardArrowDown />}
         >
           {t('payment.activeCoupons')}
         </Button>
+
+      ) : (
+        <Stack direction={"column"} width={"100%"}  maxWidth={550} sx={{ overflowY: "scroll", overflowX:'hidden' }}>
+          {activeCoupons.map((coupon) => (
+            <CouponRow key={coupon.key} coupon={coupon} onDeleteClick={onDeleteCouponClick} />
+          ))}
+        </Stack>
       )}
 
       <Menu

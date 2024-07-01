@@ -89,6 +89,7 @@ const PaymentPage = () => {
       "date" : new Date(),
       "items": cartItems,
       "transactions": transactions,
+      "subTotal" : subTotal,
       "total" : total,
       "coupons" : activeCoupons,
       "savedByOffers" : savedByOffers,
@@ -96,8 +97,12 @@ const PaymentPage = () => {
       "change" : amountToPay >= 0 ? 0 : amountToPay,
     }
 
+
+    sessionStorage.setItem("sales", JSON.stringify([]))
     const pastSales = JSON.parse(sessionStorage.getItem("sales")) || []
     sessionStorage.setItem("sales", JSON.stringify([...pastSales, sale]))
+
+    localStorage.setItem('reports', JSON.stringify([]))
 
     // Set spending score based on sale amount
     if (Object.keys(taggedCustomer).length > 0) {
@@ -159,45 +164,43 @@ export default PaymentPage;
 
 
 
-  // Available coupons on application
-  const coupons={
-    'ABC123':{
-      key:'ABC123',
-      description:'20 TRY off on any purchase above 50 TRY',
-      func:(num)=>{
-        if (num > 50) {
-          return -20
-        }
-        else {
-          return 1
-        }
+// Available coupons on application
+const coupons={
+  'ABC123':{
+    key:'ABC123',
+    description:'20 TRY off on any purchase above 50 TRY',
+    func:(num)=>{
+      if (num > 50) {
+        return -20
       }
-    },
-    'PERCENT10':{
-      key: 'PERCENT10',
-      description: '10% off on your total purchase',
-      func:(num) => {
-        return - num* 0.10
+      else {
+        return 1
       }
-    },
-    'CUSTOMER10': {
-      key: 'CUSTOMER10',
-      description: '10% off on purchases up to 100 TRY, 20% off on purchases over 100',
-      func: (num) => {
-        const taggedCustomer = JSON.parse(sessionStorage.getItem('taggedCustomer'))
-        if (Object.keys(taggedCustomer).length > 0) {
-          if (num <= 100) {
-            return - num * 0.10
-          } else {
-            return - num * 0.20
-          }
-        }
-        else{
-          return 'noTaggedCustomer'
-        }
-      },
-      check:'customer'
     }
+  },
+  'PERCENT10':{
+    key: 'PERCENT10',
+    description: '10% off on your total purchase',
+    func:(num) => {
+      return - num* 0.10
+    }
+  },
+  'CUSTOMER10': {
+    key: 'CUSTOMER10',
+    description: '10% off on purchases up to 100 TRY, 20% off on purchases over 100',
+    func: (num) => {
+      const taggedCustomer = JSON.parse(sessionStorage.getItem('taggedCustomer'))
+      if (taggedCustomer && Object.keys(taggedCustomer).length > 0) {
+        if (num <= 100) {
+          return - num * 0.10
+        } else {
+          return - num * 0.20
+        }
+      }
+      else{
+        return 'noTaggedCustomer'
+      }
+    },
+    check:'customer'
   }
-
-  export {coupons}
+}

@@ -1,6 +1,6 @@
 import { Box, Divider, Grow, Stack, Typography } from '@mui/material'
 import React, { useMemo } from 'react'
-import { formatDateTimeString } from '../../utils/helpers'
+import { formatDateTimeString } from '../../helpers/helpers'
 import { t } from 'i18next'
 
 const ReportList = ({reports, filterValues, currentReport, setCurrentReport}) => {
@@ -21,7 +21,9 @@ const ReportList = ({reports, filterValues, currentReport, setCurrentReport}) =>
                 return false
             }
             return true
-        })
+        }).sort((a, b) => {
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+          });
     },[filterValues])
 
     const onReportCardClick = (report)=>{

@@ -6,7 +6,7 @@ import { Box, Stack } from '@mui/material'
 import FilterInputs from './FilterInputs.jsx'
 import ReportList from './ReportList.jsx'
 import ReportPreview from './ReportPreview.jsx'
-import { formatDateToISO } from '../../utils/helpers.js'
+import { formatDateToISO } from '../../helpers/helpers.js'
 
 // Initial date values to filter reports
 const startDate = new Date();
@@ -45,6 +45,7 @@ const ReportsPage = () => {
 
   // Reports on localstorage to display with reports on json file
   const storedReports = JSON.parse(localStorage.getItem("reports")) || []
+
 
   return reportsFetchLoading || shopsFetchLoading ? (
     <LoadingPage/>
