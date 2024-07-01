@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid } from '@mui/material';
-import discountIcon from '../../../assets/discount.svg';
-import refundIcon from '../../../assets/refund.svg';
-import creditNoteIcon from '../../../assets/creditNote.svg';
+import discountIcon from '../../assets/discount.svg';
+import refundIcon from '../../assets/refund.svg';
+import creditNoteIcon from '../../assets/creditNote.svg';
 import SaleInfoCard from './SaleInfoCard';
 import { t } from 'i18next';
 

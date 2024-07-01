@@ -107,7 +107,6 @@ const Numpad = ({ setValue, scrollRef, layout }) => {
     scrollIntervalRef.current = null
   };
 
-  // const largeLayout = (layout || defaultLayout).length > 15 
 
   return(
     <Grid

@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
-const CartDrawer = ({children, itemAmount}) => {
-    const [ isCartVisible, setIsCartVisible ] = useState(false)
+const CartDrawer = ({children, itemAmount, open, setOpen}) => {
     const isWide = useMediaQuery('(min-width:1000px)')
 
 
@@ -12,7 +11,7 @@ const CartDrawer = ({children, itemAmount}) => {
     <Box sx={{ position: 'absolute', right:0, height: '100%', minHeight:365, display: 'flex', flexDirection: 'row', justifyContent: 'end', alignItems: 'flex-start' }}>
         { !isWide &&  
         <Button
-        onClick={() => setIsCartVisible(prev => !prev)}
+        onClick={() => setOpen(prev => !prev)}
         variant="contained"
         color="warning"
         sx={{
@@ -44,15 +43,12 @@ const CartDrawer = ({children, itemAmount}) => {
         <Drawer
         keepMounted
         anchor={'right'}
-        open={isWide || isCartVisible}
-        variant= {isWide ? 'persistent' : 'temporary' } 
-        sx={{
-            width: 400,
-            pl: 0.5,
-            pr:5
-        }}
+        open={isWide || open}
+        variant= {isWide ? 'persistent' : 'temporary' }
         >
-            {children}
+            <Box bgcolor={'background.paper'} sx={{height:'100%', width:400, pr:5}} >
+                {children}
+            </Box>
         </Drawer>
     </Box>
   )

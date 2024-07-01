@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import MultiLineChart from './Dashboard/MultiLineChart';
-import { Box, MenuItem, Select, Typography, Paper } from '@mui/material';
+import MultiLineChart from './MultiLineChart';
+import { Box, MenuItem, Select, Paper } from '@mui/material';
 import useFetchData from '../../CustomHooks/useFetchData'
-import SalesResultInfo from './Dashboard/SalesResultInfo';
-import TopEntitiesList from './Dashboard/TopEntitiesList';
-import SalesDeductionInfo from './Dashboard/SalesDeductionInfo';
+import SalesResultInfo from './SalesResultInfo';
+import TopEntitiesList from './TopEntitiesList';
+import SalesDeductionInfo from './SalesDeductionInfo';
 import LoadingPage from '../ErrorAndLoadingPages/LoadingPage'
 import ErrorPage from '../ErrorAndLoadingPages/ErrorPage'
 import { t } from 'i18next';

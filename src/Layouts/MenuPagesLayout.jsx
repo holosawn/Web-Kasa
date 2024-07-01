@@ -1,4 +1,3 @@
-// src/layouts/LayoutWithSidebar.js
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import  MenuSideBar from './MenuSideBar';

@@ -4,7 +4,7 @@ import menuLayoutData from '../Data/MenuLayoutData.json'
 import dashboardData from '../Data/DashboardData.json'
 import { salesDataHandler } from '../helpers/helpers'
 import { productArrHandler } from '../helpers/helpers'
-import wallmartData from "../Data/WallmartCompatibleData.json";
+import wallmartData from "../Data/WallmartProductData.json";
 import customerData from '../Data/Customers.json'
 import categoryData from '../Data/WallmartCategoryData.json'
 import reportData from '../Data/Reports.json'

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import useFetchData from '../../CustomHooks/useFetchData.js'
 import LoadingPage from '../ErrorAndLoadingPages/LoadingPage.jsx'
 import ErrorPage from '../ErrorAndLoadingPages/ErrorPage.jsx'
@@ -7,6 +7,8 @@ import FilterInputs from './FilterInputs.jsx'
 import ReportList from './ReportList.jsx'
 import ReportPreview from './ReportPreview.jsx'
 import { formatDateToISO } from '../../helpers/helpers.js'
+import useSessionStorage from '../../CustomHooks/useSessionStorage.js'
+
 
 // Initial date values to filter reports
 const startDate = new Date();
@@ -20,7 +22,7 @@ const ReportsPage = () => {
   const [reports, reportsFetchLoading, reportsFetchError] = useFetchData('/reports')  
   const [shops, shopsFetchLoading, shopsFetchError] = useFetchData('/shopBranches')
 
-  const [filterValues, setFilterValues] = useState(JSON.parse(sessionStorage.getItem('filterValues')) || {
+  const [filterValues, setFilterValues] = useSessionStorage('filterValues', {
     id:'',
     shop:'',
     startDate: formatDateToISO(startDate), // Use the modified startDate

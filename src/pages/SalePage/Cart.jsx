@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   FormControl,
   InputLabel,
   MenuItem,
@@ -8,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, {useEffect, useState } from "react"
+import React, {useEffect, useLayoutEffect, useState } from "react"
 import CurrentItemCard from "../../ReusableComponents/CurrentItemCard";
 import CartItemCard from "../../ReusableComponents/CartItemCard";
 import { t } from "i18next";
@@ -21,6 +20,7 @@ import useFetchData from "../../CustomHooks/useFetchData";
 import { FiberManualRecord } from "@mui/icons-material";
 import { useShiftStatus } from "../../contexts/ShiftContext";
 import useSize from "../../CustomHooks/useSize";
+import useSessionStorage from "../../CustomHooks/useSessionStorage";
 
 
 function get3Pay2(Items) {
@@ -59,7 +59,6 @@ function get3Pay2(Items) {
   return updatedItems;
 }
 
-
 function resetOffers(items) {
   const updatedItems = items.map(item => ({
     ...item,
@@ -97,8 +96,8 @@ const offers = {
 // itemInRegistes can be set as a cartItem or can be canceled
 // additionalItemEditClick To make cart sidebar visible in small screens
 const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setNumpadFocus, additionalItemEditClick=null}) => {
-  const [offerName, setofferName] = useState(JSON.parse(sessionStorage.getItem('offerName')) || "none");
-  const [discount, setDiscount] = useState( parseInt(JSON.parse(sessionStorage.getItem('discount'))) || 0);
+  const [offerName, setOfferName] = useSessionStorage('offerName', 'none')
+  const [discount, setDiscount] = useSessionStorage('discount', 0)
   const [marketStatus, statusError, statussLoading] = useFetchData('/marketStatus')
   const [showAlert, AlertComponent] = useAlert(); // Use the custom hook
   const [isChargeButtonLoading, setIsChargeButtonLoading] = useState(false)
@@ -114,34 +113,11 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
     return acc + ((curr.offersApplied?.[offerName]?.saved) ? curr.offersApplied[offerName].saved : 0);
   },0)
 
-  const updateOfferName = (input)=>{
-    setofferName(prev => {
-      if (typeof input === 'function') {
-        sessionStorage.setItem('offerName', JSON.stringify(input(prev)))
-        return input(prev)
-      }
-      else{
-        sessionStorage.setItem('offerName', JSON.stringify(input))
-        return input
-      }
-    })
-  }
 
-  const updateDiscount = (input) =>{
-    setDiscount(prev => {
-      if (typeof input === 'function') {
-        sessionStorage.setItem('discount', JSON.stringify(input(prev)))
-        return input(prev)
-      }
-      else{
-        sessionStorage.setItem('discount', JSON.stringify(input))
-        return input
-      }
-    })
-  }
 
   // Items in cart should be updated on every change related to item amount or offer 
-  useEffect(() => {
+  // We use useLayoutEffect to re-calculate values like savedByOffers before page painted
+  useLayoutEffect(() => {
     if (offers[offerName].offerFunc) setCartItems(offers[offerName].offerFunc(cartItems));
   }, [offerName, cartItems.length, subTotal]);
 
@@ -237,7 +213,7 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
       sx={{ overflowY: "hidden", overflowX: "hidden" }}
     >
       {/* Offer and discount Select Component */}
-      <CartActions offerName={offerName} setofferName={updateOfferName} discount= {discount} setDiscount= {updateDiscount} />
+      <CartActions offerName={offerName} setOfferName={setOfferName} discount= {discount} setDiscount= {setDiscount} />
       
       {/* If screen is small SmallScreenCurrentItemCard will be rendered instead */}
       {(window.innerWidth > 750) && 
@@ -286,14 +262,14 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
 };
 
 
-const CartActions = ({ offerName, setofferName, discount, setDiscount }) => {
-  const [size, setSize] = useState({x:window.innerWidth, y: window.innerHeight})
+const CartActions = ({ offerName, setOfferName, discount, setDiscount }) => {
+  const [size, setSize] = useSize()
   const {lang, setLang} = useLanguage();
 
   const numbers = Array.from({ length: 101 }, (_, i) => parseInt(i));
     
   const handleofferNameChange = (e) => {
-    setofferName(e.target.value);
+    setOfferName(e.target.value);
   };
   
   const handleDiscountChange = (e) =>{

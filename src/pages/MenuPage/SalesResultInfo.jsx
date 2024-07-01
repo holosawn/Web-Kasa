@@ -1,10 +1,10 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import SaleInfoCard from './SaleInfoCard';
-import grossSalesIcon from '../../../assets/CoinGraph.svg';
-import netSalesIcon from '../../../assets/PriceTag.svg';
-import costOfSalesIcon from '../../../assets/Coin.svg';
-import grossProfitIcon from '../../../assets/Graph.svg';
+import grossSalesIcon from '../../assets/CoinGraph.svg';
+import netSalesIcon from '../../assets/PriceTag.svg';
+import costOfSalesIcon from '../../assets/Coin.svg';
+import grossProfitIcon from '../../assets/Graph.svg';
 import { t } from 'i18next';
 
 const SalesResultInfo = ({ salesData, timeline }) => (

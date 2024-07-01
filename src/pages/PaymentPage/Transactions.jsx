@@ -7,8 +7,6 @@ import useSize from '../../CustomHooks/useSize';
 import { t } from 'i18next';
 import useAlert from '../../CustomHooks/useAlert';
 
-const paymentTypes=['card', 'cash']
-
 const commaKey={
   name:',',
   onClick:(setVal) => setVal(prev => prev + ',')

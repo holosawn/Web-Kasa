@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState } from "react";
 import Categories from "../../ReusableComponents/Categories.jsx";
-import { Box, Stack, useMediaQuery} from "@mui/material";
+import { Box, Stack} from "@mui/material";
 import Products from "../../ReusableComponents/Products.jsx";
 import Numpad from "../../ReusableComponents/Numpad.jsx";
 import CustomTextField from "../../ReusableComponents/CustomTextField.jsx";
@@ -15,6 +15,7 @@ import useFetchData from "../../CustomHooks/useFetchData.js";
 import LoadingPage from '../ErrorAndLoadingPages/LoadingPage.jsx'
 import ErrorPage from "../ErrorAndLoadingPages/ErrorPage.jsx";
 import CartDrawer from "./CartDrawer.jsx";
+import useSessionStorage from "../../CustomHooks/useSessionStorage.js";
 
 
 const SalePage = () => {
@@ -24,10 +25,9 @@ const SalePage = () => {
   const [categories, categoriesFetchLoading, categoriesFetchError ] = useFetchData('/categories')
   // Ref of products container for scrolling via buttons
   const productsRef = useRef(null)
-  const [cartItems, setCartItems] = useState( JSON.parse(sessionStorage.getItem("cartItems")) || []);
+  const [cartItems, setCartItems] = useSessionStorage('cartItems', []);
   // Current item to add cart after specify it's quantity
-  const [itemInRegister, setItemInRegister] = useState(
-     JSON.parse(sessionStorage.getItem('itemInRegister'))|| {
+  const [itemInRegister, setItemInRegister] = useSessionStorage('itemInRegister', {
     product: {},
     qty: 0,
   });
@@ -36,37 +36,10 @@ const SalePage = () => {
   const [isCartVisible, setIsCartVisible] = useState(false)
   const [size] = useSize();
 
-  // function to update value in sessionStorage on every state change
-  // It will be passed instead of setItemInRegister function
-  const updateItemInRegister = (input) =>{
-    setItemInRegister(prev => {
-      if (typeof input === 'function') {
-        sessionStorage.setItem('itemInRegister', JSON.stringify(input(prev)))
-        return input(prev)
-      }
-      else{
-        sessionStorage.setItem('itemInRegister', JSON.stringify(input))
-        return input
-      }
-    })
-  }
 
-  const updateCartItems =(input)=>{
-    setCartItems(prev => {
-      if (typeof input === 'function') {
-        sessionStorage.setItem('cartItems', JSON.stringify(input(prev)))
-        return input(prev)
-      }
-      else{
-        sessionStorage.setItem('cartItems', JSON.stringify(input))
-        return input
-      }
-    })
-  }
-
-  // Sets the output of given function with prev quantity value passed as new quantity of item in register
+// Sets the output of given function with prev quantity value passed as new quantity of item in register
   function onQtyFocus(setVal) {
-    updateItemInRegister((prev) => {
+    setItemInRegister((prev) => {
       const updatedItemInRegister = {
       ...prev,
       qty: setVal(itemInRegister.qty),
@@ -74,52 +47,7 @@ const SalePage = () => {
     return updatedItemInRegister
     });
   }
-
-  // Memoize filtered products while any of data, filterValue or filterCategories not changed
-  const filteredProducts = useMemo(()=> {
-    return products.filter((product) => {
-      // If a search query is entered, only return products that match the query in their name, barcode, or code
-      if (filterValue !== "") {
-        if (
-          !product.name
-            .toLowerCase()
-            .includes(filterValue.toLowerCase()) &&
-          !product.barcode.toLowerCase().includes(filterValue.toLowerCase()) &&
-          !product.code.toLowerCase().includes(filterValue.toLowerCase())
-        )
-          return false;
-      }
-      
-      // If there are no filter categories, return true for all products
-      if (filterCategories.length < 1) return true;
-      else {
-        // If "Favorites" is selected, only return products that are marked as favorites
-        if (filterCategories.includes("Favorites")) {
-          if (!product.isFavorite) {
-            return false;
-          }
-        }
-        // If "Alphabetically" is selected, only return products that start with the selected letter. If no letter selected return according to 'a'
-        else if (filterCategories.includes("Alphabetically")){
-          const letterToLook = filterCategories.length > 1 ? filterCategories[filterCategories.length-1].toLowerCase() : "a"
-          const isFirstLetterCompatible = product.name[0].toLowerCase() === letterToLook;
-          if (isFirstLetterCompatible === false) return false
-        }
-        // If specific categories are selected, only return products that belong to those categories
-        else {
-          for (const category of filterCategories) {
-            if (!product.categories.includes(category)){
-              return false ;
-            };
-          }
-        }
-
-        // If all conditions are met, can return true for the product
-        return true;
-      }
-    })
-  }, [products, filterValue, filterCategories]);
-
+  
   return productsFetchLoading || categoriesFetchLoading ? (
     <LoadingPage/>
   )
@@ -178,8 +106,10 @@ const SalePage = () => {
           setNumpadFocus={setNumpadFocus}
         />
         <Products
-          products={filteredProducts}
-          sendToRegister={updateItemInRegister}
+          filterValue={filterValue}
+          filterCategories={filterCategories}
+          products={products}
+          sendToRegister={setItemInRegister}
           setNumpadFocus={setNumpadFocus}
           containerRef = {productsRef}
         />
@@ -192,15 +122,15 @@ const SalePage = () => {
        {/* Rendering Cart component as a collapsable sidebar or as normal according to screen size */}
       {size.x > 750 ? 
         <Box sx={{width:'28%', mt:1, ml:2,  height: '98vh', display: 'flex', flexDirection: 'row', justifyContent: 'end', alignItems: 'flex-start' }}>
-          <Cart cartItems={cartItems} setCartItems={updateCartItems} itemInRegister={itemInRegister} setItemInRegister={updateItemInRegister} setNumpadFocus={setNumpadFocus}/>
+          <Cart cartItems={cartItems} setCartItems={setCartItems} itemInRegister={itemInRegister} setItemInRegister={setItemInRegister} setNumpadFocus={setNumpadFocus}/>
         </Box>
       :
-        <CartDrawer itemAmount={cartItems.length} >
-          <Cart cartItems={cartItems} setCartItems={updateCartItems} itemInRegister={itemInRegister} setItemInRegister={updateItemInRegister} setNumpadFocus={setNumpadFocus} additionalItemEditClick={()=>setIsCartVisible(false)} />
+        <CartDrawer open={isCartVisible} setOpen={setIsCartVisible} itemAmount={cartItems.length} >
+          <Cart cartItems={cartItems} setCartItems={setCartItems} itemInRegister={itemInRegister} setItemInRegister={setItemInRegister} setNumpadFocus={setNumpadFocus} additionalItemEditClick={()=>setIsCartVisible(false)} />
         </CartDrawer>
       }
 
-      <SmallScreenCurrentItemCard open={size.x < 750  && Object.keys(itemInRegister.product).length > 1} currentItem={itemInRegister} setCurrentItem={updateItemInRegister} cartItems={cartItems} setCartItems={updateCartItems} />
+      <SmallScreenCurrentItemCard open={size.x < 750  && Object.keys(itemInRegister.product).length > 1} currentItem={itemInRegister} setCurrentItem={setItemInRegister} cartItems={cartItems} setCartItems={setCartItems} />
 
     </Box>
   );

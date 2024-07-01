@@ -16,7 +16,7 @@ const CartTotal=({subTotal, discount, savedByOffers, total, amountToPay, coupons
       {children}
     </Stack>
   )
-  
+
   const savedByDiscount = (subTotal - savedByOffers)* ((discount ||0) / 100);
   
   return(

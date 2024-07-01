@@ -7,8 +7,8 @@ import insertMethod from '../../assets/InsertCard.jpg'
 import PINEnter from '../../assets/PINEnter.jpg'
 import { t } from 'i18next';
 
-const steps=['choose','contact', 'payment', 'PIN', 'approve']
-const methods=['tap', 'insert', 'swipe']
+// const steps=['choose','contact', 'payment', 'PIN', 'approve']
+// const methods=['tap', 'insert', 'swipe']
 
 // Returns title according to given payment step
 const getTitle = (step) => {
