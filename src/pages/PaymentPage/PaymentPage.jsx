@@ -58,6 +58,17 @@ const PaymentPage = () => {
       }
     }
 
+    sessionStorage.setItem('activeCoupons',JSON.stringify([]))
+    sessionStorage.setItem('amountToPay',JSON.stringify(0))
+    sessionStorage.setItem('total',JSON.stringify(0))
+    sessionStorage.setItem('cartItems', JSON.stringify([]))
+    sessionStorage.setItem("discount", JSON.stringify(0));
+    sessionStorage.setItem("subTotal", JSON.stringify(0));
+    sessionStorage.setItem("savedByOfferss", JSON.stringify(0));
+    sessionStorage.setItem('offerName', JSON.stringify('none'))
+    sessionStorage.setItem('email', JSON.stringify(''))
+    sessionStorage.setItem('pastTransactions', JSON.stringify(''))
+    sessionStorage.setItem('taggedCustomer', JSON.stringify({}))
     setActiveCoupons([]);
     setAmountToPay(0);
     setTotal(0);
@@ -66,9 +77,6 @@ const PaymentPage = () => {
     setSubTotal(0);
     setSavedByOffers(0);
     setActiveOffer('none');
-    sessionStorage.setItem('email', JSON.stringify(''))
-    sessionStorage.setItem('pastTransactions', JSON.stringify(''))
-    sessionStorage.setItem('taggedCustomer', JSON.stringify({}))
 
     navigate('/sale')
   }

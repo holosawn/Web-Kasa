@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, {useEffect, useLayoutEffect, useState } from "react"
+import React, { useLayoutEffect, useState } from "react"
 import CurrentItemCard from "../../ReusableComponents/CurrentItemCard";
 import CartItemCard from "../../ReusableComponents/CartItemCard";
 import { t } from "i18next";
@@ -21,76 +21,8 @@ import { FiberManualRecord } from "@mui/icons-material";
 import { useShiftStatus } from "../../contexts/ShiftContext";
 import useSize from "../../CustomHooks/useSize";
 import useSessionStorage from "../../CustomHooks/useSessionStorage";
+import { offers } from "../../Data/Offers";
 
-
-function get3Pay2(Items) {
-  const updatedItems = Items.map((item) => {
-    const isPiece = item.product.unit === "piece";
-    // Set the divide number based on whether the item is a piece or not
-    const divideNum = isPiece ? 3 : 3000;
-
-    // Change number to closest power of divideNum
-    const qtyToApply = Math.floor(item.qty / divideNum) * divideNum;
-
-    const isAppliable =
-      (item.offersApplied === undefined ||
-        item.defaultPrice !== item.computedPrice + item.saved) &&
-      qtyToApply >= divideNum;
-
-    // Create a new object with updated computed price and offers applied
-    const updatedItem = {
-      ...item,
-      computedPrice: isAppliable
-        ? item.defaultPrice - item.product.price * (qtyToApply / divideNum)
-        : item.computedPrice,
-      offersApplied: {
-        ...(item.offersApplied || {}),
-        "3/2": {
-          saved: item.product.price * (qtyToApply / divideNum),
-          name: "3 Al 2 Öde",
-        },
-      },
-      qty: item.qty,
-    };
-
-    return updatedItem;
-  });
-
-  return updatedItems;
-}
-
-function resetOffers(items) {
-  const updatedItems = items.map(item => ({
-    ...item,
-    computedPrice: item.defaultPrice,
-    offersApplied: null,
-  }));
-
-  return updatedItems
-}
-
-const offers = {
-  "3/2": {
-    key:'3/2',
-    name: "3 al 2 öde",
-    displayNames:{
-      'en':'Get 3 pay 2',
-      'tr':'3 al 2 öde',
-      'ru':'Купи 3, плати за 2'
-    },
-    offerFunc: get3Pay2,
-  },
-  'none': {
-    key:'none',
-    name: 'No Offer',
-    displayNames:{
-      'en':'No Offer',
-      'tr':'Kampanya yok',
-      'ru':'Нет предложения'
-    },
-    offerFunc: resetOffers,
-  },
-};
 
 // CartItems are displayed and can be edited on deleted from card
 // itemInRegistes can be set as a cartItem or can be canceled
@@ -142,7 +74,6 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
       }
       sessionStorage.setItem('activeCoupons', JSON.stringify(tempActiveCoupons))
 
-      console.log("Before set amountToPay",pastTransactions);
       // If there are already made transactions set calculated amount
       if (pastTransactions.length > 0) {
         const totalTransactionAmount = pastTransactions.reduce((acc, curr) => {
@@ -295,6 +226,7 @@ const CartActions = ({ offerName, setOfferName, discount, setDiscount }) => {
         >
           <MenuItem value={"none"}>{offers['none'].displayNames[lang]}</MenuItem>
           <MenuItem value={"3/2"}>{offers['3/2'].displayNames[lang]}</MenuItem>
+          <MenuItem value={"careTime"}>{offers['careTime'].displayNames[lang]}</MenuItem>
         </Select>
       </FormControl >
 

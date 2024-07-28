@@ -3,7 +3,7 @@ Button,
 Grid,
 Typography,
 } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { t } from "i18next";

@@ -67,15 +67,15 @@ const Transactions = ({cartItems, amountToPay, setAmountToPay}) => {
   
   // Stores transaction into sessionStorage
   const onCashClick=()=>{
-    setTransaction(prev =>({
-      ...prev,
+    const completedTransaction = {
+      ...transaction,
       type:'cash'
-    }))
+    }
 
     setAmountToPay(prev => prev - parseFloat(transaction.amount.replace(',', '.')))
 
     const pastTransactions = JSON.parse(sessionStorage.getItem('pastTransactions')) || []
-    sessionStorage.setItem('pastTransactions', JSON.stringify([...pastTransactions, transaction]))
+    sessionStorage.setItem('pastTransactions', JSON.stringify([...pastTransactions, completedTransaction]))
 
     setTransaction({
       amount:'',

@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Categories from "../../ReusableComponents/Categories.jsx";
 import { Box, Stack} from "@mui/material";
 import Products from "../../ReusableComponents/Products.jsx";
@@ -9,7 +9,7 @@ import {
   ActionButtons,
   SysControlButtons,
 } from "./ActionButtons.jsx";
-import SmallScreenCurrentItemCard from "../../ReusableComponents/SmallScreenCurrentItemCard.jsx";
+import CurrentItemCardModal from "../../ReusableComponents/CurrentItemCardModal.jsx";
 import useSize from "../../CustomHooks/useSize.js";
 import useFetchData from "../../CustomHooks/useFetchData.js";
 import LoadingPage from '../ErrorAndLoadingPages/LoadingPage.jsx'
@@ -130,7 +130,7 @@ const SalePage = () => {
         </CartDrawer>
       }
 
-      <SmallScreenCurrentItemCard open={size.x < 750  && Object.keys(itemInRegister.product).length > 1} currentItem={itemInRegister} setCurrentItem={setItemInRegister} cartItems={cartItems} setCartItems={setCartItems} />
+      <CurrentItemCardModal open={size.x < 750  && Object.keys(itemInRegister.product).length > 1} currentItem={itemInRegister} setCurrentItem={setItemInRegister} cartItems={cartItems} setCartItems={setCartItems} />
 
     </Box>
   );

@@ -193,7 +193,7 @@ const AddCustomerModal=({taggedCustomer, setTaggedCustomer, onDeleteCoupon, acti
                     variant="filled"
                     required
                     inputMode='text'
-                    ContainerProps={{
+                    containerProps={{
                       sx:{
                           flex:1
                       }

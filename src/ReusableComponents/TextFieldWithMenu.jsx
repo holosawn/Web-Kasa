@@ -5,7 +5,7 @@ import { Box, ClickAwayListener, InputAdornment, Grow, MenuList, Paper, Popper, 
 // onvalueChange is an event handler takes value
 // MenuItemsFunc is function that generates menu items it should take menuItem click handler and input value
 // onDeleteIconClick is an function should execute during deletion
-function TextFieldWithMenu({value, onValueChange, menuItemsFunc, onDeleteIconClick, inputProps, TextFieldsx, ContainerProps, ...TextFieldProps}) {
+function TextFieldWithMenu({value, onValueChange, menuItemsFunc, onDeleteIconClick, inputProps, textFieldsx, containerProps, ...textFieldProps}) {
   const [menuOpen, setMenuOpen] = useState(false);
   const inputRef = useRef()
 
@@ -29,21 +29,20 @@ function TextFieldWithMenu({value, onValueChange, menuItemsFunc, onDeleteIconCli
   return (
     <ClickAwayListener onClickAway={closeMenu}>
 
-        <Box  sx={{backgroundColor:'background.paper', width:'30%'}}  {...ContainerProps} >
+        <Box  sx={{backgroundColor:'background.paper', width:'30%'}}  {...containerProps} >
             <TextField
                 onFocus={handleTextFieldFocus}
                 value={value}
                 ref={(r)=> inputRef.current = r}
                 onChange={e=> handleTextFieldChange(e.target.value)}
                 fullWidth
-                {...TextFieldProps}
+                {...textFieldProps}
                 autoComplete='off'
                 sx={{
                   display:'flex',
                   flexDirection:'row',
                   alignItems:'center',
-                  // height:'100%',
-                  ...TextFieldsx
+                  ...textFieldsx
                 }}
                 InputProps={{
                   sx:{

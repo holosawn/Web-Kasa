@@ -79,13 +79,13 @@ const FilterInputs = ({filterValues ,setFilterValues, shops}) => {
             <TextFieldWithMenu value={filterValues.shop} onValueChange={value => handleFieldChange(value, 'shop')} menuItemsFunc={menuItemsFunc} onDeleteIconClick={handleShopInputDelete}
                 placeholder={t('reports.shop')}
                 size='small'
-                ContainerProps={{
+                containerProps={{
                     sx:{
                         height:'fit-content',
                         width:{xs:'25%', md:'30%'},
                     }
                 }}
-                TextFieldsx={{
+                textFieldsx={{
                     height:'fit-content',
                     display:'flex',
                     alignItems:'center',

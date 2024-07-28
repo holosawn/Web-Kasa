@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { delay } from 'msw';
 import React, { useEffect, useState } from 'react'
 
 const useFetchData = (url, fetchTriggerToggle) => {
@@ -8,14 +9,23 @@ const useFetchData = (url, fetchTriggerToggle) => {
 
     useEffect(()=>{
         async function fetchData(url){
-            setIsLoading(true)
-            try {
-                const response = await axios.get(url);
-                setData(response.data);
-            } catch (error) {
-                setError(error);
-            } finally{
-                setIsLoading(false);
+
+            if ("serviceWorker" in navigator) {
+
+                navigator.serviceWorker.controller?.postMessage("MOCK_ACTIVATE");
+                delay(10)
+                .then(async () => {
+                    setIsLoading(true)
+                    try {
+                        const response = await axios.get(url);
+                        setData(response.data);
+                    } catch (error) {
+                        setError(error);
+                    } finally{
+                        setIsLoading(false);
+                    }
+                } 
+                )
             }
         }
 

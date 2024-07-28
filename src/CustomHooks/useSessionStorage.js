@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 
 const useSessionStorage = (key, initialValue) => {
     const [value, setValue] = useState(() => {
-        const storedValue = sessionStorage.getItem(key);
-        return storedValue ? JSON.parse(storedValue) : initialValue;
+        // console.log(sessionStorage.getItem(key) === "undefined" ? key : sessionStorage.getItem(key));
+        const storedValue = JSON.parse(sessionStorage.getItem(key));
+        return storedValue ? storedValue : initialValue;
     });
 
     // function to update value in sessionStorage on every state change

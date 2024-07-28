@@ -7,7 +7,7 @@ import CustomTextField from '../../ReusableComponents/CustomTextField.jsx'
 import Actions from './Actions.jsx'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import useAlert from '../../CustomHooks/useAlert.js'
-import SmallScreenCurrentItemCard from '../../ReusableComponents/SmallScreenCurrentItemCard.jsx'
+import CurrentItemCardModal from '../../ReusableComponents/CurrentItemCardModal.jsx'
 import { t } from 'i18next'
 import useFetchData from '../../CustomHooks/useFetchData.js'
 import LoadingPage from '../ErrorAndLoadingPages/LoadingPage.jsx'
@@ -32,7 +32,6 @@ const ProductsPage = () => {
   const sendToRegister = useCallback((item) => {
     setItemInRegister(item);
   }, []);
-
 
   // Sets product as itemInRegister 
   const onAddClick = () => {
@@ -116,8 +115,9 @@ const ProductsPage = () => {
         </Stack>
         <Products filterValue={filterValue} filterCategories={filterCategories} products={products} sendToRegister={sendToRegister} containerRef={productsRef} />
       </Box>
+      
       <AlertComponent/>
-      <SmallScreenCurrentItemCard open={Object.keys(itemInRegister.product).length > 0} currentItem={itemInRegister} setCurrentItem={setItemInRegister} cartItems={cartItems} setCartItems={setCartItems} />
+      <CurrentItemCardModal open={Object.keys(itemInRegister.product).length > 0} currentItem={itemInRegister} setCurrentItem={setItemInRegister} cartItems={cartItems} setCartItems={setCartItems} />
     </Box>
   )
 }

@@ -5,7 +5,7 @@ import Numpad from './Numpad';
 import { getNumLayout } from '../Constants/Numpadlayouts';
 import { t } from 'i18next';
 
-const SmallScreenCurrentItemCard=({ open, currentItem, setCurrentItem, cartItems, setCartItems})=>{
+const CurrentItemCardModal=({ open, currentItem, setCurrentItem, cartItems, setCartItems})=>{
 
   function handleQtyChange(setVal) {
       setCurrentItem((prev) => ({
@@ -50,4 +50,4 @@ const SmallScreenCurrentItemCard=({ open, currentItem, setCurrentItem, cartItems
   : null
   }
 
-export default SmallScreenCurrentItemCard
+export default CurrentItemCardModal

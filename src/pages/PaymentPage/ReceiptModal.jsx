@@ -38,7 +38,14 @@ const ReceiptModal = ({cartItems, subTotal, savedByOffers, amountToPay, discount
         return accumulatedTax + itemTax; // Accumulate the total tax
       }, 0) * ((100 -discount)/100) ; // extract tax lost by discount
 
-    const payments = JSON.parse(sessionStorage.getItem('pastTransactions'))
+    const rawPayments = JSON.parse(sessionStorage.getItem('pastTransactions')) || []
+    const summedPayments = Object.entries(rawPayments.reduce((acc, current) => {
+        if (!acc[current.type]) {
+          acc[current.type] = 0;
+        }
+        acc[current.type] += parseFloat(current.amount);
+        return acc;
+      }, {})).map(([type, amount]) => ({ type, amount }));
 
     const onPrintClick=(e)=>{
         window.print();
@@ -103,7 +110,7 @@ const ReceiptModal = ({cartItems, subTotal, savedByOffers, amountToPay, discount
                     savedByCoupons={savedByCoupons}
                     totalTax={totalTax}
                     total={total}
-                    payments={payments}
+                    payments={summedPayments}
                     changeAmount={amountToPay}
                     />
                 </Box>
@@ -184,16 +191,17 @@ const Receipt = ({ marketName, address, detailedAddress, date, hour, receiptNo, 
             {/* Divider */}
             <Divider sx={{my:1, width:'100%', backgroundColor:'black', strokeWidth:1    }} />
             {/* Payment Details */}
-            {payments.map((payment, index) => (
+            {payments.map((payment, index) => {
+                return(
                 <Stack direction={'row'} key={index} width={'90%'} >
                     <Typography>{t(`payment.${payment.type}`)}</Typography>
                     <Typography ml={'auto'} >*{parseFloat(payment.amount).toFixed(2)}</Typography>
                 </Stack>
-            ))}
+            )})}
             {/* Change Amount */}
             <Stack direction={'row'} width={'90%'} mb={2} >
                 <Typography>{t('payment.changeAmount')}:</Typography>
-                <Typography ml={'auto'} >*{parseFloat(changeAmount).toFixed(2)}</Typography>
+                <Typography ml={'auto'} >*{parseFloat(-changeAmount).toFixed(2)}</Typography>
             </Stack>
             {/* Additional Information */}
             

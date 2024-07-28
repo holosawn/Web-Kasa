@@ -42,7 +42,7 @@ const gridComponents = {
 // containerRef is for scroll buttons to get ref of VirtuosoGrid 
 const Products = ({ products, filterValue, filterCategories, sendToRegister, setNumpadFocus=null, containerRef}) => {
 
-  const [itemsToRender, setItemsToRender] = useState([])
+
   const [isLoadingMore, setIsLoadingMore] = useState(false);// state to compute how many items will be in a row
   const [productModalStatus, setProductModalStatus] = useState({
     isOpen:false,
@@ -54,7 +54,7 @@ const Products = ({ products, filterValue, filterCategories, sendToRegister, set
   // Memoize filtered products while any of data, filterValue or filterCategories not changed
   const filteredProducts = useMemo(()=> {
 
-    return products.filter((product) => {
+    return products.slice(0,1000).filter((product) => {
       // If a search query is entered, only return products that match the query in their name, barcode, or code
       if (filterValue !== "") {
         if (
@@ -96,16 +96,6 @@ const Products = ({ products, filterValue, filterCategories, sendToRegister, set
       }
     })
   }, [products, filterValue, filterCategories]);
-
-  // fetch initial items to render
-  useEffect(()=>{
-    getNextItems(1000)
-  },[])
-
-  // Fetch new products every time products changes
-  useEffect(() => {
-    setItemsToRender(filteredProducts.slice(0, 20));
-  }, [filteredProducts]);
 
   
   useEffect(() => {
@@ -163,23 +153,10 @@ const Products = ({ products, filterValue, filterCategories, sendToRegister, set
     containerRef.current = ref;
   };
 
-  // fetches specified number of data
-  async function getNextItems(length) {
-    const startIndex = itemsToRender.length;
-    const endIndex = startIndex + length;
-    const newItems = filteredProducts.slice(startIndex, endIndex);
-
-    setIsLoadingMore(true);
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    setIsLoadingMore(false);
-
-    setItemsToRender([...itemsToRender, ...newItems]);
-  }
-
   return (
     <Box mt={1} ref={refContainer} flex={1} width={'100%'} maxWidth={{xs:600, md:2000}} minHeight={150} mb={{xs:1,md:1.5}} ml={1} p={0} sx={{scrollbarGutter:'stable'}}  >
       <VirtuosoGrid
-        data={itemsToRender}
+        data={filteredProducts}
         style={{
           scrollbarGutter:'stable'
         }}
@@ -214,7 +191,6 @@ const Products = ({ products, filterValue, filterCategories, sendToRegister, set
             </Grid>
           ), [containerWidth]),
         }}
-        endReached={()=>getNextItems( (containerWidth/ 200) * 4  || 20)}
         scrollerRef={ref => handleScrollerRef(ref)}
         itemContent={(index, item) => (
             <ProductCard onBadgeclick={openProductModal} product={item} key={item.id} onClick={setCurrentItem} />
