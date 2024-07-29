@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Typography, Paper } from '@mui/material'
-import { useCustomTheme } from '../../../contexts/CutomThemeContext'
+import { useCustomTheme } from '../../contexts/CutomThemeContext'
 import { t } from 'i18next';
-import { useLanguage } from '../../../contexts/LangContext';
+import { useLanguage } from '../../contexts/LangContext';
 
 
 const TopSoldCard = ({entity, totalSale}) => {

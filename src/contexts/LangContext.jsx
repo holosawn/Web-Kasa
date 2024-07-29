@@ -30,7 +30,8 @@ export function LanguageProvider({ initialState = JSON.parse(sessionStorage.getI
         setLang(input)
       }
     }
-  
+
+
     return (
       <LanguageContext.Provider value={{"lang": lang, "setLang": changeLanguage}}>
         {children}

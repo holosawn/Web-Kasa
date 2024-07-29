@@ -56,9 +56,9 @@ const CsvReader = () => {
         sx={{fontSize:{xs:10, md:12, lg:14}}}
       >
         <Stack direction={'column'} justifyContent={'center'} py={!fileUploaded ? '5px' : 0}>
-            
-                {t('customers.uploadFile')}
-                <VisuallyHiddenInput type="file" />
+        
+            {t('customers.uploadFile')}
+            <VisuallyHiddenInput type="file" />
 
             {fileUploaded && 
             <Typography sx={{

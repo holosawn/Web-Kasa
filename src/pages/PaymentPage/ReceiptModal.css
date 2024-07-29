@@ -27,42 +27,35 @@
   }
 
   
-  .overflow-print {
+  /* .overflow-print {
     height: 100%;
     overflow: visible;
     display: inline-block;
-  }
+  } */
 
 
-body, .print-container, .overflow-print {
-  /* display: block !important; */
-  width: 95% !important; /* Ensure width is set to 3 inches */
-  padding-left: 3% !important;
-  height: 90% !important; /* Ensure it fills the page */
-  overflow: visible !important;
-  margin: 0 !important;
-  padding: 0;
-}
-  
-/* /// margin left is for fixing  */
-.print-wrapper {
-    margin: 0;
-    margin-left:70px; 
+  .overflow-print {
+    width: 95% !important; /* Ensure width is set to 3 inches */
+    height: 90% !important; /* Ensure it fills the page */
+    overflow: visible !important;
+    margin: 0 !important;
     padding: 0;
-    top: 0 !important;
-    transform: translate(-50%, 0%) !important; /* Move to the left and upwards */
+  }
+    
+  .print-wrapper {
+      top: 0 !important;
+      transform: translate(-50%, 0%) !important;
 
+    }
+
+
+  .print-container {
+    position: absolute !important;
   }
 
-
-.print-container {
-  position: absolute !important;
-  justify-content: center; /* Ensure central alignment */
-}
-
-.hide-print {
-    display: none !important;
-}
+  .hide-print {
+      display: none !important;
+  }
 
 }
 

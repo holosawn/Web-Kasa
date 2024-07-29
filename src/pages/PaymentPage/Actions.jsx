@@ -1,4 +1,4 @@
-import { Box, Button, Fade, Grid, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Modal, Stack, TextField, Typography, colors } from '@mui/material'
+import { Box, Button,  Grid, IconButton,   Menu,   Stack,  Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import MailModal from './MailModal';
 import CouponModal from './CouponModal';
@@ -90,21 +90,23 @@ const Actions = ({coupons, cartItems, setCartItems, taggedCustomer, setTaggedCus
 
   // Clear sale related data from states and sessionStorage
   const onCancelButtonClick=()=>{
-    setActiveCoupons([]);
-    setAmountToPay(0);
-    setTotal(0)
-    setCartItems([])
+    sessionStorage.setItem('activeCoupons',JSON.stringify([]))
+    sessionStorage.setItem('amountToPay',JSON.stringify(0))
+    sessionStorage.setItem('total',JSON.stringify(0))
     sessionStorage.setItem("discount", JSON.stringify(0));
     sessionStorage.setItem("subTotal", JSON.stringify(0));
     sessionStorage.setItem("savedByOffers", JSON.stringify(0));
     sessionStorage.setItem('offerName', JSON.stringify('none'))
     sessionStorage.setItem('activeOffers', JSON.stringify([]))
     sessionStorage.setItem('email', JSON.stringify(''))
-    sessionStorage.setItem('pastTransactions', JSON.stringify(''))
-    sessionStorage.setItem('taggedCustomer', JSON.stringify({}))
+    sessionStorage.setItem('pastTransactions', JSON.stringify([]))
     sessionStorage.setItem('taggedCustomer', JSON.stringify({}))
     sessionStorage.setItem('cartItems', JSON.stringify([]))
-    navigate('/Sale')
+    setActiveCoupons([]);
+    setAmountToPay(0);
+    setTotal(0)
+    setCartItems([])
+    navigate('/sale')
   }
 
   const openCusModal=()=>{
@@ -170,23 +172,24 @@ const CouponMenu = ({ activeCoupons, onDeleteCouponClick }) => {
 
   return (
     <>
-      {size.y > 500 || activeCoupons.length > 3 ? (
-        <Stack direction={"column"} width={"100%"} maxWidth={600} sx={{ overflowY: "scroll", overflowX:'hidden' }}>
-          {activeCoupons.map((coupon) => (
-            <CouponRow key={coupon.key} coupon={coupon} onDeleteClick={onDeleteCouponClick} />
-          ))}
-        </Stack>
-      ) : (
-        <Button
+      {activeCoupons.length > 1 ? (
+          <Button
           variant="contained"
           color='warning'
           onClick={handleMenuOpen}
           disabled={!activeCoupons.length > 0}
-          sx={{ textTransform: "none", width:'47%', mr:'1.5%', ml:'auto', mt:1,  height:35, minHeight: 30, fontSize:{xs:12, md:14, lg:18, xl:20}}}
+          sx={{ textTransform: "none", width:'47%', mr:'1.5%', ml:'auto', mt:1,  height:size.y < 600 ? 40 : 60, minHeight: 35, fontSize:{xs:12, md:14, lg:18, xl:20}}}
           endIcon={<KeyboardArrowDown />}
         >
           {t('payment.activeCoupons')}
         </Button>
+
+      ) : (
+        <Stack direction={"column"} width={"100%"}  maxWidth={550} sx={{ overflowY: "scroll", overflowX:'hidden' }}>
+          {activeCoupons.map((coupon) => (
+            <CouponRow key={coupon.key} coupon={coupon} onDeleteClick={onDeleteCouponClick} />
+          ))}
+        </Stack>
       )}
 
       <Menu

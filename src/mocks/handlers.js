@@ -1,10 +1,10 @@
 import { http, HttpResponse } from 'msw'
 import loginPageData from '../Data/LoginPageData.json'
-import menuLayoutData from '../Data/MenuLayoutData.json'
+import marketStatus from '../Data/MarketStatus.json'
 import dashboardData from '../Data/DashboardData.json'
-import { salesDataHandler } from '../utils/helpers'
-import { productArrHandler } from '../utils/helpers'
-import wallmartData from "../Data/WallmartCompatibleData.json";
+import { salesDataHandler } from '../helpers/helpers'
+import { productArrHandler } from '../helpers/helpers'
+import wallmartData from "../Data/WallmartProductData.json";
 import customerData from '../Data/Customers.json'
 import categoryData from '../Data/WallmartCategoryData.json'
 import reportData from '../Data/Reports.json'
@@ -18,19 +18,19 @@ const refreshSecret = 'refresh-secret-key';
 
 
 export const handlers = [
-  http.get("/Login", (req, ) => {
+  http.get("/login", (req, ) => {
     return HttpResponse.json(loginPageData);
   }),
   
-  http.get("/MenuLayoutData", (req, res) => {
+  http.get("/marketStatus", (req, res) => {
     const token = req.request.headers.get('authorization');
     if (!token) {
       return new HttpResponse('Token Expired', {status: 403});
     }
-    return HttpResponse.json(menuLayoutData);
+    return HttpResponse.json(marketStatus);
   }),
   
-  http.get("/DashboardData/:timeline", (req, res) => {
+  http.get("/dashboard/:timeline", (req, res) => {
     const token = req.request.headers.get('authorization');
     if (!token) {
       return new HttpResponse('Token Expired', {status: 403});
@@ -39,7 +39,7 @@ export const handlers = [
     return HttpResponse.json(salesDataHandler(dashboardData[timeline]));
   }),
   
-  http.get("/Products", (req, res) => {
+  http.get("/products", (req, res) => {
     const token = req.request.headers.get('authorization');
     if (!token) {
       return new HttpResponse('Token Expired', {status: 403});
@@ -47,7 +47,7 @@ export const handlers = [
     return HttpResponse.json(productArrHandler(wallmartData));
   }),
   
-  http.get("/MarketStatus", (req, res) => {
+  http.get("/marketStatus", (req, res) => {
     const token = req.request.headers.get('authorization');
     if (!token) {
       return new HttpResponse('Token Expired', {status: 403});
@@ -55,7 +55,7 @@ export const handlers = [
     return HttpResponse.json({"marketStatus": true});
   }),
   
-  http.get("/Offers", (req, res) => {
+  http.get("/offers", (req, res) => {
     const token = req.request.headers.get('authorization');
     if (!token) {
       return new HttpResponse('Token Expired', {status: 403});
@@ -71,7 +71,7 @@ export const handlers = [
     return HttpResponse.json([...customerData,...(JSON.parse(localStorage.getItem('customers')) || [])]);
   }),
   
-  http.get('/Categories', (req, res) => {
+  http.get('/categories', (req, res) => {
     const token = req.request.headers.get('authorization');
     if (!token) {
       return new HttpResponse('Token Expired', {status: 403});
@@ -79,7 +79,7 @@ export const handlers = [
     return HttpResponse.json(categoryData);
   }),
   
-  http.get('/Reports', (req, res) => {
+  http.get('/reports', (req, res) => {
     const token = req.request.headers.get('authorization');
     if (!token) {
       return new HttpResponse('Token Expired', {status: 403});
@@ -87,24 +87,17 @@ export const handlers = [
     return HttpResponse.json(reportData);
   }),
   
-  http.get('/ShopBranches', (req, res) => {
+  http.get('/shopBranches', (req, res) => {
     const token = req.request.headers.get('authorization');
     if (!token) {
       return new HttpResponse('Token Expired', {status: 403});
     }
     return HttpResponse.json(shopBranches);
   }),
-  
-  http.get('/Users', (req, res) => {
-    const token = req.request.headers.get('authorization');
-    if (!token) {
-      return new HttpResponse('Token Expired', {status: 403});
-    }
-    return HttpResponse.json(users);
-  }),
 
   http.post('/auth/login', async (req) => {
 
+      // reader to read data
       const reader = req.request.body.getReader();
       const decoder = new TextDecoder();
       
@@ -127,6 +120,7 @@ export const handlers = [
       const accessToken = await generateAccessToken(user, accessSecret);
       const refreshToken = await generateRefreshToken(user, refreshSecret);
   
+      // Storing tokens to use in handlers (which mimics server)
       localStorage.setItem(`${userCode}ServerAccessToken`, JSON.stringify(accessToken))
       localStorage.setItem(`${userCode}ServerRefreshToken`, JSON.stringify(refreshToken))
   
@@ -152,20 +146,20 @@ export const handlers = [
 
       if (accessToken) {
         try {
+          // Extract payload and generate a new token with it
           const user = await extractPayloadFromToken(refreshToken, refreshSecret);
-    
           const newAccessToken = await generateAccessToken(user);
     
           return new HttpResponse({}, {status:200, headers:{'authorization' : newAccessToken}})
         } catch (error) {
           if (error.message === 'Null Token') {
-            console.log('null');
+            // console.log('null Token');
             return new HttpResponse('Null Token', { status: 401, });
           } else if (error.message === 'Invalid Signature') {
-            console.log('expired');
+            // console.log('expired');
             return new HttpResponse('Invalid Signature', { status: 401, });
           } else{
-            console.log(error);
+            // console.log(error);
             return new HttpResponse('Internal Server Error', { status: 500, });
           }
         }
@@ -184,7 +178,7 @@ export const handlers = [
         const verifiedUser = await verifyToken(token, accessSecret);    
         return new HttpResponse(JSON.stringify({userCode: verifiedUser.username, role: verifiedUser.role, email: verifiedUser.email}) , {status:200, headers:{'authorization' : token} })  
       } catch (err) {
-        // console.log('hadnler', err);
+        // console.log('handler', err);
         if (err.message === 'Null Token') {
           return new HttpResponse('Null Token', { status: 403, });
         } else if (err.message === 'Token Expired') {
@@ -192,7 +186,7 @@ export const handlers = [
         } else if (err.message === 'Invalid Signature') {
           return new HttpResponse('Invalid Signature', { status: 401, });
         } else {
-          console.log(err);
+          // console.log(err);
           return new HttpResponse('Internal Server Error', { status: 500 });
         }
       }

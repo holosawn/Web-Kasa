@@ -1,6 +1,6 @@
-import { Box, Button, Container, Divider, Fade, Grid, Menu, MenuItem, MenuList, Modal, Popper, Stack, TextField, Typography, colors } from '@mui/material'
-import React, { useCallback, useMemo, useRef, useState, useEffect } from 'react'
-import { ArrowBack, Preview, WrapText } from '@mui/icons-material'
+import { Box, Button,  Divider, Fade,   MenuItem,  Modal,  Stack,  Typography, } from '@mui/material'
+import React, {  useMemo, useRef, useState, useEffect } from 'react'
+import { ArrowBack } from '@mui/icons-material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { enLayout, trLayout, ruLayout } from "../../LangLayouts/LayoutsWithoutArrows";
 import Keyboard from "react-simple-keyboard";
@@ -193,7 +193,7 @@ const AddCustomerModal=({taggedCustomer, setTaggedCustomer, onDeleteCoupon, acti
                     variant="filled"
                     required
                     inputMode='text'
-                    ContainerProps={{
+                    containerProps={{
                       sx:{
                           flex:1
                       }

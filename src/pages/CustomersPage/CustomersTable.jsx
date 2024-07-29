@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { DataGrid, gridPageCountSelector, gridPageSelector, useGridApiContext, useGridSelector } from '@mui/x-data-grid';
-import { trTR, enUS, ruRU } from '@mui/x-data-grid/locales';import { Button, ButtonGroup, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper, Stack } from '@mui/material';
+import { trTR, enUS, ruRU } from '@mui/x-data-grid/locales';
+import { Button, ButtonGroup, ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper, Stack } from '@mui/material';
 import { FirstPage, NavigateBefore, NavigateNext, LastPage } from '@mui/icons-material';
 import AddCustomerModal from '../../ReusableComponents/AddCustomerModal';
 import { t } from 'i18next';
 import { useLanguage } from '../../contexts/LangContext';
 
-
+// For custompagination buttons
 const CustomPagination = () => {
   const apiRef = useGridApiContext();
   const page = useGridSelector(apiRef, gridPageSelector);
@@ -74,7 +75,9 @@ const CustomPagination = () => {
 };
   
 const CustomersTable = ({filterValue, customers, setCustomers}) => {
+  // to pass id to operations on customers
   const [customerIdToUpdate, setCustomerIdToUpdate] = useState(null)
+
   const { lang } = useLanguage()
 
   const componentLang = lang === 'en' ? enUS : lang === 'tr' ? trTR : ruRU
@@ -103,6 +106,7 @@ const CustomersTable = ({filterValue, customers, setCustomers}) => {
     setCustomers(updatedCustomer)
   };
 
+  // For columns MUI DataGrid
   const columns = [
     {
       field: 'id',

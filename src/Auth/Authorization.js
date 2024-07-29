@@ -10,7 +10,9 @@ const Authorization = ({ allowedRoles }) => {
 
   if (loggedIn) {
 
+    // If access is restricted with roles
     if (allowedRoles) {
+      
       const isAllowed = allowedRoles.some(role => role === user.role)
       return isAllowed ? <Outlet /> : <Unauthorized />;
     }

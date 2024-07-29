@@ -2,23 +2,12 @@ import { Box, MenuItem, TextField, Typography } from '@mui/material'
 import React from 'react'
 import CustomTextField from '../../ReusableComponents/CustomTextField'
 import TextFieldWithMenu from '../../ReusableComponents/TextFieldWithMenu'
-import useAlert from '../../CustomHooks/useAlert.js'
 import { t } from 'i18next'
-import { useLanguage } from '../../contexts/LangContext.jsx'
-import useFetchData from '../../CustomHooks/useFetchData.js'
-import ErrorPage from '../ErrorAndLoadingPages/ErrorPage.jsx'
-import LoadingPage from '../ErrorAndLoadingPages/LoadingPage.jsx'
-
-const exampleShops = [
-    'Çerkezköy Şube',
-    'Kapaklı Şube',
-    'Serdivan Şube',
-]
 
 
 const FilterInputs = ({filterValues ,setFilterValues, shops}) => {
-    /// Todo lang to date inputs
 
+    // Function to change given property of state
     const handleFieldChange=(input, inputName)=>{
         setFilterValues(prev => ({
             ...prev,
@@ -26,8 +15,8 @@ const FilterInputs = ({filterValues ,setFilterValues, shops}) => {
         })) 
     }
 
+    // Function to pass to TextFieldWithMenu to be displayed on collapsible menu
     const menuItemsFunc = (extraMenuItemClick ) => {
-
         const handleMenuItemClick = (value) => {
             handleFieldChange(value, 'shop')
             extraMenuItemClick(value)
@@ -41,6 +30,7 @@ const FilterInputs = ({filterValues ,setFilterValues, shops}) => {
         )))
     }
 
+    // clear filtered shop
     const handleShopInputDelete= () => {
         setFilterValues(prev => ({
             ...prev,
@@ -89,13 +79,13 @@ const FilterInputs = ({filterValues ,setFilterValues, shops}) => {
             <TextFieldWithMenu value={filterValues.shop} onValueChange={value => handleFieldChange(value, 'shop')} menuItemsFunc={menuItemsFunc} onDeleteIconClick={handleShopInputDelete}
                 placeholder={t('reports.shop')}
                 size='small'
-                ContainerProps={{
+                containerProps={{
                     sx:{
                         height:'fit-content',
                         width:{xs:'25%', md:'30%'},
                     }
                 }}
-                TextFieldsx={{
+                textFieldsx={{
                     height:'fit-content',
                     display:'flex',
                     alignItems:'center',

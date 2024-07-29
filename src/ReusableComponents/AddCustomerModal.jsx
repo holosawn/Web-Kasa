@@ -106,7 +106,7 @@ const AddCustomerModal=({open, onClose, onSubmit, customerId, customersOnSystem,
     const [showAlert, AlertComponent] = useAlert();
     const [isLoading, setIsLoading] = useState(false);
 
-    
+    // If customer id is provided it will set the values of customer and update the customer on save
     useEffect(() => {
       if (customerId) {
         const customer = customersOnSystem.find((customer) => customer.id === customerId)
@@ -150,7 +150,6 @@ const AddCustomerModal=({open, onClose, onSubmit, customerId, customersOnSystem,
         validateCustomerValues(initCustomerValues, setErrors);
         if(errors.submit !== '') setErrors(prev => ({...prev, submit:true}))
     };
-    
 
     function onKeyPress(button) {
         if (button === "{shift}" || button === "{lock}") handleShift();

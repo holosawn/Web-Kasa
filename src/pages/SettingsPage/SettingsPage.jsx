@@ -1,100 +1,25 @@
-import React, { Children, useState } from 'react';
-import { Box, Button, Container, Divider, Grid, MenuItem, Select, Stack, Switch, Typography, colors, styled, useTheme } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Box, Button,Divider, Grid, MenuItem, Select, Stack, Switch, Typography, styled} from '@mui/material';
 import LangSelector from '../../ReusableComponents/LangSelector';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import ReceiptModal from '../PaymentPage/ReceiptModal';
 import { useCustomTheme } from '../../contexts/CutomThemeContext';
-import { Language } from '@mui/icons-material';
 import useSize from '../../CustomHooks/useSize';
 import { t } from 'i18next';
-import { useLanguage } from '../../contexts/LangContext';
 import { useNavigate } from 'react-router-dom';
+import { printerTestValues } from './PrinterTestValues';
+import { useLanguage } from '../../contexts/LangContext';
 
-// Values for printer test
-const cartItems =
-[
-  {
-      "product": {
-          "id": "fddc4df45b35efd886794b261f730c51",
-          "name": "Kokie Professional Matte Lipstick, Hot Berry, 0.14 fl oz",
-          "categories": "Beauty > Makeup > Lip",
-          "images": "https://i5.walmartimages.com/asr/25b4b467-bc61-4e59-ba14-a123866e3384_1.453b236381c1d21a20c646821a47da0a.jpeg",
-          "code": "000004",
-          "price": "5.16",
-          "tax": "18%",
-          "stock": "111111111",
-          "cost": "3.44",
-          "barcode": "Bar000004",
-          "unit": "piece",
-          "isFavorite": false
-      },
-      "qty": 2,
-      "defaultPrice": 10.32,
-      "computedPrice": 10.32,
-      "offersApplied": {
-          "3/2": {
-              "saved": 0,
-              "name": "3 Al 2 Öde"
-          }
-      }
-  },
-  {
-      "product": {
-          "id": "95a9fe6f4810fcfc7ff244fd06784f11",
-          "name": "Nice n Easy Permanent Color, 111 Natural Medium Auburn 1 ea (Pack of 3)",
-          "categories": "Beauty > Hair Care > Hair Color > Auburn Hair Color",
-          "images": "https://i5.walmartimages.com/asr/9c8e42e4-13a5-4b7e-aa1b-3af15267c55c_1.5e1a4b5e7161c6c26008e5c8f1569d7c.jpeg",
-          "code": "000002",
-          "price": "29.86",
-          "tax": "18%",
-          "stock": "111111111",
-          "cost": "19.91",
-          "barcode": "Bar000002",
-          "unit": "piece",
-          "isFavorite": false
-      },
-      "qty": 5,
-      "defaultPrice": 149.3,
-      "computedPrice": 119.44000000000001,
-      "offersApplied": {
-          "3/2": {
-              "saved": 29.86,
-              "name": "3 Al 2 Öde"
-          }
-      }
-  }
-]
-const subtotal = 159.62
-const savedByOffers= 29.86
-const amountToPay = -0.216
-const discount = 0
-const total = 116.783
-const activeCoupons = [
-  {
-      "key": "PERCENT10",
-      "description": "10% off on your total purchase",
-      "saved": -12.975999999999999
-  }
-]
-const payments = [
-  {
-      "amount": "65",
-      "type": "cash"
-  },
-  {
-      "amount": "52",
-      "type": "card"
-  }
-]
 
 const SettingsPage = () => {
   const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false)
   const {mode, setMode} = useCustomTheme();
-  // Lang context used to trigger re-render when language changes
-  const {lang, setLang} = useLanguage();
   const [size] = useSize();
+  const {lang, setLang} = useLanguage();
   const navigate = useNavigate();
+
+  const { cartItems, subtotal, savedByOffers, amountToPay, discount, total, activeCoupons, payments } = printerTestValues;
 
   const closeReceiptModal=()=>{
     setIsReceiptModalOpen(false)
@@ -102,7 +27,6 @@ const SettingsPage = () => {
 
   // Store payments to reach them on receipt modal
   const openReceiptModal=()=>{
-    sessionStorage.setItem('pastTransactions', JSON.stringify(payments))
     setIsReceiptModalOpen(true)
   }
 
@@ -114,7 +38,7 @@ const SettingsPage = () => {
 
   return (
     <Box  minHeight={375}  minWidth={665} display="flex" flexDirection="column" alignItems={'center'} textAlign={'center'} sx={{height:'100vh', width:'100vw',}} >
-      <Grid container bgcolor={'background.paper'} sx={{borderRadius: size.x< 700 ? 0 : 3, my:'auto', width: size.x < 700 ? '100%' : '80%', heigth:size.y < 500 ? '100%' : '80%'}} >
+      <Grid container bgcolor={'background.paper'} sx={{borderRadius: size.x< 700 ? 0 : 3, my:'auto', width: size.x < 700 ? '100%' : '80%', heigth:size.y < 500 ? '100%' : '80%', maxHeight:'100%'}} >
         
         <Grid item xs={12} my={2} mb={2}>
           <Typography color={'primary'} fontSize={{xs:16, md:22, lg:26, xl:30}} variant='h5' fontWeight={700} letterSpacing={0.7} >{t('settings.applicationSettings')}</Typography>
@@ -123,7 +47,7 @@ const SettingsPage = () => {
 
         <GridItem >
           <TitleWithDescription title={t('settings.language')} description={t('settings.langDesc')} />
-          <LangSelector size='large' sx={{width:130, height: size.y < 500 ? 35 : 50, ml:'auto'}} />
+          <LangSelector lang={lang} size='large' sx={{width:130, height: size.y < 500 ? 35 : 50, ml:'auto'}} />
           <SettingsDivider sx={{position:'absolute', bottom:0, left:0}} />
         
         </GridItem>
@@ -179,7 +103,7 @@ const SettingsPage = () => {
           <SettingsButton label={t('settings.exit')} onClick={()=>navigate(-1)} sx={{mb:0, mt:0, width: size.x < 800  ?  120  : size.x < 1300 ? 140 : 160, height: size.y < 500 ? 40 : size.y < 800 ?  45 : 50  }} />
         </GridItem>
 
-       <ReceiptModal cartItems={cartItems} subTotal={subtotal} total={total} discount={discount} savedByOffers={savedByOffers} amountToPay={amountToPay} activeCoupons={activeCoupons} open={isReceiptModalOpen} onClose={closeReceiptModal} />
+       <ReceiptModal cartItems={cartItems} subTotal={subtotal} total={total} discount={discount} savedByOffers={savedByOffers} amountToPay={amountToPay} activeCoupons={activeCoupons} open={isReceiptModalOpen} payments={payments} onClose={closeReceiptModal} />
       </Grid>
     </Box>
   );
@@ -195,7 +119,7 @@ const TitleWithDescription = ({ title, description }) => (
 );
 
 const GridItem = ({children, sx, ...props})=>(
-  <Grid item xs={6} md={12} sx={{position:'relative', px:3, pb:{xs:1, md:2}, my:1, borderRadius:3, display:'flex', flexDirection:'row', alignItems:'center' , ...sx}} {...props} >
+  <Grid item xs={6} md={12} sx={{position:'relative', px:3, pb:{xs:1, md:1.5, lg:2}, my:1, borderRadius:3, display:'flex', flexDirection:'row', alignItems:'center' , ...sx}} {...props} >
     {children}
   </Grid>
 )
@@ -210,7 +134,7 @@ const SettingsButton = ({ label, onClick, sx }) => {
   <Button
     variant="contained"
     color="success"
-    sx={{textTransform:'none',  ml: "auto", mr: 0, mb: 2, mt: 1,  height: size.y < 500 ? 35 : size.y < 800 ?  40 : 45 , width: 120, fontSize:{xs:8, md:12, xl:16}, ...sx }}
+    sx={{textTransform:'none',  ml: "auto", mr: 0, mb: 2, mt: 1,  height: size.y < 500 ? 35 : size.y < 800 ?  40 : 45 , width: 120, fontSize:{xs:8, md:12, xl:16}, lineHeight:1.5, ...sx }}
     onClick={onClick}
   >
     {label}

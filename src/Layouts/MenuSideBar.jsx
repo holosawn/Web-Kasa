@@ -23,7 +23,7 @@ const getIconStyle = (pageName, currentPage)=>({
   ml: 1.4
 })
 
-//Color will change if it's button of current
+//Color will change if it's button of current page
 const getButtonStyle=(pageName, currentPage)=>({
   borderRadius: 0,
   width:'100%',
@@ -41,7 +41,7 @@ const getButtonStyle=(pageName, currentPage)=>({
   ":hover":{backgroundColor:'background.secondary'},
 })
 
-//Color will change if it's description of icon of current
+//Color will change if it's description of icon of current page
 const IconDescription = ({children, isMenuOpen, currentPage=false ,  color})=>(
   <Typography ml={2} variant='body2' fontSize={{xs:12, sm:14}} textTransform={'none'} color={color ? color : currentPage? '#0E4D90' : 'text.primary'} whiteSpace={'nowrap'} overflow={'hidden'} sx={{transition:'opacity 0.3s', opacity:isMenuOpen? 1 : 0}}
   >
@@ -104,45 +104,45 @@ const MenuSideBar = ({isMenuOpen, setIsMenuOpen, currentUser}) => {
 
       
       <Tooltip title='Dashboard' arrow >
-        <Button sx={getButtonStyle("Menu", currentPage)} onClick={()=> navigate('/Menu')} >
-            <BarChartSharpIcon sx={getIconStyle('Menu', currentPage)} />
+        <Button sx={getButtonStyle("menu", currentPage)} onClick={()=> navigate('/menu')} >
+            <BarChartSharpIcon sx={getIconStyle('menu', currentPage)} />
             <IconDescription currentPage={'Menu' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.dashboard')}</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title="Sale" arrow>
-        <Button aria-label="Sale" sx={getButtonStyle("Sale", currentPage)} onClick={()=> navigate('/Sale')}>
-          <SaleIcon sx={getIconStyle('Sale', currentPage)}  />
+        <Button aria-label="Sale" sx={getButtonStyle("sale", currentPage)} onClick={()=> navigate('/sale')}>
+          <SaleIcon sx={getIconStyle('sale', currentPage)}  />
           <IconDescription isMenuOpen={isMenuOpen} >{t('menu.newSales')}</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title="Refunds" arrow>
-        <Button sx={getButtonStyle("Refund", currentPage)}>
-          <RefundsIcon sx={getIconStyle('Refund', currentPage)} />
-          <IconDescription currentPage={'Refunds' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.refunds')}</IconDescription>
+        <Button sx={getButtonStyle("refund", currentPage)}>
+          <RefundsIcon sx={getIconStyle('refund', currentPage)} />
+          <IconDescription currentPage={'refunds' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.refunds')}</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title='Products' arrow>
-        <Button sx={getButtonStyle("Products", currentPage)} onClick={()=> navigate('/Products')} >
-            <ProductsIcon sx={getIconStyle('Products', currentPage)} />
-            <IconDescription currentPage={'Products' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.products')}</IconDescription>
+        <Button sx={getButtonStyle("products", currentPage)} onClick={()=> navigate('/products')} >
+            <ProductsIcon sx={getIconStyle('products', currentPage)} />
+            <IconDescription currentPage={'products' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.products')}</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title="Customers" arrow>
-        <Button sx={getButtonStyle("Customers", currentPage)} onClick={() => navigate('/Customers')} >
-            <CustomersIcon sx={getIconStyle('Customers', currentPage)} />
-            <IconDescription currentPage={'Customers' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.Customers')}</IconDescription>
+        <Button sx={getButtonStyle("customers", currentPage)} onClick={() => navigate('/customers')} >
+            <CustomersIcon sx={getIconStyle('customers', currentPage)} />
+            <IconDescription currentPage={'customers' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.Customers')}</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title='Reports' arrow >
-        <Button sx={getButtonStyle("Reports", currentPage)} onClick={()=> navigate('/Reports')}>
-            <LibraryBooksRoundedIcon sx={getIconStyle('Reports', currentPage)} />
-            <IconDescription currentPage={'Reports' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.reports')}</IconDescription>
+        <Button sx={getButtonStyle("reports", currentPage)} onClick={()=> navigate('/reports')}>
+            <LibraryBooksRoundedIcon sx={getIconStyle('reports', currentPage)} />
+            <IconDescription currentPage={'reports' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.reports')}</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title='Settings' arrow>
-        <Button onClick={()=>{navigate('/Settings')}} sx={getButtonStyle("Settings", currentPage)}>
-            <SettingsIcon sx={getIconStyle('Settings', currentPage)} />
-            <IconDescription currentPage={'Settings' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.settings')}</IconDescription>
+        <Button onClick={()=>{navigate('/settings')}} sx={getButtonStyle("settings", currentPage)}>
+            <SettingsIcon sx={getIconStyle('settings', currentPage)} />
+            <IconDescription currentPage={'settings' === currentPage} isMenuOpen={isMenuOpen}>{t('menu.settings')}</IconDescription>
         </Button>
       </Tooltip>
       <Tooltip title='Exit' arrow>

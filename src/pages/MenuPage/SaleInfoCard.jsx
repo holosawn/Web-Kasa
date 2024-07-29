@@ -4,7 +4,7 @@ import TinyLineChart from "./TinyLineChart";
 
 // CurrentValue will also be shown as text
 // ChartXaxisData and chartYaxisData is needed for tiny chart in card
-const SaleInfoCard = ({ currentValue, label, iconBgcolor, chartXaxisData, chartYaxisData, timeline, iconSrc, iconSx, imgSx }) => {
+const SaleInfoCard = ({ currentValue, label, iconBgColor, chartXaxisData, chartYaxisData, timeline, iconSrc, iconSx, imgSx }) => {
   const isMonthly = timeline === 'thisMonth' || timeline === 'lastMonth'
   const isWeekly = timeline === 'thisWeek' || timeline === 'lastWeek'
   
@@ -44,7 +44,7 @@ const SaleInfoCard = ({ currentValue, label, iconBgcolor, chartXaxisData, chartY
           height: 46,
           border: "1px solid white",
           borderRadius: 100,
-          backgroundColor: iconBgcolor,
+          backgroundColor: iconBgColor,
           ...iconSx,
         }}
       >

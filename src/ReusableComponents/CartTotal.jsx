@@ -16,15 +16,11 @@ const CartTotal=({subTotal, discount, savedByOffers, total, amountToPay, coupons
       {children}
     </Stack>
   )
-  
-  // Deriving additional height according to optinal properties
-  const additionalxsHeight = (((amountToPay || amountToPay === 0) && 15 ) || 0) + (amountToPay < 0 && 15) + (coupons?.length || 0) * 15;  
-  const additionalmdHeight = (((amountToPay || amountToPay === 0) && 20 ) || 0) + (amountToPay < 0 && 20) + (coupons?.length || 0) * 20;  
 
   const savedByDiscount = (subTotal - savedByOffers)* ((discount ||0) / 100);
   
   return(
-    <Box display={'flex'} fontSize={{xs:10, md:12, lg:14, xl:16}} flexDirection={'column'} justifyContent={'center'} border={'1px solid gray'} borderRadius={3} p={1} height={{xs:(70 + additionalxsHeight), md:(120 + additionalmdHeight)}} width={'100%'} {...boxProps} >
+    <Box display={'flex'} fontSize={{xs:10, md:12, lg:14, xl:16}} flexDirection={'column'} justifyContent={'center'} border={'1px solid gray'} borderRadius={3} p={1} height={'fit-content'} width={'100%'} {...boxProps} >
       <CustomStack>
         <CustomTypography color={'primary'} >{t('sale.subTotal')}:</CustomTypography>
         <CustomTypography color={'primary'}  ml={'auto'} >{(subTotal || 0).toFixed(3).replace(".", ",")}</CustomTypography>

@@ -11,7 +11,7 @@ import {
   ChartsYAxis,
 } from "@mui/x-charts";
 import { Paper } from "@mui/material";
-import { getDateOptions, dateValueFormatter } from "../../../utils/helpers";
+import { getDateOptions, dateValueFormatter } from "../../helpers/helpers";
 
 // data is an array of values of different lines that will be used to derive domain
 // Returns the value domain and range as an object

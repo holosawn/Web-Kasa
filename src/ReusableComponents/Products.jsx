@@ -1,7 +1,5 @@
-import { useTheme } from "@emotion/react";
 import {
   Box,
-  Button,
   Divider,
   Grid,
   IconButton,
@@ -10,13 +8,13 @@ import {
   Typography,
   CircularProgress
 } from "@mui/material";
-import React, { forwardRef, memo, useCallback, useEffect,  useRef,  useState } from "react";
+import React, { forwardRef, useCallback, useEffect,  useMemo,  useRef,  useState } from "react";
+import ProductCard from "./ProductCard";
 import CloseIcon from "@mui/icons-material/Close";
 import Fade from "@mui/material/Fade";
 import NoImg from "../assets/NoImage.jpg";
 import { VirtuosoGrid } from "react-virtuoso";
 import { t } from "i18next";
-import ProductCard from "./ProductCard";
 
 // grid components for products container grid
 const gridComponents = {
@@ -42,9 +40,9 @@ const gridComponents = {
 
 // setNumpadFocus is for setting focus to currentItemCard's textfield when a product set as itemInRegister
 // containerRef is for scroll buttons to get ref of VirtuosoGrid 
-const Products = ({ products, sendToRegister, setNumpadFocus=null, containerRef}) => {
+const Products = ({ products, filterValue, filterCategories, sendToRegister, setNumpadFocus=null, containerRef}) => {
 
-  const [itemsToRender, setItemsToRender] = useState([])
+
   const [isLoadingMore, setIsLoadingMore] = useState(false);// state to compute how many items will be in a row
   const [productModalStatus, setProductModalStatus] = useState({
     isOpen:false,
@@ -53,15 +51,51 @@ const Products = ({ products, sendToRegister, setNumpadFocus=null, containerRef}
   const [containerWidth, setContainerWidth] = useState(3);// state to compute how many items will be in a row
   const refContainer = useRef();
 
-  // fetch initial items to render
-  useEffect(()=>{
-    getNextItems(1000)
-  },[])
+  // Memoize filtered products while any of data, filterValue or filterCategories not changed
+  const filteredProducts = useMemo(()=> {
 
-  // Fetch new products every time products changes
-  useEffect(() => {
-    setItemsToRender(products.slice(0, 20));
-  }, [products]);
+    return products.filter((product) => {
+      // If a search query is entered, only return products that match the query in their name, barcode, or code
+      if (filterValue !== "") {
+        if (
+          !product.name
+            .toLowerCase()
+            .includes(filterValue.toLowerCase()) &&
+          !product.barcode.toLowerCase().includes(filterValue.toLowerCase()) &&
+          !product.code.toLowerCase().includes(filterValue.toLowerCase())
+        )
+          return false;
+      }
+      
+      // If there are no filter categories, return true for all products
+      if (filterCategories.length < 1) return true;
+      else {
+        // If "Favorites" is selected, only return products that are marked as favorites
+        if (filterCategories.includes("Favorites")) {
+          if (!product.isFavorite) {
+            return false;
+          }
+        }
+        // If "Alphabetically" is selected, only return products that start with the selected letter. If no letter selected return according to 'a'
+        else if (filterCategories.includes("Alphabetically")){
+          const letterToLook = filterCategories.length > 1 ? filterCategories[filterCategories.length-1].toLowerCase() : "a"
+          const isFirstLetterCompatible = product.name[0].toLowerCase() === letterToLook;
+          if (isFirstLetterCompatible === false) return false
+        }
+        // If specific categories are selected, only return products that belong to those categories
+        else {
+          for (const category of filterCategories) {
+            if (!product.categories.includes(category)){
+              return false ;
+            };
+          }
+        }
+
+        // If all conditions are met, can return true for the product
+        return true;
+      }
+    })
+  }, [products, filterValue, filterCategories]);
 
   
   useEffect(() => {
@@ -119,23 +153,10 @@ const Products = ({ products, sendToRegister, setNumpadFocus=null, containerRef}
     containerRef.current = ref;
   };
 
-  // fetches specified number of data
-  async function getNextItems(length) {
-    const startIndex = itemsToRender.length;
-    const endIndex = startIndex + length;
-    const newItems = products.slice(startIndex, endIndex);
-
-    setIsLoadingMore(true);
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    setIsLoadingMore(false);
-
-    setItemsToRender([...itemsToRender, ...newItems]);
-  }
-
   return (
     <Box mt={1} ref={refContainer} flex={1} width={'100%'} maxWidth={{xs:600, md:2000}} minHeight={150} mb={{xs:1,md:1.5}} ml={1} p={0} sx={{scrollbarGutter:'stable'}}  >
       <VirtuosoGrid
-        data={itemsToRender}
+        data={filteredProducts}
         style={{
           scrollbarGutter:'stable'
         }}
@@ -170,7 +191,6 @@ const Products = ({ products, sendToRegister, setNumpadFocus=null, containerRef}
             </Grid>
           ), [containerWidth]),
         }}
-        endReached={()=>getNextItems( (containerWidth/ 200) * 4  || 20)}
         scrollerRef={ref => handleScrollerRef(ref)}
         itemContent={(index, item) => (
             <ProductCard onBadgeclick={openProductModal} product={item} key={item.id} onClick={setCurrentItem} />

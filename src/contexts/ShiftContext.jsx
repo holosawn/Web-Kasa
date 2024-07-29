@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { formatDateToISO } from '../utils/helpers';
+import { formatDateToISO } from '../helpers/helpers';
 
 const ShiftStatusContext = React.createContext(null);
 
@@ -45,6 +45,7 @@ export function ShiftStatusProvider({ children }) {
       });
     };
   
+    // Initial shift state
     const startShift = (amount) => {
       setShiftStatus(prevStatus => ({
         ...prevStatus,
@@ -55,6 +56,7 @@ export function ShiftStatusProvider({ children }) {
       }));
     };
   
+    // Create Z report and clean the shift state
     const endShift = () => {
       const sales = JSON.parse(sessionStorage.getItem('sales')) || [];
       createReport(sales, shiftStatus)
@@ -63,7 +65,6 @@ export function ShiftStatusProvider({ children }) {
         isOpen: false,
       }));
     };
-
 
   return (
     <ShiftStatusContext.Provider value={{ shiftStatus, setShiftStatus, updateAmount, startShift, endShift }}>
@@ -102,6 +103,7 @@ const createReport = (sales, shiftStatus) =>{
   let categorySales = {};
 
 
+  // Computing transactions based on payment type
   sales.forEach(sale => {
     sale.transactions.forEach(transaction => {
         if (transaction.type === 'cash') {
@@ -113,12 +115,13 @@ const createReport = (sales, shiftStatus) =>{
         }
     });
 
-    grossSales += parseFloat(sale.total);
-    totalDiscount += (sale.total * (100 / (100 - sale.discount))) * (sale.discount/100)  ;
+    grossSales += parseFloat(sale.subTotal);
+    totalDiscount += sale.subTotal * sale.discount/100  ;
     totalSavedByOffers += sale.savedByOffers;
     sale.coupons.forEach(coupon => {
         totalCouponsSaved += coupon.saved;
     });
+    
 
     sale.items.forEach(item => {
       const taxRate = parseFloat(item.product.tax) / 100;
@@ -131,9 +134,10 @@ const createReport = (sales, shiftStatus) =>{
       categorySales[category] += item.qty;
     });
 
-    totalNetSales += grossSales - totalDiscount - totalSavedByOffers - totalCouponsSaved;
+    totalNetSales += grossSales.toFixed(2) - totalDiscount.toFixed(2) - totalSavedByOffers.toFixed(2) - totalCouponsSaved.toFixed(2);
   });
 
+  // Computing additions to drawer amount and total on end
   const drawerActions = {
     openingBalance: shiftStatus.startAmount,
     removals: shiftStatus.transactions.reduce((totRemoval, currAction) => {
@@ -144,7 +148,6 @@ const createReport = (sales, shiftStatus) =>{
     }, 0),
     total: shiftStatus.amount
   };
-
 
   const newReport = {
     id:ZNO.replace("Z", ""),
@@ -172,8 +175,8 @@ const createReport = (sales, shiftStatus) =>{
     categorySales:categorySales
   }
 
+
   const pastReports = JSON.parse(localStorage.getItem("reports") || "[]");
-  console.log(pastReports);
   // Check if there's already a report with the same ID
   const isDuplicate = pastReports.some(report => report.id === newReport.id);
   

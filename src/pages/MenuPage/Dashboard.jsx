@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import MultiLineChart from './Dashboard/MultiLineChart';
-import { Box, MenuItem, Select, Typography, Paper } from '@mui/material';
+import MultiLineChart from './MultiLineChart';
+import { Box, MenuItem, Select, Paper } from '@mui/material';
 import useFetchData from '../../CustomHooks/useFetchData'
-import SalesResultInfo from './Dashboard/SalesResultInfo';
-import TopEntitiesList from './Dashboard/TopEntitiesList';
-import SalesDeductionInfo from './Dashboard/SalesDeductionInfo';
+import SalesResultInfo from './SalesResultInfo';
+import TopEntitiesList from './TopEntitiesList';
+import SalesDeductionInfo from './SalesDeductionInfo';
 import LoadingPage from '../ErrorAndLoadingPages/LoadingPage'
 import ErrorPage from '../ErrorAndLoadingPages/ErrorPage'
 import { t } from 'i18next';
 
-// Selecting timeline to show value according to it
+// Select component to choose timeline 
 const SelectTimeline = ({ timeline, setTimeline }) => {
     const onChange = (e) => {
       setTimeline(e.target.value);
@@ -37,7 +37,7 @@ const SelectTimeline = ({ timeline, setTimeline }) => {
     );
 };
 
-// Creates series object for MUI chart 
+// Multiline Chart for sales results 
 const SalesResultChart = ({ data, timeline }) => {
     const dates = data.date.values
     
@@ -81,7 +81,7 @@ const SalesResultChart = ({ data, timeline }) => {
     );
 };
 
-// Creates series object for MUI chart 
+// MultiLine chart for deduction values
 const SalesDeductionChart = ({ data, timeline }) => {
   const dates = data.date.values
   
@@ -121,7 +121,7 @@ const SalesDeductionChart = ({ data, timeline }) => {
 
 const Dashboard = () => {
     const [timeline, setTimeline] = useState("today");
-    const [data, isLoading, error] = useFetchData(`/DashboardData/${timeline}`);
+    const [data, isLoading, error] = useFetchData(`/dashboard/${timeline}`);
 
   if (isLoading) {
     return <LoadingPage/>
@@ -132,10 +132,7 @@ const Dashboard = () => {
   else{
     return (
     <Box mx={"16px"} ml={"85px"} mb={2} display={'flex'} flexDirection={'column'} alignItems={'center'} >
-        <Paper sx={{
-            width:'98%', display:'flex', flexDirection:'row', justifyContent:'end', mt:2.5, m:1, height:65, borderRadius:1
-          }}
-        >
+        <Paper sx={{ width:'98%', display:'flex', flexDirection:'row', justifyContent:'end', mt:2.5, m:1, height:65, borderRadius:1 }}>
           <SelectTimeline timeline={timeline} setTimeline={setTimeline} />
         </Paper>
 

@@ -1,10 +1,10 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import SaleInfoCard from './SaleInfoCard';
-import grossSalesIcon from '../../../assets/CoinGraph.svg';
-import netSalesIcon from '../../../assets/PriceTag.svg';
-import costOfSalesIcon from '../../../assets/Coin.svg';
-import grossProfitIcon from '../../../assets/Graph.svg';
+import grossSalesIcon from '../../assets/CoinGraph.svg';
+import netSalesIcon from '../../assets/PriceTag.svg';
+import costOfSalesIcon from '../../assets/Coin.svg';
+import grossProfitIcon from '../../assets/Graph.svg';
 import { t } from 'i18next';
 
 const SalesResultInfo = ({ salesData, timeline }) => (
@@ -23,9 +23,7 @@ const SalesResultInfo = ({ salesData, timeline }) => (
         label={t('dashboard.grossSales')}
         currentValue={salesData.salesResult.grossSales}
         iconSrc={grossSalesIcon}
-        iconSx={{
-          backgroundColor:"#EEEDFD",
-        }}
+        iconBgColor={{ backgroundColor:"#EEEDFD", }}
         chartXaxisData={salesData.salesResultoverTime.date.values}
         chartYaxisData={salesData.salesResultoverTime.grossSales.values}
         timeline={timeline}
@@ -36,7 +34,7 @@ const SalesResultInfo = ({ salesData, timeline }) => (
         label={t('dashboard.netSales')}
         currentValue={salesData.salesResult.netSales}
         iconSrc={netSalesIcon}
-        iconBgcolor={"#E5F8ED"}
+        iconBgColor={"#E5F8ED"}
         chartXaxisData={salesData.salesResultoverTime.date.values}
         chartYaxisData={salesData.salesResultoverTime.netSales.values}
         timeline={timeline}
@@ -47,7 +45,7 @@ const SalesResultInfo = ({ salesData, timeline }) => (
         label={t('dashboard.costOfSales')}
         currentValue={salesData.salesResult.costOfSales}
         iconSrc={costOfSalesIcon}
-        iconBgcolor={"#FCEAEA"}
+        iconBgColor={"#FCEAEA"}
         chartXaxisData={salesData.salesResultoverTime.date.values}
         chartYaxisData={salesData.salesResultoverTime.costOfSales.values}
         timeline={timeline}
@@ -58,7 +56,7 @@ const SalesResultInfo = ({ salesData, timeline }) => (
         label={t('dashboard.grossProfit')}
         currentValue={salesData.salesResult.grossProfit}
         iconSrc={grossProfitIcon}
-        iconBgcolor={"#FFF3E8"}
+        iconBgColor={"#FFF3E8"}
         chartXaxisData={salesData.salesResultoverTime.date.values}
         chartYaxisData={salesData.salesResultoverTime.grossProfit.values}
         timeline={timeline}
