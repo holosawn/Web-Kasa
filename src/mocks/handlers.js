@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 import loginPageData from '../Data/LoginPageData.json'
-import menuLayoutData from '../Data/MenuLayoutData.json'
+import marketStatus from '../Data/MarketStatus.json'
 import dashboardData from '../Data/DashboardData.json'
 import { salesDataHandler } from '../helpers/helpers'
 import { productArrHandler } from '../helpers/helpers'
@@ -22,12 +22,12 @@ export const handlers = [
     return HttpResponse.json(loginPageData);
   }),
   
-  http.get("/menuLayoutData", (req, res) => {
+  http.get("/marketStatus", (req, res) => {
     const token = req.request.headers.get('authorization');
     if (!token) {
       return new HttpResponse('Token Expired', {status: 403});
     }
-    return HttpResponse.json(menuLayoutData);
+    return HttpResponse.json(marketStatus);
   }),
   
   http.get("/dashboard/:timeline", (req, res) => {

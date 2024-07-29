@@ -54,7 +54,7 @@ const Products = ({ products, filterValue, filterCategories, sendToRegister, set
   // Memoize filtered products while any of data, filterValue or filterCategories not changed
   const filteredProducts = useMemo(()=> {
 
-    return products.slice(0,1000).filter((product) => {
+    return products.filter((product) => {
       // If a search query is entered, only return products that match the query in their name, barcode, or code
       if (filterValue !== "") {
         if (

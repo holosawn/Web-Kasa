@@ -28,7 +28,6 @@ const ReportPreview = ({ currentReport }) => {
         <Typography variant="body1">{currentReport.location}</Typography>
         <Typography variant="body1">{t('reports.cashier')}: {currentReport.cashier}</Typography>
         <Typography variant="body1">{t('reports.date')}: {formatDateTimeString(new Date(currentReport.date))}</Typography>
-        {/* <Typography variant="body1">{currentReport.dateRangeStr}</Typography> */}
 
 
         <Grid container mt={3} sx={{ width: '100%' }}>

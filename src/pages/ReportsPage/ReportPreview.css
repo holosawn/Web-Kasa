@@ -25,12 +25,6 @@
         size: 3in 4in !important ;
     }
   
-    
-    .print-wrapper {
-      height: 100%;
-      overflow: visible;
-    }
-  
     .print-container {
       position: relative;
       /* top: 0;
@@ -40,18 +34,17 @@
       flex-direction: column;
       align-items: center;
     }
-  
-  .print-wrapper {
-    /* display: block !important; */
-    position: absolute;
-    top: 0;
-    left: 40px;
-    width: 4in !important; /* Ensure width is set to 3 inches */
-    padding-left: 0% !important;
-    height: 90% !important; /* Ensure it fills the page */
-    overflow: visible !important;
-    padding: 0;
-  }
-  
-  
+    
+    .print-wrapper {
+      /* display: block !important; */
+      position: absolute;
+      top: 0;
+      left: 120px;
+      width: 4in !important; 
+      padding-left: 0% !important;
+      height: 90% !important; /* Ensure it fills the page */
+      overflow: visible !important;
+      padding: 0;
+    }
+
   }

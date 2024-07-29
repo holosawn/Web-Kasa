@@ -20,7 +20,7 @@ const getCurrentDateTimeFormatted = () => {
     return [dateStr, hourStr];
   };
 
-const ReceiptModal = ({cartItems, subTotal, savedByOffers, amountToPay, discount, total, activeCoupons, open, onClose, onFinish=null}) => {
+const ReceiptModal = ({cartItems, subTotal, savedByOffers, amountToPay, discount, total, activeCoupons, payments, open, onClose, onFinish=null}) => {
     const [size] = useSize();
 
     const marketName = "Öztürk Market A.Ş.";
@@ -38,7 +38,7 @@ const ReceiptModal = ({cartItems, subTotal, savedByOffers, amountToPay, discount
         return accumulatedTax + itemTax; // Accumulate the total tax
       }, 0) * ((100 -discount)/100) ; // extract tax lost by discount
 
-    const rawPayments = JSON.parse(sessionStorage.getItem('pastTransactions')) || []
+    const rawPayments = payments || JSON.parse(sessionStorage.getItem('pastTransactions')) || []
     const summedPayments = Object.entries(rawPayments.reduce((acc, current) => {
         if (!acc[current.type]) {
           acc[current.type] = 0;

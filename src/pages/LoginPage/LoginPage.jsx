@@ -313,9 +313,7 @@ const LoginPage = () => {
           >
             <DisplayErrorMessage errorMsg={errors} touched={touched} />
 
-            <LangSelector
-            //  handleChange={handleLangChange}
-            />
+            <LangSelector/>
           </Box>
           <LoadingButton
             variant="contained"

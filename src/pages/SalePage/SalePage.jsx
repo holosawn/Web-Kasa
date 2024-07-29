@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Categories from "../../ReusableComponents/Categories.jsx";
 import { Box, Stack} from "@mui/material";
 import Products from "../../ReusableComponents/Products.jsx";
@@ -23,6 +23,7 @@ const SalePage = () => {
   const [filterValue, setFilterValue] = useState("");
   const [products, productsFetchLoading, productsFetchError ] = useFetchData('/products')
   const [categories, categoriesFetchLoading, categoriesFetchError ] = useFetchData('/categories')
+  const [marketStatus, marketStatusLoading, marketStatusError] = useFetchData('/marketStatus')
   // Ref of products container for scrolling via buttons
   const productsRef = useRef(null)
   const [cartItems, setCartItems] = useSessionStorage('cartItems', []);
@@ -36,7 +37,6 @@ const SalePage = () => {
   const [isCartVisible, setIsCartVisible] = useState(false)
   const [size] = useSize();
 
-
 // Sets the output of given function with prev quantity value passed as new quantity of item in register
   function onQtyFocus(setVal) {
     setItemInRegister((prev) => {
@@ -48,10 +48,10 @@ const SalePage = () => {
     });
   }
   
-  return productsFetchLoading || categoriesFetchLoading ? (
+  return productsFetchLoading || categoriesFetchLoading || marketStatusLoading ? (
     <LoadingPage/>
   )
-  : productsFetchError || categoriesFetchError ? (
+  : productsFetchError || categoriesFetchError || marketStatusError? (
     <ErrorPage/>
   )
   : (
@@ -122,11 +122,11 @@ const SalePage = () => {
        {/* Rendering Cart component as a collapsable sidebar or as normal according to screen size */}
       {size.x > 750 ? 
         <Box sx={{width:'28%', mt:1, ml:2,  height: '98vh', display: 'flex', flexDirection: 'row', justifyContent: 'end', alignItems: 'flex-start' }}>
-          <Cart cartItems={cartItems} setCartItems={setCartItems} itemInRegister={itemInRegister} setItemInRegister={setItemInRegister} setNumpadFocus={setNumpadFocus}/>
+          <Cart cartItems={cartItems} setCartItems={setCartItems} itemInRegister={itemInRegister} setItemInRegister={setItemInRegister} setNumpadFocus={setNumpadFocus} isMarketOpen={marketStatus.isOpen}/>
         </Box>
       :
         <CartDrawer open={isCartVisible} setOpen={setIsCartVisible} itemAmount={cartItems.length} >
-          <Cart cartItems={cartItems} setCartItems={setCartItems} itemInRegister={itemInRegister} setItemInRegister={setItemInRegister} setNumpadFocus={setNumpadFocus} additionalItemEditClick={()=>setIsCartVisible(false)} />
+          <Cart cartItems={cartItems} setCartItems={setCartItems} itemInRegister={itemInRegister} setItemInRegister={setItemInRegister} setNumpadFocus={setNumpadFocus} isMarketOpen={marketStatus.isOpen} additionalItemEditClick={()=>setIsCartVisible(false)} />
         </CartDrawer>
       }
 

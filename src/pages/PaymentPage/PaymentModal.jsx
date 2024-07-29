@@ -37,20 +37,20 @@ const PaymentModal = ({ open, onClose }) => {
   const onMethodClick = (method) => {
     setMethod(method);
     setProggress('contact');
-    startPayment(); // Pass method to startPayment
+    startPayment(method); // Pass method to startPayment
   };
   
   // Starts payment and advances after 2 seconds (2 second represent time of establishing connection in real word payments)
-  const startPayment = () => { 
+  const startPayment = (method) => { 
     setTimeout(() => {
       setProggress('payment');
       setLoading(true);
-      initiatePayment(); 
+      initiatePayment(method); 
     }, 2000);
   };
   
   // Connection established!! and advanced to pin enter or approval
-  const initiatePayment = () => {
+  const initiatePayment = (method) => {
     setTimeout(() => {
       setLoading(false);
       if (method === 'insert') {

@@ -66,7 +66,6 @@ export function ShiftStatusProvider({ children }) {
       }));
     };
 
-
   return (
     <ShiftStatusContext.Provider value={{ shiftStatus, setShiftStatus, updateAmount, startShift, endShift }}>
       {children}

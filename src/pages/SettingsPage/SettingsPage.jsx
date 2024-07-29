@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button,Divider, Grid, MenuItem, Select, Stack, Switch, Typography, styled} from '@mui/material';
 import LangSelector from '../../ReusableComponents/LangSelector';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -9,12 +9,14 @@ import useSize from '../../CustomHooks/useSize';
 import { t } from 'i18next';
 import { useNavigate } from 'react-router-dom';
 import { printerTestValues } from './PrinterTestValues';
+import { useLanguage } from '../../contexts/LangContext';
 
 
 const SettingsPage = () => {
   const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false)
   const {mode, setMode} = useCustomTheme();
   const [size] = useSize();
+  const {lang, setLang} = useLanguage();
   const navigate = useNavigate();
 
   const { cartItems, subtotal, savedByOffers, amountToPay, discount, total, activeCoupons, payments } = printerTestValues;
@@ -25,7 +27,6 @@ const SettingsPage = () => {
 
   // Store payments to reach them on receipt modal
   const openReceiptModal=()=>{
-    sessionStorage.setItem('pastTransactions', JSON.stringify(payments))
     setIsReceiptModalOpen(true)
   }
 
@@ -46,7 +47,7 @@ const SettingsPage = () => {
 
         <GridItem >
           <TitleWithDescription title={t('settings.language')} description={t('settings.langDesc')} />
-          <LangSelector size='large' sx={{width:130, height: size.y < 500 ? 35 : 50, ml:'auto'}} />
+          <LangSelector lang={lang} size='large' sx={{width:130, height: size.y < 500 ? 35 : 50, ml:'auto'}} />
           <SettingsDivider sx={{position:'absolute', bottom:0, left:0}} />
         
         </GridItem>
@@ -102,7 +103,7 @@ const SettingsPage = () => {
           <SettingsButton label={t('settings.exit')} onClick={()=>navigate(-1)} sx={{mb:0, mt:0, width: size.x < 800  ?  120  : size.x < 1300 ? 140 : 160, height: size.y < 500 ? 40 : size.y < 800 ?  45 : 50  }} />
         </GridItem>
 
-       <ReceiptModal cartItems={cartItems} subTotal={subtotal} total={total} discount={discount} savedByOffers={savedByOffers} amountToPay={amountToPay} activeCoupons={activeCoupons} open={isReceiptModalOpen} onClose={closeReceiptModal} />
+       <ReceiptModal cartItems={cartItems} subTotal={subtotal} total={total} discount={discount} savedByOffers={savedByOffers} amountToPay={amountToPay} activeCoupons={activeCoupons} open={isReceiptModalOpen} payments={payments} onClose={closeReceiptModal} />
       </Grid>
     </Box>
   );
@@ -133,7 +134,7 @@ const SettingsButton = ({ label, onClick, sx }) => {
   <Button
     variant="contained"
     color="success"
-    sx={{textTransform:'none',  ml: "auto", mr: 0, mb: 2, mt: 1,  height: size.y < 500 ? 35 : size.y < 800 ?  40 : 45 , width: 120, fontSize:{xs:8, md:12, xl:16}, ...sx }}
+    sx={{textTransform:'none',  ml: "auto", mr: 0, mb: 2, mt: 1,  height: size.y < 500 ? 35 : size.y < 800 ?  40 : 45 , width: 120, fontSize:{xs:8, md:12, xl:16}, lineHeight:1.5, ...sx }}
     onClick={onClick}
   >
     {label}

@@ -27,7 +27,7 @@ import { offers } from "../../Data/Offers";
 // CartItems are displayed and can be edited on deleted from card
 // itemInRegistes can be set as a cartItem or can be canceled
 // additionalItemEditClick To make cart sidebar visible in small screens
-const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setNumpadFocus, additionalItemEditClick=null}) => {
+const Cart = ({ isMarketOpen, cartItems, setCartItems, itemInRegister, setItemInRegister, setNumpadFocus, additionalItemEditClick=null}) => {
   const [offerName, setOfferName] = useSessionStorage('offerName', 'none')
   const [discount, setDiscount] = useSessionStorage('discount', 0)
   const [marketStatus, statusError, statussLoading] = useFetchData('/marketStatus')
@@ -175,12 +175,12 @@ const Cart = ({ cartItems, setCartItems, itemInRegister, setItemInRegister, setN
         ))}
       </Stack>
       <CartTotal subTotal={subTotal} discount={discount} savedByOffers={savedByOffers} />
-      <LoadingButton onClick={onChargeClick} isLoading={isChargeButtonLoading}  variant='contained' size={`${size.y < 600 ? 'medium' : 'large'}`} disabled={isChargeButtonLoading || !shiftStatus.isOpen || shiftStatus.clockedOut || cartItems.length <=0} fullWidth sx={{mt:1, mb:0.5, height: 50, display:'flex', flexDirection:'column', alignItems:'center'}} >  
+      <LoadingButton onClick={onChargeClick} isLoading={isChargeButtonLoading}  variant='contained' size={`${size.y < 600 ? 'medium' : 'large'}`} disabled={isChargeButtonLoading || !isMarketOpen || !shiftStatus.isOpen || shiftStatus.clockedOut || cartItems.length <=0} fullWidth sx={{mt:1, mb:0.5, height: 50, display:'flex', flexDirection:'column', alignItems:'center'}} >  
 
           <Typography fontSize={{xs:10, md:15}} >{t('sale.charge')}</Typography>
 
             <Stack direction={'row'} alignItems={'center'} >
-              <FiberManualRecord sx={{color: marketStatus ? 'green' : 'red', width:0.10, mr:1}}  />
+              <FiberManualRecord sx={{color: marketStatus.isOpen ? 'green' : 'red', width:0.10, mr:1}}  />
               <Typography variant='subtitle2' fontSize={{xs:8, sm:11}} >
                   {t('menu.statusStr')}{marketStatus ? t('menu.online') : t('menu.offline')}
               </Typography>

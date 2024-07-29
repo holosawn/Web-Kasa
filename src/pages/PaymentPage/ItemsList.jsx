@@ -8,6 +8,7 @@ import CartTotal from '../../ReusableComponents/CartTotal'
 import { useNavigate } from 'react-router-dom'
 import useSize from '../../CustomHooks/useSize'
 import { t } from 'i18next';
+import { offers } from '../../Data/Offers';
 
 
 
@@ -47,7 +48,7 @@ const ItemsList = ({coupons, amountToPay, activeCoupons, subTotal, total, discou
     setSubTotal(subTotal - deletedElement.defaultPrice);
 
     // Use the active offer and deleted item to calculate the new list of items and the new saved amount 
-    const updatedCartItems = activeOffer.offerFunc(cartItems.filter(item => item.product.id !== deletedId ), setCartItems) || [];
+    const updatedCartItems = offers[activeOffer].offerFunc(cartItems.filter(item => item.product.id !== deletedId ), setCartItems) || [];
     const newSavedByOffers = updatedCartItems.reduce((total, curr) => {
       const saved = curr?.offersApplied?.[activeOffer.key]?.saved || 0; 
       return total + saved; 

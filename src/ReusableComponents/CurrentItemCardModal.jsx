@@ -16,11 +16,11 @@ const CurrentItemCardModal=({ open, currentItem, setCurrentItem, cartItems, setC
 
   return open ? (
       <Fade in={true}>
-          <Box position={'absolute'} left={'50%'} top={'50%'} bgcolor={'background.paper'} maxWidth={600}  minWidth={330} pb={1} minHeight={250}
+          <Box position={'absolute'} left={'50%'} top={'50%'} bgcolor={'background.paper'} maxWidth={500} minWidth={330} pb={1} minHeight={250}
               zIndex={9999}
               sx={{
                   transform:'translate(-50%,-50%)',
-                  width:'fit-content',
+                  width:500,
                   borderRadius:3,
                   display:'flex',
                   flexDirection:'column',

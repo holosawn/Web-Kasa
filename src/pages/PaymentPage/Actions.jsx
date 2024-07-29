@@ -90,20 +90,22 @@ const Actions = ({coupons, cartItems, setCartItems, taggedCustomer, setTaggedCus
 
   // Clear sale related data from states and sessionStorage
   const onCancelButtonClick=()=>{
-    setActiveCoupons([]);
-    setAmountToPay(0);
-    setTotal(0)
-    setCartItems([])
+    sessionStorage.setItem('activeCoupons',JSON.stringify([]))
+    sessionStorage.setItem('amountToPay',JSON.stringify(0))
+    sessionStorage.setItem('total',JSON.stringify(0))
     sessionStorage.setItem("discount", JSON.stringify(0));
     sessionStorage.setItem("subTotal", JSON.stringify(0));
     sessionStorage.setItem("savedByOffers", JSON.stringify(0));
     sessionStorage.setItem('offerName', JSON.stringify('none'))
     sessionStorage.setItem('activeOffers', JSON.stringify([]))
     sessionStorage.setItem('email', JSON.stringify(''))
-    sessionStorage.setItem('pastTransactions', JSON.stringify(''))
-    sessionStorage.setItem('taggedCustomer', JSON.stringify({}))
+    sessionStorage.setItem('pastTransactions', JSON.stringify([]))
     sessionStorage.setItem('taggedCustomer', JSON.stringify({}))
     sessionStorage.setItem('cartItems', JSON.stringify([]))
+    setActiveCoupons([]);
+    setAmountToPay(0);
+    setTotal(0)
+    setCartItems([])
     navigate('/sale')
   }
 

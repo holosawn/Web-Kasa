@@ -6,7 +6,7 @@
 "counterName":"KASA 1",
 "counterIp":"10.02.16",
 "version":"v.1.3.45.688",
-"marketStatus":true,
+"isOpen":true,
 "currentUser":{
     "name":"Kate Grimes",
     "loginTime":"12.26"
