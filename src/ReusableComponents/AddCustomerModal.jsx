@@ -207,7 +207,7 @@ const AddCustomerModal=({open, onClose, onSubmit, customerId, customersOnSystem,
               const yearMonthDay = signUpDate.toISOString().split("T")[0]; // Gets the date part (YYYY-MM-DD)
               const hour = signUpDate.getHours().toString().padStart(2, '0'); // Gets the hour in 2-digit format
               const minute = signUpDate.getMinutes().toString().padStart(2, '0'); // Gets the minute in 2-digit format
-              const id = 1 + JSON.parse(localStorage.getItem('customers')).length
+              const id = 10 + JSON.parse(localStorage.getItem('customers')).length
       
               const customer = {
                 ...customerValues, 

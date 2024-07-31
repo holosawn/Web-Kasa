@@ -36,7 +36,7 @@ const ReportList = ({reports, filterValues, currentReport, setCurrentReport}) =>
             {t('reports.reports')}
         </Typography>
         <Divider flexItem sx={{mb:0.5, }}/>
-        <Stack height={'80%'} minHeight={0} sx={{px:1.5, pt:0.5, mr:0.5, overflowY:'scroll',  }}>
+        <Stack height={{xs:'80%', sm:'calc(100% - 35px)', md:'calc(100% - 50px)'}} minHeight={0} sx={{px:1.5, pt:0.5, mr:0.5, overflowY:'scroll',  }}>
         {filteredReports.length === 0 ? (
             <Typography color={'text.secondary'} mt={2} variant="body1">{t('reports.noReports')}</Typography>
         ) : (

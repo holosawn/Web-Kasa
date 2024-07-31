@@ -37,6 +37,7 @@ const SalePage = () => {
   const [isCartVisible, setIsCartVisible] = useState(false)
   const [size] = useSize();
 
+
 // Sets the output of given function with prev quantity value passed as new quantity of item in register
   function onQtyFocus(setVal) {
     setItemInRegister((prev) => {

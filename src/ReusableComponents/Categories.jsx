@@ -38,25 +38,25 @@ import ClearIcon from '@mui/icons-material/Clear';
 
     const catOfDepth = filterCategories[depth]// Get the current category at the given depth
 
-  // If the clicked category is already selected at the given depth, deselect it
-  if (catOfDepth !== undefined && catOfDepth === name) {
-        setFilterCategories(prev => {
-            const newArr = [...prev];
-            newArr.pop(); 
-            return newArr; 
-        });
-    }
-  // If a different category is already selected at the given depth, select the clicked category and deselect the previous one
-  else if (catOfDepth !== undefined && catOfDepth !== name ) {
+    // If the clicked category is already selected at the given depth, deselect it
+    if (catOfDepth !== undefined && catOfDepth === name) {
+          setFilterCategories(prev => {
+              const newArr = [...prev];
+              newArr.pop(); 
+              return newArr; 
+          });
+      }
+    // If a different category is already selected at the given depth, select the clicked category and deselect the previous one
+    else if (catOfDepth !== undefined && catOfDepth !== name ) {
 
-        setFilterCategories(prev => {
-            const newArr = [...prev];
-            newArr[depth] = name; 
-            return newArr; 
-        });
-    }
-  // If no category is selected at the given depth, select the clicked category
-  else if (catOfDepth === undefined) {
+          setFilterCategories(prev => {
+              const newArr = [...prev];
+              newArr[depth] = name; 
+              return newArr; 
+          });
+      }
+    // If no category is selected at the given depth, select the clicked category
+    else if (catOfDepth === undefined) {
         setFilterCategories(prev => {
             const newArr = [...prev]; 
             newArr[depth] = name; 

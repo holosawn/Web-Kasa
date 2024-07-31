@@ -31,6 +31,216 @@
             "Products Without Beauty": 200,
             "Seasonal": 10
         }
+    },
+    {
+        "id": "2024217",
+        "ZNO": "Z2024217",
+        "shop": "Çorlu Şube",
+        "location": "Turkiye/Tekirdağ/Çorlu/Şeyh Sinan Mah.",
+        "cashier": "John Doe",
+        "date": "2024-07-21",
+        "dateRangeStr": "2024-07-21 - 2024-07-21",
+        "drawerActions": {
+            "openingBalance": "100",
+            "removals": 50,
+            "additions": 600,
+            "total": "650"
+        },
+        "totalTaxAmount": 75.56,
+        "transactions": {
+            "cashTotal": 350,
+            "cashTransactions": 3,
+            "cardTotal": 200,
+            "cardTransactions": 2
+        },
+        "saleSummary": {
+            "grossSales": 650,
+            "totalDiscount": 65,
+            "totalSavedByOffers": 100,
+            "totalCouponsSaved": -90,
+            "totalNetSales": 495
+        },
+        "categorySales": {
+            "Food": 150,
+            "Beverages": 100,
+            "Household": 200,
+            "Personal Care": 200
+        }
+    },
+    {
+        "id": "2024212",
+        "ZNO": "Z2024212",
+        "shop": "Süleymanpaşa Şube",
+        "location": "Turkiye/Tekirdağ/Süleymanpaşa/Yavuz Mah.",
+        "cashier": "Jane Smith",
+        "date": "2024-02-01",
+        "dateRangeStr": "2024-02-01 - 2024-02-01",
+        "drawerActions": {
+            "openingBalance": "200",
+            "removals": 100,
+            "additions": 700,
+            "total": "800"
+        },
+        "totalTaxAmount": 90.32,
+        "transactions": {
+            "cashTotal": 400,
+            "cashTransactions": 4,
+            "cardTotal": 300,
+            "cardTransactions": 3
+        },
+        "saleSummary": {
+            "grossSales": 800,
+            "totalDiscount": 80,
+            "totalSavedByOffers": 150,
+            "totalCouponsSaved": -120,
+            "totalNetSales": 550
+        },
+        "categorySales": {
+            "Electronics": 300,
+            "Clothing": 200,
+            "Home Appliances": 100,
+            "Furniture": 200
+        }
+    },
+    {
+        "id": "2024211",
+        "ZNO": "Z2024211",
+        "shop": "Marmara Ereğlisi Şube",
+        "location": "Turkiye/Tekirdağ/Marmara Ereğlisi/İstiklal Mah.",
+        "cashier": "Alice Johnson",
+        "date": "2024-01-02",
+        "dateRangeStr": "2024-01-02 - 2024-01-02",
+        "drawerActions": {
+            "openingBalance": "150",
+            "removals": 0,
+            "additions": 500,
+            "total": "650"
+        },
+        "totalTaxAmount": 67.5,
+        "transactions": {
+            "cashTotal": 300,
+            "cashTransactions": 2,
+            "cardTotal": 250,
+            "cardTransactions": 2
+        },
+        "saleSummary": {
+            "grossSales": 650,
+            "totalDiscount": 65,
+            "totalSavedByOffers": 120,
+            "totalCouponsSaved": -110,
+            "totalNetSales": 475
+        },
+        "categorySales": {
+            "Groceries": 250,
+            "Snacks": 150,
+            "Beverages": 150,
+            "Stationery": 100
+        }
+    },
+    {
+        "id": "2024210",
+        "ZNO": "Z2024210",
+        "shop": "Ergene Şube",
+        "location": "Turkiye/Tekirdağ/Ergene/Yeniçiftlik Mah.",
+        "cashier": "Bob Marley",
+        "date": "2023-12-15",
+        "dateRangeStr": "2023-12-15 - 2023-12-15",
+        "drawerActions": {
+            "openingBalance": "80",
+            "removals": 20,
+            "additions": 450,
+            "total": "510"
+        },
+        "totalTaxAmount": 60.45,
+        "transactions": {
+            "cashTotal": 280,
+            "cashTransactions": 3,
+            "cardTotal": 170,
+            "cardTransactions": 2
+        },
+        "saleSummary": {
+            "grossSales": 550,
+            "totalDiscount": 55,
+            "totalSavedByOffers": 100,
+            "totalCouponsSaved": -90,
+            "totalNetSales": 405
+        },
+        "categorySales": {
+            "Books": 100,
+            "Toys": 200,
+            "Electronics": 250
+        }
+    },
+    {
+        "id": "2024201",
+        "ZNO": "Z2024201",
+        "shop": "Saray Şube",
+        "location": "Turkiye/Tekirdağ/Saray/Yeni Mah.",
+        "cashier": "Sarah Connor",
+        "date": "2024-01-20",
+        "dateRangeStr": "2024-01-20 - 2024-01-20",
+        "drawerActions": {
+            "openingBalance": "90",
+            "removals": 30,
+            "additions": 400,
+            "total": "460"
+        },
+        "totalTaxAmount": 50.75,
+        "transactions": {
+            "cashTotal": 200,
+            "cashTransactions": 2,
+            "cardTotal": 150,
+            "cardTransactions": 1
+        },
+        "saleSummary": {
+            "grossSales": 500,
+            "totalDiscount": 50,
+            "totalSavedByOffers": 80,
+            "totalCouponsSaved": -70,
+            "totalNetSales": 400
+        },
+        "categorySales": {
+            "Clothing": 200,
+            "Footwear": 150,
+            "Accessories": 150
+        }
+    },
+    {
+        "id": "2024213",
+        "ZNO": "Z2024213",
+        "shop": "Malkara Şube",
+        "location": "Turkiye/Tekirdağ/Malkara/Camiatik Mah.",
+        "cashier": "Diana Prince",
+        "date": "2024-04-05",
+        "dateRangeStr": "2024-04-05 - 2024-04-05",
+        "drawerActions": {
+            "openingBalance": "70",
+            "removals": 20,
+            "additions": 520,
+            "total": "570"
+        },
+        "totalTaxAmount": 65.80,
+        "transactions": {
+            "cashTotal": 270,
+            "cashTransactions": 2,
+            "cardTotal": 220,
+            "cardTransactions": 2
+        },
+        "saleSummary": {
+            "grossSales": 550,
+            "totalDiscount": 55,
+            "totalSavedByOffers": 130,
+            "totalCouponsSaved": -100,
+            "totalNetSales": 450
+        },
+        "categorySales": {
+            "Gardening": 200,
+            "Outdoor": 200,
+            "Tools": 150
+        }
     }
+    
+    
+    
 ]
   

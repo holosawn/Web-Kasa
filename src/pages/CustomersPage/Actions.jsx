@@ -5,7 +5,7 @@ import CsvReader from './CSVReader'
 import AddCustomerModal from '../../ReusableComponents/AddCustomerModal'
 import { t } from 'i18next'
 
-const Actions = ({triggerFetch, customers}) => {
+const Actions = ({triggerFetch, customers, setCustomers}) => {
   const [ isAddCustomerModalOpen, setIsCustomerModalOpen ] = useState(false)
   
   const openAddCustomerModal = () => {
@@ -28,7 +28,7 @@ const Actions = ({triggerFetch, customers}) => {
             {t('customers.addCustomer')}
         </Button>
         <DropdownButton label={t('customers.export')} menuItems={DropdownButtonItems} />
-        <CsvReader/>
+        <CsvReader setCustomers={setCustomers}/>
         <AddCustomerModal open={isAddCustomerModalOpen} onClose={closeAddCustomerModal} onSubmit={triggerFetch} />
     </Box>
   )
@@ -36,16 +36,33 @@ const Actions = ({triggerFetch, customers}) => {
 
 export default Actions
 
-const handleCSVExport = (data) =>{
-  const csvData = data.map((row) => Object.values(row).join(',')).join('\n');
-    const blob = new Blob([csvData], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'customers.csv';
-    a.click();
-    URL.revokeObjectURL(url);
-}
+const handleCSVExport = (data) => {
+  if (!data || data.length === 0) {
+    return;
+  }
+
+  // Extract column headers from the first object keys
+  const headers = Object.keys(data[0]);
+  const csvHeaders = headers.join(',');
+
+  // Map data rows to CSV format
+  const csvData = data.map((row) =>
+    headers.map((header) => row[header]).join(',')
+  ).join('\n');
+
+  // Combine headers and data
+  const csvContent = [csvHeaders, csvData].join('\n');
+
+  // Create a Blob and a link to trigger the download
+  const blob = new Blob([csvContent], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'customers.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
 
 const handleJsonExport = (data) => {
   const jsonData = JSON.stringify(data, null, 2);

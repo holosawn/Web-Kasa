@@ -138,10 +138,10 @@ const KeyboardModal = ({open, onClose, value, setValue})=>{
 
     // Set coming value(value of origin textfield) to current textfield
     useEffect(()=>{
-      if (open) {
-        setInput(value)
+      if (open && keyboardRef.current) {
+        onInputChange(value)
       }
-    },[open])
+    },[open, keyboardRef.current])
 
     const onSaveButtonClick=()=>{
       setLoading(true)

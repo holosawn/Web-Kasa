@@ -34,7 +34,7 @@ const CustomFilterTextField = ({filterValue, setFilterValue}) => {
         sx:{
             fontSize:{xs:12, md:15},
             height:{xs:40, md:55},
-            width:'90%',
+            width:'99%',
             p:0,
             borderRadius:0
         },

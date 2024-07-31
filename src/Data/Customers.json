@@ -1,13 +1,112 @@
 [
     {
-        "id":"0",
-        "name":"Zafer",
-        "surname":"Bacaksız",
-        "telNo":"555 555 55 55",
-        "email":"örnek@gmail.com",
-        "spendingScore":15,
-        "signUp":"2024-04-30T15:30",
+        "id": "0",
+        "name": "Zafer",
+        "surname": "Bacaksız",
+        "telNo": "555 555 55 55",
+        "email": "ornek@gmail.com",
+        "spendingScore": 15,
+        "signUp": "2024-04-30T15:30",
         "age": 30,
         "gender": "male"
+    },
+    {
+        "id": "1",
+        "name": "Ayşe",
+        "surname": "Yılmaz",
+        "telNo": "532 123 45 67",
+        "email": "ayse.yilmaz@example.com",
+        "spendingScore": 80,
+        "signUp": "2023-11-10T09:00",
+        "age": 25,
+        "gender": "female"
+    },
+    {
+        "id": "2",
+        "name": "Mehmet",
+        "surname": "Kaya",
+        "telNo": "530 987 65 43",
+        "email": "mehmet.kaya@example.com",
+        "spendingScore": 60,
+        "signUp": "2022-06-15T14:45",
+        "age": 40,
+        "gender": "male"
+    },
+    {
+        "id": "3",
+        "name": "Elif",
+        "surname": "Demir",
+        "telNo": "533 234 56 78",
+        "email": "elif.demir@example.com",
+        "spendingScore": 45,
+        "signUp": "2023-01-20T11:30",
+        "age": 35,
+        "gender": "female"
+    },
+    {
+        "id": "4",
+        "name": "Ahmet",
+        "surname": "Çelik",
+        "telNo": "535 876 54 32",
+        "email": "ahmet.celik@example.com",
+        "spendingScore": 90,
+        "signUp": "2022-03-25T08:15",
+        "age": 50,
+        "gender": "male"
+    },
+    {
+        "id": "5",
+        "name": "Fatma",
+        "surname": "Öztürk",
+        "telNo": "534 345 67 89",
+        "email": "fatma.ozturk@example.com",
+        "spendingScore": 70,
+        "signUp": "2023-07-10T17:00",
+        "age": 28,
+        "gender": "female"
+    },
+    {
+        "id": "6",
+        "name": "Hasan",
+        "surname": "Aydın",
+        "telNo": "536 765 43 21",
+        "email": "hasan.aydin@example.com",
+        "spendingScore": 50,
+        "signUp": "2021-12-05T13:25",
+        "age": 45,
+        "gender": "male"
+    },
+    {
+        "id": "7",
+        "name": "Zeynep",
+        "surname": "Arslan",
+        "telNo": "537 654 32 10",
+        "email": "zeynep.arslan@example.com",
+        "spendingScore": 65,
+        "signUp": "2024-02-18T10:10",
+        "age": 33,
+        "gender": "female"
+    },
+    {
+        "id": "8",
+        "name": "Murat",
+        "surname": "Doğan",
+        "telNo": "531 234 56 78",
+        "email": "murat.dogan@example.com",
+        "spendingScore": 85,
+        "signUp": "2023-05-22T16:40",
+        "age": 38,
+        "gender": "male"
+    },
+    {
+        "id": "9",
+        "name": "Emine",
+        "surname": "Kurt",
+        "telNo": "538 987 65 43",
+        "email": "emine.kurt@example.com",
+        "spendingScore": 55,
+        "signUp": "2022-10-30T12:50",
+        "age": 42,
+        "gender": "female"
     }
 ]

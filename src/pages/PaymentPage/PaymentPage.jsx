@@ -89,6 +89,8 @@ const PaymentPage = () => {
     setIsReceiptModalOpen(false)
   }
 
+  
+
   return  (
     <Box sx={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center', height: size.y < 500 ? '98vh' : '96vh', pt: size.y < 500 ? '1vh' : '2vh', minHeight:370, minWidth:667, overflow:'visible'}} >
       {/* Renders cartItems and cardTotal */}

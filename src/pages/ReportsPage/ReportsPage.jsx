@@ -48,7 +48,6 @@ const ReportsPage = () => {
   // Reports on localstorage to display with reports on json file
   const storedReports = JSON.parse(localStorage.getItem("reports")) || []
 
-
   return reportsFetchLoading || shopsFetchLoading ? (
     <LoadingPage/>
   )

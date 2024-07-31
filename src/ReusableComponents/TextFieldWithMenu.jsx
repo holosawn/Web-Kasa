@@ -71,7 +71,7 @@ function TextFieldWithMenu({value, onValueChange, menuItemsFunc, onDeleteIconCli
                 open={menuOpen}
                 anchorEl={inputRef.current}
                 // keepMounted
-                sx={{ zIndex:5000,width:inputRef.current?.offsetWidth || 'fit-content'}}
+                sx={{ zIndex:5000,width:inputRef.current?.offsetWidth || 'fit-content',}}
                 role={undefined}
                 placement="bottom-start"
                 transition
@@ -88,8 +88,8 @@ function TextFieldWithMenu({value, onValueChange, menuItemsFunc, onDeleteIconCli
                         placement === 'bottom-start' ? 'left top' : 'left bottom',
                     }}
                     >
-                        <Paper sx={{width:'100%',}} >
-                            <MenuList >
+                        <Paper sx={{width:'100%', maxHeight:{xs:150, sm:225, md:300, lg:400, xl:500}, height:'fit-content', width:'fit-content', minWidth:'100%', py:1}} >
+                            <MenuList sx={{overflowY:'auto',  maxHeight:'80vh', minHeight:0, height:'100%'}} >
                                 {menuItemsFunc(handleMenuItemClick, value)}
                             </MenuList>
                         </Paper>

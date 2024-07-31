@@ -17,30 +17,38 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-const CsvReader = () => {
-  const [csvData, setCsvData] = useState([]);
+const CsvReader = ({setCustomers}) => {
   const [fileUploaded, setFileUploaded] = useState(false);
   const [fileName, setFileName] = useState('');
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-        setFileName(file.name);
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const text = event.target.result;
-          const data = text.split('\n').map((row) => row.split(','));
-          setCsvData(data);
-          setFileUploaded(true);
-        };
-        reader.readAsText(file);
-    }
-    else{
-        setCsvData([])
-        setFileUploaded(false)
-        setFileName('')
-    }
+      setFileName(file.name);
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const text = event.target.result;
+        const rows = text.split('\r\n').map(row => row.split(','));
 
+
+        if (rows.length > 1) {
+          const headers = rows[0];
+          const data = rows.slice(1, rows.length-1).map(row => {
+            return headers.reduce((acc, header, index) => {
+              acc[header] = row[index] || '';
+              return acc;
+            }, {});
+          });
+
+          setCustomers(prev => [...prev, ...data]);
+          setFileUploaded(true);
+        }
+      };
+      reader.readAsText(file);
+    } else {
+      setFileUploaded(false);
+      setFileName('');
+    }
   };
 
 

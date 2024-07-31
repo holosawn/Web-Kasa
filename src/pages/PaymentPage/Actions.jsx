@@ -76,17 +76,29 @@ const Actions = ({coupons, cartItems, setCartItems, taggedCustomer, setTaggedCus
   },[])
 
   // Delete coupon and make necessary updates on total and amount to pay
-  const onDeleteCouponClick=(coupon)=>{
+  const onDeleteCouponClick = (coupon) => {
     setActiveCoupons(prev => {
-      const disabledCoupon = prev.find(c => c.key === coupon.key)
+      // Find the coupon to be removed
+      const couponToRemove = prev.find(c => c.key === coupon.key);
+  
+      if (!couponToRemove) return prev; // If the coupon isn't found, just return the previous state
+  
+      // Create a new list of coupons without the removed one
       const newCoupons = prev.filter(c => c.key !== coupon.key);
-
-      setTotal(prev => prev - disabledCoupon.saved)
-      setAmountToPay(prev => prev - disabledCoupon.saved)
-
-      return newCoupons
-    })
-  }
+  
+      // Calculate the new total and amount to pay
+      const newTotal = prev.reduce((acc, c) => c.key === coupon.key ? acc - c.saved : acc, total);
+      const newAmountToPay = amountToPay - (couponToRemove.saved || 0);
+  
+      // Update the states
+      setTotal(newTotal);
+      setAmountToPay(newAmountToPay);
+  
+      // Return the updated list of coupons
+      return newCoupons;
+    });
+  };
+  
 
   // Clear sale related data from states and sessionStorage
   const onCancelButtonClick=()=>{
@@ -159,15 +171,16 @@ const Actions = ({coupons, cartItems, setCartItems, taggedCustomer, setTaggedCus
 // If screen size is small becomes a collapsable menu 
 const CouponMenu = ({ activeCoupons, onDeleteCouponClick }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const isMenuOpen = Boolean(anchorEl);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [size] = useSize()
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
+    setIsMenuOpen(true)
   };
 
   const handleMenuClose = () => {
-    setAnchorEl(null);
+    setIsMenuOpen(false);
   };
 
   return (
@@ -195,7 +208,7 @@ const CouponMenu = ({ activeCoupons, onDeleteCouponClick }) => {
       <Menu
         anchorEl={anchorEl}
         keepMounted
-        open={isMenuOpen}
+        open={isMenuOpen && activeCoupons.length > 1}
         onClose={handleMenuClose}
         color='primary'
         slotProps={{
@@ -214,7 +227,10 @@ const CouponMenu = ({ activeCoupons, onDeleteCouponClick }) => {
         }}
       >
         {activeCoupons.map((coupon) => (
-          <CouponRow key={coupon.key} coupon={coupon} onDeleteClick={onDeleteCouponClick}/>
+          <CouponRow key={coupon.key} coupon={coupon} onDeleteClick={(coupon) => {
+            onDeleteCouponClick(coupon)
+            handleMenuClose()
+          }}/>
         ))}
       </Menu>
     </>
@@ -250,7 +266,9 @@ const CouponRow = ({ coupon, onDeleteClick }) => {
     <IconButton
       variant="contained"
       color="error"
-      onClick={()=> onDeleteClick(coupon)}
+      onClick={()=> {
+        console.log('worked in row');
+        onDeleteClick(coupon)}}
       sx={{ p: '1px', pl: 0, minWidth: 20, minHeight: 0, borderRadius: '50%', mr: 0.5 }}
     >
       <HighlightOffSharpIcon sx={{ fontSize: {xs:20, md:30} }} />

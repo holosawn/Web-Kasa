@@ -58,7 +58,7 @@ return resettedItems.map((item) => {
     computedPrice = item.defaultPrice - discountAmount;
     offersApplied = {
       ...(item.offersApplied || {}),
-      "50% Care Time Off": {
+      "careTime": {
         saved: discountAmount,
         name: "50% Care Time Off",
       },
